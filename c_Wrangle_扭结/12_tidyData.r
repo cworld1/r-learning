@@ -1,0 +1,132 @@
+library(tidyverse)
+
+# 一个好的数据集应该：变量在列中，观察结果在行中，值储存在单元格中
+# 不整洁的数据，我们可以用 tidyr 包中的 pivot_longer() 和 pivot_wider() 辅助修正
+
+# ---------- 实战：对 table1 进行数据分析 ----------
+# table1 数据集中 cases 为增长人数（单位：万）
+ggplot(table1, aes(year, cases)) +
+    geom_line(aes(group = country, colour = country)) +
+    geom_point(aes(colour = country))
+
+# ---------- 实战：对 table2 进行数据整理 ----------
+# 行中不应该出现将 cases 和 population 放在一起的现象。
+# 它们应该作为筛选变量，方便后续对 “新增” “目前总人数” 这个两个变量进行分析
+# type 拆分为列，count 跟随到新列
+table2 %>%
+    pivot_wider(names_from = type, values_from = count)
+
+# ---------- 实战：对 table3 进行数据整理 ----------
+# 行中不应该出现将 cases 和 population 放在一起的现象，需要手动拆分
+# 默认情况下，将在看到非字母数字字符（即不是数字或字母的字符）的位置拆分值
+table3 %>%
+    separate(rate, into = c("cases", "population"))
+# convert 可以自动将数据的格式进行转化。如这里的 cases 和 population 都应该是 int 类型数据
+table3 %>%
+    separate(rate, into = c("cases", "population"), convert = TRUE)
+# 分隔符也可以手动设置
+table3 %>%
+    separate(rate, into = c("cases", "population"), sep = "/")
+# 设置为数字表示分割位置，如这里分割为世纪 + 两位数年
+table3 %>%
+    separate(year, into = c("century", "year"), sep = 2)
+
+# ---------- 实战：对 table4a、table4b 进行数据整理 ----------
+# 列中不应该出现将 1999 和 2000 分开的现象。
+# 它们应该作为筛选变量，方便后续对 “年份” 这个总变量进行分析。
+# 旧变量合并为 year，值合并为 cases
+table4a_new <- table4a %>%
+    pivot_longer(
+        c(`1999`, `2000`), # 指定修改列。注意这里变量是以数字开头，所以有必要用 `` 引用（当然数字开头是不规范的）
+        names_to = "year", # 上述变量名汇总到 year 上
+        values_to = "cases" # 上述对应数值汇总到 cases 上
+    )
+table4b_new <- table4b %>%
+    pivot_longer(
+        c(`1999`, `2000`),
+        names_to = "year",
+        values_to = "population"
+    )
+# 最后合并两个表的数据内容
+#* dplyr::left_join()
+left_join(table4a_new, table4b_new)
+
+# ---------- 实战：对 table5 进行数据整理 ----------
+# 需要手动拆分 cases 和 population 同时要将年份数据进行合并
+table5 %>%
+    # 注意如果不声明 sep，默认加间隔符号 “_”！
+    unite(year_4cs, century, year, sep = "", na.rm = TRUE) %>%
+    separate(rate, into = c("cases", "population"), sep = "/")
+
+# ---------- 实战：对 stocks 和 treatment 的缺失数据进行处理 ----------
+stocks <- tibble(
+    year   = c(2015, 2015, 2015, 2015, 2016, 2016, 2016),
+    qtr    = c(1, 2, 3, 4, 2, 3, 4),
+    return = c(1.88, 0.59, 0.35, NA, 0.92, 0.17, 2.66)
+)
+new_stocks <- stocks %>%
+    # 拆分成按年作列
+    pivot_wider(names_from = year, values_from = return) %>%
+    # 重新整理回去。注意表格是怎么整理的
+    pivot_longer(
+        cols = c(`2015`, `2016`),
+        names_to = "year",
+        values_to = "return",
+        values_drop_na = TRUE # 这会对含 NA 的数据行剔除隐藏
+    ) %>%
+    print()
+new_stocks %>%
+    complete(year, qtr) # 这会把所有隐藏的 NA 数据重新找回
+
+treatment <- tribble(
+    ~person,           ~treatment, ~response,
+    "Derrick Whitmore", 1,           7,
+    NA,                 2,           10,
+    NA,                 3,           9,
+    "Katherine Burke",  1,           4
+)
+treatment %>%
+    fill(person) # 对 treatment 的 person 列进行补全处理，碰到 NA 时会将 NA 改为上一个不是 NA 的数据
+
+# ---------- 实战：对 who 进行数据整理 ----------
+# who 是一个流行病统计数据集
+who1 <- who %>%
+    pivot_longer(
+        cols = new_sp_m014:newrel_f65, # 将病症的种类转换成变量（key）
+        names_to = "key",
+        values_to = "cases", # 将数据转换成 cases 列
+        values_drop_na = TRUE # 删除 NA 数据
+    ) %>%
+    print()
+count(who1, key, sort = TRUE) # 对不同病症人数统计
+
+# 对病症名称进行分析得知：
+# 前三个字母：是否包含新的或旧的结核病例
+# 中间两个字母：结核病的类型
+#  - rel：复发病例
+#  - ep：肺外结核病例
+#  - sn：无法通过肺涂片诊断的肺结核病例（涂片阴性）
+#  - sp：可通过肺涂片诊断的肺结核病例（涂片阳性）
+# 第六个字母：结核病患者的性别。其中 m 为男性，f 为女性
+# 最后的数字：年龄组
+#  - 014：0 ~ 14 岁
+#  - 1524：15 ~ 24 岁
+#  - 2534：25 ~ 34 岁
+#  - 3544：35 ~ 44 岁
+#  - 4554：45 ~ 54 岁
+#  - 5564：55 ~ 64岁
+#  - 65：65 岁或以上
+who2 <- who1 %>%
+    # 使用 stringr 的 str_replace 可以进行简单的替换（当然切割时使用位置切割也可以）
+    mutate(key = stringr::str_replace(key, "newrel", "new_rel")) %>%
+    # 通过字符串 “_” 分割为是否包含新病例、结核病类型和性别年龄
+    separate(key, c("new", "type", "sexage"), sep = "_") %>%
+    # 通过位置继续分割性别和年龄
+    separate(sexage, c("sex", "age"), sep = 1) %>%
+    print()
+
+count(who2, new) # 可以发现这个数据集的 “是否包含新病例” 值其实全部都是 “new”，所以是不必要的数据
+# 同时 “iso2” 和 “iso3” 是 国家缩写，也是不需要的数据
+who3 <- who2 %>%
+    select(-new, -iso2, -iso3) %>%
+    print()
