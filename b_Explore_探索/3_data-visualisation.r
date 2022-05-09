@@ -73,12 +73,21 @@ ggplot(data = mpg) +
 # 其他图 ----------
 
 # 条状图
-ggplot(data = mpg) +
-    geom_bar(mapping = aes(x = displ), stat = "cyl")
-# 使用将条分割的方法进行颜色叠加（降低透明度避免重叠导致部分柱状图被遮挡）
+ggplot(data = diamonds) +
+    geom_bar(mapping = aes(x = cut, colour = cut)) # colour 为描边颜色
+ggplot(data = diamonds) +
+    geom_bar(mapping = aes(x = cut, fill = cut)) # fill 为填充颜色
+
+ggplot(data = diamonds) +
+    # 但如果fill使用的是其他变量,会导致不同数据重叠遮挡
+    geom_bar(mapping = aes(x = cut, fill = clarity))
+# 解决方案1：降低透明度
 ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) +
-    geom_bar(alpha = 0.5, position = "identity")
-# position 改用 fill 为频率图
+    geom_bar(alpha = 1 / 5, position = "identity")
+# 解决方案2：直接改为 colour 样式，并将 fill 设置为 NA
+ggplot(data = diamonds, mapping = aes(x = cut, colour = clarity)) +
+    geom_bar(fill = NA, position = "identity")
+# 解决方案3：position 改用 fill 为频率图（方便观察比例）
 ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) +
     geom_bar(position = "fill")
 # position 改用 dodge 为分柱图
@@ -94,7 +103,28 @@ ggplot(data = diamonds) +
         fun.y = mean # 标点为平均数
     )
 
-# -------- 实战：绘制超级汇总图 --------
+# 坐标系相关 -------
+ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
+    geom_boxplot() +
+    coord_flip() # 注意使用这个不加参数的代码可以是坐标轴对调
+
+nz <- map_data("nz")
+ggplot(nz, aes(long, lat, group = group)) +
+    geom_polygon(fill = "white", colour = "black") +
+    coord_quickmap() # 这里会使图表以正确的横纵比显示，防止图像拉伸扭曲
+
+bar <- ggplot(data = diamonds) +
+    geom_bar(
+        mapping = aes(x = cut, fill = cut),
+        show.legend = FALSE,
+        width = 1
+    ) +
+    theme(aspect.ratio = 1) +
+    labs(x = NULL, y = NULL)
+bar + coord_flip() # 坐标轴对调
+bar + coord_polar() # 设置为极坐标（有点像圆饼图）
+
+# -------- 实战：对 diamonds 绘制超级汇总图 --------
 # https://shorturl.at/aozX5
 
 p <- list()
@@ -126,3 +156,11 @@ print(p[[3]], vp = viewport(layout.pos.row = 2, layout.pos.col = 1))
 print(p[[4]], vp = viewport(layout.pos.row = 2, layout.pos.col = 2))
 print(p[[5]], vp = viewport(layout.pos.row = 3, layout.pos.col = 1))
 print(p[[6]], vp = viewport(layout.pos.row = 3, layout.pos.col = 2))
+
+# -------- 实战：研究 mpgcars 数据集 --------
+# 仔细观察数据集发现 displ 和 hwy 是经过四舍五入的，在实际图表上很多点会产生重叠
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+    geom_point()
+# 对 position 添加 jitter 值可以手动添加 “数据噪点”，从而更好地看到数据全貌（尽管会改变数值导致图表不那么准确）
+ggplot(data = mpg) +
+    geom_point(mapping = aes(x = displ, y = hwy), position = "jitter")
