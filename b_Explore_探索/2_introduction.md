@@ -103,3 +103,7 @@ abline(lm(age ~ weight)) # 绘制回归直线
 title("年龄 - 体重图") # 添加标题
 dev.off() # 结束画图并保存
 ```
+
+实际运行生成的图：
+
+![mygraph](mygraph.png)
