@@ -1,3 +1,5 @@
+# Write a R program to get the first 10 Fibonacci numbers.
+
 fibo_list <- numeric(10)
 fibo_list[1] <- 1
 fibo_list[2] <- 1

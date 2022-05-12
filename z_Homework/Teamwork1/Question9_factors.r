@@ -1,3 +1,5 @@
+# Write a R program to find the factors of a given number.
+
 num <- as.numeric(readline(prompt = "Please enter number: "))
 
 factor_list <- c()

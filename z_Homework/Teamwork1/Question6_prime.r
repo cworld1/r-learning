@@ -1,3 +1,6 @@
+# Write a R program to get all prime numbers up to a given number
+# (based on the sieve of Eratosthenes).
+
 is_prime <- function(n) {
     ifelse(
         n %in% 2:3,
