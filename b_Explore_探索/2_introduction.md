@@ -1,4 +1,4 @@
-# Introduction
+# 2 Introduction
 
 - **可视化**是 R 编程的重要部分：制作优雅且信息丰富的绘图，以帮助理解数据。学习 ggplot2 绘图的基本结构，将数据转换为绘图。
 - 在数据转换中，使用**关键谓词**允许您选择重要变量、筛选出关键观察结果、创建新变量和计算摘要。
@@ -8,7 +8,7 @@
 
 以下为附加内容，因为已知资料上貌似没有提到。
 
-## 学习基本数据形式和函数
+## 基本数据形式和函数
 
 ### 向量、矩阵与列表
 
@@ -107,3 +107,27 @@ dev.off() # 结束画图并保存
 实际运行生成的图：
 
 ![mygraph](mygraph.png)
+
+## 更高级的数据形式
+
+dataframe 是一系列向量数据的集合：
+
+```R
+data.frame(
+    a = c(1:3),
+    b = c(6:8)
+)
+```
+
+tibble 与 dataframe 非常相似，甚至是使用 dataframe 储存的。tibble 是 tidyverse 系列的专用数据集格式。它的优点是干净、方便数据处理。
+
+```R
+library(tidyverse)
+
+tribble(
+    ~sex, ~response,
+    "male", 1,
+    "female", 2,
+    "male", 1
+)
+```
