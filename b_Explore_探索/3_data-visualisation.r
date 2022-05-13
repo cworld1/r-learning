@@ -1,4 +1,6 @@
-library(tidyverse) # 方便使用其中的 ggplot2
+# 3 Data visualisationl
+
+ibrary(tidyverse) # 方便使用其中的 ggplot2
 
 # -------- 热身：初识 ggplot --------
 view(mpg) # 使用 view() 函数可以方便观察对应数据集
