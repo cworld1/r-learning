@@ -1,3 +1,4 @@
+
 library(tidyverse)
 library(modelr)
 options(na.action = na.warn)
@@ -132,3 +133,85 @@ coef(sim1_mod) # coef() 是一个通用函数，用于从建模函数返回的�
 # 结果与预期完全一致
 #> (Intercept)           x
 #>    4.220822    2.051533
+
+# -------- 实战：对 dim1 模型可视化观察分析 --------
+
+# 现在我们将通过查看模型的预测来专注于理解模型。每种类型的预测模型都需要进行预测。
+# 查看模型未捕获的内容（即从数据中减去预测值后留下的所谓残差）也很有用。我们可以用来研究剩余的更微妙的趋势。
+
+# 为了模型的预测，我们先创建网格，其最简单的方法是使用 data_grid() 函数
+grid <- sim1 %>% # 相当于对 sim1 定制对应的 x 数据集
+    data_grid(x) %>%
+    print()
+#> # A tibble: 10 x 1
+#>       x
+#>   <int>
+#> 1     1
+#> 2     2
+#> 3     3
+#> 4     4
+#> 5     5
+#> 6     6
+#> # … with 4 more rows
+
+# 接下来我们开始预测。请注意 sim1_mod 来自之前 lm() 函数生成的代码：
+#> sim1_mod <- lm(y ~ x, data = sim1)
+predictions <- grid %>%
+    add_predictions(sim1_mod) %>%
+    print()
+#> # A tibble: 10 x 2
+#>       x  pred
+#>   <int> <dbl>
+#> 1     1  6.27
+#> 2     2  8.32
+#> 3     3 10.4
+#> 4     4 12.4
+#> 5     5 14.5
+#> 6     6 16.5
+#> # … with 4 more rows
+
+# 最后绘制预测结果
+ggplot(sim1, aes(x)) +
+    geom_point(aes(y = y)) +
+    geom_line(aes(y = pred), data = predictions, colour = "red", size = 1)
+
+# 残差分析
+# 残差是我们的预测值与实际值之间的距离
+residuals <- sim1 %>%
+    # 注意这里使用的参数是 sim1，因为我们需要原始数据集才能发现残差
+    add_residuals(sim1_mod) %>% # 用法与 add_predictions() 非常相似
+    print()
+#> # A tibble: 30 x 3
+#>       x     y  resid
+#>   <int> <dbl>  <dbl>
+#> 1     1  4.20 -2.07
+#> 2     1  7.51  1.24
+#> 3     1  2.13 -4.15
+#> 4     2  8.99  0.665
+#> 5     2 10.2   1.92
+#> 6     2 11.3   2.97
+#> # … with 24 more rows
+# 最后绘制残差关于 x 的图
+ggplot(residuals, aes(resid)) +
+    # geom_freqpoly 即频率多边形，非常适合模糊化地绘制表现一个向量的数据的大小和出现次数
+    geom_freqpoly(binwidth = 0.5)
+# 或者加入数据 x 来看到更多的数据。很容易发现它的分布非常完美
+ggplot(residuals, aes(x, resid)) +
+    geom_ref_line(h = 0) + # 调整基线为 0 而不是最小
+    geom_point(aes(colour = -abs(resid)))
+
+
+# -------- 热身：模型类别与相关关系式 --------
+df <- tribble(
+    ~sex, ~response,
+    "male", 1,
+    "female", 2,
+    "male", 1
+)
+model_matrix(df, response ~ sex)
+#> # A tibble: 3 x 2
+#>   `(Intercept)` sexmale
+#>           <dbl>   <dbl>
+#> 1             1       1
+#> 2             1       0
+#> 3             1       1
