@@ -2,7 +2,7 @@
 
 ibrary(tidyverse) # 方便使用其中的 ggplot2
 
-# -------- 热身：初识 ggplot --------
+# 【热身】初识 ggplot ----
 view(mpg) # 使用 view() 函数可以方便观察对应数据集
 head(mpg) # 可以在控制台打印数据集头部信息（前十行）
 # 列 displ：汽车的发动机尺寸，以升为单位。
@@ -12,7 +12,7 @@ ggplot(data = mpg) + # 统一设置想要处理的数据集
     # 绘制 point，mapping 属性用来设置相关的 x 轴和 y 轴参数
     geom_point(mapping = aes(x = displ, y = hwy))
 
-# 三维映射 -----------
+# 三维映射 ----
 
 # 使用颜色映射
 ggplot(data = mpg) +
@@ -27,7 +27,7 @@ ggplot(data = mpg) +
 ggplot(data = mpg) +
     geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
 
-# 修改样式 ----------
+# 修改样式 ----
 
 # 例如颜色
 ggplot(data = mpg) +
@@ -35,7 +35,7 @@ ggplot(data = mpg) +
 # 支持参数：color，shape，fill，stroke（点的粗细），linetype 等。同时，样式参数支持变量。
 # shape 填写时是填写数字，有 21 种。详细对照：https://shorturl.at/jCSU0
 
-# 多组画图 ---------
+# 多组画图 ----
 
 # 简单分组（分片）
 ggplot(data = mpg) +
@@ -47,7 +47,7 @@ ggplot(data = mpg) +
     facet_grid(drv ~ cyl) # 以 drv 为 x 轴，cyl 为 y 轴
 
 
-# 线性回归与叠加 ----------
+# 线性回归与叠加 ----
 
 # mapping 为默认接收内容，可以省略
 ggplot(data = mpg) +
@@ -72,7 +72,7 @@ ggplot(data = mpg) +
         se = FALSE
     )
 
-# 其他图 ----------
+# 其他图 ----
 
 # 条状图
 ggplot(data = diamonds) +
@@ -105,7 +105,7 @@ ggplot(data = diamonds) +
         fun.y = mean # 标点为平均数
     )
 
-# 坐标系相关 -------
+# 坐标系相关 ----
 ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
     geom_boxplot() +
     coord_flip() # 注意使用这个不加参数的代码可以是坐标轴对调
@@ -126,7 +126,7 @@ bar <- ggplot(data = diamonds) +
 bar + coord_flip() # 坐标轴对调
 bar + coord_polar() # 设置为极坐标（有点像圆饼图）
 
-# -------- 实战：对 diamonds 绘制超级汇总图 --------
+# 【实战】对 diamonds 绘制超级汇总图 ----
 # https://shorturl.at/aozX5
 
 p <- list()
@@ -159,7 +159,7 @@ print(p[[4]], vp = viewport(layout.pos.row = 2, layout.pos.col = 2))
 print(p[[5]], vp = viewport(layout.pos.row = 3, layout.pos.col = 1))
 print(p[[6]], vp = viewport(layout.pos.row = 3, layout.pos.col = 2))
 
-# -------- 实战：研究 mpgcars 数据集 --------
+# 【实战】研究 mpgcars 数据集 ----
 # 仔细观察数据集发现 displ 和 hwy 是经过四舍五入的，在实际图表上很多点会产生重叠
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
     geom_point()
