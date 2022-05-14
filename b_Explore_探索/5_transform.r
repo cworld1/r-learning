@@ -3,7 +3,7 @@
 library(nycflights13)
 library(tidyverse)
 
-# -------- 实战：分析 flights 数据集 --------
+# 【实战】操作 flights 数据集 ----
 
 # 在后面的案例中，我们将持续关注来自 nycflights13 的数据集 flights。
 # 它包含 2013 年从纽约市出发的所有 336,776 个航班
@@ -20,7 +20,7 @@ flights
 
 # tidyverse 附带了一些神奇的功能，如 filter、arrange、select、rename、mutate 和 summarise
 
-# filter
+# filter ----
 # 筛选月份为 1，天数为 1 的
 filter(flights, month == 1, day == 1)
 # 筛选月份为 12 或者天数为 25 的（圣诞节）
@@ -42,13 +42,19 @@ near(sqrt(2)^2, 2)
 near(1 / 49 * 49, 1)
 #> [1] TRUE
 
-# arange
+# arange ----
 # 按照年月日排序
 arrange(flights, year, month, day)
 # 反向排序。注意无论正反向，NA 值总是被排到末尾
 arrange(flights, desc(dep_delay))
 
-# select
+# select ----
+# 注意一些方便的匹配规则：
+#  - starts_with("abc")：匹配以 “abc” 开头的名称。
+#  - ends_with("xyz")：匹配以 “xyz” 结尾的名称。
+#  - contains("ijk")：匹配包含 “ijk” 的名称。
+#  - matches("(.)\\1")：选择与正则表达式匹配的变量。
+#  - num_range("x", 1:3)：匹配 x1、x2和 x3。
 # 选出年月日
 select(flights, year, month, day)
 select(flights, year:day)
@@ -60,14 +66,14 @@ select(flights, ends_with("delay"))
 select(flights, starts_with("sched"))
 # 选出包含 sched 相关的列
 select(flights, contains("sched"))
-# 选出的数据将包含 sched，其他排后
-select(flights, contains("sched"), everything())
+# 选出的数据不包含带 sched的列，此外其他都包含
+select(flights, -contains("sched"), everything())
 
-# rename
+# rename ----
 # 一般用得很少，但有时很刚需。其实它是 select() 的变体
 rename(flights, tail_num = tailnum)
 
-# mutate 与 transmute
+# mutate 与 transmute ----
 # 生成优化版的 flights 数据集
 flights_sml <- select(flights, year:day, ends_with("delay"), distance, air_time)
 mutate(
@@ -84,7 +90,12 @@ transmute(
     speed_sec = speed_min * 60 # 从刚生成的数据中套新数据
 )
 
-# -------- 热身：其他的对于处理数据很有用的功能 --------
+# summarise ----
+# 一般用来总结浓缩信息，通常配合 group_by() 使用
+by_day <- group_by(flights, year, month, day)
+summarise(by_day, delay = mean(dep_delay, na.rm = TRUE))
+
+# 【热身】其他的对于处理数据很有用的功能 ----
 # 算术运算符：+ - * /。它们可以用于向量，会自动帮你做一个 for 循环
 
 # 模算术：%/% 求模、 %% 求余
@@ -101,14 +112,61 @@ lead(x)
 
 # 累积和滚动聚合：cumsum() 总和、cumprod() 乘积、cummin() 最小值、cummax() 最大值、cummean() 均值
 # dplyr 也提供累积手段。如果您需要滚动聚合（即在滚动窗口上计算的总和），请尝试 RcppRoll 包。
-x
+(x <- (1:10))
 #>  [1]  1  2  3  4  5  6  7  8  9 10
 cumsum(x)
 #>  [1]  1  3  6 10 15 21 28 36 45 55
 cummean(x)
 #>  [1] 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0 5.5
 
-# summarise
-# 一般用来总结浓缩信息，通常配合 group_by() 使用
-by_day <- group_by(flights, year, month, day)
-summarise(by_day, delay = mean(dep_delay, na.rm = TRUE))
+# 【实战】分析 flights 数据集 ----
+
+# 计算目的地相关的图 ----
+by_dest <- group_by(flights, dest) # 以 dest 分组
+delay <- summarise(
+    by_dest,
+    count = n(), # 计算组内数据数量
+    dist = mean(distance, na.rm = TRUE), # 计算每组内的 distance 平均值
+    arr_delay = mean(arr_delay, na.rm = TRUE), # 同理，到达时间
+)
+# 精简得到想要的数据
+delay <- filter(delay, count > 20, dest != "HNL") # 到达数大于20次，目的地不为 HNL
+# 尝试画图
+ggplot(
+    data = delay,
+    mapping = aes(x = dist, y = arr_delay) # 确定 data 和 mapping 的默认数据
+) +
+    geom_point(
+        aes(size = count), # 添加新的特殊数据 size（此处 mapping 为默认值，可省略声明）
+        alpha = 1 / 3 # 透明度固定
+    ) +
+    geom_smooth(se = FALSE) # 绘制平滑曲线
+
+# 获取热门目的地及有关数据 ----
+pop_dests <- group_by(flights, dest) %>%
+    filter(n() > 365) %>%
+    distinct(dest)
+print(pop_dests)
+
+# 绘制飞机延误时长分布图 ----
+delays <- flights %>% # 获得处理后的数据
+    filter(!is.na(dep_delay), !is.na(arr_delay)) %>% # 去除空 NA 数据
+    group_by(tailnum) %>% # 按航班分组
+    summarise(
+        # 获取平均值并产生包含 group_by 列和计算的新列
+        delay = mean(arr_delay, na.rm = TRUE), # 由于之前过滤过了，此处的 na.rm 可以去掉
+        n = n() # 统计数量，方便绘制直方图
+    )
+delays %>%
+    filter(n > 25) %>% # 数量很小时往往会对数据产生较大影响。这里过滤掉它们
+    ggplot(mapping = aes(x = n, y = delay)) +
+    geom_point(alpha = 1 / 10)
+
+# 计算每天最早和最晚的航班 ----
+flights %>%
+    filter(!is.na(dep_delay), !is.na(arr_delay)) %>%
+    group_by(year, month, day) %>%
+    summarise(
+        first = min(dep_time),
+        last = max(dep_time)
+    )
