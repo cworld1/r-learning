@@ -91,9 +91,43 @@ transmute(
 )
 
 # summarise ----
-# 一般用来总结浓缩信息，通常配合 group_by() 使用
-by_day <- group_by(flights, year, month, day)
-summarise(by_day, delay = mean(dep_delay, na.rm = TRUE))
+# 注意关注管道符号：%>%
+# x %>% f(y) 即为 f(x, y)
+msleep %>%
+    count(order, sort = TRUE)
+# 上面的等同于下面的
+new_ms <- count(msleep, order, sort = T)
+print(new_ms)
+# 单纯的 summarize 没有太大的用处
+summarise(
+    flights,
+    delay = mean(dep_delay, na.rm = TRUE) # mean，取均值，na.rm 忽略空值
+)
+# 所以一般配合 group_by 使用
+by_day <- group_by(flights, year, month, day) # 分组细节到年月日
+summarise(
+    by_day,
+    delay = mean(dep_delay, na.rm = TRUE) # 组内的 [delay] 标签追加，按照算法分组返回值
+)
+# 使用管道符 "%>%" 精简代码
+group_by(flights, year, month, day) %>%
+    summarise(delay = mean(dep_delay, na.rm = TRUE))
+
+# ----Summarize----
+# 单纯的 summarize 没有太大的用处
+summarise(
+    flights,
+    delay = mean(dep_delay, na.rm = TRUE) # mean，取均值，na.rm 忽略空值
+)
+# 所以一般配合 group_by 使用
+by_day <- group_by(flights, year, month, day) # 分组细节到年月日
+summarise(
+    by_day,
+    delay = mean(dep_delay, na.rm = TRUE) # 组内的 [delay] 标签追加，按照算法分组返回值
+)
+# 使用管道符 "%>%" 精简代码
+group_by(flights, year, month, day) %>%
+    summarise(delay = mean(dep_delay, na.rm = TRUE))
 
 # 【热身】其他的对于处理数据很有用的功能 ----
 # 算术运算符：+ - * /。它们可以用于向量，会自动帮你做一个 for 循环
