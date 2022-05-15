@@ -1,22 +1,24 @@
+# 12 Tidy data
+
 library(tidyverse)
 
 # 一个好的数据集应该：变量在列中，观察结果在行中，值储存在单元格中
 # 不整洁的数据，我们可以用 tidyr 包中的 pivot_longer() 和 pivot_wider() 辅助修正
 
-# ---------- 实战：对 table1 进行数据分析 ----------
+# 【实战】对 table1 数据分析 ----
 # table1 数据集中 cases 为增长人数（单位：万）
 ggplot(table1, aes(year, cases)) +
     geom_line(aes(group = country, colour = country)) +
     geom_point(aes(colour = country))
 
-# ---------- 实战：对 table2 进行数据整理 ----------
+# 【实战】对 table2 数据整理 ----
 # 行中不应该出现将 cases 和 population 放在一起的现象。
 # 它们应该作为筛选变量，方便后续对 “新增” “目前总人数” 这个两个变量进行分析
 # type 拆分为列，count 跟随到新列
 table2 %>%
     pivot_wider(names_from = type, values_from = count)
 
-# ---------- 实战：对 table3 进行数据整理 ----------
+# 【实战】对 table3 数据整理 ----
 # 行中不应该出现将 cases 和 population 放在一起的现象，需要手动拆分
 # 默认情况下，将在看到非字母数字字符（即不是数字或字母的字符）的位置拆分值
 table3 %>%
@@ -31,7 +33,7 @@ table3 %>%
 table3 %>%
     separate(year, into = c("century", "year"), sep = 2)
 
-# ---------- 实战：对 table4a、table4b 进行数据整理 ----------
+# 【实战】对 table4a & table4b 数据整理 ----
 # 列中不应该出现将 1999 和 2000 分开的现象。
 # 它们应该作为筛选变量，方便后续对 “年份” 这个总变量进行分析。
 # 旧变量合并为 year，值合并为 cases
@@ -51,14 +53,14 @@ table4b_new <- table4b %>%
 #* dplyr::left_join()
 left_join(table4a_new, table4b_new)
 
-# ---------- 实战：对 table5 进行数据整理 ----------
+# 【实战】对 table5 数据整理 ----
 # 需要手动拆分 cases 和 population 同时要将年份数据进行合并
 table5 %>%
     # 注意如果不声明 sep，默认加间隔符号 “_”！
     unite(year_4cs, century, year, sep = "", na.rm = TRUE) %>%
     separate(rate, into = c("cases", "population"), sep = "/")
 
-# ---------- 实战：对 stocks 和 treatment 的缺失数据进行处理 ----------
+# 【实战】对 stocks 和 treatment 的缺失数据处理 ----
 stocks <- tibble(
     year   = c(2015, 2015, 2015, 2015, 2016, 2016, 2016),
     qtr    = c(1, 2, 3, 4, 2, 3, 4),
@@ -79,16 +81,16 @@ new_stocks %>%
     complete(year, qtr) # 这会把所有隐藏的 NA 数据重新找回
 
 treatment <- tribble(
-    ~person,           ~treatment, ~response,
-    "Derrick Whitmore", 1,           7,
-    NA,                 2,           10,
-    NA,                 3,           9,
-    "Katherine Burke",  1,           4
+    ~person, ~treatment, ~response,
+    "Derrick Whitmore", 1, 7,
+    NA, 2, 10,
+    NA, 3, 9,
+    "Katherine Burke", 1, 4
 )
 treatment %>%
     fill(person) # 对 treatment 的 person 列进行补全处理，碰到 NA 时会将 NA 改为上一个不是 NA 的数据
 
-# ---------- 实战：对 who 进行数据整理 ----------
+# 【实战】对 who 数据整理 ----
 # who 是一个流行病统计数据集
 who1 <- who %>%
     pivot_longer(
