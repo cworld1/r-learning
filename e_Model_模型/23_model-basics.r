@@ -1,3 +1,4 @@
+# 23 Model basics
 
 library(tidyverse)
 library(modelr)
@@ -7,7 +8,7 @@ options(na.action = na.warn)
 # - 定义一系列模型，这些模型表示要捕获的精确但通用的模式。
 # - 通过从最接近数据集中查找模型来生成拟合模型。这将采用通用模型系列，并使其具体化。
 
-# 【实战】对 sim1 进行模型研究 ----
+# 【实战】对 sim1 模型研究 ----
 ggplot(sim1, aes(x, y)) +
     geom_point()
 # 由图可以发现，x 变量和 y 变量可能有明显线性关系
@@ -134,7 +135,7 @@ coef(sim1_mod) # coef() 是一个通用函数，用于从建模函数返回的�
 #> (Intercept)           x
 #>    4.220822    2.051533
 
-# 【实战】对 dim1 模型可视化观察分析 ----
+# 【实战】对 sim1 模型可视化观察分析 ----
 
 # 现在我们将通过查看模型的预测来专注于理解模型。每种类型的预测模型都需要进行预测。
 # 查看模型未捕获的内容（即从数据中减去预测值后留下的所谓残差）也很有用。我们可以用来研究剩余的更微妙的趋势。
@@ -201,7 +202,39 @@ ggplot(residuals, aes(x, resid)) +
     geom_point(aes(colour = -abs(resid)))
 
 
-# 【热身】模型类别与相关关系式 ----
+# 【实战】对 sim2 模型研究 ----
+
+# 关于 model_matrix() ----
+# 要想提取关键自定义变量的值，我们可以使用 model_matrix() 函数。如：
+df <- tribble(
+    ~y, ~x1, ~x2,
+    4, 2, 5,
+    5, 1, 6
+)
+model_matrix(df, y ~ x1)
+#> # A tibble: 2 x 2
+#>   `(Intercept)`    x1
+#>           <dbl> <dbl>
+#> 1             1     2
+#> 2             1     1
+# 如果添加其他变量：
+model_matrix(df, y ~ x1 + x2)
+#> # A tibble: 2 x 3
+#>   `(Intercept)`    x1    x2
+#>           <dbl> <dbl> <dbl>
+#> 1             1     2     5
+#> 2             1     1     6
+# R 将截距添加到模型的方式是直接填充名为截距的列（当然这个列填充前的值是没有意义的）。
+# 默认添加。如果不需要，使用 “-1” 命令显式删除它：
+model_matrix(df, y ~ x1 + x2 - 1)
+#> # A tibble: 2 x 1
+#>      x1
+#>   <dbl>
+#> 1     2
+#> 2     1
+
+# 对于分类变量，尤其是分类为字符的：想象一下，你有一个 tibble 数据集，
+# 其中性别可以是男性或女性。将其转换为初始数据是没有意义的，因为不是数字 - 你不能简单地计算它！
 df <- tribble(
     ~sex, ~response,
     "male", 1,
@@ -215,3 +248,286 @@ model_matrix(df, response ~ sex)
 #> 1             1       1
 #> 2             1       0
 #> 3             1       1
+# 可以看到函数会自动将自变量的名名为 “列” “某种值”，其数据用来表示该列数据是否是指定的 “某种值”
+
+# 对于 sim2，我们可以先使用 ggplot() 进行可视化观察：
+ggplot(sim2) +
+    geom_point(aes(x, y))
+
+# 同理我们可以对 sim2 数据集也这样将字符串转化为初始数据并预测：
+mod2 <- lm(y ~ x, data = sim2) # 产生理想线性回归模型
+# 注意回归模型中每个 x 的分类对应一个 “斜率”。
+# 也就是说，一个 x 的 某值在模型上只会对应一个值，即平均值
+
+grid <- sim2 %>%
+    data_grid(x) %>% # 产生初始数据
+    add_predictions(mod2) %>% # 依据初始数据对模型进行预测
+    print()
+#> # A tibble: 4 x 2
+#>   x      pred
+#>   <chr> <dbl>
+#> 1 a      1.15
+#> 2 b      8.12
+#> 3 c      6.13
+#> 4 d      1.91
+# 我们对理想模型与原始数据叠加进行可视化：
+ggplot(sim2, aes(x)) +
+    geom_point(aes(y = y)) +
+    geom_point(data = grid, aes(y = pred), colour = "red", size = 4)
+
+# 【实战】对 sim3（分类变量）模型研究 ----
+
+# sim3 同时包含 x1 的数值和 x2 的字母分类：
+ggplot(sim3, aes(x1, y)) +
+    geom_point(aes(colour = x2))
+
+# 由于并不知道 x1 和 x2 同时影响了 y 的值，我们假设了两个模型：
+mod1 <- lm(y ~ x1 + x2, data = sim3)
+mod2 <- lm(y ~ x1 * x2, data = sim3)
+# 使用 + 来阐述变量之间的关系时，模型将独立计算每个初始数据的效应。如：
+# y ~ x1 + x2 被转换为 y = a_0 + a_1 * x1 + a_2 * x2。
+# 但使用 * 来阐述时，函数将结合两者的数据去初始化模型。如：
+# y ~ x1 * x2 被转换为 y = a_0 + a_1 * x1 + a_2 * x2 + a_12 * x1 * x2。
+# 注意一旦使用 *，所有模型的参数都会包含在模型中。
+
+# “实践出真知”，我们决定尝试同时使用两个模型计算出结果去拟合原始数据并观察：
+grid <- sim3 %>%
+    data_grid(x1, x2) %>% # 由于初始值有两个，这里就需要填入两个变量来产生初始数据
+    # 同时从两个模型一起运算使用 gather_prediction()，相反的，我们也有 spread_prediction()
+    gather_predictions(mod1, mod2) %>% # 会在生成的 tibble 中第一列声明使用的哪个模型得到的预期数据
+    print()
+#> # A tibble: 80 x 4
+#>   model    x1 x2     pred
+#>   <chr> <int> <fct> <dbl>
+#> 1 mod1      1 a      1.67
+#> 2 mod1      1 b      4.56
+#> 3 mod1      1 c      6.48
+#> 4 mod1      1 d      4.03
+#> 5 mod1      2 a      1.48
+#> 6 mod1      2 b      4.37
+#> # … with 74 more rows
+
+# 最后我们将得到的数据画图分析：
+ggplot(sim3, aes(x1, y, colour = x2)) +
+    geom_point() +
+    geom_line(data = grid, aes(y = pred)) +
+    facet_wrap(~model) # 切图分组
+
+# 哪种模型更适合此数据？我们可以看看残差：
+sim3_resid <- sim3 %>%
+    # 多个模型获得残差与得到预期值样，也有 gather_residuals()
+    gather_residuals(mod1, mod2)
+
+ggplot(sim3_resid, aes(x1, resid, colour = x2)) +
+    geom_point() +
+    # geom_ref_line(h = 0) + # 调整基线为 0 而不是最小（效果不好已注释掉）
+    # 这里我们按照模型和 x2 的值切图，因为它可以更容易地看到每个组中的情况
+    facet_grid(model ~ x2)
+# 可以看到，mod2 的拟合度更好，残差更接近 0。
+
+# 【热身】对 sim4（连续且相互作用）模型研究 ----
+# 按照之前的方法，我们建立两个模型：
+mod1 <- lm(y ~ x1 + x2, data = sim4)
+mod2 <- lm(y ~ x1 * x2, data = sim4)
+
+grid <- sim4 %>%
+    data_grid(
+        # 以 x1 / x2 的最大和最小为界限，生成包含五个数据的等差数列
+        x1 = seq_range(x1, 5),
+        x2 = seq_range(x2, 5)
+    ) %>%
+    gather_predictions(mod1, mod2) %>% # 对两个模型求取预期结果并合并
+    print()
+#> # A tibble: 50 x 4
+#>   model    x1    x2   pred
+#>   <chr> <dbl> <dbl>  <dbl>
+#> 1 mod1   -1    -1    0.996
+#> 2 mod1   -1    -0.5 -0.395
+#> 3 mod1   -1     0   -1.79
+#> 4 mod1   -1     0.5 -3.18
+#> 5 mod1   -1     1   -4.57
+#> 6 mod1   -0.5  -1    1.91
+#> # … with 44 more rows
+
+# 关于 seq_range() ----
+# 实际使用上，就像 group_by 与 summarize 一样，seq_range 常常绑定 data_grid 使用
+# seq_range 真的可以很轻易地生成等差数列：
+seq_range(c(0.0123, 0.923423), n = 5)
+#> [1] 0.0123000 0.2400808 0.4678615 0.6956423 0.9234230
+
+# pretty 参数还可以让数据更简化
+seq_range(c(0.0123, 0.923423), n = 5, pretty = TRUE)
+#> [1] 0.0 0.2 0.4 0.6 0.8 1.0
+
+# trim 参数用于收缩范围，使得生成的序列更接近中值
+(x1 <- rcauchy(100)) # 生成具有柯西分布特性的随机数
+seq_range(x1, n = 5)
+#> [1] -115.86934  -83.52130  -51.17325  -18.82520   13.52284
+seq_range(x1, n = 5, trim = 0.10) # 收缩指定范围头尾 10%
+#> [1] -13.841101  -8.709812  -3.578522   1.552767   6.684057
+seq_range(x1, n = 5, trim = 0.25) # 收缩指定范围头尾 25%
+#> [1] -2.17345439 -1.05938856  0.05467728  1.16874312  2.28280896
+seq_range(x1, n = 5, trim = 0.50) # 收缩指定范围头尾 50%
+#> [1] -0.7249565 -0.2677888  0.1893788  0.6465465  1.1037141
+
+# 与之相反，expand 参数会扩增范围
+x2 <- c(0, 1)
+seq_range(x2, n = 5)
+#> [1] 0.00 0.25 0.50 0.75 1.00
+seq_range(x2, n = 5, expand = 0.10)
+#> [1] -0.050  0.225  0.500  0.775  1.050
+seq_range(x2, n = 5, expand = 0.25)
+#> [1] -0.1250  0.1875  0.5000  0.8125  1.1250
+seq_range(x2, n = 5, expand = 0.50)
+#> [1] -0.250  0.125  0.500  0.875  1.250
+
+# 和之前一样，我们对 sim4 的两个模型进行可视化绘图。
+ggplot(grid, aes(x1, x2)) +
+    geom_tile(aes(fill = pred)) + # 这种砖块图非常便于观察拟合度
+    facet_wrap(~model)
+
+# x1 与 x2 似乎存在某种明显的关系！我们尝试继续深入观察：
+p <- list()
+p[[1]] <- ggplot(grid, aes(x1, pred, colour = x2, group = x2)) +
+    geom_line() +
+    facet_wrap(~model)
+p[[2]] <- ggplot(grid, aes(x2, pred, colour = x1, group = x1)) +
+    geom_line() +
+    facet_wrap(~model)
+library(grid)
+grid.newpage() # 新建布局包
+pushViewport(viewport(layout = grid.layout(2, 1))) # 设置 2x1 布局
+print(p[[1]], vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
+print(p[[2]], vp = viewport(layout.pos.row = 2, layout.pos.col = 1))
+# 可以看到有明显的相互作用关系！为了预测 y，我们需要同时考虑 x1 和 x2 的值。
+
+# 【实战】对 sim5（模型转换）模型研究 ----
+# 因为包不自带 sim5，这里我们只能自己建（
+sim5 <- tibble(
+    x = seq(0, 3.5 * pi, length = 50),
+    y = 4 * sin(x) + rnorm(length(x)) # 随机生成与 x 向量长度相同的向量并加上 4 倍 sin(x)
+) %>%
+    print()
+
+# 关于 I() 和 model_matrix()（续） ----
+# 我们还可以在模型公式内随意转换。
+# 例如，log(y) ~ sqrt(x1) + x2 将转换为 log(y) = a_1 + a_2 * sqrt(x1) + a_3 * x2。
+# 如果转换涉及 +、*、^ 或 -，则我们需要将其包装在 I() 函数中，这样 R 就不会将其视为模型规范的一部分。
+# 例如，y ~ x + I(x ^ 2) 翻译为 y = a_1 + a_2 * x + a_3 * x^2。
+# 如果上述情况忘记了 I() 指定成 y ~ x ^ 2 + x，R 将视为 y ~ x * x + x。
+# x * x 表示 x 与自身的相互作用，这与 x 效果相同。R 会自动删除冗余变量，会直接转换成 y = a_1 + a_2 * x。这很糟糕！
+
+# 而对于自己创立的模型，我们可以使用 model_matrix() 来准确查看拟合的方程：
+tb <- tribble(
+    ~y, ~x,
+    1, 1,
+    2, 2,
+    3, 3
+)
+model_matrix(tb, y ~ x^2 + x)
+#> # A tibble: 3 x 2
+#>   `(Intercept)`     x
+#>           <dbl> <dbl>
+#> 1             1     1
+#> 2             1     2
+#> 3             1     3
+model_matrix(tb, y ~ I(x^2) + x)
+#> # A tibble: 3 x 3
+#>   `(Intercept)` `I(x^2)`     x
+#>           <dbl>    <dbl> <dbl>
+#> 1             1        1     1
+#> 2             1        4     2
+#> 3             1        9     3
+
+# 关于 poly() ----
+# 转换模型非常有用，因为您可以使用它们来近似非线性函数。
+# 微积分课上我们学过泰勒定理，它告诉我们可以用无限的多项式和来近似任何平滑曲线函数。
+# 这意味着我们也可以使用多项式函数通过拟合。
+# 手动键入该序列很繁琐复杂，而 R 提供了一个函数：poly()
+model_matrix(tb, y ~ poly(x, 2)) # 注意这个 “2” 是 degree 参数，表示多项式的最高次数
+#> # A tibble: 3 x 3
+#>   `(Intercept)` `poly(x, 2)1` `poly(x, 2)2`
+#>           <dbl>         <dbl>         <dbl>
+#> 1             1     -7.07e- 1         0.408
+#> 2             1     -7.85e-17        -0.816
+#> 3             1      7.07e- 1         0.408
+
+# 关于 ns() ----
+# 注意 poly 生成的多项式函数同泰勒函数一样，有一个很棘手的问题：在数据范围之外，多项式总是迅速接近无穷大。
+# 所以我们剔除了另一种更安全的替代方案，即样条回归：splines::ns()
+library(splines)
+model_matrix(df, y ~ ns(x, 2))
+#> # A tibble: 3 x 3
+#>   `(Intercept)` `ns(x, 2)1` `ns(x, 2)2`
+#>           <dbl>       <dbl>       <dbl>
+#> 1             1       0           0
+#> 2             1       0.566      -0.211
+#> 3             1       0.344       0.771
+
+# 尝试可视化！我们建立了不同次数的 5 个模型
+mod1 <- lm(y ~ ns(x, 1), data = sim5)
+mod2 <- lm(y ~ ns(x, 2), data = sim5)
+mod3 <- lm(y ~ ns(x, 3), data = sim5)
+mod4 <- lm(y ~ ns(x, 4), data = sim5)
+mod5 <- lm(y ~ ns(x, 5), data = sim5)
+
+grid <- sim5 %>%
+    data_grid(x = seq_range(x, n = 50, expand = 0.1)) %>% # 向外扩张 10% 生成矩阵
+    # .pred 参数用来修改生成期望值列的列名
+    gather_predictions(mod1, mod2, mod3, mod4, mod5, .pred = "y")
+
+ggplot(sim5, aes(x, y)) +
+    geom_point() +
+    geom_line(data = grid, colour = "red") +
+    facet_wrap(~model) # 以 model 分组
+# 就像我们在数学中学习的泰勒公式一样，项的次数越高，其拟合性往往越好。mod5 的拟合度就明显大于其他模型。
+
+# 【补充】NA 值（缺少值）问题 ----
+# 如果你的数据你还有 NA 值的话，R 当然会提示你错误！
+df <- tribble(
+    ~x, ~y,
+    1, 2.2,
+    2, NA,
+    3, 3.5,
+    4, 8.3,
+    NA, 10
+)
+mod <- lm(y ~ x, data = df)
+#> Warning: Dropping 2 rows with missing values
+# 加上 “na.action = na.exclude” 表示不包含 NA 值计算
+mod <- lm(y ~ x, data = df, na.action = na.exclude)
+# 这样这个模型就只有 3 种观测值可用了：
+nobs(mod) # nobs() 用于查看可观测次数
+
+# 【补充】其他常见线性模型 ----
+# 本章只关注线性类型的模型，它们假设形式为 y = a_1 * x1 + a_2 * x2 + ... + a_n * xn。
+# 同样，对于线性模型的残差，它可能还有一些特性，如还可能具有正态分布。
+# 有许多模型以各种有趣的方式扩展线性模型，相对常用的有以下几种：
+
+# - 广义线性模型（Generalised Linear Models），如 stats::glm()。
+#   线性模型的数据通常是连续的，并且其残差具有正态分布。
+#   该模型对线性模型进行了扩展，甚至囊括了非连续响应（例如二进制数据或计数）。
+#   而其工作原理是基于可能性的统计去定义距离度量。
+#   有关广义线性模型（GLM）的实际运作参考：https://zhuanlan.zhihu.com/p/110387248
+
+# - 广义加性模型（Generalised Additive Models），如 mgcv::gam()。
+#   它扩展广义线性模型以包含任意光滑函数，这意味着我们可以编写诸如 y ~ s(x) 这样的公式。
+#   这样的模型公式将使用 y = f(x) 和 letgam，即 gam() 去估计该函数是什么样的。
+#   有关广义加性模型（GAM）的实际运作参考：https://zhuanlan.zhihu.com/p/53001283
+
+# - 惩罚线性模型（Penalised Linear Models），如 glmnet::glmnet()。
+#   该模型使得在 “惩处” 一个复杂模型的距离中添加一个 “惩处” 项（由参数向量和原点之间的距离决定）。
+#   这往往使模型可以更好地推广到来自同一人群的新数据集。
+
+# - 稳健线性模型（Robust linear models），如 MASS::rlm()。
+#   该模型用于调整与模型预期距离非常远的点的权重，使得模型对于异常值问题不那么敏感。
+#   但其代价则是在没有异常值时通常不如其他模型的拟合效果那么强。
+#   有关稳健线性模型（RLM）的实际运作参考：https://zhuanlan.zhihu.com/p/398805690
+
+# - 树模型（Trees），如 rpart::rpart()。
+#   这种模型则是以与线性模型完全不同的方式去解决问题，适合分段恒定模型，并将数据拆分多个成足够小的部分。
+#   树模型本身并不出色，但当被随机森林（Random Forests），像是 randomForest::randomForest()，
+#   或是梯度提升机（Gradient Boosting Machines），像是 xgboost::xgboost() 等多种模型聚合使用时，
+#   树模型会变得非常强大。
+#   有关随机森林（RF）的实际运作参考：https://zhuanlan.zhihu.com/p/125505067
+#   有关梯度提升机（GBM）的实际运作参考：https://zhuanlan.zhihu.com/p/36011508
