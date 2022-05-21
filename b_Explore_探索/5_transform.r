@@ -9,18 +9,18 @@ library(tidyverse)
 # 它包含 2013 年从纽约市出发的所有 336,776 个航班
 flights
 # 列名称下字母缩写代表该列的数据类型：
-#  - int：整数
-#  - dbl：双精度或实数
-#  - chr：字符向量或字符串
-#  - dttm：日期时间（日期 + 时间）
+# - int：整数
+# - dbl：双精度或实数
+# - chr：字符向量或字符串
+# - dttm：日期时间（日期 + 时间）
 # 此外还有：
-#  - lgl：仅包含逻辑词（TRUE / FALSE）
-#  - fctr：因子（factor），表示具有固定可能值的分类变量
-#  - date：日期
+# - lgl：仅包含逻辑词（TRUE / FALSE）
+# - fctr：因子（factor），表示具有固定可能值的分类变量
+# - date：日期
 
 # tidyverse 附带了一些神奇的功能，如 filter、arrange、select、rename、mutate 和 summarise
 
-# filter ----
+# filter() ----
 # 筛选月份为 1，天数为 1 的
 filter(flights, month == 1, day == 1)
 # 筛选月份为 12 或者天数为 25 的（圣诞节）
@@ -42,19 +42,19 @@ near(sqrt(2)^2, 2)
 near(1 / 49 * 49, 1)
 #> [1] TRUE
 
-# arange ----
+# arange() ----
 # 按照年月日排序
 arrange(flights, year, month, day)
 # 反向排序。注意无论正反向，NA 值总是被排到末尾
 arrange(flights, desc(dep_delay))
 
-# select ----
+# select() ----
 # 注意一些方便的匹配规则：
-#  - starts_with("abc")：匹配以 “abc” 开头的名称。
-#  - ends_with("xyz")：匹配以 “xyz” 结尾的名称。
-#  - contains("ijk")：匹配包含 “ijk” 的名称。
-#  - matches("(.)\\1")：选择与正则表达式匹配的变量。
-#  - num_range("x", 1:3)：匹配 x1、x2和 x3。
+# - starts_with("abc")：匹配以 “abc” 开头的名称。
+# - ends_with("xyz")：匹配以 “xyz” 结尾的名称。
+# - contains("ijk")：匹配包含 “ijk” 的名称。
+# - matches("(.)\\1")：选择与正则表达式匹配的变量。
+# - num_range("x", 1:3)：匹配 x1、x2和 x3。
 # 选出年月日
 select(flights, year, month, day)
 select(flights, year:day)
@@ -69,11 +69,11 @@ select(flights, contains("sched"))
 # 选出的数据不包含带 sched的列，此外其他都包含
 select(flights, -contains("sched"), everything())
 
-# rename ----
+# rename() ----
 # 一般用得很少，但有时很刚需。其实它是 select() 的变体
 rename(flights, tail_num = tailnum)
 
-# mutate 与 transmute ----
+# mutate() 与 transmute() ----
 # 生成优化版的 flights 数据集
 flights_sml <- select(flights, year:day, ends_with("delay"), distance, air_time)
 mutate(
@@ -90,7 +90,7 @@ transmute(
     speed_sec = speed_min * 60 # 从刚生成的数据中套新数据
 )
 
-# summarise ----
+# summarise() ----
 # 注意关注管道符号：%>%
 # x %>% f(y) 即为 f(x, y)
 msleep %>%
@@ -113,7 +113,7 @@ summarise(
 group_by(flights, year, month, day) %>%
     summarise(delay = mean(dep_delay, na.rm = TRUE))
 
-# ----Summarize----
+# group_by() ----
 # 单纯的 summarize 没有太大的用处
 summarise(
     flights,
