@@ -18,7 +18,7 @@
 
 创建已知或未知的空向量用于存储一系列数据（如整数、小数、字符串）。
 
-```{R}
+```R
 x <- vector() # 创建空向量
 y <- c(1, 2) # 手动赋值
 # 在 R 中，我们可以使用 “:” 来创建序列填充
@@ -29,7 +29,7 @@ z <- c(1:3) # 这里其实等价于 1, 2, 3
 
 ![Matrix_transpose](https://www.runoob.com/wp-content/uploads/2020/07/Matrix_transpose.gif)
 
-```{R}
+```R
 rownames <- c("row1", "row2", "row3", "row4")
 colnames <- c("col1", "col2", "col3")
 m <- matrix(
@@ -45,7 +45,7 @@ print(t(m))
 
 列表使用 `list()` 创建。一个列表里可以随意放置向量里能放置的所有元素，甚至是一个向量、一个矩阵。
 
-```{R}
+```R
 list_data <- list(
     "google",
     matrix(c(1, 2, 3, 4, 5, 6), nrow = 2),
@@ -74,14 +74,14 @@ unlist(num_list) # 转换列表为向量
 
 数据集如下：
 
-```{R}
+```R
 age <- c(10, 12, 14, 6, 8, 18)
 weight <- c(100, 110, 120, 80, 90, 140)
 ```
 
 数学中一些常用的计算函数
 
-```{R}
+```R
 5 %% 3 # 求余数
 5 %/% 3 # 求模
 
@@ -95,7 +95,7 @@ lm(age ~ weight) # 求两者构成的回归直线斜率（注意波浪号连接�
 
 在 R 里画图非常简单。以上面的 age 和 weight 为例：
 
-```{R}
+```R
 # 注意在 R 里面，相对路径的基层路径是由工作区设定的
 getwd() # 获取当前工作区路径
 setwd("D:/Project/R-Project/b_Explore_探索") # 设置工作区路径
@@ -114,7 +114,7 @@ dev.off() # 结束画图并保存
 
 dataframe 是一系列向量数据的集合：
 
-```{R}
+```R
 data.frame(
     a = c(1:3),
     b = c(6:8)
@@ -123,7 +123,7 @@ data.frame(
 
 tibble 与 dataframe 非常相似，甚至是使用 dataframe 储存的。tibble 是 tidyverse 系列的专用数据集格式。它的优点是干净、方便数据处理。
 
-```{R}
+```R
 library(tidyverse)
 
 tribble(
