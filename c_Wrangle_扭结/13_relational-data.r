@@ -98,7 +98,7 @@ setdiff(df2, df1)
 # 【实战】合并 nycflights 数据并分析 ----
 # 仔细观察 nycflights 可以得出：
 # 里面包含 airlines、airports、planes 和 weather，以及我们常用的 flights 数据集
-# 关系图：https://shorturl.at/amzKM
+# 关系图：http://t.cn/A6XNYGsj
 
 flights_smaller <- flights %>%
     select(year:day, hour, origin, dest, tailnum, carrier)

@@ -146,7 +146,7 @@ ggplot(data = diamonds, mapping = aes(x = price, y = ..density..)) +
 # - 盒子两头：25% 和 75%，也称为四分位距（两头距离长度称作 IQR）
 # - 盒子两头延伸的细线：从盒子两头算起不超过 IQR 的 1.5 倍的最小和最大值
 # - 盒子两头远处的点：超过 IQR 的 1.5 倍的异常值
-# https://shorturl.at/oqHV9
+# http://t.cn/A6XNYGsH
 ggplot(data = diamonds, mapping = aes(x = cut, y = price)) +
     geom_boxplot()
 # 箱线图的信息展示会比频率多边形要紧凑得多，更利于我们比较。

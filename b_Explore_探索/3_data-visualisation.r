@@ -127,7 +127,7 @@ bar + coord_flip() # 坐标轴对调
 bar + coord_polar() # 设置为极坐标（有点像圆饼图）
 
 # 【实战】对 diamonds 绘制超级汇总图 ----
-# https://shorturl.at/aozX5
+# https://t.hk.uy/ba5Y
 
 p <- list()
 p[[1]] <- ggplot(mpg, aes(x = displ, y = hwy)) +
