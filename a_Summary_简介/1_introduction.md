@@ -44,7 +44,7 @@ install.packages(c("nycflights13", "gapminder", "Lahman"))
 
 我们就从 HelloWorld 开始吧：
 
-```{R}
+```R
 print("hello world!")
 ```
 
