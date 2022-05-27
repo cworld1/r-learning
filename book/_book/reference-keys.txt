@@ -1,4 +1,8 @@
-prerequisites
+r-learning
+项目介绍
+贡献
+鸣谢
+license
 introduction
 数据科学
 一些准备
@@ -82,11 +86,6 @@ tibbles-vs.-data.frame
 控制台打印方面
 读取子元素方面
 tibble-的转换
-r-learning
-项目介绍
-贡献
-鸣谢
-license
 data-import
 简单读取文件
 解析向量

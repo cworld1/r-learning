@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 12 Data import | R-Learning</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 12 Data import | R-Learning" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 12 Data import | R-Learning" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="CWorld" />
+
+
+<meta name="date" content="2022-05-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tibbles.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> R learning</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#项目介绍"><i class="fa fa-check"></i><b>1.1</b> 项目介绍</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#贡献"><i class="fa fa-check"></i><b>1.2</b> 贡献</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#鸣谢"><i class="fa fa-check"></i><b>1.3</b> 鸣谢</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i><b>1.4</b> License</a></li>
+</ul></li>
+<li class="part"><span><b>I Summary</b></span></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#数据科学"><i class="fa fa-check"></i><b>2.1</b> 数据科学</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction.html"><a href="introduction.html#一些准备"><i class="fa fa-check"></i><b>2.2</b> 一些准备</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="introduction.html"><a href="introduction.html#安装-r"><i class="fa fa-check"></i><b>2.2.1</b> 安装 R</a></li>
+<li class="chapter" data-level="2.2.2" data-path="introduction.html"><a href="introduction.html#安装编辑器"><i class="fa fa-check"></i><b>2.2.2</b> 安装编辑器</a></li>
+<li class="chapter" data-level="2.2.3" data-path="introduction.html"><a href="introduction.html#相关包"><i class="fa fa-check"></i><b>2.2.3</b> 相关包</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="introduction.html"><a href="introduction.html#更多学习途径"><i class="fa fa-check"></i><b>2.3</b> 更多学习途径</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction.html"><a href="introduction.html#初识-r"><i class="fa fa-check"></i><b>2.4</b> 初识 R</a></li>
+</ul></li>
+<li class="part"><span><b>II Explore</b></span></li>
+<li class="chapter" data-level="3" data-path="explore-intro.html"><a href="explore-intro.html"><i class="fa fa-check"></i><b>3</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="explore-intro.html"><a href="explore-intro.html#基本数据形式和函数"><i class="fa fa-check"></i><b>3.1</b> 基本数据形式和函数</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="explore-intro.html"><a href="explore-intro.html#向量矩阵与列表"><i class="fa fa-check"></i><b>3.1.1</b> 向量、矩阵与列表</a></li>
+<li class="chapter" data-level="3.1.2" data-path="explore-intro.html"><a href="explore-intro.html#基本函数"><i class="fa fa-check"></i><b>3.1.2</b> 基本函数</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="explore-intro.html"><a href="explore-intro.html#学习-r-自带的画图功能"><i class="fa fa-check"></i><b>3.2</b> 学习 R 自带的画图功能</a></li>
+<li class="chapter" data-level="3.3" data-path="explore-intro.html"><a href="explore-intro.html#更高级的数据形式"><i class="fa fa-check"></i><b>3.3</b> 更高级的数据形式</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="explore.html"><a href="explore.html"><i class="fa fa-check"></i><b>4</b> 3 Data visualisation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="explore.html"><a href="explore.html#初识-ggplot"><i class="fa fa-check"></i><b>4.1</b> 初识 ggplot</a></li>
+<li class="chapter" data-level="4.2" data-path="explore.html"><a href="explore.html#美学映射"><i class="fa fa-check"></i><b>4.2</b> 美学映射</a></li>
+<li class="chapter" data-level="4.3" data-path="explore.html"><a href="explore.html#修改样式"><i class="fa fa-check"></i><b>4.3</b> 修改样式</a></li>
+<li class="chapter" data-level="4.4" data-path="explore.html"><a href="explore.html#多组画图"><i class="fa fa-check"></i><b>4.4</b> 多组画图</a></li>
+<li class="chapter" data-level="4.5" data-path="explore.html"><a href="explore.html#叠加与参数"><i class="fa fa-check"></i><b>4.5</b> 叠加与参数</a></li>
+<li class="chapter" data-level="4.6" data-path="explore.html"><a href="explore.html#其他常见图"><i class="fa fa-check"></i><b>4.6</b> 其他常见图</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="explore.html"><a href="explore.html#回归曲线图"><i class="fa fa-check"></i><b>4.6.1</b> 回归曲线图</a></li>
+<li class="chapter" data-level="4.6.2" data-path="explore.html"><a href="explore.html#条形图"><i class="fa fa-check"></i><b>4.6.2</b> 条形图</a></li>
+<li class="chapter" data-level="4.6.3" data-path="explore.html"><a href="explore.html#summary-线条信息图"><i class="fa fa-check"></i><b>4.6.3</b> Summary 线条信息图</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="explore.html"><a href="explore.html#坐标系相关"><i class="fa fa-check"></i><b>4.7</b> 坐标系相关</a></li>
+<li class="chapter" data-level="4.8" data-path="explore.html"><a href="explore.html#绘制-diamonds-数据分析图"><i class="fa fa-check"></i><b>4.8</b> 绘制 diamonds 数据分析图</a></li>
+<li class="chapter" data-level="4.9" data-path="explore.html"><a href="explore.html#研究-mpgcars-数据集"><i class="fa fa-check"></i><b>4.9</b> 研究 mpgcars 数据集</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="workflow-basics.html"><a href="workflow-basics.html"><i class="fa fa-check"></i><b>5</b> Workflow: basics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="workflow-basics.html"><a href="workflow-basics.html#基础运算上手"><i class="fa fa-check"></i><b>5.1</b> 基础运算上手</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="transform.html"><a href="transform.html"><i class="fa fa-check"></i><b>6</b> Data transformation</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="transform.html"><a href="transform.html#查看-flights-数据集"><i class="fa fa-check"></i><b>6.1</b> 查看 flights 数据集</a></li>
+<li class="chapter" data-level="6.2" data-path="transform.html"><a href="transform.html#过滤-filter"><i class="fa fa-check"></i><b>6.2</b> 过滤 filter()</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="transform.html"><a href="transform.html#比较"><i class="fa fa-check"></i><b>6.2.1</b> 比较</a></li>
+<li class="chapter" data-level="6.2.2" data-path="transform.html"><a href="transform.html#逻辑运算符"><i class="fa fa-check"></i><b>6.2.2</b> 逻辑运算符</a></li>
+<li class="chapter" data-level="6.2.3" data-path="transform.html"><a href="transform.html#缺失值"><i class="fa fa-check"></i><b>6.2.3</b> 缺失值</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="transform.html"><a href="transform.html#排列-arange"><i class="fa fa-check"></i><b>6.3</b> 排列 arange()</a></li>
+<li class="chapter" data-level="6.4" data-path="transform.html"><a href="transform.html#选择-select"><i class="fa fa-check"></i><b>6.4</b> 选择 select()</a></li>
+<li class="chapter" data-level="6.5" data-path="transform.html"><a href="transform.html#重命名-rename"><i class="fa fa-check"></i><b>6.5</b> 重命名 rename()</a></li>
+<li class="chapter" data-level="6.6" data-path="transform.html"><a href="transform.html#添加新变量-mutate-与-transmute"><i class="fa fa-check"></i><b>6.6</b> 添加新变量 mutate() 与 transmute()</a></li>
+<li class="chapter" data-level="6.7" data-path="transform.html"><a href="transform.html#分组摘要-summarise"><i class="fa fa-check"></i><b>6.7</b> 分组摘要 summarise()</a></li>
+<li class="chapter" data-level="6.8" data-path="transform.html"><a href="transform.html#其他处理数据功能"><i class="fa fa-check"></i><b>6.8</b> 其他处理数据功能</a></li>
+<li class="chapter" data-level="6.9" data-path="transform.html"><a href="transform.html#分析-flights-数据集"><i class="fa fa-check"></i><b>6.9</b> 分析 flights 数据集</a>
+<ul>
+<li class="chapter" data-level="6.9.1" data-path="transform.html"><a href="transform.html#计算目的地相关的图"><i class="fa fa-check"></i><b>6.9.1</b> 计算目的地相关的图</a></li>
+<li class="chapter" data-level="6.9.2" data-path="transform.html"><a href="transform.html#获取热门目的地及有关数据"><i class="fa fa-check"></i><b>6.9.2</b> 获取热门目的地及有关数据</a></li>
+<li class="chapter" data-level="6.9.3" data-path="transform.html"><a href="transform.html#绘制飞机延误时长分布图"><i class="fa fa-check"></i><b>6.9.3</b> 绘制飞机延误时长分布图</a></li>
+<li class="chapter" data-level="6.9.4" data-path="transform.html"><a href="transform.html#计算每天最早和最晚的航班"><i class="fa fa-check"></i><b>6.9.4</b> 计算每天最早和最晚的航班</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="workflow-scripts.html"><a href="workflow-scripts.html"><i class="fa fa-check"></i><b>7</b> Workflow: scripts</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="workflow-scripts.html"><a href="workflow-scripts.html#运行代码"><i class="fa fa-check"></i><b>7.1</b> 运行代码</a></li>
+<li class="chapter" data-level="7.2" data-path="workflow-scripts.html"><a href="workflow-scripts.html#rstudio-诊断"><i class="fa fa-check"></i><b>7.2</b> RStudio 诊断</a></li>
+<li class="chapter" data-level="7.3" data-path="workflow-scripts.html"><a href="workflow-scripts.html#使用-visual-studio-code-编写-r"><i class="fa fa-check"></i><b>7.3</b> 使用 Visual studio code 编写 R</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>8</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图分析-diamonds-数据集"><i class="fa fa-check"></i><b>8.1</b> 绘图分析 diamonds 数据集</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#可视化分布"><i class="fa fa-check"></i><b>8.1.1</b> 可视化分布</a></li>
+<li class="chapter" data-level="8.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘制频率直方图"><i class="fa fa-check"></i><b>8.1.2</b> 绘制频率直方图</a></li>
+<li class="chapter" data-level="8.1.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#异常数据杂质"><i class="fa fa-check"></i><b>8.1.3</b> 异常数据（杂质）</a></li>
+<li class="chapter" data-level="8.1.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#处理异常数据"><i class="fa fa-check"></i><b>8.1.4</b> 处理异常数据</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图统计-flights-数据集"><i class="fa fa-check"></i><b>8.2</b> 绘图统计 flights 数据集</a></li>
+<li class="chapter" data-level="8.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图统计-diamonds-数据集"><i class="fa fa-check"></i><b>8.3</b> 绘图统计 diamonds 数据集</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#连续变量多类绘图"><i class="fa fa-check"></i><b>8.3.1</b> 连续变量多类绘图</a></li>
+<li class="chapter" data-level="8.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#关于变量排序-reorder"><i class="fa fa-check"></i><b>8.3.2</b> 关于变量排序 reorder()</a></li>
+<li class="chapter" data-level="8.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#两个分类变量"><i class="fa fa-check"></i><b>8.3.3</b> 两个分类变量</a></li>
+<li class="chapter" data-level="8.3.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#两个连续变量"><i class="fa fa-check"></i><b>8.3.4</b> 两个连续变量</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="workflow-projects.html"><a href="workflow-projects.html"><i class="fa fa-check"></i><b>9</b> Workflow: projects</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="workflow-projects.html"><a href="workflow-projects.html#运行环境"><i class="fa fa-check"></i><b>9.1</b> 运行环境</a></li>
+<li class="chapter" data-level="9.2" data-path="workflow-projects.html"><a href="workflow-projects.html#工作区"><i class="fa fa-check"></i><b>9.2</b> 工作区</a></li>
+<li class="chapter" data-level="9.3" data-path="workflow-projects.html"><a href="workflow-projects.html#路径与目录"><i class="fa fa-check"></i><b>9.3</b> 路径与目录</a></li>
+<li class="chapter" data-level="9.4" data-path="workflow-projects.html"><a href="workflow-projects.html#rstudio-项目"><i class="fa fa-check"></i><b>9.4</b> RStudio 项目</a></li>
+</ul></li>
+<li class="part"><span><b>III Wrangle</b></span></li>
+<li class="chapter" data-level="10" data-path="wrangle-intro.html"><a href="wrangle-intro.html"><i class="fa fa-check"></i><b>10</b> Introduction</a></li>
+<li class="chapter" data-level="11" data-path="tibbles.html"><a href="tibbles.html"><i class="fa fa-check"></i><b>11</b> Tibbles</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="tibbles.html"><a href="tibbles.html#创建-tibble"><i class="fa fa-check"></i><b>11.1</b> 创建 tibble</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="tibbles.html"><a href="tibbles.html#as_tibble"><i class="fa fa-check"></i><b>11.1.1</b> as_tibble()</a></li>
+<li class="chapter" data-level="11.1.2" data-path="tibbles.html"><a href="tibbles.html#tibble"><i class="fa fa-check"></i><b>11.1.2</b> tibble()</a></li>
+<li class="chapter" data-level="11.1.3" data-path="tibbles.html"><a href="tibbles.html#tribble"><i class="fa fa-check"></i><b>11.1.3</b> tribble()</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="tibbles.html"><a href="tibbles.html#tibbles-vs.-data.frame"><i class="fa fa-check"></i><b>11.2</b> tibbles VS. data.frame</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="tibbles.html"><a href="tibbles.html#控制台打印方面"><i class="fa fa-check"></i><b>11.2.1</b> 控制台打印方面</a></li>
+<li class="chapter" data-level="11.2.2" data-path="tibbles.html"><a href="tibbles.html#读取子元素方面"><i class="fa fa-check"></i><b>11.2.2</b> 读取子元素方面</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="tibbles.html"><a href="tibbles.html#tibble-的转换"><i class="fa fa-check"></i><b>11.3</b> tibble 的转换</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>12</b> Data import</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="data-import.html"><a href="data-import.html#简单读取文件"><i class="fa fa-check"></i><b>12.1</b> 简单读取文件</a></li>
+<li class="chapter" data-level="12.2" data-path="data-import.html"><a href="data-import.html#解析向量"><i class="fa fa-check"></i><b>12.2</b> 解析向量</a></li>
+<li class="chapter" data-level="12.3" data-path="data-import.html"><a href="data-import.html#数字类型"><i class="fa fa-check"></i><b>12.3</b> 数字类型</a></li>
+<li class="chapter" data-level="12.4" data-path="data-import.html"><a href="data-import.html#字符类型"><i class="fa fa-check"></i><b>12.4</b> 字符类型</a></li>
+<li class="chapter" data-level="12.5" data-path="data-import.html"><a href="data-import.html#因子类型"><i class="fa fa-check"></i><b>12.5</b> 因子类型</a></li>
+<li class="chapter" data-level="12.6" data-path="data-import.html"><a href="data-import.html#日期时间类型"><i class="fa fa-check"></i><b>12.6</b> 日期时间类型</a></li>
+<li class="chapter" data-level="12.7" data-path="data-import.html"><a href="data-import.html#解析文件"><i class="fa fa-check"></i><b>12.7</b> 解析文件</a>
+<ul>
+<li class="chapter" data-level="12.7.1" data-path="data-import.html"><a href="data-import.html#自动匹配"><i class="fa fa-check"></i><b>12.7.1</b> 自动匹配</a></li>
+<li class="chapter" data-level="12.7.2" data-path="data-import.html"><a href="data-import.html#自动匹配遇到的问题"><i class="fa fa-check"></i><b>12.7.2</b> 自动匹配遇到的问题</a></li>
+<li class="chapter" data-level="12.7.3" data-path="data-import.html"><a href="data-import.html#其他的匹配解决策略"><i class="fa fa-check"></i><b>12.7.3</b> 其他的匹配解决策略</a></li>
+</ul></li>
+<li class="chapter" data-level="12.8" data-path="data-import.html"><a href="data-import.html#写入数据"><i class="fa fa-check"></i><b>12.8</b> 写入数据</a>
+<ul>
+<li class="chapter" data-level="12.8.1" data-path="data-import.html"><a href="data-import.html#csv-格式"><i class="fa fa-check"></i><b>12.8.1</b> csv 格式</a></li>
+<li class="chapter" data-level="12.8.2" data-path="data-import.html"><a href="data-import.html#rds-格式"><i class="fa fa-check"></i><b>12.8.2</b> rds 格式</a></li>
+<li class="chapter" data-level="12.8.3" data-path="data-import.html"><a href="data-import.html#feather-格式"><i class="fa fa-check"></i><b>12.8.3</b> feather 格式</a></li>
+<li class="chapter" data-level="12.8.4" data-path="data-import.html"><a href="data-import.html#其他格式"><i class="fa fa-check"></i><b>12.8.4</b> 其他格式</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R-Learning</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-import" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">Chapter 12</span> Data import<a href="data-import.html#data-import" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="data-import.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div id="简单读取文件" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> 简单读取文件<a href="data-import.html#简单读取文件" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<table>
+<colgroup>
+<col width="13%" />
+<col width="25%" />
+<col width="61%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>文件特征</th>
+<th>函数</th>
+<th>适用条件</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>符号分隔</td>
+<td>read_csv()</td>
+<td>逗号分隔</td>
+</tr>
+<tr class="even">
+<td>符号分隔</td>
+<td>read_csv2()</td>
+<td>分号分隔（常见于用作小数位的国家）</td>
+</tr>
+<tr class="odd">
+<td>符号分隔</td>
+<td>read_tsv()</td>
+<td>制表符分隔</td>
+</tr>
+<tr class="even">
+<td>符号分隔</td>
+<td>read_delim()</td>
+<td>任何符号分隔</td>
+</tr>
+<tr class="odd">
+<td>固定宽度</td>
+<td>read_fwf()</td>
+<td>固定宽度</td>
+</tr>
+<tr class="even">
+<td>固定宽度</td>
+<td>fwf_widths()</td>
+<td>宽度指定字段</td>
+</tr>
+<tr class="odd">
+<td>固定宽度</td>
+<td>fwf_positions()</td>
+<td>位置指定字段</td>
+</tr>
+<tr class="even">
+<td>固定宽度</td>
+<td>read_table()</td>
+<td>固定宽度文件的常见变体，且列用空格分隔</td>
+</tr>
+<tr class="odd">
+<td>日志</td>
+<td>read_log()</td>
+<td>Apache 风格的日志文件</td>
+</tr>
+</tbody>
+</table>
+<p>此外 webreadr 基于 read_log() 构建，并提供更多有用的工具。这些函数都有类似的语法：一旦我们掌握了一个，我们可以轻松地使用其他功能。</p>
+<p>csv 文件是最常见的数据存储形式之一。我们将重点关注 read_csv()，其首个参数最为重要，即要读取的文件的路径。</p>
+<p>read_csv() 会给出相当丰富的信息，包括行列数、分隔符、各列的数据格式（自动识别）等：</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="data-import.html#cb115-1" aria-hidden="true" tabindex="-1"></a>heights <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;./source/heights.csv&quot;</span>)</span>
+<span id="cb115-2"><a href="data-import.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 1192 Columns: 6</span></span>
+<span id="cb115-3"><a href="data-import.html#cb115-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Column specification -------------------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb115-4"><a href="data-import.html#cb115-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Delimiter: &quot;,&quot;</span></span>
+<span id="cb115-5"><a href="data-import.html#cb115-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; chr (2): sex, race</span></span>
+<span id="cb115-6"><a href="data-import.html#cb115-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dbl (4): earn, height, ed, age</span></span>
+<span id="cb115-7"><a href="data-import.html#cb115-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb115-8"><a href="data-import.html#cb115-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span id="cb115-9"><a href="data-import.html#cb115-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code></pre></div>
+<p>对于内联表格我们同样可以这样处理：</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="data-import.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;a,b,c</span></span>
+<span id="cb116-2"><a href="data-import.html#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="st">1,2,3</span></span>
+<span id="cb116-3"><a href="data-import.html#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="st">4,5,6&quot;</span>)</span>
+<span id="cb116-4"><a href="data-import.html#cb116-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 2 Columns: 3</span></span>
+<span id="cb116-5"><a href="data-import.html#cb116-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Column specification -------------------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb116-6"><a href="data-import.html#cb116-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Delimiter: &quot;,&quot;</span></span>
+<span id="cb116-7"><a href="data-import.html#cb116-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dbl (3): a, b, c</span></span>
+<span id="cb116-8"><a href="data-import.html#cb116-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb116-9"><a href="data-import.html#cb116-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span id="cb116-10"><a href="data-import.html#cb116-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
+<span id="cb116-11"><a href="data-import.html#cb116-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 x 3</span></span>
+<span id="cb116-12"><a href="data-import.html#cb116-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       a     b     c</span></span>
+<span id="cb116-13"><a href="data-import.html#cb116-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb116-14"><a href="data-import.html#cb116-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1     2     3</span></span>
+<span id="cb116-15"><a href="data-import.html#cb116-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     4     5     6</span></span></code></pre></div>
+<p>如果内容的开头有一些不需要的数据，我们可以跳过开头的内容：</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="data-import.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;The first line of metadata</span></span>
+<span id="cb117-2"><a href="data-import.html#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="st">  The second line of metadata</span></span>
+<span id="cb117-3"><a href="data-import.html#cb117-3" aria-hidden="true" tabindex="-1"></a><span class="st">  x,y,z</span></span>
+<span id="cb117-4"><a href="data-import.html#cb117-4" aria-hidden="true" tabindex="-1"></a><span class="st">  1,2,3&quot;</span>, <span class="at">skip =</span> <span class="dv">2</span>)</span>
+<span id="cb117-5"><a href="data-import.html#cb117-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 1 Columns: 3</span></span>
+<span id="cb117-6"><a href="data-import.html#cb117-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Column specification -------------------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb117-7"><a href="data-import.html#cb117-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Delimiter: &quot;,&quot;</span></span>
+<span id="cb117-8"><a href="data-import.html#cb117-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dbl (3): x, y, z</span></span>
+<span id="cb117-9"><a href="data-import.html#cb117-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb117-10"><a href="data-import.html#cb117-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span id="cb117-11"><a href="data-import.html#cb117-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
+<span id="cb117-12"><a href="data-import.html#cb117-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 3</span></span>
+<span id="cb117-13"><a href="data-import.html#cb117-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       x     y     z</span></span>
+<span id="cb117-14"><a href="data-import.html#cb117-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb117-15"><a href="data-import.html#cb117-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1     2     3</span></span></code></pre></div>
+<p>或者直接跳过以指定字符开头的行（如以 “#” 开头）</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="data-import.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;# A comment I want to skip</span></span>
+<span id="cb118-2"><a href="data-import.html#cb118-2" aria-hidden="true" tabindex="-1"></a><span class="st">  x,y,z</span></span>
+<span id="cb118-3"><a href="data-import.html#cb118-3" aria-hidden="true" tabindex="-1"></a><span class="st">  1,2,3&quot;</span>, <span class="at">comment =</span> <span class="st">&quot;#&quot;</span>)</span>
+<span id="cb118-4"><a href="data-import.html#cb118-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 1 Columns: 3</span></span>
+<span id="cb118-5"><a href="data-import.html#cb118-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Column specification -------------------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb118-6"><a href="data-import.html#cb118-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Delimiter: &quot;,&quot;</span></span>
+<span id="cb118-7"><a href="data-import.html#cb118-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dbl (3): x, y, z</span></span>
+<span id="cb118-8"><a href="data-import.html#cb118-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb118-9"><a href="data-import.html#cb118-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span id="cb118-10"><a href="data-import.html#cb118-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
+<span id="cb118-11"><a href="data-import.html#cb118-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 3</span></span>
+<span id="cb118-12"><a href="data-import.html#cb118-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       x     y     z</span></span>
+<span id="cb118-13"><a href="data-import.html#cb118-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb118-14"><a href="data-import.html#cb118-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1     2     3</span></span></code></pre></div>
+<p>有时导入的数据可能没有表头！忽略掉表头，R 会为你加上 “X1”、“X2”…</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="data-import.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;1,2,3</span><span class="sc">\n</span><span class="st">4,5,6&quot;</span>, <span class="at">col_names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb119-2"><a href="data-import.html#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 2 Columns: 3</span></span>
+<span id="cb119-3"><a href="data-import.html#cb119-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Column specification -------------------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb119-4"><a href="data-import.html#cb119-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Delimiter: &quot;,&quot;</span></span>
+<span id="cb119-5"><a href="data-import.html#cb119-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dbl (3): X1, X2, X3</span></span>
+<span id="cb119-6"><a href="data-import.html#cb119-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb119-7"><a href="data-import.html#cb119-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span id="cb119-8"><a href="data-import.html#cb119-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
+<span id="cb119-9"><a href="data-import.html#cb119-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 x 3</span></span>
+<span id="cb119-10"><a href="data-import.html#cb119-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      X1    X2    X3</span></span>
+<span id="cb119-11"><a href="data-import.html#cb119-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb119-12"><a href="data-import.html#cb119-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1     2     3</span></span>
+<span id="cb119-13"><a href="data-import.html#cb119-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     4     5     6</span></span></code></pre></div>
+<p>或者手动加表头：</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="data-import.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;1,2,3</span><span class="sc">\n</span><span class="st">4,5,6&quot;</span>, <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>))</span>
+<span id="cb120-2"><a href="data-import.html#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 2 Columns: 3</span></span>
+<span id="cb120-3"><a href="data-import.html#cb120-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Column specification -------------------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb120-4"><a href="data-import.html#cb120-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Delimiter: &quot;,&quot;</span></span>
+<span id="cb120-5"><a href="data-import.html#cb120-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dbl (3): x, y, z</span></span>
+<span id="cb120-6"><a href="data-import.html#cb120-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb120-7"><a href="data-import.html#cb120-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span id="cb120-8"><a href="data-import.html#cb120-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
+<span id="cb120-9"><a href="data-import.html#cb120-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 x 3</span></span>
+<span id="cb120-10"><a href="data-import.html#cb120-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       x     y     z</span></span>
+<span id="cb120-11"><a href="data-import.html#cb120-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb120-12"><a href="data-import.html#cb120-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1     2     3</span></span>
+<span id="cb120-13"><a href="data-import.html#cb120-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     4     5     6</span></span></code></pre></div>
+<p>不只是表头，有时数据也会缺失。对 NA 值的数进行符号标记即可：</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="data-import.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;a,b,c</span><span class="sc">\n</span><span class="st">1,2,.&quot;</span>, <span class="at">na =</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb121-2"><a href="data-import.html#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 1 Columns: 3</span></span>
+<span id="cb121-3"><a href="data-import.html#cb121-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Column specification -------------------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb121-4"><a href="data-import.html#cb121-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Delimiter: &quot;,&quot;</span></span>
+<span id="cb121-5"><a href="data-import.html#cb121-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dbl (2): a, b</span></span>
+<span id="cb121-6"><a href="data-import.html#cb121-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lgl (1): c</span></span>
+<span id="cb121-7"><a href="data-import.html#cb121-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb121-8"><a href="data-import.html#cb121-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span id="cb121-9"><a href="data-import.html#cb121-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
+<span id="cb121-10"><a href="data-import.html#cb121-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 3</span></span>
+<span id="cb121-11"><a href="data-import.html#cb121-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       a     b c    </span></span>
+<span id="cb121-12"><a href="data-import.html#cb121-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;</span></span>
+<span id="cb121-13"><a href="data-import.html#cb121-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1     2 NA</span></span></code></pre></div>
+</div>
+<div id="解析向量" class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> 解析向量<a href="data-import.html#解析向量" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>在深入了解阅读器如何从磁盘读取文件之前，我们需要先了解 parse_*() 函数。对这些函数传入字符串向量，可以得到数据类型更专一合理的向量，如逻辑、整数或日期：</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="data-import.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">parse_logical</span>(<span class="fu">c</span>(<span class="st">&quot;TRUE&quot;</span>, <span class="st">&quot;FALSE&quot;</span>, <span class="st">&quot;NA&quot;</span>))) <span class="co"># str() 用于显示 R 对象的内部结构</span></span>
+<span id="cb122-2"><a href="data-import.html#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  logi [1:3] TRUE FALSE NA</span></span>
+<span id="cb122-3"><a href="data-import.html#cb122-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">parse_integer</span>(<span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>)))</span>
+<span id="cb122-4"><a href="data-import.html#cb122-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  int [1:3] 1 2 3</span></span>
+<span id="cb122-5"><a href="data-import.html#cb122-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">parse_date</span>(<span class="fu">c</span>(<span class="st">&quot;2010-01-01&quot;</span>, <span class="st">&quot;1979-10-14&quot;</span>)))</span>
+<span id="cb122-6"><a href="data-import.html#cb122-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Date[1:2], format: &quot;2010-01-01&quot; &quot;1979-10-14&quot;</span></span></code></pre></div>
+<p>我们也可以设置缺省值：</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="data-import.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_integer</span>(<span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;231&quot;</span>, <span class="st">&quot;.&quot;</span>, <span class="st">&quot;456&quot;</span>), <span class="at">na =</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb123-2"><a href="data-import.html#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]   1 231  NA 456</span></span></code></pre></div>
+<p>解析失败会提示相关警示：</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="data-import.html#cb124-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">parse_integer</span>(<span class="fu">c</span>(<span class="st">&quot;123&quot;</span>, <span class="st">&quot;345&quot;</span>, <span class="st">&quot;abc&quot;</span>, <span class="st">&quot;123.45&quot;</span>))</span>
+<span id="cb124-2"><a href="data-import.html#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: 2 parsing failures.</span></span>
+<span id="cb124-3"><a href="data-import.html#cb124-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; row col               expected actual</span></span>
+<span id="cb124-4"><a href="data-import.html#cb124-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   3  -- an integer             abc</span></span>
+<span id="cb124-5"><a href="data-import.html#cb124-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   4  -- no trailing characters 123.45</span></span></code></pre></div>
+<p>之后的读取也会报错：</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="data-import.html#cb125-1" aria-hidden="true" tabindex="-1"></a>x</span>
+<span id="cb125-2"><a href="data-import.html#cb125-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 123 345  NA  NA</span></span>
+<span id="cb125-3"><a href="data-import.html#cb125-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;problems&quot;)</span></span>
+<span id="cb125-4"><a href="data-import.html#cb125-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 x 4</span></span>
+<span id="cb125-5"><a href="data-import.html#cb125-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     row   col expected               actual</span></span>
+<span id="cb125-6"><a href="data-import.html#cb125-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;                  &lt;chr&gt;</span></span>
+<span id="cb125-7"><a href="data-import.html#cb125-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     3    NA an integer             abc</span></span>
+<span id="cb125-8"><a href="data-import.html#cb125-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     4    NA no trailing characters 123.45</span></span></code></pre></div>
+<p>和提示的一样，我们可以使用 problems() 函数显示错误根源：</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="data-import.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">problems</span>(x)</span>
+<span id="cb126-2"><a href="data-import.html#cb126-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 x 4</span></span>
+<span id="cb126-3"><a href="data-import.html#cb126-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     row   col expected               actual</span></span>
+<span id="cb126-4"><a href="data-import.html#cb126-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;                  &lt;chr&gt;</span></span>
+<span id="cb126-5"><a href="data-import.html#cb126-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     3    NA an integer             abc</span></span>
+<span id="cb126-6"><a href="data-import.html#cb126-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     4    NA no trailing characters 123.45</span></span></code></pre></div>
+</div>
+<div id="数字类型" class="section level2 hasAnchor" number="12.3">
+<h2><span class="header-section-number">12.3</span> 数字类型<a href="data-import.html#数字类型" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>不同国家地区使用的分隔符、习惯等都不相同。所以这里有 locale 参数用来处理。如：</p>
+<p>小数点标识符（decimal_mark）：</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="data-import.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_double</span>(<span class="st">&quot;1.23&quot;</span>)</span>
+<span id="cb127-2"><a href="data-import.html#cb127-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1.23</span></span>
+<span id="cb127-3"><a href="data-import.html#cb127-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_double</span>(<span class="st">&quot;1,23&quot;</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">decimal_mark =</span> <span class="st">&quot;,&quot;</span>)) <span class="co"># 改用 “,” 识别</span></span>
+<span id="cb127-4"><a href="data-import.html#cb127-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1.23</span></span></code></pre></div>
+<p>数字前后非数字字符：</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="data-import.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_number</span>(<span class="st">&quot;$100&quot;</span>)</span>
+<span id="cb128-2"><a href="data-import.html#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 100</span></span>
+<span id="cb128-3"><a href="data-import.html#cb128-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_number</span>(<span class="st">&quot;20%&quot;</span>)</span>
+<span id="cb128-4"><a href="data-import.html#cb128-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 20</span></span>
+<span id="cb128-5"><a href="data-import.html#cb128-5" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_number</span>(<span class="st">&quot;It cost $123.45&quot;</span>)</span>
+<span id="cb128-6"><a href="data-import.html#cb128-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 123.45</span></span></code></pre></div>
+<p>位数标记（grouping_mark）：</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="data-import.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_number</span>(<span class="st">&quot;$123,456,789&quot;</span>)</span>
+<span id="cb129-2"><a href="data-import.html#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 123456789</span></span>
+<span id="cb129-3"><a href="data-import.html#cb129-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_number</span>(<span class="st">&quot;123.456.789&quot;</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">grouping_mark =</span> <span class="st">&quot;.&quot;</span>)) <span class="co"># 常见于欧洲</span></span>
+<span id="cb129-4"><a href="data-import.html#cb129-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 123456789</span></span>
+<span id="cb129-5"><a href="data-import.html#cb129-5" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_number</span>(<span class="st">&quot;123&#39;456&#39;789&quot;</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">grouping_mark =</span> <span class="st">&quot;&#39;&quot;</span>)) <span class="co"># 常见于瑞士</span></span>
+<span id="cb129-6"><a href="data-import.html#cb129-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 123456789</span></span></code></pre></div>
+</div>
+<div id="字符类型" class="section level2 hasAnchor" number="12.4">
+<h2><span class="header-section-number">12.4</span> 字符类型<a href="data-import.html#字符类型" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>貌似 parse_character() 是只会返回输入的无用函数。但事实上，我们有多种方式来表示同一字符串。要了解 R 中如何表示字符串的细节，我们可以使用 charToRaw() 获得字符串的底层表示：</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="data-import.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">charToRaw</span>(<span class="st">&quot;Hadley&quot;</span>)</span>
+<span id="cb130-2"><a href="data-import.html#cb130-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 48 61 64 6c 65 79</span></span></code></pre></div>
+<p>像这样，从十六进制数字到字符的映射的编码称为 ASCII，也是美国信息交换标准代码。但英语以外的编码就非常复杂了，用不同编码读取数据，他们将完全不同。</p>
+<p>如今我们有一个通用标准：UTF-8。UTF-8几乎可以编码当今人类使用的每个字符，以及许多额外的符号。</p>
+<p>但旧的非通用标准有时也是需要的：</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="data-import.html#cb131-1" aria-hidden="true" tabindex="-1"></a>(x1 <span class="ot">&lt;-</span> <span class="st">&quot;El Ni</span><span class="sc">\xf1</span><span class="st">o was particularly bad this year&quot;</span>)</span>
+<span id="cb131-2"><a href="data-import.html#cb131-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;El Ni駉 was particularly bad this year&quot;</span></span>
+<span id="cb131-3"><a href="data-import.html#cb131-3" aria-hidden="true" tabindex="-1"></a>(x2 <span class="ot">&lt;-</span> <span class="st">&quot;</span><span class="sc">\x82\xb1\x82\xf1\x82\xc9\x82\xbf\x82\xcd</span><span class="st">&quot;</span>)</span>
+<span id="cb131-4"><a href="data-import.html#cb131-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;偙傫偵偪偼&quot;</span></span></code></pre></div>
+<p>使用 encoding 来转译它们的编码：</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="data-import.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_character</span>(x1, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;Latin1&quot;</span>))</span>
+<span id="cb132-2"><a href="data-import.html#cb132-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;El Ni&lt;U+00F1&gt;o was particularly bad this year&quot;</span></span>
+<span id="cb132-3"><a href="data-import.html#cb132-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_character</span>(x2, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;Shift-JIS&quot;</span>))</span>
+<span id="cb132-4"><a href="data-import.html#cb132-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;こんにちは&quot;</span></span></code></pre></div>
+<p>有时我们并不知道它是什么类型的编码！所幸的是，guess_encodeing() 会帮助我们尝试：</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="data-import.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="fu">guess_encoding</span>(<span class="fu">charToRaw</span>(x1))</span>
+<span id="cb133-2"><a href="data-import.html#cb133-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 x 2</span></span>
+<span id="cb133-3"><a href="data-import.html#cb133-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   encoding   confidence</span></span>
+<span id="cb133-4"><a href="data-import.html#cb133-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;           &lt;dbl&gt;</span></span>
+<span id="cb133-5"><a href="data-import.html#cb133-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 ISO-8859-1       0.46</span></span>
+<span id="cb133-6"><a href="data-import.html#cb133-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 ISO-8859-9       0.23</span></span>
+<span id="cb133-7"><a href="data-import.html#cb133-7" aria-hidden="true" tabindex="-1"></a><span class="fu">guess_encoding</span>(<span class="fu">charToRaw</span>(x2))</span>
+<span id="cb133-8"><a href="data-import.html#cb133-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 2</span></span>
+<span id="cb133-9"><a href="data-import.html#cb133-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   encoding confidence</span></span>
+<span id="cb133-10"><a href="data-import.html#cb133-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;         &lt;dbl&gt;</span></span>
+<span id="cb133-11"><a href="data-import.html#cb133-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 KOI8-R         0.42</span></span></code></pre></div>
+</div>
+<div id="因子类型" class="section level2 hasAnchor" number="12.5">
+<h2><span class="header-section-number">12.5</span> 因子类型<a href="data-import.html#因子类型" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R 使用因子来表示具有一组已知可能值的分类变量。给 parse_factor() 一个已知 levels 的向量，以便在出现意外值时生成警告：</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="data-import.html#cb134-1" aria-hidden="true" tabindex="-1"></a>fruit <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;apple&quot;</span>, <span class="st">&quot;banana&quot;</span>)</span>
+<span id="cb134-2"><a href="data-import.html#cb134-2" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_factor</span>(<span class="fu">c</span>(<span class="st">&quot;apple&quot;</span>, <span class="st">&quot;banana&quot;</span>, <span class="st">&quot;bananana&quot;</span>), <span class="at">levels =</span> fruit)</span>
+<span id="cb134-3"><a href="data-import.html#cb134-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: 1 parsing failure.</span></span>
+<span id="cb134-4"><a href="data-import.html#cb134-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; row col           expected   actual</span></span>
+<span id="cb134-5"><a href="data-import.html#cb134-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   3  -- value in level set bananana</span></span>
+<span id="cb134-6"><a href="data-import.html#cb134-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] apple  banana &lt;NA&gt;</span></span>
+<span id="cb134-7"><a href="data-import.html#cb134-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;problems&quot;)</span></span>
+<span id="cb134-8"><a href="data-import.html#cb134-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 4</span></span>
+<span id="cb134-9"><a href="data-import.html#cb134-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     row   col expected           actual</span></span>
+<span id="cb134-10"><a href="data-import.html#cb134-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;              &lt;chr&gt;</span></span>
+<span id="cb134-11"><a href="data-import.html#cb134-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     3    NA value in level set bananana</span></span>
+<span id="cb134-12"><a href="data-import.html#cb134-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Levels: apple banana</span></span></code></pre></div>
+</div>
+<div id="日期时间类型" class="section level2 hasAnchor" number="12.6">
+<h2><span class="header-section-number">12.6</span> 日期时间类型<a href="data-import.html#日期时间类型" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>我们可以根据想要的日期（自1970-01-01以来的天数）、日期时间（自1970-01-01年以来的秒数）或时间（自午夜以来的秒数），在三个解析器之间进行选择。当在没有任何其他参数的情况下调用时：</p>
+<p>parse_datetime() 根据 ISO8601 国际标准转换日期时间：</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="data-import.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_datetime</span>(<span class="st">&quot;2010-10-01T2010&quot;</span>)</span>
+<span id="cb135-2"><a href="data-import.html#cb135-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2010-10-01 20:10:00 UTC&quot;</span></span>
+<span id="cb135-3"><a href="data-import.html#cb135-3" aria-hidden="true" tabindex="-1"></a><span class="co"># If time is omitted, it will be set to midnight</span></span>
+<span id="cb135-4"><a href="data-import.html#cb135-4" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_datetime</span>(<span class="st">&quot;20101010&quot;</span>)</span>
+<span id="cb135-5"><a href="data-import.html#cb135-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2010-10-10 UTC&quot;</span></span></code></pre></div>
+<p>parse_date() 用于转换四位数年份，使用 “-” 或 “/” 都可（但没有分隔符则会报错）：</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="data-import.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_date</span>(<span class="st">&quot;2010-10-01&quot;</span>)</span>
+<span id="cb136-2"><a href="data-import.html#cb136-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2010-10-01&quot;</span></span></code></pre></div>
+<p>parse_time() 用于转换时分秒（秒和上下午可选）：</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="data-import.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hms) <span class="co"># R 不自带，我们需要调用 hms 包（tidyverse 的 readr 包也有）</span></span>
+<span id="cb137-2"><a href="data-import.html#cb137-2" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_time</span>(<span class="st">&quot;01:10 am&quot;</span>)</span>
+<span id="cb137-3"><a href="data-import.html#cb137-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 01:10:00</span></span>
+<span id="cb137-4"><a href="data-import.html#cb137-4" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_time</span>(<span class="st">&quot;20:10:01&quot;</span>)</span>
+<span id="cb137-5"><a href="data-import.html#cb137-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 20:10:01</span></span></code></pre></div>
+<p>此外日期时间字符串形式可以自己制定：</p>
+<table>
+<thead>
+<tr class="header">
+<th>类型</th>
+<th>表示符</th>
+<th>备注</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>年</td>
+<td>%Y</td>
+<td>4位数字</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>年</td>
+<td>%y</td>
+<td>2位数字</td>
+<td>00-69 -&gt; 2000-2069</td>
+</tr>
+<tr class="odd">
+<td>月</td>
+<td>%m</td>
+<td>2位数字</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>月</td>
+<td>%b</td>
+<td>缩写</td>
+<td>Jan</td>
+</tr>
+<tr class="odd">
+<td>月</td>
+<td>%B</td>
+<td>全称</td>
+<td>一月</td>
+</tr>
+<tr class="even">
+<td>日</td>
+<td>%d</td>
+<td>2位数字</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>日</td>
+<td>%e</td>
+<td>optional leading space</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>时</td>
+<td>%H</td>
+<td>0-23小时</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>时</td>
+<td>%I</td>
+<td>0-12小时，与 %p 捆绑使用</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>上下午</td>
+<td>%p</td>
+<td>AM/PM</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>分</td>
+<td>%M</td>
+<td>分钟</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>秒</td>
+<td>%S</td>
+<td>整数秒</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>秒</td>
+<td>%OS</td>
+<td>真正意义的秒</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>时区</td>
+<td>%Z</td>
+<td>时区（名称）</td>
+<td>America/Chicago</td>
+</tr>
+<tr class="odd">
+<td>标准时区</td>
+<td>%z</td>
+<td>以 UTC 标准时区做偏移量</td>
+<td>+0800</td>
+</tr>
+<tr class="even">
+<td>非数字</td>
+<td>%.</td>
+<td>跳过一个非数字字符</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>非数字</td>
+<td>%*</td>
+<td>跳过任意数量的非数字</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>例如：</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="data-import.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_date</span>(<span class="st">&quot;01/02/15&quot;</span>, <span class="st">&quot;%m/%d/%y&quot;</span>)</span>
+<span id="cb138-2"><a href="data-import.html#cb138-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2015-01-02&quot;</span></span>
+<span id="cb138-3"><a href="data-import.html#cb138-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_date</span>(<span class="st">&quot;01/02/15&quot;</span>, <span class="st">&quot;%d/%m/%y&quot;</span>)</span>
+<span id="cb138-4"><a href="data-import.html#cb138-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2015-02-01&quot;</span></span>
+<span id="cb138-5"><a href="data-import.html#cb138-5" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_date</span>(<span class="st">&quot;01/02/15&quot;</span>, <span class="st">&quot;%y/%m/%d&quot;</span>)</span>
+<span id="cb138-6"><a href="data-import.html#cb138-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2001-02-15&quot;</span></span></code></pre></div>
+<p>如果将 %b 或 %B 与非英语的月份名称一起使用，则需要将 lang 参数设置为 locale()。使用函数 date_names_langs() 查看内置语言列表，或者使用 date_names() 自定义。</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="data-import.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_date</span>(<span class="st">&quot;1 janvier 2015&quot;</span>, <span class="st">&quot;%d %B %Y&quot;</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="st">&quot;fr&quot;</span>))</span>
+<span id="cb139-2"><a href="data-import.html#cb139-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2015-01-01&quot;</span></span></code></pre></div>
+</div>
+<div id="解析文件" class="section level2 hasAnchor" number="12.7">
+<h2><span class="header-section-number">12.7</span> 解析文件<a href="data-import.html#解析文件" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="自动匹配" class="section level3 hasAnchor" number="12.7.1">
+<h3><span class="header-section-number">12.7.1</span> 自动匹配<a href="data-import.html#自动匹配" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>readr 一般读取前 1000 行，并使用一些 “启发式” 的方法（保持适度保守）来确定每列的类型。其中 guess_parser() 返回字符向量的最佳类型猜测，而 parse_guess() 返回用该类型解析的内容：</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="data-import.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">guess_parser</span>(<span class="st">&quot;2010-10-01&quot;</span>)</span>
+<span id="cb140-2"><a href="data-import.html#cb140-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;date&quot;</span></span>
+<span id="cb140-3"><a href="data-import.html#cb140-3" aria-hidden="true" tabindex="-1"></a><span class="fu">guess_parser</span>(<span class="st">&quot;15:01&quot;</span>)</span>
+<span id="cb140-4"><a href="data-import.html#cb140-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;time&quot;</span></span>
+<span id="cb140-5"><a href="data-import.html#cb140-5" aria-hidden="true" tabindex="-1"></a><span class="fu">guess_parser</span>(<span class="fu">c</span>(<span class="st">&quot;TRUE&quot;</span>, <span class="st">&quot;FALSE&quot;</span>))</span>
+<span id="cb140-6"><a href="data-import.html#cb140-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;logical&quot;</span></span>
+<span id="cb140-7"><a href="data-import.html#cb140-7" aria-hidden="true" tabindex="-1"></a><span class="fu">guess_parser</span>(<span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;5&quot;</span>, <span class="st">&quot;9&quot;</span>))</span>
+<span id="cb140-8"><a href="data-import.html#cb140-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;double&quot;</span></span>
+<span id="cb140-9"><a href="data-import.html#cb140-9" aria-hidden="true" tabindex="-1"></a><span class="fu">guess_parser</span>(<span class="fu">c</span>(<span class="st">&quot;12,352,561&quot;</span>))</span>
+<span id="cb140-10"><a href="data-import.html#cb140-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;number&quot;</span></span>
+<span id="cb140-11"><a href="data-import.html#cb140-11" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">parse_guess</span>(<span class="st">&quot;2010-10-10&quot;</span>))</span>
+<span id="cb140-12"><a href="data-import.html#cb140-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Date[1:1], format: &quot;2010-10-10&quot;</span></span></code></pre></div>
+<p>这种 “启发式” 尝试以下每种类型，并在找到满足匹配项时停止：
+- 逻辑值：仅包含 “F”、“T”、“FALSE” 或 “TRUE”。
+- 整数：仅包含数字字符（可能还有 “-”）。
+- 小数：仅包含有效的小数（可能还有 4.5e-5 等数字）。
+- 数字：包含有效的小数类型（可能还有分组标记）。
+- 时间：与默认的 time_format 匹配。
+- 日期：与默认的 date_format 匹配。
+- 日期时间：任何满足 ISO8601 格式的日期时间。如果这些规则都不适用，那么该列将保持字符串向量。</p>
+</div>
+<div id="自动匹配遇到的问题" class="section level3 hasAnchor" number="12.7.2">
+<h3><span class="header-section-number">12.7.2</span> 自动匹配遇到的问题<a href="data-import.html#自动匹配遇到的问题" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<blockquote>
+<p>在学习这里的时候发现问题已经无法复现。此处已经不再报错</p>
+</blockquote>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="data-import.html#cb141-1" aria-hidden="true" tabindex="-1"></a>challenge <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">readr_example</span>(<span class="st">&quot;challenge.csv&quot;</span>))</span>
+<span id="cb141-2"><a href="data-import.html#cb141-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ── Column specification ───────────────────────────────────────────</span></span>
+<span id="cb141-3"><a href="data-import.html#cb141-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cols(</span></span>
+<span id="cb141-4"><a href="data-import.html#cb141-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   x = col_double(),</span></span>
+<span id="cb141-5"><a href="data-import.html#cb141-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   y = col_logical()</span></span>
+<span id="cb141-6"><a href="data-import.html#cb141-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; )</span></span>
+<span id="cb141-7"><a href="data-import.html#cb141-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: 1000 parsing failures.</span></span>
+<span id="cb141-8"><a href="data-import.html#cb141-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  row col           expected     actual                        file</span></span>
+<span id="cb141-9"><a href="data-import.html#cb141-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1001   y 1/0/T/F/TRUE/FALSE 2015-01-16 &#39;/Users/runner/work/_temp/…</span></span>
+<span id="cb141-10"><a href="data-import.html#cb141-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1002   y 1/0/T/F/TRUE/FALSE 2018-05-18 &#39;/Users/runner/work/_temp/…</span></span>
+<span id="cb141-11"><a href="data-import.html#cb141-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1003   y 1/0/T/F/TRUE/FALSE 2015-09-05 &#39;/Users/runner/work/_temp/…</span></span>
+<span id="cb141-12"><a href="data-import.html#cb141-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1004   y 1/0/T/F/TRUE/FALSE 2012-11-28 &#39;/Users/runner/work/_temp/…</span></span>
+<span id="cb141-13"><a href="data-import.html#cb141-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1005   y 1/0/T/F/TRUE/FALSE 2020-01-13 &#39;/Users/runner/work/_temp/…</span></span>
+<span id="cb141-14"><a href="data-import.html#cb141-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .... ... .................. .......... .........................…</span></span>
+<span id="cb141-15"><a href="data-import.html#cb141-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; See problems(...) for more details.</span></span></code></pre></div>
+<p>我们决定对错误进行定位：</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="data-import.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">problems</span>(challenge)</span>
+<span id="cb142-2"><a href="data-import.html#cb142-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,000 x 5</span></span>
+<span id="cb142-3"><a href="data-import.html#cb142-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     row col   expected        actual   file</span></span>
+<span id="cb142-4"><a href="data-import.html#cb142-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;    &lt;chr&gt;</span></span>
+<span id="cb142-5"><a href="data-import.html#cb142-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1001 y     1/0/T/F/TRUE/F… 2015-01… &#39;/Users/runner/work/_temp/…</span></span>
+<span id="cb142-6"><a href="data-import.html#cb142-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  1002 y     1/0/T/F/TRUE/F… 2018-05… &#39;/Users/runner/work/_temp/…</span></span>
+<span id="cb142-7"><a href="data-import.html#cb142-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  1003 y     1/0/T/F/TRUE/F… 2015-09… &#39;/Users/runner/work/_temp/…</span></span>
+<span id="cb142-8"><a href="data-import.html#cb142-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  1004 y     1/0/T/F/TRUE/F… 2012-11… &#39;/Users/runner/work/_temp/…</span></span>
+<span id="cb142-9"><a href="data-import.html#cb142-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  1005 y     1/0/T/F/TRUE/F… 2020-01… &#39;/Users/runner/work/_temp/…</span></span>
+<span id="cb142-10"><a href="data-import.html#cb142-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  1006 y     1/0/T/F/TRUE/F… 2016-04… &#39;/Users/runner/work/_temp/…</span></span>
+<span id="cb142-11"><a href="data-import.html#cb142-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 994 more rows</span></span></code></pre></div>
+<p>嗯…怎么看了跟没看似的。tail() 函数用来查看表头或表尾：</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="data-import.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(challenge)</span>
+<span id="cb143-2"><a href="data-import.html#cb143-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 x 2</span></span>
+<span id="cb143-3"><a href="data-import.html#cb143-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       x y</span></span>
+<span id="cb143-4"><a href="data-import.html#cb143-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;lgl&gt;</span></span>
+<span id="cb143-5"><a href="data-import.html#cb143-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 0.805 NA</span></span>
+<span id="cb143-6"><a href="data-import.html#cb143-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0.164 NA</span></span>
+<span id="cb143-7"><a href="data-import.html#cb143-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 0.472 NA</span></span>
+<span id="cb143-8"><a href="data-import.html#cb143-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 0.718 NA</span></span>
+<span id="cb143-9"><a href="data-import.html#cb143-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 0.270 NA</span></span>
+<span id="cb143-10"><a href="data-import.html#cb143-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 0.608 NA</span></span></code></pre></div>
+<p>这表明我们需要手动对数据进行解析：</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="data-import.html#cb144-1" aria-hidden="true" tabindex="-1"></a>challenge <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb144-2"><a href="data-import.html#cb144-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">readr_example</span>(<span class="st">&quot;challenge.csv&quot;</span>),</span>
+<span id="cb144-3"><a href="data-import.html#cb144-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>( <span class="co"># 对列类型进行手动声明</span></span>
+<span id="cb144-4"><a href="data-import.html#cb144-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">col_double</span>(), <span class="co"># 第一列为 x，小数类型</span></span>
+<span id="cb144-5"><a href="data-import.html#cb144-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">col_logical</span>() <span class="co"># 第二列为 y，逻辑值类型</span></span>
+<span id="cb144-6"><a href="data-import.html#cb144-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb144-7"><a href="data-import.html#cb144-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb144-8"><a href="data-import.html#cb144-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: One or more parsing issues, see `problems()` for details</span></span>
+<span id="cb144-9"><a href="data-import.html#cb144-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-10"><a href="data-import.html#cb144-10" aria-hidden="true" tabindex="-1"></a>challenge <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb144-11"><a href="data-import.html#cb144-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">readr_example</span>(<span class="st">&quot;challenge.csv&quot;</span>),</span>
+<span id="cb144-12"><a href="data-import.html#cb144-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(</span>
+<span id="cb144-13"><a href="data-import.html#cb144-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb144-14"><a href="data-import.html#cb144-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">col_date</span>()</span>
+<span id="cb144-15"><a href="data-import.html#cb144-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb144-16"><a href="data-import.html#cb144-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb144-17"><a href="data-import.html#cb144-17" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(challenge)</span>
+<span id="cb144-18"><a href="data-import.html#cb144-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 x 2</span></span>
+<span id="cb144-19"><a href="data-import.html#cb144-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       x y         </span></span>
+<span id="cb144-20"><a href="data-import.html#cb144-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;date&gt;    </span></span>
+<span id="cb144-21"><a href="data-import.html#cb144-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 0.805 2019-11-21</span></span>
+<span id="cb144-22"><a href="data-import.html#cb144-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0.164 2018-03-29</span></span>
+<span id="cb144-23"><a href="data-import.html#cb144-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 0.472 2014-08-04</span></span>
+<span id="cb144-24"><a href="data-import.html#cb144-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 0.718 2015-08-16</span></span>
+<span id="cb144-25"><a href="data-import.html#cb144-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 0.270 2020-02-04</span></span>
+<span id="cb144-26"><a href="data-import.html#cb144-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 0.608 2019-01-06</span></span></code></pre></div>
+<p>col_types 是有必要的，这至少能确保它生成的数据更为可靠一些。</p>
+</div>
+<div id="其他的匹配解决策略" class="section level3 hasAnchor" number="12.7.3">
+<h3><span class="header-section-number">12.7.3</span> 其他的匹配解决策略<a href="data-import.html#其他的匹配解决策略" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>上面提到的自动解析出错只是因为默认的 1000 行不够用而已。哪怕只是多解析一行：</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="data-import.html#cb145-1" aria-hidden="true" tabindex="-1"></a>challenge2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">readr_example</span>(<span class="st">&quot;challenge.csv&quot;</span>), <span class="at">guess_max =</span> <span class="dv">1001</span>)</span>
+<span id="cb145-2"><a href="data-import.html#cb145-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 2000 Columns: 2</span></span>
+<span id="cb145-3"><a href="data-import.html#cb145-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Column specification -------------------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb145-4"><a href="data-import.html#cb145-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Delimiter: &quot;,&quot;</span></span>
+<span id="cb145-5"><a href="data-import.html#cb145-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dbl  (1): x</span></span>
+<span id="cb145-6"><a href="data-import.html#cb145-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; date (1): y</span></span>
+<span id="cb145-7"><a href="data-import.html#cb145-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb145-8"><a href="data-import.html#cb145-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span id="cb145-9"><a href="data-import.html#cb145-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
+<span id="cb145-10"><a href="data-import.html#cb145-10" aria-hidden="true" tabindex="-1"></a>challenge2</span>
+<span id="cb145-11"><a href="data-import.html#cb145-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2,000 x 2</span></span>
+<span id="cb145-12"><a href="data-import.html#cb145-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        x y     </span></span>
+<span id="cb145-13"><a href="data-import.html#cb145-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;date&gt;</span></span>
+<span id="cb145-14"><a href="data-import.html#cb145-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1   404 NA    </span></span>
+<span id="cb145-15"><a href="data-import.html#cb145-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  4172 NA    </span></span>
+<span id="cb145-16"><a href="data-import.html#cb145-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  3004 NA    </span></span>
+<span id="cb145-17"><a href="data-import.html#cb145-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4   787 NA    </span></span>
+<span id="cb145-18"><a href="data-import.html#cb145-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5    37 NA    </span></span>
+<span id="cb145-19"><a href="data-import.html#cb145-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  2332 NA    </span></span>
+<span id="cb145-20"><a href="data-import.html#cb145-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  2489 NA    </span></span>
+<span id="cb145-21"><a href="data-import.html#cb145-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  1449 NA    </span></span>
+<span id="cb145-22"><a href="data-import.html#cb145-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  3665 NA    </span></span>
+<span id="cb145-23"><a href="data-import.html#cb145-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  3863 NA    </span></span>
+<span id="cb145-24"><a href="data-import.html#cb145-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 1,990 more rows</span></span></code></pre></div>
+<p>你看。问题解决了呢。</p>
+<p>另外一种思路是将向量声明为默认字符类型向量，这可能使你的定位更容易一些：</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="data-import.html#cb146-1" aria-hidden="true" tabindex="-1"></a>challenge2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">readr_example</span>(<span class="st">&quot;challenge.csv&quot;</span>),</span>
+<span id="cb146-2"><a href="data-import.html#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">.default =</span> <span class="fu">col_character</span>())</span>
+<span id="cb146-3"><a href="data-import.html#cb146-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>这里用简单的数据集演示 type_convert() 的效果：</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="data-import.html#cb147-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb147-2"><a href="data-import.html#cb147-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>x,  <span class="sc">~</span>y,</span>
+<span id="cb147-3"><a href="data-import.html#cb147-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1.21&quot;</span>,</span>
+<span id="cb147-4"><a href="data-import.html#cb147-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2.32&quot;</span>,</span>
+<span id="cb147-5"><a href="data-import.html#cb147-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4.56&quot;</span></span>
+<span id="cb147-6"><a href="data-import.html#cb147-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb147-7"><a href="data-import.html#cb147-7" aria-hidden="true" tabindex="-1"></a>df</span>
+<span id="cb147-8"><a href="data-import.html#cb147-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
+<span id="cb147-9"><a href="data-import.html#cb147-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   x     y    </span></span>
+<span id="cb147-10"><a href="data-import.html#cb147-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb147-11"><a href="data-import.html#cb147-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 1     1.21 </span></span>
+<span id="cb147-12"><a href="data-import.html#cb147-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 2     2.32 </span></span>
+<span id="cb147-13"><a href="data-import.html#cb147-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 3     4.56</span></span>
+<span id="cb147-14"><a href="data-import.html#cb147-14" aria-hidden="true" tabindex="-1"></a><span class="fu">type_convert</span>(df)</span>
+<span id="cb147-15"><a href="data-import.html#cb147-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb147-16"><a href="data-import.html#cb147-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Column specification -------------------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb147-17"><a href="data-import.html#cb147-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cols(</span></span>
+<span id="cb147-18"><a href="data-import.html#cb147-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   x = col_double(),</span></span>
+<span id="cb147-19"><a href="data-import.html#cb147-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   y = col_double()</span></span>
+<span id="cb147-20"><a href="data-import.html#cb147-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; )</span></span>
+<span id="cb147-21"><a href="data-import.html#cb147-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
+<span id="cb147-22"><a href="data-import.html#cb147-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       x     y</span></span>
+<span id="cb147-23"><a href="data-import.html#cb147-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb147-24"><a href="data-import.html#cb147-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1  1.21</span></span>
+<span id="cb147-25"><a href="data-import.html#cb147-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2  2.32</span></span>
+<span id="cb147-26"><a href="data-import.html#cb147-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     3  4.56</span></span></code></pre></div>
+<p>可以看到 “启发性” 转换到底转换成了什么类型。</p>
+</div>
+</div>
+<div id="写入数据" class="section level2 hasAnchor" number="12.8">
+<h2><span class="header-section-number">12.8</span> 写入数据<a href="data-import.html#写入数据" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="csv-格式" class="section level3 hasAnchor" number="12.8.1">
+<h3><span class="header-section-number">12.8.1</span> csv 格式<a href="data-import.html#csv-格式" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="data-import.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(challenge, <span class="st">&quot;./source/challenge.csv&quot;</span>)</span></code></pre></div>
+<p>很简单，不是吗？小心事情还没结束。你看，数据类型就这么丢了：</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="data-import.html#cb149-1" aria-hidden="true" tabindex="-1"></a>challenge</span>
+<span id="cb149-2"><a href="data-import.html#cb149-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2,000 x 2</span></span>
+<span id="cb149-3"><a href="data-import.html#cb149-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        x y     </span></span>
+<span id="cb149-4"><a href="data-import.html#cb149-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;date&gt;</span></span>
+<span id="cb149-5"><a href="data-import.html#cb149-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1   404 NA    </span></span>
+<span id="cb149-6"><a href="data-import.html#cb149-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  4172 NA    </span></span>
+<span id="cb149-7"><a href="data-import.html#cb149-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  3004 NA    </span></span>
+<span id="cb149-8"><a href="data-import.html#cb149-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4   787 NA    </span></span>
+<span id="cb149-9"><a href="data-import.html#cb149-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5    37 NA    </span></span>
+<span id="cb149-10"><a href="data-import.html#cb149-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  2332 NA    </span></span>
+<span id="cb149-11"><a href="data-import.html#cb149-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  2489 NA    </span></span>
+<span id="cb149-12"><a href="data-import.html#cb149-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  1449 NA    </span></span>
+<span id="cb149-13"><a href="data-import.html#cb149-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  3665 NA    </span></span>
+<span id="cb149-14"><a href="data-import.html#cb149-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  3863 NA    </span></span>
+<span id="cb149-15"><a href="data-import.html#cb149-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 1,990 more rows</span></span>
+<span id="cb149-16"><a href="data-import.html#cb149-16" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(challenge, <span class="st">&quot;./source/challenge-2.csv&quot;</span>)</span>
+<span id="cb149-17"><a href="data-import.html#cb149-17" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;./source/challenge-2.csv&quot;</span>)</span>
+<span id="cb149-18"><a href="data-import.html#cb149-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 2000 Columns: 2</span></span>
+<span id="cb149-19"><a href="data-import.html#cb149-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Column specification -------------------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb149-20"><a href="data-import.html#cb149-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Delimiter: &quot;,&quot;</span></span>
+<span id="cb149-21"><a href="data-import.html#cb149-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dbl  (1): x</span></span>
+<span id="cb149-22"><a href="data-import.html#cb149-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; date (1): y</span></span>
+<span id="cb149-23"><a href="data-import.html#cb149-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb149-24"><a href="data-import.html#cb149-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span id="cb149-25"><a href="data-import.html#cb149-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
+<span id="cb149-26"><a href="data-import.html#cb149-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2,000 x 2</span></span>
+<span id="cb149-27"><a href="data-import.html#cb149-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        x y     </span></span>
+<span id="cb149-28"><a href="data-import.html#cb149-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;date&gt;</span></span>
+<span id="cb149-29"><a href="data-import.html#cb149-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1   404 NA    </span></span>
+<span id="cb149-30"><a href="data-import.html#cb149-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  4172 NA    </span></span>
+<span id="cb149-31"><a href="data-import.html#cb149-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  3004 NA    </span></span>
+<span id="cb149-32"><a href="data-import.html#cb149-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4   787 NA    </span></span>
+<span id="cb149-33"><a href="data-import.html#cb149-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5    37 NA    </span></span>
+<span id="cb149-34"><a href="data-import.html#cb149-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  2332 NA    </span></span>
+<span id="cb149-35"><a href="data-import.html#cb149-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  2489 NA    </span></span>
+<span id="cb149-36"><a href="data-import.html#cb149-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  1449 NA    </span></span>
+<span id="cb149-37"><a href="data-import.html#cb149-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  3665 NA    </span></span>
+<span id="cb149-38"><a href="data-import.html#cb149-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  3863 NA    </span></span>
+<span id="cb149-39"><a href="data-import.html#cb149-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 1,990 more rows</span></span></code></pre></div>
+</div>
+<div id="rds-格式" class="section level3 hasAnchor" number="12.8.2">
+<h3><span class="header-section-number">12.8.2</span> rds 格式<a href="data-import.html#rds-格式" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>为了解决这个问题，我们提出了新的函数：write_rds() 和 read_rds() 基于 R 的基本函数 readRDS() 和 saveRDS()。注意这些数据会以被 R 称为 RDS 格式的自定义二进制格式存储数据：</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="data-import.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(challenge, <span class="st">&quot;./source/challenge.rds&quot;</span>)</span>
+<span id="cb150-2"><a href="data-import.html#cb150-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_rds</span>(<span class="st">&quot;./source/challenge.rds&quot;</span>)</span>
+<span id="cb150-3"><a href="data-import.html#cb150-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2,000 x 2</span></span>
+<span id="cb150-4"><a href="data-import.html#cb150-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        x y     </span></span>
+<span id="cb150-5"><a href="data-import.html#cb150-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;date&gt;</span></span>
+<span id="cb150-6"><a href="data-import.html#cb150-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1   404 NA    </span></span>
+<span id="cb150-7"><a href="data-import.html#cb150-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  4172 NA    </span></span>
+<span id="cb150-8"><a href="data-import.html#cb150-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  3004 NA    </span></span>
+<span id="cb150-9"><a href="data-import.html#cb150-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4   787 NA    </span></span>
+<span id="cb150-10"><a href="data-import.html#cb150-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5    37 NA    </span></span>
+<span id="cb150-11"><a href="data-import.html#cb150-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  2332 NA    </span></span>
+<span id="cb150-12"><a href="data-import.html#cb150-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  2489 NA    </span></span>
+<span id="cb150-13"><a href="data-import.html#cb150-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  1449 NA    </span></span>
+<span id="cb150-14"><a href="data-import.html#cb150-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  3665 NA    </span></span>
+<span id="cb150-15"><a href="data-import.html#cb150-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  3863 NA    </span></span>
+<span id="cb150-16"><a href="data-import.html#cb150-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 1,990 more rows</span></span></code></pre></div>
+<p>表现非常好，但 rds 格式不流行也不通用。</p>
+</div>
+<div id="feather-格式" class="section level3 hasAnchor" number="12.8.3">
+<h3><span class="header-section-number">12.8.3</span> feather 格式<a href="data-import.html#feather-格式" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>feather 包也实现了一种快速的二进制文件格式，可以跨编程语言共享：</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="data-import.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(feather)</span>
+<span id="cb151-2"><a href="data-import.html#cb151-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: 程辑包&#39;feather&#39;是用R版本4.1.3 来建造的</span></span>
+<span id="cb151-3"><a href="data-import.html#cb151-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write_feather</span>(challenge, <span class="st">&quot;./source/challenge.feather&quot;</span>)</span>
+<span id="cb151-4"><a href="data-import.html#cb151-4" aria-hidden="true" tabindex="-1"></a><span class="fu">read_feather</span>(<span class="st">&quot;./source/challenge.feather&quot;</span>)</span>
+<span id="cb151-5"><a href="data-import.html#cb151-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2,000 x 2</span></span>
+<span id="cb151-6"><a href="data-import.html#cb151-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        x y     </span></span>
+<span id="cb151-7"><a href="data-import.html#cb151-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;date&gt;</span></span>
+<span id="cb151-8"><a href="data-import.html#cb151-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1   404 NA    </span></span>
+<span id="cb151-9"><a href="data-import.html#cb151-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  4172 NA    </span></span>
+<span id="cb151-10"><a href="data-import.html#cb151-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  3004 NA    </span></span>
+<span id="cb151-11"><a href="data-import.html#cb151-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4   787 NA    </span></span>
+<span id="cb151-12"><a href="data-import.html#cb151-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5    37 NA    </span></span>
+<span id="cb151-13"><a href="data-import.html#cb151-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  2332 NA    </span></span>
+<span id="cb151-14"><a href="data-import.html#cb151-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  2489 NA    </span></span>
+<span id="cb151-15"><a href="data-import.html#cb151-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  1449 NA    </span></span>
+<span id="cb151-16"><a href="data-import.html#cb151-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  3665 NA    </span></span>
+<span id="cb151-17"><a href="data-import.html#cb151-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  3863 NA    </span></span>
+<span id="cb151-18"><a href="data-import.html#cb151-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 1,990 more rows</span></span></code></pre></div>
+</div>
+<div id="其他格式" class="section level3 hasAnchor" number="12.8.4">
+<h3><span class="header-section-number">12.8.4</span> 其他格式<a href="data-import.html#其他格式" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>其他的一些常见格式也支持。事实上所有已知格式，在社区包的帮助下，通常都能解决。下面是一些常见格式：</p>
+<ul>
+<li>haven：读取 SPSS、Stata 和 SAS 文件。</li>
+<li>readxl：读取 excel 文件（包括.xls和.xlsx）。</li>
+<li>DBI：DBI 和一些特定数据库的后端（如 RMySQL、RSQLite、RPostgreSQL 等）。</li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tibbles.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/11-data-import.rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["R-Learning.pdf", "R-Learning.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
