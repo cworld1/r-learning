@@ -7,6 +7,8 @@
 
 这是关于 CWorld 学习 R 语言的一些笔记和代码。
 
+详见 [Github](https://github.com/cworld1/r-learning/)
+
 ## 项目介绍
 
 根目录中 `a ~ e`为 R 学习相关笔记部分，`z_Homework` 为学习时的作业源代码。每个部分都有 Introduction 来简述本部分内容并做一些简要的引入。
