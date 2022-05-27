@@ -1,11 +1,24 @@
-# 2 Introduction
+---
+title: "2 Introduction"
+date: 2022-05-26
+author: CWorld
+output: html_document
+---
 
 尽快掌握数据探索的基本工具是探究语言的第一要义。数据探索的目标是生成许多有前途的潜在信息，便于以后更深入地探索它们。
+
+```{r settings, include = FALSE}
+knitr::opts_chunk$set(
+    comment = "#>",
+    collapse = TRUE
+)
+```
+
 
 ![data-science-explore](https://d33wubrfki0l68.cloudfront.net/795c039ba2520455d833b4034befc8cf360a70ba/558a5/diagrams/data-science-explore.png)
 
 - **可视化**是 R 编程的重要部分：制作优雅且信息丰富的绘图，以帮助理解数据。学习 ggplot2 绘图的基本结构，将数据转换为绘图。
-- 在数据转换中，使用**关键谓词**允许您选择重要变量、筛选出关键观察结果、创建新变量和计算摘要。
+- 在数据转换中，使用**关键谓词**允许我们选择重要变量、筛选出关键观察结果、创建新变量和计算摘要。
 - **建模**是探索过程的重要组成部分，但这并不是当下能够弄清的，它会在以后的学习中逐渐深入。
 
 **在工作流**中：“基础知识”、“工作流：脚本” 和 “工作流：项目”，你将学习编写和组织 R 代码的良好实践。
@@ -18,7 +31,7 @@
 
 创建已知或未知的空向量用于存储一系列数据（如整数、小数、字符串）。
 
-```R
+```{R vector}
 x <- vector() # 创建空向量
 y <- c(1, 2) # 手动赋值
 # 在 R 中，我们可以使用 “:” 来创建序列填充
@@ -29,7 +42,7 @@ z <- c(1:3) # 这里其实等价于 1, 2, 3
 
 ![Matrix_transpose](https://www.runoob.com/wp-content/uploads/2020/07/Matrix_transpose.gif)
 
-```R
+```{R t()}
 rownames <- c("row1", "row2", "row3", "row4")
 colnames <- c("col1", "col2", "col3")
 m <- matrix(
@@ -39,13 +52,13 @@ m <- matrix(
     byrow = TRUE, # 设置为 TRUE 即按行排列，反之则按列排
     dimnames = list(rownames, colnames) # 设置行和列的标题，默认为 NULL
 )
-print(m)
-print(t(m))
+m
+t(m)
 ```
 
 列表使用 `list()` 创建。一个列表里可以随意放置向量里能放置的所有元素，甚至是一个向量、一个矩阵。
 
-```R
+```{R list(), eval = FALSE}
 list_data <- list(
     "google",
     matrix(c(1, 2, 3, 4, 5, 6), nrow = 2),
@@ -74,14 +87,14 @@ unlist(num_list) # 转换列表为向量
 
 数据集如下：
 
-```R
+```{R creat data}
 age <- c(10, 12, 14, 6, 8, 18)
 weight <- c(100, 110, 120, 80, 90, 140)
 ```
 
 数学中一些常用的计算函数
 
-```R
+```{R calculate}
 5 %% 3 # 求余数
 5 %/% 3 # 求模
 
@@ -95,7 +108,7 @@ lm(age ~ weight) # 求两者构成的回归直线斜率（注意波浪号连接�
 
 在 R 里画图非常简单。以上面的 age 和 weight 为例：
 
-```R
+```{R create graph}
 # 注意在 R 里面，相对路径的基层路径是由工作区设定的
 getwd() # 获取当前工作区路径
 setwd("D:/Project/R-Project/b_Explore_探索") # 设置工作区路径
@@ -114,7 +127,7 @@ dev.off() # 结束画图并保存
 
 dataframe 是一系列向量数据的集合：
 
-```R
+```{R data.frame()}
 data.frame(
     a = c(1:3),
     b = c(6:8)
@@ -123,7 +136,7 @@ data.frame(
 
 tibble 与 dataframe 非常相似，甚至是使用 dataframe 储存的。tibble 是 tidyverse 系列的专用数据集格式。它的优点是干净、方便数据处理。
 
-```R
+```{R tribble()}
 library(tidyverse)
 
 tribble(
