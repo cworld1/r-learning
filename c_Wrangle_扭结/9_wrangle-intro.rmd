@@ -1,4 +1,9 @@
-# 9 Introduction
+---
+title: "9 Introduction"
+date: 2022-05-27
+author: CWorld
+output: html_document
+---
 
 数据扭结，以合适的形式将数据导入 R 用于可视化和建模。数据整理非常重要：没有它，你就无法处理自己的数据！数据整理有三个主要部分：
 
