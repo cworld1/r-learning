@@ -1,6 +1,6 @@
 # Workflow: projects {#workflow-projects}
 
-```{R, include = FALSE}
+```{R settings, include = FALSE}
 knitr::opts_chunk$set(
     comment = "#>",
     collapse = TRUE
