@@ -5,7 +5,7 @@ author: CWorld
 output: html_document
 ---
 
-```{r setup, include = FALSE}
+```{R setup, include = FALSE}
 library(tidyverse)
 knitr::opts_chunk$set(
   comment = "#>",
@@ -81,7 +81,8 @@ Markdown 是一组用于设置纯文本文件格式的轻量级约定，其设�
 | ------------------- | -------- | -------- | ---- | ---- | ---- | ---- |
 | `eval = FALSE`      | -        |          | -    | -    | -    | -    |
 | `include = FALSE`   |          | -        | -    | -    | -    | -    |
-| `echo = FALSE`      |          | -        |      |      |      |      |
+| `echo = FALSE`      |          | -
+    |      |      |      |      |
 | `results = "hide"`  |          |          | -    |      |      |      |
 | `fig.show = "hide"` |          |          |      | -    |      |      |
 | `message = FALSE`   |          |          |      |      | -    |      |
@@ -89,7 +90,7 @@ Markdown 是一组用于设置纯文本文件格式的轻量级约定，其设�
 
 如果你需要展示 R 内的数据（如 tibble），请使用 [knitr::kable](https://rdrr.io/pkg/knitr/man/kable.html)：
 
-```{R}
+```{R kable}
 knitr::kable(
   mtcars[1:5, ],
   caption = "A knitr kable."
@@ -138,7 +139,7 @@ knitr::opts_chunk$set(
 
 有时文本信息像数字一类，可能不那么容易展示，我们可能需要 [format()](https://rdrr.io/r/base/format.html) 函数：
 
-```{R}
+```{R format}
 comma <- function(x) format(x, digits = 2, big.mark = ",")
 comma(3452345)
 comma(.12358124331)

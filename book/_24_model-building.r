@@ -86,7 +86,7 @@ grid
 #> 5 Ideal     -0.515 G     VS2      11.4
 ggplot(grid, aes(cut, pred)) +
     geom_point()
-# 如果模型需要您未显式提供的变量，data_grid() 将自动使用 “典型” 值填充它们。
+# 如果模型需要我们未显式提供的变量，data_grid() 将自动使用 “典型” 值填充它们。
 # 对于连续变量，它使用中位数，分类变量使用最常见的值（如果存在并列，则使用或值）。
 
 diamonds_new <- diamonds_new %>%
@@ -277,7 +277,7 @@ grid <- daily %>%
 ggplot(daily, aes(wday, n)) +
     geom_boxplot() +
     geom_point(data = grid, colour = "red") +
-    facet_wrap(~ term * model)
+    facet_grid(term ~ model)
 
 # 我们的模型总是在走向一个我们所期望的 “寻常态”，但很不幸元数据有许多非常突出的异常值，
 # 以至于我们的预测值与理想值相去甚远。所以我们提出了新函数 MASS::rlm() 来合理处理异常值。
@@ -332,7 +332,7 @@ mod3 <- lm(n ~ wday2(date) * term(date), data = daily)
 #   http://project-mosaic-books.com/?page_id=13
 #   （由于已经挂掉，这里使用 Archive 查看历史：http://t.cn/A6XNYGsY
 #   历史网址指向真正的在线阅读网站：https://dtkaplan.github.io/SM2-bookdown/）
-#   本书温和地（。？）介绍了建模，您可以在其中并行构建直觉，数学工具和一些关于 R 的小技巧。
+#   本书温和地（。？）介绍了建模，我们可以在其中并行构建直觉，数学工具和一些关于 R 的小技巧。
 #   这本书取代了传统的 “统计学导论” 课程，提供了一个全新的与数据科学相关的课程。
 
 # - An Introduction to Statistical Learning

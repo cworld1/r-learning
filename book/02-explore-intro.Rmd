@@ -2,7 +2,7 @@
 
 # Introduction {#explore-intro}
 
-```{R, include = FALSE}
+```{R settings, include = FALSE}
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE

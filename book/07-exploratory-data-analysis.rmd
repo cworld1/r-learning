@@ -13,7 +13,7 @@
 - 观测值：在相似条件下进行的一组测量，将包含多个值，每个值都与不同的变量相关联。有时也叫数据点。
 - 表格数据：一组值，每个值都与一个变量和一个观测值相关联。
 
-```{R, include = FALSE}
+```{R settings, include = FALSE}
 knitr::opts_chunk$set(
     comment = "#>",
     collapse = TRUE
