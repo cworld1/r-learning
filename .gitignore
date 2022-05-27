@@ -28,7 +28,13 @@
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
 
+# R & bookdown
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
 # Customlize
 test.r
-Courses
+courses
 .radian_history
