@@ -1,102 +1,189 @@
-# 3 Data visualisationl
+---
+title: "3 Data visualisation"
+date: 2022-05-26
+author: CWorld
+output: html_document
+---
 
-ibrary(tidyverse) # 方便使用其中的 ggplot2
+```{r settings, include = FALSE}
+knitr::opts_chunk$set(
+    comment = "#>",
+    collapse = TRUE
+)
+```
 
-# 【热身】初识 ggplot ----
+```{r setup, results = "hide", message = FALSE, warning = FALSE}
+library(tidyverse) # 方便使用其中的 ggplot2
+```
+
+## 初识 ggplot
+
+```{R 查看 mpg 数据集}
 view(mpg) # 使用 view() 函数可以方便观察对应数据集
 head(mpg) # 可以在控制台打印数据集头部信息（前十行）
-# 列 displ：汽车的发动机尺寸，以升为单位。
-# 列 hwy：汽车在高速公路上的燃油效率，以英里 / 加仑（mpg）为单位
+```
 
+列 displ：汽车的发动机尺寸，以升为单位。
+列 hwy：汽车在高速公路上的燃油效率，以英里 / 加仑（mpg）为单位
+
+```{R ggplot 绘图}
 ggplot(data = mpg) + # 统一设置想要处理的数据集
     # 绘制 point，mapping 属性用来设置相关的 x 轴和 y 轴参数
     geom_point(mapping = aes(x = displ, y = hwy))
+```
 
-# 三维映射 ----
+## 美学映射
 
-# 使用颜色映射
+使用颜色映射：
+
+```{R aes color}
 ggplot(data = mpg) +
     geom_point(mapping = aes(x = displ, y = hwy, color = class))
-# 使用大小映射（不建议）
+```
+
+使用大小映射（不建议）：
+
+```{R aes size}
 ggplot(data = mpg) +
     geom_point(mapping = aes(x = displ, y = hwy, size = class))
-# 使用形状映射（注意最多只支持 6 种）
+```
+
+使用形状映射（注意最多只支持 6 种）：
+
+```{R aes shape}
 ggplot(data = mpg) +
-    geom_point(mapping = aes(x = displ, y = hwy, size = class))
-# 使用透明度映射（不建议）
+    geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+```
+
+使用透明度映射（不建议）：
+
+```{R aes alpha}
 ggplot(data = mpg) +
     geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
+```
 
-# 修改样式 ----
+## 修改样式
 
-# 例如颜色
+例如颜色：
+
+```{R color}
 ggplot(data = mpg) +
     geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
-# 支持参数：color，shape，fill，stroke（点的粗细），linetype 等。同时，样式参数支持变量。
-# shape 填写时是填写数字，有 21 种。详细对照：https://shorturl.at/jCSU0
+```
 
-# 多组画图 ----
+支持参数：color，shape，fill，stroke（点的粗细），linetype 等。同时，样式参数支持变量。注意 shape 填写时是填写数字，有 21 种。
 
-# 简单分组（分片）
+![R 有 25 个内置形状，这些形状由数字标识。有一些看似重复的：例如，0、15 和 22 都是正方形。不同之处在于“颜色”和“填充”美学的相互作用。空心形状（0--14）具有由“颜色”确定的边框;固体形状（15--20）填充有“颜色”;填充的形状（21--24）具有“颜色”边框，并用“填充”填充填充。](https://d33wubrfki0l68.cloudfront.net/e28a1b57b6622cf67fd8a7e01c6a9955914f8fe9/635be/visualize_files/figure-html/shapes-1.png)
+
+## 多组画图
+
+简单分组（分片）：
+
+```{R facet_wrap()}
 ggplot(data = mpg) +
     geom_point(mapping = aes(x = displ, y = hwy)) +
     facet_wrap(~class, nrow = 3) # 以 class 分类，三列，不限制行
-# 自定义条件分组
+```
+
+自定义条件分组：
+
+```{R facet_grid()}
 ggplot(data = mpg) +
     geom_point(mapping = aes(x = displ, y = hwy)) +
     facet_grid(drv ~ cyl) # 以 drv 为 x 轴，cyl 为 y 轴
+```
 
 
-# 线性回归与叠加 ----
+## 叠加与参数
 
-# mapping 为默认接收内容，可以省略
+mapping 为默认接收内容，可以省略：
+
+```{R omit mapping}
 ggplot(data = mpg) +
     geom_point(aes(x = displ, y = hwy)) +
     geom_smooth(aes(x = displ, y = hwy))
+```
 
-# mapping 写在基本配置项中，方便绘图自动调用
+其中 mapping 写在基本配置项中，方便绘图自动调用
+
+```{R default mapping}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
     geom_point() +
     geom_smooth()
+```
 
-# 绘图时使用自定义 data 覆盖默认 data 配置（filter 为筛选数据）
+绘图时使用自定义 data 覆盖默认 data 配置（filter 为筛选数据）：
+
+```{R cover mapping}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
     geom_point(color = "blue") +
     geom_smooth(data = filter(mpg, class == "subcompact"))
+```
 
-# show legend 控制现实图例显示与否，se 控制自信指数（半透明带）显示与否
+## 其他常见图
+
+### 回归曲线图
+
+回归曲线有它专门的配置项，其中 show legend 用于控制现实图例显示与否，se 控制自信指数（半透明带）显示与否：
+
+```{R geom_smooth()}
 ggplot(data = mpg) +
     geom_smooth(
         mapping = aes(x = displ, y = hwy, color = drv),
         show.legend = FALSE,
         se = FALSE
     )
+```
 
-# 其他图 ----
+### 条形图
 
-# 条状图
+```{R geom_bar()}
 ggplot(data = diamonds) +
     geom_bar(mapping = aes(x = cut, colour = cut)) # colour 为描边颜色
 ggplot(data = diamonds) +
     geom_bar(mapping = aes(x = cut, fill = cut)) # fill 为填充颜色
+```
 
+但如果 fill 使用的是其他变量，会导致不同数据重叠遮挡
+
+```{R origin geom_bar()}
 ggplot(data = diamonds) +
-    # 但如果fill使用的是其他变量,会导致不同数据重叠遮挡
     geom_bar(mapping = aes(x = cut, fill = clarity))
-# 解决方案1：降低透明度
+```
+
+解决方案 1：降低透明度
+
+```{R geom_bar() with alpha}
 ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) +
     geom_bar(alpha = 1 / 5, position = "identity")
-# 解决方案2：直接改为 colour 样式，并将 fill 设置为 NA
+```
+
+解决方案 2：直接改为 colour 样式，并将 fill 设置为 NA
+
+```{R geom_bar() with color}
 ggplot(data = diamonds, mapping = aes(x = cut, colour = clarity)) +
     geom_bar(fill = NA, position = "identity")
-# 解决方案3：position 改用 fill 为频率图（方便观察比例）
+```
+
+解决方案 3：position 改用 fill 为频率图（方便观察比例）
+
+```{R geom_bar() with position fill}
 ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) +
     geom_bar(position = "fill")
-# position 改用 dodge 为分柱图
+```
+
+解决方案 4：position 改用 dodge 为分柱图
+
+```{R geom_bar() with position dodge}
 ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) +
     geom_bar(position = "dodge")
+```
 
-# Summary 线条信息图
+### Summary 线条信息图
+
+这种图不太常用，因为 boxplot 图拥有它的所有特性，甚至做得更好：
+
+```{R stat_summary()}
 ggplot(data = diamonds) +
     stat_summary(
         mapping = aes(x = cut, y = depth),
@@ -104,17 +191,30 @@ ggplot(data = diamonds) +
         fun.min = min, # 下限为最小值
         fun.y = mean # 标点为平均数
     )
+```
 
-# 坐标系相关 ----
+## 坐标系相关
+
+对调坐标轴：
+
+```{R coord_flip()}
 ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
     geom_boxplot() +
-    coord_flip() # 注意使用这个不加参数的代码可以是坐标轴对调
+    coord_flip()
+```
 
-nz <- map_data("nz")
+根据相关图像限制图形的纵横比例：
+
+```{R coord_quickmap()}
+nz <- map_data("nz") # 从 map_data 里调用某国的地图
 ggplot(nz, aes(long, lat, group = group)) +
     geom_polygon(fill = "white", colour = "black") +
     coord_quickmap() # 这里会使图表以正确的横纵比显示，防止图像拉伸扭曲
+```
 
+极坐标化：
+
+```{R coord_polar()}
 bar <- ggplot(data = diamonds) +
     geom_bar(
         mapping = aes(x = cut, fill = cut),
@@ -122,13 +222,17 @@ bar <- ggplot(data = diamonds) +
         width = 1
     ) +
     theme(aspect.ratio = 1) +
-    labs(x = NULL, y = NULL)
-bar + coord_flip() # 坐标轴对调
-bar + coord_polar() # 设置为极坐标（有点像圆饼图）
+    labs(x = NULL, y = NULL) +
+    coord_polar() # 设置为极坐标（有点像圆饼图）
+```
 
-# 【实战】对 diamonds 绘制超级汇总图 ----
-# https://t.hk.uy/ba5Y
+## 绘制 diamonds 数据分析图
 
+原题目：[Recreate the R code necessary to generate the following graphs.](https://jrnold.github.io/r4ds-exercise-solutions/data-visualisation.html#exercise-3.6.6)
+
+建立列表，绘制好 6 张图并装配进去：
+
+```{r list with ggplot()}
 p <- list()
 p[[1]] <- ggplot(mpg, aes(x = displ, y = hwy)) +
     geom_point() +
@@ -148,7 +252,11 @@ p[[5]] <- ggplot(mpg, aes(x = displ, y = hwy)) +
 p[[6]] <- ggplot(mpg, aes(x = displ, y = hwy)) +
     geom_point(size = 4, color = "white") +
     geom_point(aes(colour = drv)) # 这里是两幅非常相似的图重叠的效果。注意后画的图优先显示
+```
 
+随即使用布局逐张展示：
+
+```{r grid()}
 library(grid) # 引用一下布局包
 grid.newpage() # 新建布局包
 pushViewport(viewport(layout = grid.layout(3, 2))) # 设置 2x3 布局
@@ -158,11 +266,20 @@ print(p[[3]], vp = viewport(layout.pos.row = 2, layout.pos.col = 1))
 print(p[[4]], vp = viewport(layout.pos.row = 2, layout.pos.col = 2))
 print(p[[5]], vp = viewport(layout.pos.row = 3, layout.pos.col = 1))
 print(p[[6]], vp = viewport(layout.pos.row = 3, layout.pos.col = 2))
+```
 
-# 【实战】研究 mpgcars 数据集 ----
-# 仔细观察数据集发现 displ 和 hwy 是经过四舍五入的，在实际图表上很多点会产生重叠
+## 研究 mpgcars 数据集
+仔细观察数据集会发现 displ 和 hwy 是经过四舍五入的，在实际图表上很多点会产生重叠：
+
+```{R geom_point()}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
-    geom_point()
-# 对 position 添加 jitter 值可以手动添加 “数据噪点”，从而更好地看到数据全貌（尽管会改变数值导致图表不那么准确）
+    geom_point(alpha = 1 / 5)
+```
+
+对 position 添加 jitter 值可以手动添加 “数据噪点”，从而更好地看到数据全貌（尽管会改变数值导致图表不那么准确）：
+
+```{R geom_point() with position jitter}
 ggplot(data = mpg) +
     geom_point(mapping = aes(x = displ, y = hwy), position = "jitter")
+```
+
