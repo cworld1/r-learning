@@ -26,7 +26,7 @@
 
 ```r
 getwd()
-#> [1] "D:/Project/R-Project/R-learning/Book"
+#> [1] "D:/Project/R-Project/book"
 ```
 
 作为 R 用户，可以让你的任何奇怪的目录成为 R 的工作目录。我们应该很快将要分析的项目组织到目录中，并且在处理项目时，将 R 的工作目录设置为与之关联的目录。
