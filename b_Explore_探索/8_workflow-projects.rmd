@@ -1,14 +1,26 @@
-# 8 Workflow: projects
+---
+title: "8 Workflow: projects"
+date: 2022-05-27
+author: CWorld
+output: html_document
+---
+
+```{r settings, include = FALSE}
+knitr::opts_chunk$set(
+    comment = "#>",
+    collapse = TRUE
+)
+```
 
 ## 运行环境
 
 使用 R 脚本（和数据文件），可以重新创建环境。从环境中重新创建 R 脚本要困难得多！你要么必须从内存中重新键入大量代码，要么必须仔细挖掘你的 R 脚本执行历史记录。
 
-为了培养这种行为，我强烈建议您将 RStudio 设置为不要在会话之间保留您的工作区记录：
+为了培养这种行为，我强烈建议我们将 RStudio 设置为不要在会话之间保留我们的工作区记录：
 
 ![rstudio-workspace](https://d33wubrfki0l68.cloudfront.net/7fa44a5471d40025344176ede4169c5ad3159482/1577f/screenshots/rstudio-workspace.png)
 
-有一对很棒的键盘快捷键可以协同工作，以确保您在编辑器中存储了代码的重要部分：
+有一对很棒的键盘快捷键可以协同工作，以确保我们在编辑器中存储了代码的重要部分：
 
 - `Cmd/Ctrl + Shift + F10` 重新启动 RStudio。
 - `Cmd/Ctrl + Shift + S` 重新运行当前脚本。
@@ -21,16 +33,15 @@
 
 使用 `getwd()` 命令在 R 控制台中打印出来：
 
-```R
+```{R getwd()}
 getwd()
-#> [1] "D:/Project/R-Project"
 ```
 
-作为 R 用户，可以让你的任何奇怪的目录成为 R 的工作目录。您应该很快将要分析的项目组织到目录中，并且在处理项目时，将 R 的工作目录设置为与之关联的目录。
+作为 R 用户，可以让你的任何奇怪的目录成为 R 的工作目录。我们应该很快将要分析的项目组织到目录中，并且在处理项目时，将 R 的工作目录设置为与之关联的目录。
 
 使用 `setwd()` 从控制台中设置工作目录（不推荐）：
 
-```R
+```{R setwd(), eval = FALSE}
 setwd("/path/to/my/CoolProject")
 ```
 
@@ -38,7 +49,7 @@ setwd("/path/to/my/CoolProject")
 
 路径和目录有点复杂，因为Mac/Linux 和 Windows 两者不太一样：
 
-- Mac 和 Linux 使用斜杠 “/”，Windows 使用反斜杠 “\”。R 可以使用任何一种类型（无论您当前使用的是什么平台），但在路径中要单个反斜杠，我们需要键入两个反斜杠去等效，所以建议始终使用正斜杠路径，如：`plots/diamonds.pdf`
+- Mac 和 Linux 使用斜杠 “/”，Windows 使用反斜杠 “\”。R 可以使用任何一种类型（无论我们当前使用的是什么平台），但在路径中要单个反斜杠，我们需要键入两个反斜杠去等效，所以建议始终使用正斜杠路径，如：`plots/diamonds.pdf`
 - 绝对路径看起来都不同。在 Windows 中，它们以驱动器号 + 冒号 + 两个反斜杠开头，如 `C:\\servername`；而在 Mac / Linux 中，它们以斜杠开头，如 `/users/hadley`。所以建议不使用绝对路径，以保证代码的兼容性和可共享性。
 - `~` 指向的地方也不太相同。它本是通往主目录的便捷方式，但 Windows 并没有这种概念，因此 R 中它指向文档目录。
 
@@ -56,7 +67,7 @@ setwd("/path/to/my/CoolProject")
 
 以后保存文件应该使用如下方式：
 
-```R
+```{R workspace path, eval=FALSE}
 library(tidyverse)
 
 ggplot(diamonds, aes(carat, price)) + 
