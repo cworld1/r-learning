@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Introduction | A Minimal Book Example</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Introduction | A Minimal Book Example" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Introduction | A Minimal Book Example" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Yihui Xie" />
+
+
+<meta name="date" content="2022-05-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction.html"/>
+<link rel="next" href="explore.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
+<li class="part"><span><b>I Summary</b></span></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#数据科学"><i class="fa fa-check"></i><b>2.1</b> 数据科学</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction.html"><a href="introduction.html#一些准备"><i class="fa fa-check"></i><b>2.2</b> 一些准备</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="introduction.html"><a href="introduction.html#安装-r"><i class="fa fa-check"></i><b>2.2.1</b> 安装 R</a></li>
+<li class="chapter" data-level="2.2.2" data-path="introduction.html"><a href="introduction.html#安装编辑器"><i class="fa fa-check"></i><b>2.2.2</b> 安装编辑器</a></li>
+<li class="chapter" data-level="2.2.3" data-path="introduction.html"><a href="introduction.html#相关包"><i class="fa fa-check"></i><b>2.2.3</b> 相关包</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="introduction.html"><a href="introduction.html#更多学习途径"><i class="fa fa-check"></i><b>2.3</b> 更多学习途径</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction.html"><a href="introduction.html#初识-r"><i class="fa fa-check"></i><b>2.4</b> 初识 R</a></li>
+</ul></li>
+<li class="part"><span><b>II Explore</b></span></li>
+<li class="chapter" data-level="3" data-path="explore-intro.html"><a href="explore-intro.html"><i class="fa fa-check"></i><b>3</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="explore-intro.html"><a href="explore-intro.html#基本数据形式和函数"><i class="fa fa-check"></i><b>3.1</b> 基本数据形式和函数</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="explore-intro.html"><a href="explore-intro.html#向量矩阵与列表"><i class="fa fa-check"></i><b>3.1.1</b> 向量、矩阵与列表</a></li>
+<li class="chapter" data-level="3.1.2" data-path="explore-intro.html"><a href="explore-intro.html#基本函数"><i class="fa fa-check"></i><b>3.1.2</b> 基本函数</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="explore-intro.html"><a href="explore-intro.html#学习-r-自带的画图功能"><i class="fa fa-check"></i><b>3.2</b> 学习 R 自带的画图功能</a></li>
+<li class="chapter" data-level="3.3" data-path="explore-intro.html"><a href="explore-intro.html#更高级的数据形式"><i class="fa fa-check"></i><b>3.3</b> 更高级的数据形式</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="explore.html"><a href="explore.html"><i class="fa fa-check"></i><b>4</b> 3 Data visualisation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="explore.html"><a href="explore.html#初识-ggplot"><i class="fa fa-check"></i><b>4.1</b> 初识 ggplot</a></li>
+<li class="chapter" data-level="4.2" data-path="explore.html"><a href="explore.html#美学映射"><i class="fa fa-check"></i><b>4.2</b> 美学映射</a></li>
+<li class="chapter" data-level="4.3" data-path="explore.html"><a href="explore.html#修改样式"><i class="fa fa-check"></i><b>4.3</b> 修改样式</a></li>
+<li class="chapter" data-level="4.4" data-path="explore.html"><a href="explore.html#多组画图"><i class="fa fa-check"></i><b>4.4</b> 多组画图</a></li>
+<li class="chapter" data-level="4.5" data-path="explore.html"><a href="explore.html#叠加与参数"><i class="fa fa-check"></i><b>4.5</b> 叠加与参数</a></li>
+<li class="chapter" data-level="4.6" data-path="explore.html"><a href="explore.html#其他常见图"><i class="fa fa-check"></i><b>4.6</b> 其他常见图</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="explore.html"><a href="explore.html#回归曲线图"><i class="fa fa-check"></i><b>4.6.1</b> 回归曲线图</a></li>
+<li class="chapter" data-level="4.6.2" data-path="explore.html"><a href="explore.html#条形图"><i class="fa fa-check"></i><b>4.6.2</b> 条形图</a></li>
+<li class="chapter" data-level="4.6.3" data-path="explore.html"><a href="explore.html#summary-线条信息图"><i class="fa fa-check"></i><b>4.6.3</b> Summary 线条信息图</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="explore.html"><a href="explore.html#坐标系相关"><i class="fa fa-check"></i><b>4.7</b> 坐标系相关</a></li>
+<li class="chapter" data-level="4.8" data-path="explore.html"><a href="explore.html#绘制-diamonds-数据分析图"><i class="fa fa-check"></i><b>4.8</b> 绘制 diamonds 数据分析图</a></li>
+<li class="chapter" data-level="4.9" data-path="explore.html"><a href="explore.html#研究-mpgcars-数据集"><i class="fa fa-check"></i><b>4.9</b> 研究 mpgcars 数据集</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="workflow-basics.html"><a href="workflow-basics.html"><i class="fa fa-check"></i><b>5</b> Workflow: basics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="workflow-basics.html"><a href="workflow-basics.html#基础运算上手"><i class="fa fa-check"></i><b>5.1</b> 基础运算上手</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="transform.html"><a href="transform.html"><i class="fa fa-check"></i><b>6</b> Data transformation</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="transform.html"><a href="transform.html#查看-flights-数据集"><i class="fa fa-check"></i><b>6.1</b> 查看 flights 数据集</a></li>
+<li class="chapter" data-level="6.2" data-path="transform.html"><a href="transform.html#过滤-filter"><i class="fa fa-check"></i><b>6.2</b> 过滤 filter()</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="transform.html"><a href="transform.html#比较"><i class="fa fa-check"></i><b>6.2.1</b> 比较</a></li>
+<li class="chapter" data-level="6.2.2" data-path="transform.html"><a href="transform.html#逻辑运算符"><i class="fa fa-check"></i><b>6.2.2</b> 逻辑运算符</a></li>
+<li class="chapter" data-level="6.2.3" data-path="transform.html"><a href="transform.html#缺失值"><i class="fa fa-check"></i><b>6.2.3</b> 缺失值</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="transform.html"><a href="transform.html#排列-arange"><i class="fa fa-check"></i><b>6.3</b> 排列 arange()</a></li>
+<li class="chapter" data-level="6.4" data-path="transform.html"><a href="transform.html#选择-select"><i class="fa fa-check"></i><b>6.4</b> 选择 select()</a></li>
+<li class="chapter" data-level="6.5" data-path="transform.html"><a href="transform.html#重命名-rename"><i class="fa fa-check"></i><b>6.5</b> 重命名 rename()</a></li>
+<li class="chapter" data-level="6.6" data-path="transform.html"><a href="transform.html#添加新变量-mutate-与-transmute"><i class="fa fa-check"></i><b>6.6</b> 添加新变量 mutate() 与 transmute()</a></li>
+<li class="chapter" data-level="6.7" data-path="transform.html"><a href="transform.html#分组摘要-summarise"><i class="fa fa-check"></i><b>6.7</b> 分组摘要 summarise()</a></li>
+<li class="chapter" data-level="6.8" data-path="transform.html"><a href="transform.html#其他处理数据功能"><i class="fa fa-check"></i><b>6.8</b> 其他处理数据功能</a></li>
+<li class="chapter" data-level="6.9" data-path="transform.html"><a href="transform.html#分析-flights-数据集"><i class="fa fa-check"></i><b>6.9</b> 分析 flights 数据集</a>
+<ul>
+<li class="chapter" data-level="6.9.1" data-path="transform.html"><a href="transform.html#计算目的地相关的图"><i class="fa fa-check"></i><b>6.9.1</b> 计算目的地相关的图</a></li>
+<li class="chapter" data-level="6.9.2" data-path="transform.html"><a href="transform.html#获取热门目的地及有关数据"><i class="fa fa-check"></i><b>6.9.2</b> 获取热门目的地及有关数据</a></li>
+<li class="chapter" data-level="6.9.3" data-path="transform.html"><a href="transform.html#绘制飞机延误时长分布图"><i class="fa fa-check"></i><b>6.9.3</b> 绘制飞机延误时长分布图</a></li>
+<li class="chapter" data-level="6.9.4" data-path="transform.html"><a href="transform.html#计算每天最早和最晚的航班"><i class="fa fa-check"></i><b>6.9.4</b> 计算每天最早和最晚的航班</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="workflow-scripts.html"><a href="workflow-scripts.html"><i class="fa fa-check"></i><b>7</b> Workflow: scripts</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="workflow-scripts.html"><a href="workflow-scripts.html#运行代码"><i class="fa fa-check"></i><b>7.1</b> 运行代码</a></li>
+<li class="chapter" data-level="7.2" data-path="workflow-scripts.html"><a href="workflow-scripts.html#rstudio-诊断"><i class="fa fa-check"></i><b>7.2</b> RStudio 诊断</a></li>
+<li class="chapter" data-level="7.3" data-path="workflow-scripts.html"><a href="workflow-scripts.html#使用-visual-studio-code-编写-r"><i class="fa fa-check"></i><b>7.3</b> 使用 Visual studio code 编写 R</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>8</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图分析-diamonds-数据集"><i class="fa fa-check"></i><b>8.1</b> 绘图分析 diamonds 数据集</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#可视化分布"><i class="fa fa-check"></i><b>8.1.1</b> 可视化分布</a></li>
+<li class="chapter" data-level="8.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘制频率直方图"><i class="fa fa-check"></i><b>8.1.2</b> 绘制频率直方图</a></li>
+<li class="chapter" data-level="8.1.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#异常数据杂质"><i class="fa fa-check"></i><b>8.1.3</b> 异常数据（杂质）</a></li>
+<li class="chapter" data-level="8.1.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#处理异常数据"><i class="fa fa-check"></i><b>8.1.4</b> 处理异常数据</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图统计-flights-数据集"><i class="fa fa-check"></i><b>8.2</b> 绘图统计 flights 数据集</a></li>
+<li class="chapter" data-level="8.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图统计-diamonds-数据集"><i class="fa fa-check"></i><b>8.3</b> 绘图统计 diamonds 数据集</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#连续变量多类绘图"><i class="fa fa-check"></i><b>8.3.1</b> 连续变量多类绘图</a></li>
+<li class="chapter" data-level="8.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#关于变量排序-reorder"><i class="fa fa-check"></i><b>8.3.2</b> 关于变量排序 reorder()</a></li>
+<li class="chapter" data-level="8.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#两个分类变量"><i class="fa fa-check"></i><b>8.3.3</b> 两个分类变量</a></li>
+<li class="chapter" data-level="8.3.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#两个连续变量"><i class="fa fa-check"></i><b>8.3.4</b> 两个连续变量</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="workflow-projects.html"><a href="workflow-projects.html"><i class="fa fa-check"></i><b>9</b> 8 Workflow: projects</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="workflow-projects.html"><a href="workflow-projects.html#运行环境"><i class="fa fa-check"></i><b>9.1</b> 运行环境</a></li>
+<li class="chapter" data-level="9.2" data-path="workflow-projects.html"><a href="workflow-projects.html#工作区"><i class="fa fa-check"></i><b>9.2</b> 工作区</a></li>
+<li class="chapter" data-level="9.3" data-path="workflow-projects.html"><a href="workflow-projects.html#路径与目录"><i class="fa fa-check"></i><b>9.3</b> 路径与目录</a></li>
+<li class="chapter" data-level="9.4" data-path="workflow-projects.html"><a href="workflow-projects.html#rstudio-项目"><i class="fa fa-check"></i><b>9.4</b> RStudio 项目</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="explore-intro" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Introduction<a href="explore-intro.html#explore-intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>尽快掌握数据探索的基本工具是探究语言的第一要义。数据探索的目标是生成许多有前途的潜在信息，便于以后更深入地探索它们。</p>
+<div class="figure">
+<img src="https://d33wubrfki0l68.cloudfront.net/795c039ba2520455d833b4034befc8cf360a70ba/558a5/diagrams/data-science-explore.png" alt="" />
+<p class="caption">data-science-explore</p>
+</div>
+<ul>
+<li><strong>可视化</strong>是 R 编程的重要部分：制作优雅且信息丰富的绘图，以帮助理解数据。学习 ggplot2 绘图的基本结构，将数据转换为绘图。</li>
+<li>在数据转换中，使用<strong>关键谓词</strong>允许我们选择重要变量、筛选出关键观察结果、创建新变量和计算摘要。</li>
+<li><strong>建模</strong>是探索过程的重要组成部分，但这并不是当下能够弄清的，它会在以后的学习中逐渐深入。</li>
+</ul>
+<p><strong>在工作流</strong>中：“基础知识”、“工作流：脚本” 和 “工作流：项目”，你将学习编写和组织 R 代码的良好实践。</p>
+<p>以下为附加内容，因为已知资料上貌似没有提到。</p>
+<div id="基本数据形式和函数" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> 基本数据形式和函数<a href="explore-intro.html#基本数据形式和函数" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="向量矩阵与列表" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> 向量、矩阵与列表<a href="explore-intro.html#向量矩阵与列表" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>创建已知或未知的空向量用于存储一系列数据（如整数、小数、字符串）。</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="explore-intro.html#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">vector</span>() <span class="co"># 创建空向量</span></span>
+<span id="cb8-2"><a href="explore-intro.html#cb8-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="co"># 手动赋值</span></span>
+<span id="cb8-3"><a href="explore-intro.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 在 R 中，我们可以使用 “:” 来创建序列填充</span></span>
+<span id="cb8-4"><a href="explore-intro.html#cb8-4" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="co"># 这里其实等价于 1, 2, 3</span></span></code></pre></div>
+<p>矩阵有点像我们学的表格，这种数据结构很类似于其它语言中的二维数组。注意使用 <code>t()</code> 可以行列互换。</p>
+<div class="figure">
+<img src="https://www.runoob.com/wp-content/uploads/2020/07/Matrix_transpose.gif" alt="" />
+<p class="caption">Matrix_transpose</p>
+</div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="explore-intro.html#cb9-1" aria-hidden="true" tabindex="-1"></a>rownames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;row1&quot;</span>, <span class="st">&quot;row2&quot;</span>, <span class="st">&quot;row3&quot;</span>, <span class="st">&quot;row4&quot;</span>)</span>
+<span id="cb9-2"><a href="explore-intro.html#cb9-2" aria-hidden="true" tabindex="-1"></a>colnames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;col1&quot;</span>, <span class="st">&quot;col2&quot;</span>, <span class="st">&quot;col3&quot;</span>)</span>
+<span id="cb9-3"><a href="explore-intro.html#cb9-3" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb9-4"><a href="explore-intro.html#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">14</span>), <span class="co">#</span></span>
+<span id="cb9-5"><a href="explore-intro.html#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">4</span>, <span class="co"># 设置行数。如果不知道数据有多少其实可以不设置</span></span>
+<span id="cb9-6"><a href="explore-intro.html#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">ncol =</span> <span class="dv">3</span>, <span class="co"># 设置列宽</span></span>
+<span id="cb9-7"><a href="explore-intro.html#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">byrow =</span> <span class="cn">TRUE</span>, <span class="co"># 设置为 TRUE 即按行排列，反之则按列排</span></span>
+<span id="cb9-8"><a href="explore-intro.html#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">dimnames =</span> <span class="fu">list</span>(rownames, colnames) <span class="co"># 设置行和列的标题，默认为 NULL</span></span>
+<span id="cb9-9"><a href="explore-intro.html#cb9-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-10"><a href="explore-intro.html#cb9-10" aria-hidden="true" tabindex="-1"></a>m</span>
+<span id="cb9-11"><a href="explore-intro.html#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      col1 col2 col3</span></span>
+<span id="cb9-12"><a href="explore-intro.html#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; row1    3    4    5</span></span>
+<span id="cb9-13"><a href="explore-intro.html#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; row2    6    7    8</span></span>
+<span id="cb9-14"><a href="explore-intro.html#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; row3    9   10   11</span></span>
+<span id="cb9-15"><a href="explore-intro.html#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; row4   12   13   14</span></span>
+<span id="cb9-16"><a href="explore-intro.html#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(m)</span>
+<span id="cb9-17"><a href="explore-intro.html#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      row1 row2 row3 row4</span></span>
+<span id="cb9-18"><a href="explore-intro.html#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; col1    3    6    9   12</span></span>
+<span id="cb9-19"><a href="explore-intro.html#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; col2    4    7   10   13</span></span>
+<span id="cb9-20"><a href="explore-intro.html#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; col3    5    8   11   14</span></span></code></pre></div>
+<p>列表使用 <code>list()</code> 创建。一个列表里可以随意放置向量里能放置的所有元素，甚至是一个向量、一个矩阵。</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="explore-intro.html#cb10-1" aria-hidden="true" tabindex="-1"></a>list_data <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb10-2"><a href="explore-intro.html#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;google&quot;</span>,</span>
+<span id="cb10-3"><a href="explore-intro.html#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="at">nrow =</span> <span class="dv">2</span>),</span>
+<span id="cb10-4"><a href="explore-intro.html#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="fl">123.1</span>,</span>
+<span id="cb10-5"><a href="explore-intro.html#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb10-6"><a href="explore-intro.html#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-7"><a href="explore-intro.html#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="explore-intro.html#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取元素</span></span>
+<span id="cb10-9"><a href="explore-intro.html#cb10-9" aria-hidden="true" tabindex="-1"></a>list_data[[<span class="dv">1</span>]] <span class="co"># 注意中括号应该用两层来获取对应元素。但如果只用一层，R 会自动识别并修正</span></span>
+<span id="cb10-10"><a href="explore-intro.html#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(list_data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Sites&quot;</span>, <span class="st">&quot;Numbers&quot;</span>, <span class="st">&quot;Lists&quot;</span>) <span class="co"># 使用 names() 来赋值名称</span></span>
+<span id="cb10-11"><a href="explore-intro.html#cb10-11" aria-hidden="true" tabindex="-1"></a>list_data<span class="sc">$</span>Sites <span class="co"># 有名称后可以用 $xx 来读取对应的列元素</span></span>
+<span id="cb10-12"><a href="explore-intro.html#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="explore-intro.html#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加 / 更新元素</span></span>
+<span id="cb10-14"><a href="explore-intro.html#cb10-14" aria-hidden="true" tabindex="-1"></a>list_data[<span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="st">&quot;新元素&quot;</span></span>
+<span id="cb10-15"><a href="explore-intro.html#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="explore-intro.html#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 删除元素</span></span>
+<span id="cb10-17"><a href="explore-intro.html#cb10-17" aria-hidden="true" tabindex="-1"></a>list_data[<span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb10-18"><a href="explore-intro.html#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="explore-intro.html#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 合并 / 转换列表</span></span>
+<span id="cb10-20"><a href="explore-intro.html#cb10-20" aria-hidden="true" tabindex="-1"></a>num_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb10-21"><a href="explore-intro.html#cb10-21" aria-hidden="true" tabindex="-1"></a>merged_list <span class="ot">&lt;-</span> <span class="fu">c</span>(num_list, list_data) <span class="co"># 合并</span></span>
+<span id="cb10-22"><a href="explore-intro.html#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(num_list) <span class="co"># 转换列表为向量</span></span></code></pre></div>
+</div>
+<div id="基本函数" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> 基本函数<a href="explore-intro.html#基本函数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>数据集如下：</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="explore-intro.html#cb11-1" aria-hidden="true" tabindex="-1"></a>age <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">18</span>)</span>
+<span id="cb11-2"><a href="explore-intro.html#cb11-2" aria-hidden="true" tabindex="-1"></a>weight <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">110</span>, <span class="dv">120</span>, <span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">140</span>)</span></code></pre></div>
+<p>数学中一些常用的计算函数</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="explore-intro.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">%%</span> <span class="dv">3</span> <span class="co"># 求余数</span></span>
+<span id="cb12-2"><a href="explore-intro.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span>
+<span id="cb12-3"><a href="explore-intro.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">%/%</span> <span class="dv">3</span> <span class="co"># 求模</span></span>
+<span id="cb12-4"><a href="explore-intro.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span>
+<span id="cb12-5"><a href="explore-intro.html#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="explore-intro.html#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(age) <span class="co"># 求平均值</span></span>
+<span id="cb12-7"><a href="explore-intro.html#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 11.33333</span></span>
+<span id="cb12-8"><a href="explore-intro.html#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(age) <span class="co"># 求标准差</span></span>
+<span id="cb12-9"><a href="explore-intro.html#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 4.320494</span></span>
+<span id="cb12-10"><a href="explore-intro.html#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(age, weight) <span class="co"># 求相关度，数值在 -1 到 1，其中 1 是绝对正相关，0 是完全不相关，-1 是绝对负相关</span></span>
+<span id="cb12-11"><a href="explore-intro.html#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span>
+<span id="cb12-12"><a href="explore-intro.html#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(age <span class="sc">~</span> weight) <span class="co"># 求两者构成的回归直线斜率（注意波浪号连接）</span></span>
+<span id="cb12-13"><a href="explore-intro.html#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-14"><a href="explore-intro.html#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb12-15"><a href="explore-intro.html#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = age ~ weight)</span></span>
+<span id="cb12-16"><a href="explore-intro.html#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-17"><a href="explore-intro.html#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb12-18"><a href="explore-intro.html#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)       weight  </span></span>
+<span id="cb12-19"><a href="explore-intro.html#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       -10.0          0.2</span></span></code></pre></div>
+</div>
+</div>
+<div id="学习-r-自带的画图功能" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> 学习 R 自带的画图功能<a href="explore-intro.html#学习-r-自带的画图功能" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>在 R 里画图非常简单。以上面的 age 和 weight 为例：</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="explore-intro.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 注意在 R 里面，相对路径的基层路径是由工作区设定的</span></span>
+<span id="cb13-2"><a href="explore-intro.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>() <span class="co"># 获取当前工作区路径</span></span>
+<span id="cb13-3"><a href="explore-intro.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;D:/Project/R-Project/&quot;</span>) <span class="co"># 设置工作区路径</span></span>
+<span id="cb13-4"><a href="explore-intro.html#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">&quot;./source/mygraph.png&quot;</span>) <span class="co"># 设置好后就可以存储到理想位置</span></span>
+<span id="cb13-5"><a href="explore-intro.html#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(age, weight) <span class="co"># 绘制散点图</span></span>
+<span id="cb13-6"><a href="explore-intro.html#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(age <span class="sc">~</span> weight)) <span class="co"># 绘制回归直线</span></span>
+<span id="cb13-7"><a href="explore-intro.html#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;年龄 - 体重图&quot;</span>) <span class="co"># 添加 # 添加标题</span></span>
+<span id="cb13-8"><a href="explore-intro.html#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>() <span class="co"># 结束画图并保存</span></span></code></pre></div>
+<p>实际运行生成的图：</p>
+<div class="figure">
+<img src="source/mygraph.png" alt="" />
+<p class="caption">mygraph</p>
+</div>
+</div>
+<div id="更高级的数据形式" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> 更高级的数据形式<a href="explore-intro.html#更高级的数据形式" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>dataframe 是一系列向量数据的集合：</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="explore-intro.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb14-2"><a href="explore-intro.html#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">a =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>),</span>
+<span id="cb14-3"><a href="explore-intro.html#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">b =</span> <span class="fu">c</span>(<span class="dv">6</span><span class="sc">:</span><span class="dv">8</span>)</span>
+<span id="cb14-4"><a href="explore-intro.html#cb14-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-5"><a href="explore-intro.html#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   a b</span></span>
+<span id="cb14-6"><a href="explore-intro.html#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 1 6</span></span>
+<span id="cb14-7"><a href="explore-intro.html#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 2 7</span></span>
+<span id="cb14-8"><a href="explore-intro.html#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 3 8</span></span></code></pre></div>
+<p>tibble 与 dataframe 非常相似，甚至是使用 dataframe 储存的。tibble 是 tidyverse 系列的专用数据集格式。它的优点是干净、方便数据处理。</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="explore-intro.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb15-2"><a href="explore-intro.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Attaching packages ------------------------------------------------- tidyverse 1.3.1 --</span></span>
+<span id="cb15-3"><a href="explore-intro.html#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; v ggplot2 3.3.5     v purrr   0.3.4</span></span>
+<span id="cb15-4"><a href="explore-intro.html#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; v tibble  3.1.6     v dplyr   1.0.8</span></span>
+<span id="cb15-5"><a href="explore-intro.html#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; v tidyr   1.2.0     v stringr 1.4.0</span></span>
+<span id="cb15-6"><a href="explore-intro.html#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; v readr   2.1.2     v forcats 0.5.1</span></span>
+<span id="cb15-7"><a href="explore-intro.html#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Conflicts ---------------------------------------------------- tidyverse_conflicts() --</span></span>
+<span id="cb15-8"><a href="explore-intro.html#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x dplyr::filter() masks stats::filter()</span></span>
+<span id="cb15-9"><a href="explore-intro.html#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x dplyr::lag()    masks stats::lag()</span></span>
+<span id="cb15-10"><a href="explore-intro.html#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="explore-intro.html#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">tribble</span>(</span>
+<span id="cb15-12"><a href="explore-intro.html#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>sex, <span class="sc">~</span>response,</span>
+<span id="cb15-13"><a href="explore-intro.html#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;male&quot;</span>, <span class="dv">1</span>,</span>
+<span id="cb15-14"><a href="explore-intro.html#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;female&quot;</span>, <span class="dv">2</span>,</span>
+<span id="cb15-15"><a href="explore-intro.html#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;male&quot;</span>, <span class="dv">1</span></span>
+<span id="cb15-16"><a href="explore-intro.html#cb15-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-17"><a href="explore-intro.html#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
+<span id="cb15-18"><a href="explore-intro.html#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   sex    response</span></span>
+<span id="cb15-19"><a href="explore-intro.html#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;     &lt;dbl&gt;</span></span>
+<span id="cb15-20"><a href="explore-intro.html#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 male          1</span></span>
+<span id="cb15-21"><a href="explore-intro.html#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 female        2</span></span>
+<span id="cb15-22"><a href="explore-intro.html#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 male          1</span></span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="explore.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-explore-intro.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["R-Learning.pdf", "R-Learning.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
