@@ -4,26 +4,24 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | A Minimal Book Example</title>
-  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <title>Page not found | 11-data-import.knit</title>
+  <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | A Minimal Book Example" />
+  <meta property="og:title" content="Page not found | 11-data-import.knit" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  
+  
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | A Minimal Book Example" />
+  <meta name="twitter:title" content="Page not found | 11-data-import.knit" />
   
-  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
   
 
-<meta name="author" content="Yihui Xie" />
 
 
-<meta name="date" content="2022-05-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -136,122 +134,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
-<li class="part"><span><b>I Summary</b></span></li>
-<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<li class="chapter" data-level="1" data-path=""><a href="#data-import"><i class="fa fa-check"></i><b>1</b> Data import</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#数据科学"><i class="fa fa-check"></i><b>2.1</b> 数据科学</a></li>
-<li class="chapter" data-level="2.2" data-path="introduction.html"><a href="introduction.html#一些准备"><i class="fa fa-check"></i><b>2.2</b> 一些准备</a>
+<li class="chapter" data-level="1.1" data-path=""><a href="#简单读取文件"><i class="fa fa-check"></i><b>1.1</b> 简单读取文件</a></li>
+<li class="chapter" data-level="1.2" data-path=""><a href="#解析向量"><i class="fa fa-check"></i><b>1.2</b> 解析向量</a></li>
+<li class="chapter" data-level="1.3" data-path=""><a href="#数字类型"><i class="fa fa-check"></i><b>1.3</b> 数字类型</a></li>
+<li class="chapter" data-level="1.4" data-path=""><a href="#字符类型"><i class="fa fa-check"></i><b>1.4</b> 字符类型</a></li>
+<li class="chapter" data-level="1.5" data-path=""><a href="#因子类型"><i class="fa fa-check"></i><b>1.5</b> 因子类型</a></li>
+<li class="chapter" data-level="1.6" data-path=""><a href="#日期时间类型"><i class="fa fa-check"></i><b>1.6</b> 日期时间类型</a></li>
+<li class="chapter" data-level="1.7" data-path=""><a href="#解析文件"><i class="fa fa-check"></i><b>1.7</b> 解析文件</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="introduction.html"><a href="introduction.html#安装-r"><i class="fa fa-check"></i><b>2.2.1</b> 安装 R</a></li>
-<li class="chapter" data-level="2.2.2" data-path="introduction.html"><a href="introduction.html#安装编辑器"><i class="fa fa-check"></i><b>2.2.2</b> 安装编辑器</a></li>
-<li class="chapter" data-level="2.2.3" data-path="introduction.html"><a href="introduction.html#相关包"><i class="fa fa-check"></i><b>2.2.3</b> 相关包</a></li>
+<li class="chapter" data-level="1.7.1" data-path=""><a href="#自动匹配"><i class="fa fa-check"></i><b>1.7.1</b> 自动匹配</a></li>
+<li class="chapter" data-level="1.7.2" data-path=""><a href="#自动匹配遇到的问题"><i class="fa fa-check"></i><b>1.7.2</b> 自动匹配遇到的问题</a></li>
+<li class="chapter" data-level="1.7.3" data-path=""><a href="#其他的匹配解决策略"><i class="fa fa-check"></i><b>1.7.3</b> 其他的匹配解决策略</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="introduction.html"><a href="introduction.html#更多学习途径"><i class="fa fa-check"></i><b>2.3</b> 更多学习途径</a></li>
-<li class="chapter" data-level="2.4" data-path="introduction.html"><a href="introduction.html#初识-r"><i class="fa fa-check"></i><b>2.4</b> 初识 R</a></li>
-</ul></li>
-<li class="part"><span><b>II Explore</b></span></li>
-<li class="chapter" data-level="3" data-path="explore-intro.html"><a href="explore-intro.html"><i class="fa fa-check"></i><b>3</b> Introduction</a>
+<li class="chapter" data-level="1.8" data-path=""><a href="#写入数据"><i class="fa fa-check"></i><b>1.8</b> 写入数据</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="explore-intro.html"><a href="explore-intro.html#基本数据形式和函数"><i class="fa fa-check"></i><b>3.1</b> 基本数据形式和函数</a>
-<ul>
-<li class="chapter" data-level="3.1.1" data-path="explore-intro.html"><a href="explore-intro.html#向量矩阵与列表"><i class="fa fa-check"></i><b>3.1.1</b> 向量、矩阵与列表</a></li>
-<li class="chapter" data-level="3.1.2" data-path="explore-intro.html"><a href="explore-intro.html#基本函数"><i class="fa fa-check"></i><b>3.1.2</b> 基本函数</a></li>
+<li class="chapter" data-level="1.8.1" data-path=""><a href="#csv-格式"><i class="fa fa-check"></i><b>1.8.1</b> csv 格式</a></li>
+<li class="chapter" data-level="1.8.2" data-path=""><a href="#rds-格式"><i class="fa fa-check"></i><b>1.8.2</b> rds 格式</a></li>
+<li class="chapter" data-level="1.8.3" data-path=""><a href="#feather-格式"><i class="fa fa-check"></i><b>1.8.3</b> feather 格式</a></li>
+<li class="chapter" data-level="1.8.4" data-path=""><a href="#其他格式"><i class="fa fa-check"></i><b>1.8.4</b> 其他格式</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="explore-intro.html"><a href="explore-intro.html#学习-r-自带的画图功能"><i class="fa fa-check"></i><b>3.2</b> 学习 R 自带的画图功能</a></li>
-<li class="chapter" data-level="3.3" data-path="explore-intro.html"><a href="explore-intro.html#更高级的数据形式"><i class="fa fa-check"></i><b>3.3</b> 更高级的数据形式</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="explore.html"><a href="explore.html"><i class="fa fa-check"></i><b>4</b> 3 Data visualisation</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="explore.html"><a href="explore.html#初识-ggplot"><i class="fa fa-check"></i><b>4.1</b> 初识 ggplot</a></li>
-<li class="chapter" data-level="4.2" data-path="explore.html"><a href="explore.html#美学映射"><i class="fa fa-check"></i><b>4.2</b> 美学映射</a></li>
-<li class="chapter" data-level="4.3" data-path="explore.html"><a href="explore.html#修改样式"><i class="fa fa-check"></i><b>4.3</b> 修改样式</a></li>
-<li class="chapter" data-level="4.4" data-path="explore.html"><a href="explore.html#多组画图"><i class="fa fa-check"></i><b>4.4</b> 多组画图</a></li>
-<li class="chapter" data-level="4.5" data-path="explore.html"><a href="explore.html#叠加与参数"><i class="fa fa-check"></i><b>4.5</b> 叠加与参数</a></li>
-<li class="chapter" data-level="4.6" data-path="explore.html"><a href="explore.html#其他常见图"><i class="fa fa-check"></i><b>4.6</b> 其他常见图</a>
-<ul>
-<li class="chapter" data-level="4.6.1" data-path="explore.html"><a href="explore.html#回归曲线图"><i class="fa fa-check"></i><b>4.6.1</b> 回归曲线图</a></li>
-<li class="chapter" data-level="4.6.2" data-path="explore.html"><a href="explore.html#条形图"><i class="fa fa-check"></i><b>4.6.2</b> 条形图</a></li>
-<li class="chapter" data-level="4.6.3" data-path="explore.html"><a href="explore.html#summary-线条信息图"><i class="fa fa-check"></i><b>4.6.3</b> Summary 线条信息图</a></li>
-</ul></li>
-<li class="chapter" data-level="4.7" data-path="explore.html"><a href="explore.html#坐标系相关"><i class="fa fa-check"></i><b>4.7</b> 坐标系相关</a></li>
-<li class="chapter" data-level="4.8" data-path="explore.html"><a href="explore.html#绘制-diamonds-数据分析图"><i class="fa fa-check"></i><b>4.8</b> 绘制 diamonds 数据分析图</a></li>
-<li class="chapter" data-level="4.9" data-path="explore.html"><a href="explore.html#研究-mpgcars-数据集"><i class="fa fa-check"></i><b>4.9</b> 研究 mpgcars 数据集</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="workflow-basics.html"><a href="workflow-basics.html"><i class="fa fa-check"></i><b>5</b> Workflow: basics</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="workflow-basics.html"><a href="workflow-basics.html#基础运算上手"><i class="fa fa-check"></i><b>5.1</b> 基础运算上手</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="transform.html"><a href="transform.html"><i class="fa fa-check"></i><b>6</b> Data transformation</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="transform.html"><a href="transform.html#查看-flights-数据集"><i class="fa fa-check"></i><b>6.1</b> 查看 flights 数据集</a></li>
-<li class="chapter" data-level="6.2" data-path="transform.html"><a href="transform.html#过滤-filter"><i class="fa fa-check"></i><b>6.2</b> 过滤 filter()</a>
-<ul>
-<li class="chapter" data-level="6.2.1" data-path="transform.html"><a href="transform.html#比较"><i class="fa fa-check"></i><b>6.2.1</b> 比较</a></li>
-<li class="chapter" data-level="6.2.2" data-path="transform.html"><a href="transform.html#逻辑运算符"><i class="fa fa-check"></i><b>6.2.2</b> 逻辑运算符</a></li>
-<li class="chapter" data-level="6.2.3" data-path="transform.html"><a href="transform.html#缺失值"><i class="fa fa-check"></i><b>6.2.3</b> 缺失值</a></li>
-</ul></li>
-<li class="chapter" data-level="6.3" data-path="transform.html"><a href="transform.html#排列-arange"><i class="fa fa-check"></i><b>6.3</b> 排列 arange()</a></li>
-<li class="chapter" data-level="6.4" data-path="transform.html"><a href="transform.html#选择-select"><i class="fa fa-check"></i><b>6.4</b> 选择 select()</a></li>
-<li class="chapter" data-level="6.5" data-path="transform.html"><a href="transform.html#重命名-rename"><i class="fa fa-check"></i><b>6.5</b> 重命名 rename()</a></li>
-<li class="chapter" data-level="6.6" data-path="transform.html"><a href="transform.html#添加新变量-mutate-与-transmute"><i class="fa fa-check"></i><b>6.6</b> 添加新变量 mutate() 与 transmute()</a></li>
-<li class="chapter" data-level="6.7" data-path="transform.html"><a href="transform.html#分组摘要-summarise"><i class="fa fa-check"></i><b>6.7</b> 分组摘要 summarise()</a></li>
-<li class="chapter" data-level="6.8" data-path="transform.html"><a href="transform.html#其他处理数据功能"><i class="fa fa-check"></i><b>6.8</b> 其他处理数据功能</a></li>
-<li class="chapter" data-level="6.9" data-path="transform.html"><a href="transform.html#分析-flights-数据集"><i class="fa fa-check"></i><b>6.9</b> 分析 flights 数据集</a>
-<ul>
-<li class="chapter" data-level="6.9.1" data-path="transform.html"><a href="transform.html#计算目的地相关的图"><i class="fa fa-check"></i><b>6.9.1</b> 计算目的地相关的图</a></li>
-<li class="chapter" data-level="6.9.2" data-path="transform.html"><a href="transform.html#获取热门目的地及有关数据"><i class="fa fa-check"></i><b>6.9.2</b> 获取热门目的地及有关数据</a></li>
-<li class="chapter" data-level="6.9.3" data-path="transform.html"><a href="transform.html#绘制飞机延误时长分布图"><i class="fa fa-check"></i><b>6.9.3</b> 绘制飞机延误时长分布图</a></li>
-<li class="chapter" data-level="6.9.4" data-path="transform.html"><a href="transform.html#计算每天最早和最晚的航班"><i class="fa fa-check"></i><b>6.9.4</b> 计算每天最早和最晚的航班</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="workflow-scripts.html"><a href="workflow-scripts.html"><i class="fa fa-check"></i><b>7</b> Workflow: scripts</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="workflow-scripts.html"><a href="workflow-scripts.html#运行代码"><i class="fa fa-check"></i><b>7.1</b> 运行代码</a></li>
-<li class="chapter" data-level="7.2" data-path="workflow-scripts.html"><a href="workflow-scripts.html#rstudio-诊断"><i class="fa fa-check"></i><b>7.2</b> RStudio 诊断</a></li>
-<li class="chapter" data-level="7.3" data-path="workflow-scripts.html"><a href="workflow-scripts.html#使用-visual-studio-code-编写-r"><i class="fa fa-check"></i><b>7.3</b> 使用 Visual studio code 编写 R</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>8</b> Exploratory Data Analysis</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图分析-diamonds-数据集"><i class="fa fa-check"></i><b>8.1</b> 绘图分析 diamonds 数据集</a>
-<ul>
-<li class="chapter" data-level="8.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#可视化分布"><i class="fa fa-check"></i><b>8.1.1</b> 可视化分布</a></li>
-<li class="chapter" data-level="8.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘制频率直方图"><i class="fa fa-check"></i><b>8.1.2</b> 绘制频率直方图</a></li>
-<li class="chapter" data-level="8.1.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#异常数据杂质"><i class="fa fa-check"></i><b>8.1.3</b> 异常数据（杂质）</a></li>
-<li class="chapter" data-level="8.1.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#处理异常数据"><i class="fa fa-check"></i><b>8.1.4</b> 处理异常数据</a></li>
-</ul></li>
-<li class="chapter" data-level="8.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图统计-flights-数据集"><i class="fa fa-check"></i><b>8.2</b> 绘图统计 flights 数据集</a></li>
-<li class="chapter" data-level="8.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图统计-diamonds-数据集"><i class="fa fa-check"></i><b>8.3</b> 绘图统计 diamonds 数据集</a>
-<ul>
-<li class="chapter" data-level="8.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#连续变量多类绘图"><i class="fa fa-check"></i><b>8.3.1</b> 连续变量多类绘图</a></li>
-<li class="chapter" data-level="8.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#关于变量排序-reorder"><i class="fa fa-check"></i><b>8.3.2</b> 关于变量排序 reorder()</a></li>
-<li class="chapter" data-level="8.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#两个分类变量"><i class="fa fa-check"></i><b>8.3.3</b> 两个分类变量</a></li>
-<li class="chapter" data-level="8.3.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#两个连续变量"><i class="fa fa-check"></i><b>8.3.4</b> 两个连续变量</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="workflow-projects.html"><a href="workflow-projects.html"><i class="fa fa-check"></i><b>9</b> Workflow: projects</a>
-<ul>
-<li class="chapter" data-level="9.1" data-path="workflow-projects.html"><a href="workflow-projects.html#运行环境"><i class="fa fa-check"></i><b>9.1</b> 运行环境</a></li>
-<li class="chapter" data-level="9.2" data-path="workflow-projects.html"><a href="workflow-projects.html#工作区"><i class="fa fa-check"></i><b>9.2</b> 工作区</a></li>
-<li class="chapter" data-level="9.3" data-path="workflow-projects.html"><a href="workflow-projects.html#路径与目录"><i class="fa fa-check"></i><b>9.3</b> 路径与目录</a></li>
-<li class="chapter" data-level="9.4" data-path="workflow-projects.html"><a href="workflow-projects.html#rstudio-项目"><i class="fa fa-check"></i><b>9.4</b> RStudio 项目</a></li>
-</ul></li>
-<li class="part"><span><b>III Wrangle</b></span></li>
-<li class="chapter" data-level="10" data-path="wrangle-intro.html"><a href="wrangle-intro.html"><i class="fa fa-check"></i><b>10</b> Introduction</a></li>
-<li class="chapter" data-level="11" data-path="tibbles.html"><a href="tibbles.html"><i class="fa fa-check"></i><b>11</b> 10 Tibbles</a>
-<ul>
-<li class="chapter" data-level="11.1" data-path="tibbles.html"><a href="tibbles.html#创建-tibble"><i class="fa fa-check"></i><b>11.1</b> 创建 tibble</a>
-<ul>
-<li class="chapter" data-level="11.1.1" data-path="tibbles.html"><a href="tibbles.html#as_tibble"><i class="fa fa-check"></i><b>11.1.1</b> as_tibble()</a></li>
-<li class="chapter" data-level="11.1.2" data-path="tibbles.html"><a href="tibbles.html#tibble"><i class="fa fa-check"></i><b>11.1.2</b> tibble()</a></li>
-<li class="chapter" data-level="11.1.3" data-path="tibbles.html"><a href="tibbles.html#tribble"><i class="fa fa-check"></i><b>11.1.3</b> tribble()</a></li>
-</ul></li>
-<li class="chapter" data-level="11.2" data-path="tibbles.html"><a href="tibbles.html#tibbles-vs.-data.frame"><i class="fa fa-check"></i><b>11.2</b> tibbles VS. data.frame</a>
-<ul>
-<li class="chapter" data-level="11.2.1" data-path="tibbles.html"><a href="tibbles.html#控制台打印方面"><i class="fa fa-check"></i><b>11.2.1</b> 控制台打印方面</a></li>
-<li class="chapter" data-level="11.2.2" data-path="tibbles.html"><a href="tibbles.html#读取子元素方面"><i class="fa fa-check"></i><b>11.2.2</b> 读取子元素方面</a></li>
-</ul></li>
-<li class="chapter" data-level="11.3" data-path="tibbles.html"><a href="tibbles.html#tibble-的转换"><i class="fa fa-check"></i><b>11.3</b> tibble 的转换</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -265,7 +168,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
           </h1>
         </div>
 
@@ -327,11 +230,8 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["R-Learning.pdf", "R-Learning.epub"],
-"search": {
-"engine": "fuse",
-"options": null
-},
+"download": null,
+"search": false,
 "toc": {
 "collapse": "subsection"
 }
@@ -339,20 +239,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
