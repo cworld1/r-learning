@@ -14,22 +14,23 @@ jobs:
     name: Render-Book
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: r-lib/actions/setup-r@v1
-      - uses: r-lib/actions/setup-pandoc@v1
-      - name: Install R Markdown and Bookdown packages
-        run: Rscript -e 'install.packages(c("rmarkdown","bookdown"))'
-      - name: Install TinyTeX
-        run: Rscript -e 'tinytex::install_tinytex()'
-      - name: Build Book
-        run: |
-          set -ev
-          cd "book"
-          Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::gitbook')"
-          Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"
-          Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::epub_book')"
+      # - uses: actions/checkout@v2
+      # - uses: r-lib/actions/setup-r@v1
+      # - uses: r-lib/actions/setup-pandoc@v1
+      # - name: Install R Markdown and Bookdown packages
+      #   run: Rscript -e 'install.packages(c("rmarkdown","bookdown"))'
+      # - name: Install TinyTeX
+      #   run: Rscript -e 'tinytex::install_tinytex()'
+      # - name: Build Book
+      #   run: |
+      #     set -ev
+      #     cd book
+      #     Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::gitbook')"
+      #     Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"
+      #     Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::epub_book')"
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_book
+          publish_dir: ./book/_book
+          publish_branch: gh-pages
