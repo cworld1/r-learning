@@ -1,0 +1,173 @@
+---
+title: "27 R Markdown"
+date:2022 - 05 - 26
+author: CWorld
+output: html_document
+---
+
+```{r setup, include = FALSE}
+library(tidyverse)
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE
+)
+```
+
+## 引言
+
+在 R 中，R Markdown 为数据科学提供了一个统一的创作框架，结合了代码、结果和文本创作。
+同时这种文档完全可复制，并支持数十种导出格式，如 pdf、docx、pptx 等。
+
+R Markdown 文件旨在以三种方式使用：
+- 为了与决策者沟通，他们希望看到结论，而不是分析背后的代码。
+- 与其他数据科学家合作，方便快速得知结论和得出这些结论的过程（即代码）。
+- 作为做数据科学的环境，作为现代实验室笔记本，你不仅可以捕捉你做了什么，还可以捕捉你的想法。
+
+## R Markdown 基础知识
+
+一个简单的 `.Rmd` 文件应该包含：
+
+- 可选的标头：
+
+```rmarkdown
+---
+title: "Diamond sizes"
+date: 2016-08-25
+output: html_document
+---
+```
+
+- 一些被标识符包围的代码块：
+
+```rmarkdown
+\`\`\`{r setup, include = FALSE}
+library(ggplot2)
+library(dplyr)
+
+smaller <- diamonds %>%
+    filter(carat <= 2.5)
+\`\`\`
+```
+
+- 混合了简单文本格式的文本（Markdown 语法）。
+
+当你开一个 .Rmd 文件，你会得到一个笔记本界面，其代码和输出交织在一起。我们可以通过单击运行图标（看起来像块顶部的播放按钮）或按 `Cmd/Ctrl + Shift + Enter` 来运行每个代码块。
+
+![diamond-sizes-notebook](https://d33wubrfki0l68.cloudfront.net/853becd7fc7d20e3a63f52b23f522d6f0d06e066/88250/rmarkdown/diamond-sizes-notebook.png)
+
+要生成包含所有文本、代码和结果的完整报告，请单击 “Knit Rmd” 或按`Cmd/Ctrl + Shift + K`。当然我们也可以以编程方式使用，如 `rmarkdown::render("1-example.Rmd")`。这将显示查看器窗格中的报告，并创建一个自包含的 HTML 文件，以便与他人共享。
+
+当我们生成文档时，R Markdown 会发送 Rmd 文件到 [knitr](http://yihui.name/knitr/)，它执行所有代码块，并创建一个新的 Markdown 文件，其中包括代码及其输出。随后其文档将被 [pandoc](http://pandoc.org/) 转换成任何你想要的文件格式。
+
+![rmarkdownflow](https://d33wubrfki0l68.cloudfront.net/61d189fd9cdf955058415d3e1b28dd60e1bd7c9b/9791d/images/rmarkdownflow.png)
+
+## 使用 Markdown 书写富文本
+
+Markdown 是一组用于设置纯文本文件格式的轻量级约定，其设计易于阅读和编写，也很容易学习。
+
+这里引用一下我的博客：[Markdown 语法与学习记录](https://blog.cworld.top/post/markdown)
+
+## 代码块
+
+要在 R Markdown 文档中运行代码，我们需要插入一个块。有三种方法可以做到这一点：
+1. 键盘快捷键 `Cmd/Ctrl + Alt + I`。
+2. 编辑器工具栏中的 “插入” 按钮图标。
+3. 通过手动键入块分隔符。
+显然，我建议你学习键盘快捷键。从长远来看，这将为我们节省大量时间！
+
+代码块还可以命名，如 `{R by-name}`。引索同样会检测并展示，方便你快速跳转。同时你也可以为它的功能做一些限制。下面是一些配置项：
+
+| 选择                | 运行代码 | 显示代码 | 输出 | 情节 | 消息 | 警告 |
+| ------------------- | -------- | -------- | ---- | ---- | ---- | ---- |
+| `eval = FALSE`      | -        |          | -    | -    | -    | -    |
+| `include = FALSE`   |          | -        | -    | -    | -    | -    |
+| `echo = FALSE`      |          | -        |      |      |      |      |
+| `results = "hide"`  |          |          | -    |      |      |      |
+| `fig.show = "hide"` |          |          |      | -    |      |      |
+| `message = FALSE`   |          |          |      |      | -    |      |
+| `warning = FALSE`   |          |          |      |      |      | -    |
+
+如果你需要展示 R 内的数据（如 tibble），请使用 [knitr::kable](https://rdrr.io/pkg/knitr/man/kable.html)：
+
+```{R}
+knitr::kable(
+  mtcars[1:5, ],
+  caption = "A knitr kable."
+)
+```
+
+通常，文档的每次生成都从初始环境开始。这非常适合重现，但如果你有一些需要很长时间的计算，那可能会很痛苦。一种解决方案是 `cache = TRUE`。设置后，这将把块的输出保存到磁盘上一个特别命名的文件。在随后的运行中，knitr 将检查代码是否已更改，如果没有，它将重用缓存的结果。
+
+````rmarkdown
+{r raw_data}
+rawdata <- readr::read_csv("a_very_large_file.csv")
+
+
+{r processed_data, cache = TRUE, dependson = "raw_data"}
+processed_data <- rawdata %>%
+    filter(!is.na(import_var)) %>%
+    mutate(new_variable = complicated_transformation(x, y, z))
+
+````
+
+缓存  `processed_data` 块意味着如果 `dplyr` 管道更改，它将被重新运行，但如果read_csv()调用更改，它将不会被重新运行。您可以使用 `dependson`块选项来避免这个问题：
+
+```rmarkdown
+{r processed_data, cache = TRUE, dependson = "raw_data"}
+processed_data <- rawdata %>% 
+  filter(!is.na(import_var)) %>% 
+  mutate(new_variable = complicated_transformation(x, y, z))
+```
+
+随着缓存策略变得越来越复杂，最好定期使用 [knitr::clean_cache()](https://rdrr.io/pkg/knitr/man/clean_cache.html) 清除所有缓存。
+
+对于区块输出格式上，我们可以设置一些全局选项：
+
+```R
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE
+)
+# 或是全局禁止显示代码
+knitr::opts_chunk$set(
+  echo = FALSE
+)
+```
+
+我们还有另外一种简单的代码格式，使用 “r ” 来展示一些简单的文本信息。 
+
+有时文本信息像数字一类，可能不那么容易展示，我们可能需要 [format()](https://rdrr.io/r/base/format.html) 函数：
+
+```{R}
+comma <- function(x) format(x, digits = 2, big.mark = ",")
+comma(3452345)
+comma(.12358124331)
+```
+
+## YAML 标头
+
+标头有很多用处，如作为全局参数：
+
+```rmarkdown
+---
+output: html_document
+params:
+  my_class: "suv"
+  # 也可以用 !r 写成表达式
+  start: !r lubridate::ymd("2015-01-01")
+---
+```
+
+调用时使用形如 `params$my_class` 即可。当然你也可以在生成时追加 params 进行修改：
+
+```R
+rmarkdown::render("fuel-economy.Rmd", params = list(my_class = "suv"))
+```
+
+pandoc 也能生成不同样式的书目：
+
+```yaml
+bibliography: rmarkdown.bib
+```
+
+我们可以使用许多常见的书目格式，包括 BibLaTeX，BibTeX，endnote，medline。
