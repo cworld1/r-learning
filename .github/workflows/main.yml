@@ -5,10 +5,6 @@ on:
     branches:
       - master
 
-# Courtesy of _Github actions with R_, available: https://ropenscilabs.github.io/actions_sandbox/
-
-name: renderbook
-
 jobs:
   bookdown:
     name: Render-Book
