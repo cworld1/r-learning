@@ -1,8 +1,8 @@
-# This is a basic workflow to build and deploy your open textbook with Bookdown.
+name: GitHub Pages
 
 on:
   push:
-    branches: 
+    branches:
       - master
 
 # Courtesy of _Github actions with R_, available: https://ropenscilabs.github.io/actions_sandbox/
@@ -13,8 +13,10 @@ jobs:
   bookdown:
     name: Render-Book
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      # - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       # - uses: r-lib/actions/setup-r@v1
       # - uses: r-lib/actions/setup-pandoc@v1
       # - name: Install R Markdown and Bookdown packages
