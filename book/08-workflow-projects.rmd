@@ -1,11 +1,6 @@
----
-title: "8 Workflow: projects"
-date: 2022-05-27
-author: CWorld
-output: html_document
----
+# Workflow: projects {#workflow-projects}
 
-```{r settings, include = FALSE}
+```{R, include = FALSE}
 knitr::opts_chunk$set(
     comment = "#>",
     collapse = TRUE
@@ -70,7 +65,7 @@ setwd("/path/to/my/CoolProject")
 ```{R workspace path, eval=FALSE}
 library(tidyverse)
 
-ggplot(diamonds, aes(carat, price)) + 
+ggplot(diamonds, aes(carat, price)) +
     geom_hex()
 ggsave("diamonds.pdf")
 

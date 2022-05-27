@@ -1,9 +1,6 @@
----
-title: "1 Introduction"
-date: 2022-05-27
-author: CWorld
-output: html_document
----
+# (PART) Summary {-}
+
+# Introduction {#introduction}
 
 ## 数据科学
 
@@ -33,7 +30,7 @@ install.packages("tidyverse")
 
 在本项目笔记中，我们将使用来自 tidyverse 之外的三个数据包：
 
-```{R install.packages(), eval=FALSE}
+```{R install.packages() for more, eval=FALSE}
 install.packages(c("nycflights13", "gapminder", "Lahman"))
 ```
 

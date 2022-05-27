@@ -1,9 +1,4 @@
----
-title: "6 Workflow: scripts"
-date: 2022-05-26
-author: CWorld
-output: html_document
----
+# Workflow: scripts {#workflow-scripts}
 
 到目前为止，我们一直在使用 Console 控制台来运行代码。但当我们创建更复杂的 ggplot2 图和 dplyr 管道时，我们会发现它很快就会变得狭窄。为了给自己更多的工作空间，使用脚本编辑器是个好主意。
 

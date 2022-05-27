@@ -1,14 +1,9 @@
----
-title: "4 Workflow: basics"
-date: 2022-05-26
-author: CWorld
-output: html_document
----
+# Workflow: basics {#workflow-basics}
 
-```{r settings, include = FALSE}
+```{R, include = FALSE}
 knitr::opts_chunk$set(
-    comment = "#>",
-    collapse = TRUE
+  comment = "#>",
+  collapse = TRUE
 )
 ```
 

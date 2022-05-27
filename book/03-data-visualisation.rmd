@@ -1,18 +1,13 @@
----
-title: "3 Data visualisation"
-date: 2022-05-26
-author: CWorld
-output: html_document
----
+# 3 Data visualisation {#explore}
 
-```{r settings, include = FALSE}
+```{R, include = FALSE}
 knitr::opts_chunk$set(
-    comment = "#>",
-    collapse = TRUE
+  comment = "#>",
+  collapse = TRUE
 )
 ```
 
-```{r setup, results = "hide", message = FALSE, warning = FALSE}
+```{R setup, results = "hide", message = FALSE, warning = FALSE}
 library(tidyverse) # 方便使用其中的 ggplot2
 ```
 
@@ -232,7 +227,7 @@ bar <- ggplot(data = diamonds) +
 
 建立列表，绘制好 6 张图并装配进去：
 
-```{r list with ggplot()}
+```{R list with ggplot()}
 p <- list()
 p[[1]] <- ggplot(mpg, aes(x = displ, y = hwy)) +
     geom_point() +
@@ -256,7 +251,7 @@ p[[6]] <- ggplot(mpg, aes(x = displ, y = hwy)) +
 
 随即使用布局逐张展示：
 
-```{r grid()}
+```{R grid()}
 library(grid) # 引用一下布局包
 grid.newpage() # 新建布局包
 pushViewport(viewport(layout = grid.layout(3, 2))) # 设置 2x3 布局
