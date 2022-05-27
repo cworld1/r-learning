@@ -1,0 +1,9 @@
+new_session: true
+book_filename: 'R-Learning'
+language:
+  label:
+    summary: '简介'
+    explore: '探索'
+  ui:
+    chapter_name: "Chapter "
+delete_merged_file: true
