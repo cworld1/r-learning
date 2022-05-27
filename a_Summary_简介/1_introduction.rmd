@@ -1,4 +1,9 @@
-# 1 Introduction
+---
+title: "1 Introduction"
+date: 2022-05-27
+author: CWorld
+output: html_document
+---
 
 ## 数据科学
 
@@ -18,17 +23,17 @@ RStudio 是一个用于 R 编程的集成开发环境或 IDE。从 http://www.rs
 
 ### 相关包
 
-您可以使用一行代码安装完整的 tidyverse：
+我们可以使用一行代码安装完整的 tidyverse：
 
-```R
+```{R install.packages(), eval = FALSE}
 install.packages("tidyverse")
 ```
 
-在您自己的计算机上，在控制台中键入该行代码，然后按 Enter 运行它。R 将从 CRAN 下载软件包并将其安装到您的计算机上。如果您在安装时遇到问题，请确保您已连接到互联网，并且 https://cloud.r-project.org/ 未被防火墙或代理阻止。
+在我们自己的计算机上，在控制台中键入该行代码，然后按 Enter 运行它。R 将从 CRAN 下载软件包并将其安装到我们的计算机上。如果我们在安装时遇到问题，请确保我们已连接到互联网，并且 https://cloud.r-project.org/ 未被防火墙或代理阻止。
 
 在本项目笔记中，我们将使用来自 tidyverse 之外的三个数据包：
 
-```R
+```{R install.packages(), eval=FALSE}
 install.packages(c("nycflights13", "gapminder", "Lahman"))
 ```
 
@@ -44,13 +49,13 @@ install.packages(c("nycflights13", "gapminder", "Lahman"))
 
 我们就从 HelloWorld 开始吧：
 
-```R
+```{R hello world}
 print("hello world!")
 ```
 
 R 里有一些约定俗成的代码形式。如：
 
-```R
+```{R way of writting code, eval=FALSE}
 # 函数后面带括号
 sum(c(1, 2))
 # 对象直接书写
@@ -62,7 +67,7 @@ nycflights13::flights # flights 数据集
 
 一些基础功能后面可能不会再反复提到，但它们通常很有用：
 
-```R
+```{R other skills, eval=FALSE}
 library(tidyverse) # 加载之前安装的包
 tidyverse_update() # 更新 tidyverse 包内的附带包
 dput(mtcars) # 查看数据集（如 mtcars）的更多信息
