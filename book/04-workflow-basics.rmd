@@ -7,8 +7,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-## 基础运算上手
-
 在 R 里，你甚至能当计算器：
 
 ```{R calculate}
