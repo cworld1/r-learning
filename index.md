@@ -2,11 +2,12 @@
 # 基本信息
 title: "R-Learning"
 author: "CWorld"
-date: "2022-05-28"
+date: "2022-05-29"
 description: "这是关于 CWorld 学习 R 语言的一些笔记和代码。"
-github-repo: cworld1 / r - learning
-url: 'http\://cworld1.github.io/r-learning'
-cover-image: source/avatar.jpg
+github-repo: cworld1/r-learning
+url: 'https\://cworld1.github.io/r-learning'
+cover-image: "source/avatar.jpg"
+favicon: "source/favicon.ico"
 
 # 渲染信息
 site: bookdown::bookdown_site
@@ -18,8 +19,8 @@ bibliography: ['book.bib', 'packages.bib']
 biblio-style: apalike
 link-citations: yes
 ---
-
-# Welcome
+    
+# Welcome {#welcome}
 
 [![R language](https://img.shields.io/badge/R-276DC3?style=flat-square&logo=r)](https://www.r-project.org/)
 [![GitHub stars](https://img.shields.io/github/stars/cworld1/r-learning?style=flat-square)](https://github.com/cworld1/r-learning/)
@@ -27,8 +28,6 @@ link-citations: yes
 [![GitHub license](https://img.shields.io/github/license/cworld1/r-learning?style=flat-square)](https://github.com/cworld1/r-learning/)
 
 这是关于 CWorld 学习 R 语言的一些笔记和代码。
-
-[前往阅读](https://r.cworld.top)
 
 ## 项目介绍
 
