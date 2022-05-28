@@ -1,4 +1,6 @@
-# Introduction
+# (PART) Model 模型 {-}
+
+# Introduction {#model-intro}
 
 现在我们已经配备了强大的编程工具，终于可以回到建模了。
 
