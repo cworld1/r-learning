@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 10 Introduction | R-Learning</title>
+  <title>Chapter 15 Introduction | R-Learning</title>
   <meta name="description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 10 Introduction | R-Learning" />
+  <meta property="og:title" content="Chapter 15 Introduction | R-Learning" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="https://cworld1.github.io/r-learning/source/avatar.jpg" />
   <meta property="og:description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
   <meta name="github-repo" content="cworld1/r-learning" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 10 Introduction | R-Learning" />
+  <meta name="twitter:title" content="Chapter 15 Introduction | R-Learning" />
   
   <meta name="twitter:description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
   <meta name="twitter:image" content="https://cworld1.github.io/r-learning/source/avatar.jpg" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="source/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="workflow-projects.html"/>
-<link rel="next" href="tibbles.html"/>
+<link rel="prev" href="relational-data.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -325,34 +325,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="wrangle-intro" class="section level1 hasAnchor" number="10">
-<h1><span class="header-section-number">Chapter 10</span> Introduction<a href="wrangle-intro.html#wrangle-intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>数据扭结，以合适的形式将数据导入 R 用于可视化和建模。数据整理非常重要：没有它，你就无法处理自己的数据！数据整理有三个主要部分：</p>
+<div id="model-intro" class="section level1 hasAnchor" number="15">
+<h1><span class="header-section-number">Chapter 15</span> Introduction<a href="model-intro.html#model-intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>现在我们已经配备了强大的编程工具，终于可以回到建模了。</p>
 <div class="figure">
-<img src="https://d33wubrfki0l68.cloudfront.net/e3f9e555d0035731c04642ceb58a03fb84b98a7d/4f070/diagrams/data-science-wrangle.png" alt="" />
-<p class="caption">data-science-wrangle</p>
+<img src="https://d33wubrfki0l68.cloudfront.net/e5bf2a8f4c787a12facbc0b4191fc82bd192f4c5/4e5d2/diagrams/data-science-model.png" alt="" />
+<p class="caption">data-science-model</p>
 </div>
+<p>模型的目标是提供数据集的简单低维摘要。理想情况下，该模型将捕获真正的 “信号”（即由感兴趣现象产生的模式），并忽略 “噪声”（即我们不感兴趣的随机变化）。</p>
 <ul>
-<li>在 <strong>tibbles</strong> 中，你将了解到贯穿全全笔记中使用的 dataframe 的变体：tibble。你将了解它们与常规数据框的不同之处，以及如何 “手动” 构建它们。</li>
-<li>在<strong>数据导入</strong>中，你将了解如何将数据从磁盘获取到 R 中。我们将重点介绍纯文本的矩阵格式，但会为你提供指向有助于处理其他类型的数据的包的指南。</li>
-<li>在<strong>整洁的数据</strong>中，你将了解整洁的数据，这是一种存储数据的一种约定俗成的方式，使转换、可视化和建模更加容易。你将学习基本原则，以及如何将数据转换为整洁的形式。</li>
+<li><p>在<strong>模型基础知识</strong>中，我们将了解模型如何工作，重点介绍重要的线性模型系列。</p></li>
+<li><p>在<strong>模型构建</strong>中，我们将学习如何使用模型在实际数据中提取已知模式。</p></li>
+<li><p>在<strong>许多模型</strong>中，我们将学习如何使用许多简单模型来帮助理解复杂的数据集。注意学习时多加结合建模和编程工具。</p></li>
 </ul>
-<p>数据扭结还包括数据转换。接下来我们将重点介绍实践中常用的三种特定类型数据的新技能：</p>
-<ul>
-<li><strong>关系数据</strong>将为你提供用于处理多个相互关联的数据集的工具。</li>
-<li><strong>字符串工具</strong>将携手正则表达式，这是一种用于操作字符串的强大工具。</li>
-<li><strong>因子</strong>是 R 如何存储分类数据的。一般被用于当变量具有一组固定的可能值，或者当你希望使用字符串的非字母排序。</li>
-<li><strong>日期和时间工具</strong>将为你提供处理日期和日期时间的关键工具。</li>
-</ul>
+<div id="认知" class="section level2 hasAnchor" number="15.1">
+<h2><span class="header-section-number">15.1</span> 认知<a href="model-intro.html#认知" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>传统的来说，建模的重点是推理，或确认假设是正确的。因此我们需要形成两个必要的观念：</p>
+<ol style="list-style-type: decimal">
+<li>每个观测值既可以用于探索，也可以用于确认，而不能两者兼而有之。</li>
+<li>我们可以根据需要多次使用观测值进行探索，但只能使用一次进行确认。一旦使用观察结果两次，我们就算已经从确认切换到了探索。</li>
+</ol>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="workflow-projects.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="tibbles.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="relational-data.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -383,7 +385,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/cworld1/r-learning/edit/master/book/09-wrangle-intro.Rmd",
+"link": "https://github.com/cworld1/r-learning/edit/master/book/22-model-intro.Rmd",
 "text": "Edit"
 },
 "history": {

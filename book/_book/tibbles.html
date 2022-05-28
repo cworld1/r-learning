@@ -184,10 +184,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.8" data-path="explore.html"><a href="explore.html#绘制-diamonds-数据分析图"><i class="fa fa-check"></i><b>4.8</b> 绘制 diamonds 数据分析图</a></li>
 <li class="chapter" data-level="4.9" data-path="explore.html"><a href="explore.html#研究-mpgcars-数据集"><i class="fa fa-check"></i><b>4.9</b> 研究 mpgcars 数据集</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="workflow-basics.html"><a href="workflow-basics.html"><i class="fa fa-check"></i><b>5</b> Workflow: basics</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="workflow-basics.html"><a href="workflow-basics.html#基础运算上手"><i class="fa fa-check"></i><b>5.1</b> 基础运算上手</a></li>
-</ul></li>
+<li class="chapter" data-level="5" data-path="workflow-basics.html"><a href="workflow-basics.html"><i class="fa fa-check"></i><b>5</b> Workflow: basics</a></li>
 <li class="chapter" data-level="6" data-path="transform.html"><a href="transform.html"><i class="fa fa-check"></i><b>6</b> Data transformation</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="transform.html"><a href="transform.html#查看-flights-数据集"><i class="fa fa-check"></i><b>6.1</b> 查看 flights 数据集</a></li>
@@ -303,6 +300,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.3" data-path="relational-data.html"><a href="relational-data.html#设置操作"><i class="fa fa-check"></i><b>14.3</b> 设置操作</a></li>
 <li class="chapter" data-level="14.4" data-path="relational-data.html"><a href="relational-data.html#合并-nycflights-数据并分析"><i class="fa fa-check"></i><b>14.4</b> 合并 nycflights 数据并分析</a></li>
 </ul></li>
+<li class="part"><span><b>III Model 模型</b></span></li>
+<li class="chapter" data-level="15" data-path="model-intro.html"><a href="model-intro.html"><i class="fa fa-check"></i><b>15</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="model-intro.html"><a href="model-intro.html#认知"><i class="fa fa-check"></i><b>15.1</b> 认知</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">由 Bookdown 强力驱动</a></li>
 
@@ -406,16 +408,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb109-8"><a href="tibbles.html#cb109-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,000 x 5</span></span>
 <span id="cb109-9"><a href="tibbles.html#cb109-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    a                   b              c     d e    </span></span>
 <span id="cb109-10"><a href="tibbles.html#cb109-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;</span></span>
-<span id="cb109-11"><a href="tibbles.html#cb109-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2022-05-29 19:07:08 2022-06-06     1 0.205 g    </span></span>
-<span id="cb109-12"><a href="tibbles.html#cb109-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 2022-05-29 08:29:59 2022-05-31     2 0.972 t    </span></span>
-<span id="cb109-13"><a href="tibbles.html#cb109-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 2022-05-29 12:00:07 2022-06-08     3 0.390 s    </span></span>
-<span id="cb109-14"><a href="tibbles.html#cb109-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 2022-05-29 07:22:29 2022-06-12     4 0.124 e    </span></span>
-<span id="cb109-15"><a href="tibbles.html#cb109-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 2022-05-29 23:30:44 2022-06-21     5 0.485 g    </span></span>
-<span id="cb109-16"><a href="tibbles.html#cb109-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 2022-05-29 12:25:34 2022-06-04     6 0.804 h    </span></span>
-<span id="cb109-17"><a href="tibbles.html#cb109-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 2022-05-29 01:19:29 2022-06-11     7 0.485 i    </span></span>
-<span id="cb109-18"><a href="tibbles.html#cb109-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 2022-05-29 21:17:51 2022-06-24     8 0.556 r    </span></span>
-<span id="cb109-19"><a href="tibbles.html#cb109-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 2022-05-29 01:10:24 2022-06-10     9 0.133 c    </span></span>
-<span id="cb109-20"><a href="tibbles.html#cb109-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2022-05-29 05:33:20 2022-06-09    10 0.139 s    </span></span>
+<span id="cb109-11"><a href="tibbles.html#cb109-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2022-05-29 20:36:38 2022-06-16     1 0.381 w    </span></span>
+<span id="cb109-12"><a href="tibbles.html#cb109-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 2022-05-29 02:25:38 2022-06-16     2 0.177 f    </span></span>
+<span id="cb109-13"><a href="tibbles.html#cb109-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 2022-05-29 02:24:24 2022-06-05     3 0.773 v    </span></span>
+<span id="cb109-14"><a href="tibbles.html#cb109-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 2022-05-29 15:20:57 2022-06-22     4 0.230 v    </span></span>
+<span id="cb109-15"><a href="tibbles.html#cb109-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 2022-05-29 12:51:27 2022-06-17     5 0.484 t    </span></span>
+<span id="cb109-16"><a href="tibbles.html#cb109-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 2022-05-29 14:54:41 2022-06-13     6 0.533 b    </span></span>
+<span id="cb109-17"><a href="tibbles.html#cb109-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 2022-05-29 13:37:38 2022-06-09     7 0.616 q    </span></span>
+<span id="cb109-18"><a href="tibbles.html#cb109-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 2022-05-30 01:05:39 2022-05-29     8 0.933 m    </span></span>
+<span id="cb109-19"><a href="tibbles.html#cb109-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 2022-05-29 11:19:15 2022-06-06     9 0.855 x    </span></span>
+<span id="cb109-20"><a href="tibbles.html#cb109-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2022-05-29 07:22:40 2022-05-31    10 0.876 j    </span></span>
 <span id="cb109-21"><a href="tibbles.html#cb109-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 990 more rows</span></span></code></pre></div>
 <p>tibble 对于太多的数据，只会显示前十行，不会让你的控制台被内容淹没；同时会显示每一列的数据类型。这得益于 str() 函数。</p>
 <p>tibble 还完美兼容 print() 函数：</p>
@@ -473,17 +475,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb112-4"><a href="tibbles.html#cb112-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>按名字读取:</p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="tibbles.html#cb113-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>x</span>
-<span id="cb113-2"><a href="tibbles.html#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.94689450 0.03768935 0.20359340 0.41578729 0.57692369</span></span>
+<span id="cb113-2"><a href="tibbles.html#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.8921433 0.8627795 0.9768724 0.8933510 0.5142061</span></span>
 <span id="cb113-3"><a href="tibbles.html#cb113-3" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">&quot;x&quot;</span>]]</span>
-<span id="cb113-4"><a href="tibbles.html#cb113-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.94689450 0.03768935 0.20359340 0.41578729 0.57692369</span></span></code></pre></div>
+<span id="cb113-4"><a href="tibbles.html#cb113-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.8921433 0.8627795 0.9768724 0.8933510 0.5142061</span></span></code></pre></div>
 <p>按序列位置读取：</p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="tibbles.html#cb114-1" aria-hidden="true" tabindex="-1"></a>df[[<span class="dv">1</span>]]</span>
-<span id="cb114-2"><a href="tibbles.html#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.94689450 0.03768935 0.20359340 0.41578729 0.57692369</span></span></code></pre></div>
+<span id="cb114-2"><a href="tibbles.html#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.8921433 0.8627795 0.9768724 0.8933510 0.5142061</span></span></code></pre></div>
 <p>但如果使用管道符的话，我们需要使用 “.”：</p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="tibbles.html#cb115-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> .<span class="sc">$</span>x</span>
-<span id="cb115-2"><a href="tibbles.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.94689450 0.03768935 0.20359340 0.41578729 0.57692369</span></span>
+<span id="cb115-2"><a href="tibbles.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.8921433 0.8627795 0.9768724 0.8933510 0.5142061</span></span>
 <span id="cb115-3"><a href="tibbles.html#cb115-3" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> .[[<span class="st">&quot;x&quot;</span>]]</span>
-<span id="cb115-4"><a href="tibbles.html#cb115-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.94689450 0.03768935 0.20359340 0.41578729 0.57692369</span></span></code></pre></div>
+<span id="cb115-4"><a href="tibbles.html#cb115-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.8921433 0.8627795 0.9768724 0.8933510 0.5142061</span></span></code></pre></div>
 </div>
 </div>
 <div id="tibble-的转换" class="section level2 hasAnchor" number="11.3">
@@ -531,7 +533,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/cworld1/r-learning/edit/master/book/10-tibbles.rmd",
+"link": "https://github.com/cworld1/r-learning/edit/master/book/10-tibbles.Rmd",
 "text": "Edit"
 },
 "history": {

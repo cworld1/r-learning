@@ -22,12 +22,7 @@ link-citations: yes
     
 # Welcome {#welcome}
 
-[![R language](https://img.shields.io/badge/R-276DC3?style=flat-square&logo=r)](https://www.r-project.org/)
-[![GitHub stars](https://img.shields.io/github/stars/cworld1/r-learning?style=flat-square)](https://github.com/cworld1/r-learning/)
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/y/cworld1/r-learning?label=commits&style=flat-square)](https://github.com/cworld1/r-learning/commits/)
-[![GitHub license](https://img.shields.io/github/license/cworld1/r-learning?style=flat-square)](https://github.com/cworld1/r-learning/)
-
-这是关于 CWorld 学习 R 语言的一些笔记和代码。
+这是关于 CWorld 学习 R 语言的一些笔记和代码。目前已开源：[Github R-Learning](https://github.com/cworld1/r-learning)
 
 ## 项目介绍
 
