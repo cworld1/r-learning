@@ -1,4 +1,4 @@
-# (PART) Explore {-}
+# (PART) Explore 探索 {-}
 
 # Introduction {#explore-intro}
 
