@@ -1,4 +1,4 @@
-# 3 Data visualisation {#explore}
+# Data visualisation {#explore}
 
 
 
