@@ -7,15 +7,38 @@
 
 这是关于 CWorld 学习 R 语言的一些笔记和代码。
 
-详见 [Github](https://github.com/cworld1/r-learning/)
+[前往阅读](https://r.cworld.top)
 
 ## 项目介绍
 
-根目录中 `a ~ e`为 R 学习相关笔记部分，`z_Homework` 为学习时的作业源代码。每个部分都有 Introduction 来简述本部分内容并做一些简要的引入。
+本项目使用 `bookdown` 构建，包含 [gitbook](https://r.cworld.top/)、[epub_book](https://r.cworld.top/R-Learning.epub) 和 [pdf_book](https://r.cworld.top/R-Learning.pdf) 三种构建成品。
 
-不是所有章节都采用 markdown 或完整可运行的 r 文件。知识点更多会在代码或描述本身表现，请读者仔细观察和对比。
+实际学习上，我们更推荐将项目打包下载，或使用 `git clone` 到本地方便随时运行它们的任意一部分，而不是反复使用复制和粘贴。本笔记的 R 笔记源码针对大纲进行了优化，使用支持更友好的编辑器，很大程度上方便读者理清节点关系与数据生成始末。这里推荐使用 RStudio 或 Visual Studio Code，但理论上应该也有让你阅读更愉快的编辑器，在此不做敷述。
 
-阅读体验上，我们推荐将项目下载或使用 `git clone` 到本地方便随时运行它们的任意一部分。本笔记的 R 笔记源码针对大纲进行了优化，使用支持更友好的编辑器方便你看清节点关系与数据生成始末。这里使用 R Studio 或 Visual Studio Code，但理论上应该也有让你阅读更愉快的编辑器。
+## 项目运行
+
+首先请保证自己已经有了 R 本地环境，并把 RScript 加入了全局变量。
+
+- 安装运行代码需要的包：
+
+```sh
+Rscript -e 'install.packages(c("tidyverse", "nycflights13", "hexbin", "gapminder", "Lahman"))'
+```
+
+- 安装构建本书需要的包（如果你需要的话）：
+
+```sh
+Rscript -e 'install.packages(c("markdownr", "bookdown"))'
+Rscript -e 'tinytex::install_tinytex()'
+```
+
+- 开始构建（如果你需要的话）：
+
+```sh
+set -ev
+cd book
+Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::gitbook')"
+```
 
 ## 贡献
 
@@ -33,4 +56,4 @@
 
 ## License
 
-The BSD-3-Clause License.
+The MIT License.
