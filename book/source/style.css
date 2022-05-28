@@ -1,22 +1,3 @@
-p.caption {
-  color: #777;
-  margin-top: 10px;
-}
-
-p code {
-  white-space: inherit;
-}
-
-pre {
-  word-break: normal;
-  word-wrap: normal;
-}
-
-pre code {
-  white-space: inherit;
-}
-
-/* 自定义 */
 /* 侧栏 */
 .book .book-summary ul.summary {
   background-color: #8fa8c01f;
@@ -60,6 +41,13 @@ pre code {
   color: #346ddb;
 }
 
+/* 顶栏 */
+.dropdown-menu {
+  border-radius: 5px;
+  padding: 0 20px;
+  box-shadow: 0 4px 10px #0000001f;
+}
+
 /* 内容 */
 .book .book-body .page-wrapper .page-inner section.normal h1 {
   font-size: 45px;
@@ -80,6 +68,30 @@ pre code {
   margin: 0;
 }
 
+.book .book-body .page-wrapper .page-inner section.normal pre {
+  background-color: #8fa8c01f;
+}
+
+button.copy-to-clipboard-button {
+  background: #ffffff;
+  border: 1px solid #a1b2c16b;
+  margin: 7px 7px 0 0;
+  padding: 4px 8px;
+  border-radius: 5px;
+  visibility: visible;
+  transition: .3s;
+  opacity: 0;
+  cursor: pointer;
+}
+
+div.sourceCode:hover>.copy-to-clipboard-button {
+  opacity: 1;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal a {
+  color: #346ddb;
+}
+
 /* 其他主题 */
 .book.color-theme-1 .book-summary ul.summary li.chapter.active>a {
   background-color: #a1683a69;
@@ -91,8 +103,21 @@ pre code {
   color: #6499ff;
 }
 
-.dropdown-menu {
-  border-radius: 5px;
-  padding: 0 20px;
-  box-shadow: 0 4px 10px #0000001f;
+.book.color-theme-2 i.fa.fa-copy {
+  color: #fff;
+}
+
+.book.color-theme-2 button.copy-to-clipboard-button {
+  background: #2e2e2e;
+}
+
+/* 不同尺寸设备修复 */
+@media screen and (max-width: 600px) {
+  .page-wrapper {
+    margin-top: 50px;
+  }
+
+  .book.with-summary .book-body.fixed .page-wrapper {
+    filter: brightness(40%);
+  }
 }
