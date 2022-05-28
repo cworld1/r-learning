@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 14 Relational data | R-Learning</title>
+  <meta name="description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 14 Relational data | R-Learning" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="http://cworld1.github.io/r-learning/source/avatar.jpg" />
+  <meta property="og:description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
+  <meta name="github-repo" content="cworld1 / r - learning" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 14 Relational data | R-Learning" />
+  
+  <meta name="twitter:description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
+  <meta name="twitter:image" content="http://cworld1.github.io/r-learning/source/avatar.jpg" />
+
+<meta name="author" content="CWorld" />
+
+
+<meta name="date" content="2022-05-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tidy-data.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#项目介绍"><i class="fa fa-check"></i><b>1.1</b> 项目介绍</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#项目运行"><i class="fa fa-check"></i><b>1.2</b> 项目运行</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#贡献"><i class="fa fa-check"></i><b>1.3</b> 贡献</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#鸣谢"><i class="fa fa-check"></i><b>1.4</b> 鸣谢</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i><b>1.5</b> License</a></li>
+</ul></li>
+<li class="part"><span><b>I Summary</b></span></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#数据科学"><i class="fa fa-check"></i><b>2.1</b> 数据科学</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction.html"><a href="introduction.html#一些准备"><i class="fa fa-check"></i><b>2.2</b> 一些准备</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="introduction.html"><a href="introduction.html#安装-r"><i class="fa fa-check"></i><b>2.2.1</b> 安装 R</a></li>
+<li class="chapter" data-level="2.2.2" data-path="introduction.html"><a href="introduction.html#安装编辑器"><i class="fa fa-check"></i><b>2.2.2</b> 安装编辑器</a></li>
+<li class="chapter" data-level="2.2.3" data-path="introduction.html"><a href="introduction.html#相关包"><i class="fa fa-check"></i><b>2.2.3</b> 相关包</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="introduction.html"><a href="introduction.html#更多学习途径"><i class="fa fa-check"></i><b>2.3</b> 更多学习途径</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction.html"><a href="introduction.html#初识-r"><i class="fa fa-check"></i><b>2.4</b> 初识 R</a></li>
+</ul></li>
+<li class="part"><span><b>II Explore</b></span></li>
+<li class="chapter" data-level="3" data-path="explore-intro.html"><a href="explore-intro.html"><i class="fa fa-check"></i><b>3</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="explore-intro.html"><a href="explore-intro.html#基本数据形式和函数"><i class="fa fa-check"></i><b>3.1</b> 基本数据形式和函数</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="explore-intro.html"><a href="explore-intro.html#向量矩阵与列表"><i class="fa fa-check"></i><b>3.1.1</b> 向量、矩阵与列表</a></li>
+<li class="chapter" data-level="3.1.2" data-path="explore-intro.html"><a href="explore-intro.html#基本函数"><i class="fa fa-check"></i><b>3.1.2</b> 基本函数</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="explore-intro.html"><a href="explore-intro.html#学习-r-自带的画图功能"><i class="fa fa-check"></i><b>3.2</b> 学习 R 自带的画图功能</a></li>
+<li class="chapter" data-level="3.3" data-path="explore-intro.html"><a href="explore-intro.html#更高级的数据形式"><i class="fa fa-check"></i><b>3.3</b> 更高级的数据形式</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="explore.html"><a href="explore.html"><i class="fa fa-check"></i><b>4</b> 3 Data visualisation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="explore.html"><a href="explore.html#初识-ggplot"><i class="fa fa-check"></i><b>4.1</b> 初识 ggplot</a></li>
+<li class="chapter" data-level="4.2" data-path="explore.html"><a href="explore.html#美学映射"><i class="fa fa-check"></i><b>4.2</b> 美学映射</a></li>
+<li class="chapter" data-level="4.3" data-path="explore.html"><a href="explore.html#修改样式"><i class="fa fa-check"></i><b>4.3</b> 修改样式</a></li>
+<li class="chapter" data-level="4.4" data-path="explore.html"><a href="explore.html#多组画图"><i class="fa fa-check"></i><b>4.4</b> 多组画图</a></li>
+<li class="chapter" data-level="4.5" data-path="explore.html"><a href="explore.html#叠加与参数"><i class="fa fa-check"></i><b>4.5</b> 叠加与参数</a></li>
+<li class="chapter" data-level="4.6" data-path="explore.html"><a href="explore.html#其他常见图"><i class="fa fa-check"></i><b>4.6</b> 其他常见图</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="explore.html"><a href="explore.html#回归曲线图"><i class="fa fa-check"></i><b>4.6.1</b> 回归曲线图</a></li>
+<li class="chapter" data-level="4.6.2" data-path="explore.html"><a href="explore.html#条形图"><i class="fa fa-check"></i><b>4.6.2</b> 条形图</a></li>
+<li class="chapter" data-level="4.6.3" data-path="explore.html"><a href="explore.html#summary-线条信息图"><i class="fa fa-check"></i><b>4.6.3</b> Summary 线条信息图</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="explore.html"><a href="explore.html#坐标系相关"><i class="fa fa-check"></i><b>4.7</b> 坐标系相关</a></li>
+<li class="chapter" data-level="4.8" data-path="explore.html"><a href="explore.html#绘制-diamonds-数据分析图"><i class="fa fa-check"></i><b>4.8</b> 绘制 diamonds 数据分析图</a></li>
+<li class="chapter" data-level="4.9" data-path="explore.html"><a href="explore.html#研究-mpgcars-数据集"><i class="fa fa-check"></i><b>4.9</b> 研究 mpgcars 数据集</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="workflow-basics.html"><a href="workflow-basics.html"><i class="fa fa-check"></i><b>5</b> Workflow: basics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="workflow-basics.html"><a href="workflow-basics.html#基础运算上手"><i class="fa fa-check"></i><b>5.1</b> 基础运算上手</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="transform.html"><a href="transform.html"><i class="fa fa-check"></i><b>6</b> Data transformation</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="transform.html"><a href="transform.html#查看-flights-数据集"><i class="fa fa-check"></i><b>6.1</b> 查看 flights 数据集</a></li>
+<li class="chapter" data-level="6.2" data-path="transform.html"><a href="transform.html#过滤-filter"><i class="fa fa-check"></i><b>6.2</b> 过滤 filter()</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="transform.html"><a href="transform.html#比较"><i class="fa fa-check"></i><b>6.2.1</b> 比较</a></li>
+<li class="chapter" data-level="6.2.2" data-path="transform.html"><a href="transform.html#逻辑运算符"><i class="fa fa-check"></i><b>6.2.2</b> 逻辑运算符</a></li>
+<li class="chapter" data-level="6.2.3" data-path="transform.html"><a href="transform.html#缺失值"><i class="fa fa-check"></i><b>6.2.3</b> 缺失值</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="transform.html"><a href="transform.html#排列-arange"><i class="fa fa-check"></i><b>6.3</b> 排列 arange()</a></li>
+<li class="chapter" data-level="6.4" data-path="transform.html"><a href="transform.html#选择-select"><i class="fa fa-check"></i><b>6.4</b> 选择 select()</a></li>
+<li class="chapter" data-level="6.5" data-path="transform.html"><a href="transform.html#重命名-rename"><i class="fa fa-check"></i><b>6.5</b> 重命名 rename()</a></li>
+<li class="chapter" data-level="6.6" data-path="transform.html"><a href="transform.html#添加新变量-mutate-与-transmute"><i class="fa fa-check"></i><b>6.6</b> 添加新变量 mutate() 与 transmute()</a></li>
+<li class="chapter" data-level="6.7" data-path="transform.html"><a href="transform.html#分组摘要-summarise"><i class="fa fa-check"></i><b>6.7</b> 分组摘要 summarise()</a></li>
+<li class="chapter" data-level="6.8" data-path="transform.html"><a href="transform.html#其他处理数据功能"><i class="fa fa-check"></i><b>6.8</b> 其他处理数据功能</a></li>
+<li class="chapter" data-level="6.9" data-path="transform.html"><a href="transform.html#分析-flights-数据集"><i class="fa fa-check"></i><b>6.9</b> 分析 flights 数据集</a>
+<ul>
+<li class="chapter" data-level="6.9.1" data-path="transform.html"><a href="transform.html#计算目的地相关的图"><i class="fa fa-check"></i><b>6.9.1</b> 计算目的地相关的图</a></li>
+<li class="chapter" data-level="6.9.2" data-path="transform.html"><a href="transform.html#获取热门目的地及有关数据"><i class="fa fa-check"></i><b>6.9.2</b> 获取热门目的地及有关数据</a></li>
+<li class="chapter" data-level="6.9.3" data-path="transform.html"><a href="transform.html#绘制飞机延误时长分布图"><i class="fa fa-check"></i><b>6.9.3</b> 绘制飞机延误时长分布图</a></li>
+<li class="chapter" data-level="6.9.4" data-path="transform.html"><a href="transform.html#计算每天最早和最晚的航班"><i class="fa fa-check"></i><b>6.9.4</b> 计算每天最早和最晚的航班</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="workflow-scripts.html"><a href="workflow-scripts.html"><i class="fa fa-check"></i><b>7</b> Workflow: scripts</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="workflow-scripts.html"><a href="workflow-scripts.html#运行代码"><i class="fa fa-check"></i><b>7.1</b> 运行代码</a></li>
+<li class="chapter" data-level="7.2" data-path="workflow-scripts.html"><a href="workflow-scripts.html#rstudio-诊断"><i class="fa fa-check"></i><b>7.2</b> RStudio 诊断</a></li>
+<li class="chapter" data-level="7.3" data-path="workflow-scripts.html"><a href="workflow-scripts.html#使用-visual-studio-code-编写-r"><i class="fa fa-check"></i><b>7.3</b> 使用 Visual studio code 编写 R</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>8</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图分析-diamonds-数据集"><i class="fa fa-check"></i><b>8.1</b> 绘图分析 diamonds 数据集</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#可视化分布"><i class="fa fa-check"></i><b>8.1.1</b> 可视化分布</a></li>
+<li class="chapter" data-level="8.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘制频率直方图"><i class="fa fa-check"></i><b>8.1.2</b> 绘制频率直方图</a></li>
+<li class="chapter" data-level="8.1.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#异常数据杂质"><i class="fa fa-check"></i><b>8.1.3</b> 异常数据（杂质）</a></li>
+<li class="chapter" data-level="8.1.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#处理异常数据"><i class="fa fa-check"></i><b>8.1.4</b> 处理异常数据</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图统计-flights-数据集"><i class="fa fa-check"></i><b>8.2</b> 绘图统计 flights 数据集</a></li>
+<li class="chapter" data-level="8.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图统计-diamonds-数据集"><i class="fa fa-check"></i><b>8.3</b> 绘图统计 diamonds 数据集</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#连续变量多类绘图"><i class="fa fa-check"></i><b>8.3.1</b> 连续变量多类绘图</a></li>
+<li class="chapter" data-level="8.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#关于变量排序-reorder"><i class="fa fa-check"></i><b>8.3.2</b> 关于变量排序 reorder()</a></li>
+<li class="chapter" data-level="8.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#两个分类变量"><i class="fa fa-check"></i><b>8.3.3</b> 两个分类变量</a></li>
+<li class="chapter" data-level="8.3.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#两个连续变量"><i class="fa fa-check"></i><b>8.3.4</b> 两个连续变量</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="workflow-projects.html"><a href="workflow-projects.html"><i class="fa fa-check"></i><b>9</b> Workflow: projects</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="workflow-projects.html"><a href="workflow-projects.html#运行环境"><i class="fa fa-check"></i><b>9.1</b> 运行环境</a></li>
+<li class="chapter" data-level="9.2" data-path="workflow-projects.html"><a href="workflow-projects.html#工作区"><i class="fa fa-check"></i><b>9.2</b> 工作区</a></li>
+<li class="chapter" data-level="9.3" data-path="workflow-projects.html"><a href="workflow-projects.html#路径与目录"><i class="fa fa-check"></i><b>9.3</b> 路径与目录</a></li>
+<li class="chapter" data-level="9.4" data-path="workflow-projects.html"><a href="workflow-projects.html#rstudio-项目"><i class="fa fa-check"></i><b>9.4</b> RStudio 项目</a></li>
+</ul></li>
+<li class="part"><span><b>III Wrangle</b></span></li>
+<li class="chapter" data-level="10" data-path="wrangle-intro.html"><a href="wrangle-intro.html"><i class="fa fa-check"></i><b>10</b> Introduction</a></li>
+<li class="chapter" data-level="11" data-path="tibbles.html"><a href="tibbles.html"><i class="fa fa-check"></i><b>11</b> Tibbles</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="tibbles.html"><a href="tibbles.html#创建-tibble"><i class="fa fa-check"></i><b>11.1</b> 创建 tibble</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="tibbles.html"><a href="tibbles.html#as_tibble"><i class="fa fa-check"></i><b>11.1.1</b> as_tibble()</a></li>
+<li class="chapter" data-level="11.1.2" data-path="tibbles.html"><a href="tibbles.html#tibble"><i class="fa fa-check"></i><b>11.1.2</b> tibble()</a></li>
+<li class="chapter" data-level="11.1.3" data-path="tibbles.html"><a href="tibbles.html#tribble"><i class="fa fa-check"></i><b>11.1.3</b> tribble()</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="tibbles.html"><a href="tibbles.html#tibbles-vs.-data.frame"><i class="fa fa-check"></i><b>11.2</b> tibbles VS. data.frame</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="tibbles.html"><a href="tibbles.html#控制台打印方面"><i class="fa fa-check"></i><b>11.2.1</b> 控制台打印方面</a></li>
+<li class="chapter" data-level="11.2.2" data-path="tibbles.html"><a href="tibbles.html#读取子元素方面"><i class="fa fa-check"></i><b>11.2.2</b> 读取子元素方面</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="tibbles.html"><a href="tibbles.html#tibble-的转换"><i class="fa fa-check"></i><b>11.3</b> tibble 的转换</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>12</b> Data import</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="data-import.html"><a href="data-import.html#简单读取文件"><i class="fa fa-check"></i><b>12.1</b> 简单读取文件</a></li>
+<li class="chapter" data-level="12.2" data-path="data-import.html"><a href="data-import.html#解析向量"><i class="fa fa-check"></i><b>12.2</b> 解析向量</a></li>
+<li class="chapter" data-level="12.3" data-path="data-import.html"><a href="data-import.html#数字类型"><i class="fa fa-check"></i><b>12.3</b> 数字类型</a></li>
+<li class="chapter" data-level="12.4" data-path="data-import.html"><a href="data-import.html#字符类型"><i class="fa fa-check"></i><b>12.4</b> 字符类型</a></li>
+<li class="chapter" data-level="12.5" data-path="data-import.html"><a href="data-import.html#因子类型"><i class="fa fa-check"></i><b>12.5</b> 因子类型</a></li>
+<li class="chapter" data-level="12.6" data-path="data-import.html"><a href="data-import.html#日期时间类型"><i class="fa fa-check"></i><b>12.6</b> 日期时间类型</a></li>
+<li class="chapter" data-level="12.7" data-path="data-import.html"><a href="data-import.html#解析文件"><i class="fa fa-check"></i><b>12.7</b> 解析文件</a>
+<ul>
+<li class="chapter" data-level="12.7.1" data-path="data-import.html"><a href="data-import.html#自动匹配"><i class="fa fa-check"></i><b>12.7.1</b> 自动匹配</a></li>
+<li class="chapter" data-level="12.7.2" data-path="data-import.html"><a href="data-import.html#自动匹配遇到的问题"><i class="fa fa-check"></i><b>12.7.2</b> 自动匹配遇到的问题</a></li>
+<li class="chapter" data-level="12.7.3" data-path="data-import.html"><a href="data-import.html#其他的匹配解决策略"><i class="fa fa-check"></i><b>12.7.3</b> 其他的匹配解决策略</a></li>
+</ul></li>
+<li class="chapter" data-level="12.8" data-path="data-import.html"><a href="data-import.html#写入数据"><i class="fa fa-check"></i><b>12.8</b> 写入数据</a>
+<ul>
+<li class="chapter" data-level="12.8.1" data-path="data-import.html"><a href="data-import.html#csv-格式"><i class="fa fa-check"></i><b>12.8.1</b> csv 格式</a></li>
+<li class="chapter" data-level="12.8.2" data-path="data-import.html"><a href="data-import.html#rds-格式"><i class="fa fa-check"></i><b>12.8.2</b> rds 格式</a></li>
+<li class="chapter" data-level="12.8.3" data-path="data-import.html"><a href="data-import.html#feather-格式"><i class="fa fa-check"></i><b>12.8.3</b> feather 格式</a></li>
+<li class="chapter" data-level="12.8.4" data-path="data-import.html"><a href="data-import.html#其他格式"><i class="fa fa-check"></i><b>12.8.4</b> 其他格式</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>13</b> Tidy data</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="tidy-data.html"><a href="tidy-data.html#对-table1-数据分析"><i class="fa fa-check"></i><b>13.1</b> 对 table1 数据分析</a></li>
+<li class="chapter" data-level="13.2" data-path="tidy-data.html"><a href="tidy-data.html#对-table2-数据整理"><i class="fa fa-check"></i><b>13.2</b> 对 table2 数据整理</a></li>
+<li class="chapter" data-level="13.3" data-path="tidy-data.html"><a href="tidy-data.html#对-table3-数据整理"><i class="fa fa-check"></i><b>13.3</b> 对 table3 数据整理</a></li>
+<li class="chapter" data-level="13.4" data-path="tidy-data.html"><a href="tidy-data.html#对-table4a-table4b-数据整理"><i class="fa fa-check"></i><b>13.4</b> 对 table4a &amp; table4b 数据整理</a></li>
+<li class="chapter" data-level="13.5" data-path="tidy-data.html"><a href="tidy-data.html#对-table5-数据整理"><i class="fa fa-check"></i><b>13.5</b> 对 table5 数据整理</a></li>
+<li class="chapter" data-level="13.6" data-path="tidy-data.html"><a href="tidy-data.html#对-stocks-和-treatment-的缺失数据处理"><i class="fa fa-check"></i><b>13.6</b> 对 stocks 和 treatment 的缺失数据处理</a></li>
+<li class="chapter" data-level="13.7" data-path="tidy-data.html"><a href="tidy-data.html#对-who-数据整理"><i class="fa fa-check"></i><b>13.7</b> 对 who 数据整理</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="relational-data.html"><a href="relational-data.html"><i class="fa fa-check"></i><b>14</b> Relational data</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="relational-data.html"><a href="relational-data.html#理解合并数据概念"><i class="fa fa-check"></i><b>14.1</b> 理解合并数据概念</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="relational-data.html"><a href="relational-data.html#类型1没有重复问题"><i class="fa fa-check"></i><b>14.1.1</b> 类型1：没有重复问题</a></li>
+<li class="chapter" data-level="14.1.2" data-path="relational-data.html"><a href="relational-data.html#类型2一边有重复问题"><i class="fa fa-check"></i><b>14.1.2</b> 类型2：一边有重复问题</a></li>
+<li class="chapter" data-level="14.1.3" data-path="relational-data.html"><a href="relational-data.html#类型3两边都有重复问题"><i class="fa fa-check"></i><b>14.1.3</b> 类型3：两边都有重复问题</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="relational-data.html"><a href="relational-data.html#理解多种数据合并方式"><i class="fa fa-check"></i><b>14.2</b> 理解多种数据合并方式</a></li>
+<li class="chapter" data-level="14.3" data-path="relational-data.html"><a href="relational-data.html#设置操作"><i class="fa fa-check"></i><b>14.3</b> 设置操作</a></li>
+<li class="chapter" data-level="14.4" data-path="relational-data.html"><a href="relational-data.html#合并-nycflights-数据并分析"><i class="fa fa-check"></i><b>14.4</b> 合并 nycflights 数据并分析</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R-Learning</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="relational-data" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">Chapter 14</span> Relational data<a href="relational-data.html#relational-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>一对表格之间总是存在定义关系。要处理关系数据，我们需要与一对表一起工作的动词。有三家族动词设计用于处理关系数据：</p>
+<ul>
+<li>突变连接，它从另一个数据帧的匹配观测中向一个数据帧添加新变量。</li>
+<li>过滤连接，根据它们是否与另一个表中的观察结果匹配，从一个数据帧过滤观测结果。</li>
+<li>集合操作，将观察视为集合元素。</li>
+</ul>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="relational-data.html#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb165-2"><a href="relational-data.html#cb165-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span></code></pre></div>
+<div id="理解合并数据概念" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> 理解合并数据概念<a href="relational-data.html#理解合并数据概念" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="类型1没有重复问题" class="section level3 hasAnchor" number="14.1.1">
+<h3><span class="header-section-number">14.1.1</span> 类型1：没有重复问题<a href="relational-data.html#类型1没有重复问题" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="relational-data.html#cb166-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb166-2"><a href="relational-data.html#cb166-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>key, <span class="sc">~</span>val_x,</span>
+<span id="cb166-3"><a href="relational-data.html#cb166-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="st">&quot;x1&quot;</span>,</span>
+<span id="cb166-4"><a href="relational-data.html#cb166-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>, <span class="st">&quot;x2&quot;</span>,</span>
+<span id="cb166-5"><a href="relational-data.html#cb166-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span>, <span class="st">&quot;x3&quot;</span></span>
+<span id="cb166-6"><a href="relational-data.html#cb166-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb166-7"><a href="relational-data.html#cb166-7" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb166-8"><a href="relational-data.html#cb166-8" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>key, <span class="sc">~</span>val_y,</span>
+<span id="cb166-9"><a href="relational-data.html#cb166-9" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="st">&quot;y1&quot;</span>,</span>
+<span id="cb166-10"><a href="relational-data.html#cb166-10" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>, <span class="st">&quot;y2&quot;</span>,</span>
+<span id="cb166-11"><a href="relational-data.html#cb166-11" aria-hidden="true" tabindex="-1"></a>    <span class="dv">4</span>, <span class="st">&quot;y3&quot;</span></span>
+<span id="cb166-12"><a href="relational-data.html#cb166-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>内联（inner-join）：只观察共同包含的数据（交集）。事实上因为会丢掉不匹配的数据，所以不便于分析。</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="relational-data.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inner_join</span>(x, y, <span class="at">by =</span> <span class="st">&quot;key&quot;</span>)</span>
+<span id="cb167-2"><a href="relational-data.html#cb167-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 x 3</span></span>
+<span id="cb167-3"><a href="relational-data.html#cb167-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     key val_x val_y</span></span>
+<span id="cb167-4"><a href="relational-data.html#cb167-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb167-5"><a href="relational-data.html#cb167-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 x1    y1   </span></span>
+<span id="cb167-6"><a href="relational-data.html#cb167-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2 x2    y2</span></span></code></pre></div>
+<p>外联（left-join、right-join、full-join）：共三种连接方式语句。</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="relational-data.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(x, y, <span class="at">by =</span> <span class="st">&quot;key&quot;</span>) <span class="co"># 左连接，保留左侧丢掉右侧不匹配的数据</span></span>
+<span id="cb168-2"><a href="relational-data.html#cb168-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 x 3</span></span>
+<span id="cb168-3"><a href="relational-data.html#cb168-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     key val_x val_y</span></span>
+<span id="cb168-4"><a href="relational-data.html#cb168-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb168-5"><a href="relational-data.html#cb168-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 x1    y1   </span></span>
+<span id="cb168-6"><a href="relational-data.html#cb168-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2 x2    y2   </span></span>
+<span id="cb168-7"><a href="relational-data.html#cb168-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     3 x3    &lt;NA&gt;</span></span>
+<span id="cb168-8"><a href="relational-data.html#cb168-8" aria-hidden="true" tabindex="-1"></a><span class="fu">right_join</span>(x, y, <span class="at">by =</span> <span class="st">&quot;key&quot;</span>) <span class="co"># 右连接，保留右侧丢掉左侧不匹配的数据</span></span>
+<span id="cb168-9"><a href="relational-data.html#cb168-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 x 3</span></span>
+<span id="cb168-10"><a href="relational-data.html#cb168-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     key val_x val_y</span></span>
+<span id="cb168-11"><a href="relational-data.html#cb168-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb168-12"><a href="relational-data.html#cb168-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 x1    y1   </span></span>
+<span id="cb168-13"><a href="relational-data.html#cb168-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2 x2    y2   </span></span>
+<span id="cb168-14"><a href="relational-data.html#cb168-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     4 &lt;NA&gt;  y3</span></span>
+<span id="cb168-15"><a href="relational-data.html#cb168-15" aria-hidden="true" tabindex="-1"></a><span class="fu">full_join</span>(x, y, <span class="at">by =</span> <span class="st">&quot;key&quot;</span>) <span class="co"># 全连接，保留全部数据，哪怕不互相匹配</span></span>
+<span id="cb168-16"><a href="relational-data.html#cb168-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 x 3</span></span>
+<span id="cb168-17"><a href="relational-data.html#cb168-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     key val_x val_y</span></span>
+<span id="cb168-18"><a href="relational-data.html#cb168-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb168-19"><a href="relational-data.html#cb168-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 x1    y1   </span></span>
+<span id="cb168-20"><a href="relational-data.html#cb168-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2 x2    y2   </span></span>
+<span id="cb168-21"><a href="relational-data.html#cb168-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     3 x3    &lt;NA&gt; </span></span>
+<span id="cb168-22"><a href="relational-data.html#cb168-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     4 &lt;NA&gt;  y3</span></span></code></pre></div>
+<p>匹配演算（semi_join、anti_join）：事实上匹配并不会做数据合并，只是把左侧数据做筛选。</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="relational-data.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">semi_join</span>(x, y, <span class="at">by =</span> <span class="st">&quot;key&quot;</span>) <span class="co"># 半连接，对左侧数据筛选出右侧数据能匹配的数据</span></span>
+<span id="cb169-2"><a href="relational-data.html#cb169-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 x 2</span></span>
+<span id="cb169-3"><a href="relational-data.html#cb169-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     key val_x</span></span>
+<span id="cb169-4"><a href="relational-data.html#cb169-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;</span></span>
+<span id="cb169-5"><a href="relational-data.html#cb169-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 x1   </span></span>
+<span id="cb169-6"><a href="relational-data.html#cb169-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2 x2</span></span>
+<span id="cb169-7"><a href="relational-data.html#cb169-7" aria-hidden="true" tabindex="-1"></a><span class="fu">anti_join</span>(x, y, <span class="at">by =</span> <span class="st">&quot;key&quot;</span>) <span class="co"># 反连接，对左侧数据排除掉右侧数据能匹配的数据</span></span>
+<span id="cb169-8"><a href="relational-data.html#cb169-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 2</span></span>
+<span id="cb169-9"><a href="relational-data.html#cb169-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     key val_x</span></span>
+<span id="cb169-10"><a href="relational-data.html#cb169-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;</span></span>
+<span id="cb169-11"><a href="relational-data.html#cb169-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     3 x3</span></span></code></pre></div>
+</div>
+<div id="类型2一边有重复问题" class="section level3 hasAnchor" number="14.1.2">
+<h3><span class="header-section-number">14.1.2</span> 类型2：一边有重复问题<a href="relational-data.html#类型2一边有重复问题" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="relational-data.html#cb170-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb170-2"><a href="relational-data.html#cb170-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>key, <span class="sc">~</span>val_x,</span>
+<span id="cb170-3"><a href="relational-data.html#cb170-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="st">&quot;x1&quot;</span>,</span>
+<span id="cb170-4"><a href="relational-data.html#cb170-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>, <span class="st">&quot;x2&quot;</span>,</span>
+<span id="cb170-5"><a href="relational-data.html#cb170-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>, <span class="st">&quot;x3&quot;</span>,</span>
+<span id="cb170-6"><a href="relational-data.html#cb170-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="st">&quot;x4&quot;</span></span>
+<span id="cb170-7"><a href="relational-data.html#cb170-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb170-8"><a href="relational-data.html#cb170-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb170-9"><a href="relational-data.html#cb170-9" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>key, <span class="sc">~</span>val_y,</span>
+<span id="cb170-10"><a href="relational-data.html#cb170-10" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="st">&quot;y1&quot;</span>,</span>
+<span id="cb170-11"><a href="relational-data.html#cb170-11" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>, <span class="st">&quot;y2&quot;</span></span>
+<span id="cb170-12"><a href="relational-data.html#cb170-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>事实上下面两种模式结果相同：</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="relational-data.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(x, y, <span class="at">by =</span> <span class="st">&quot;key&quot;</span>) <span class="co"># 左边所有列都从右边寻求</span></span>
+<span id="cb171-2"><a href="relational-data.html#cb171-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 x 3</span></span>
+<span id="cb171-3"><a href="relational-data.html#cb171-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     key val_x val_y</span></span>
+<span id="cb171-4"><a href="relational-data.html#cb171-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb171-5"><a href="relational-data.html#cb171-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 x1    y1   </span></span>
+<span id="cb171-6"><a href="relational-data.html#cb171-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2 x2    y2   </span></span>
+<span id="cb171-7"><a href="relational-data.html#cb171-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     2 x3    y2   </span></span>
+<span id="cb171-8"><a href="relational-data.html#cb171-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     1 x4    y1</span></span>
+<span id="cb171-9"><a href="relational-data.html#cb171-9" aria-hidden="true" tabindex="-1"></a><span class="fu">right_join</span>(x, y, <span class="at">by =</span> <span class="st">&quot;key&quot;</span>) <span class="co"># 右边所有列都从左边寻求（一对多时全保留）</span></span>
+<span id="cb171-10"><a href="relational-data.html#cb171-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 x 3</span></span>
+<span id="cb171-11"><a href="relational-data.html#cb171-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     key val_x val_y</span></span>
+<span id="cb171-12"><a href="relational-data.html#cb171-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb171-13"><a href="relational-data.html#cb171-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 x1    y1   </span></span>
+<span id="cb171-14"><a href="relational-data.html#cb171-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2 x2    y2   </span></span>
+<span id="cb171-15"><a href="relational-data.html#cb171-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     2 x3    y2   </span></span>
+<span id="cb171-16"><a href="relational-data.html#cb171-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     1 x4    y1</span></span></code></pre></div>
+</div>
+<div id="类型3两边都有重复问题" class="section level3 hasAnchor" number="14.1.3">
+<h3><span class="header-section-number">14.1.3</span> 类型3：两边都有重复问题<a href="relational-data.html#类型3两边都有重复问题" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="relational-data.html#cb172-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb172-2"><a href="relational-data.html#cb172-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>key, <span class="sc">~</span>val_x,</span>
+<span id="cb172-3"><a href="relational-data.html#cb172-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="st">&quot;x1&quot;</span>,</span>
+<span id="cb172-4"><a href="relational-data.html#cb172-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>, <span class="st">&quot;x2&quot;</span>,</span>
+<span id="cb172-5"><a href="relational-data.html#cb172-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>, <span class="st">&quot;x3&quot;</span>,</span>
+<span id="cb172-6"><a href="relational-data.html#cb172-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span>, <span class="st">&quot;x4&quot;</span></span>
+<span id="cb172-7"><a href="relational-data.html#cb172-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb172-8"><a href="relational-data.html#cb172-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb172-9"><a href="relational-data.html#cb172-9" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>key, <span class="sc">~</span>val_y,</span>
+<span id="cb172-10"><a href="relational-data.html#cb172-10" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="st">&quot;y1&quot;</span>,</span>
+<span id="cb172-11"><a href="relational-data.html#cb172-11" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>, <span class="st">&quot;y2&quot;</span>,</span>
+<span id="cb172-12"><a href="relational-data.html#cb172-12" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>, <span class="st">&quot;y3&quot;</span>,</span>
+<span id="cb172-13"><a href="relational-data.html#cb172-13" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span>, <span class="st">&quot;y4&quot;</span></span>
+<span id="cb172-14"><a href="relational-data.html#cb172-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>左边某列对应到右边出现多个结果时会新增列去对应：</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="relational-data.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(x, y, <span class="at">by =</span> <span class="st">&quot;key&quot;</span>)</span>
+<span id="cb173-2"><a href="relational-data.html#cb173-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 x 3</span></span>
+<span id="cb173-3"><a href="relational-data.html#cb173-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     key val_x val_y</span></span>
+<span id="cb173-4"><a href="relational-data.html#cb173-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb173-5"><a href="relational-data.html#cb173-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 x1    y1   </span></span>
+<span id="cb173-6"><a href="relational-data.html#cb173-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2 x2    y2   </span></span>
+<span id="cb173-7"><a href="relational-data.html#cb173-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     2 x2    y3   </span></span>
+<span id="cb173-8"><a href="relational-data.html#cb173-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     2 x3    y2   </span></span>
+<span id="cb173-9"><a href="relational-data.html#cb173-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     2 x3    y3   </span></span>
+<span id="cb173-10"><a href="relational-data.html#cb173-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6     3 x4    y4</span></span></code></pre></div>
+</div>
+</div>
+<div id="理解多种数据合并方式" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> 理解多种数据合并方式<a href="relational-data.html#理解多种数据合并方式" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>事实上，四大 join 相关依赖包 dplyr，我们也可以用 r 原生自带的 base::merge 实现：</p>
+<table>
+<colgroup>
+<col width="21%" />
+<col width="53%" />
+<col width="24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>dplyr 语句</th>
+<th>对应的 merge 语句</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>inner_join(x, y)</td>
+<td>merge(x, y)</td>
+<td>匹配不上的均不保留</td>
+</tr>
+<tr class="even">
+<td>left_join(x, y)</td>
+<td>merge(x, y, all.x = TRUE)</td>
+<td>保留所有的 x</td>
+</tr>
+<tr class="odd">
+<td>right_join(x, y)</td>
+<td>merge(x, y, all.y = TRUE),</td>
+<td>保留所有的 y</td>
+</tr>
+<tr class="even">
+<td>full_join(x, y)</td>
+<td>merge(x, y, all.x = TRUE, all.y = TRUE)</td>
+<td>保留所有的 x 和 y</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="设置操作" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">14.3</span> 设置操作<a href="relational-data.html#设置操作" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>intersect、union 和 setdiff 用于对不同表格的差异进行挖掘：</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="relational-data.html#cb174-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb174-2"><a href="relational-data.html#cb174-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>x, <span class="sc">~</span>y,</span>
+<span id="cb174-3"><a href="relational-data.html#cb174-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">1</span>,</span>
+<span id="cb174-4"><a href="relational-data.html#cb174-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>, <span class="dv">1</span></span>
+<span id="cb174-5"><a href="relational-data.html#cb174-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb174-6"><a href="relational-data.html#cb174-6" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb174-7"><a href="relational-data.html#cb174-7" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>x, <span class="sc">~</span>y,</span>
+<span id="cb174-8"><a href="relational-data.html#cb174-8" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">1</span>,</span>
+<span id="cb174-9"><a href="relational-data.html#cb174-9" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">2</span></span>
+<span id="cb174-10"><a href="relational-data.html#cb174-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb174-11"><a href="relational-data.html#cb174-11" aria-hidden="true" tabindex="-1"></a><span class="fu">intersect</span>(df1, df2) <span class="co"># 返回两者共同的数据集</span></span>
+<span id="cb174-12"><a href="relational-data.html#cb174-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 2</span></span>
+<span id="cb174-13"><a href="relational-data.html#cb174-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       x     y</span></span>
+<span id="cb174-14"><a href="relational-data.html#cb174-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb174-15"><a href="relational-data.html#cb174-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1     1</span></span>
+<span id="cb174-16"><a href="relational-data.html#cb174-16" aria-hidden="true" tabindex="-1"></a><span class="fu">union</span>(df1, df2) <span class="co"># 合并两个数据集的数据（相同的只做一次记录）</span></span>
+<span id="cb174-17"><a href="relational-data.html#cb174-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
+<span id="cb174-18"><a href="relational-data.html#cb174-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       x     y</span></span>
+<span id="cb174-19"><a href="relational-data.html#cb174-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb174-20"><a href="relational-data.html#cb174-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1     1</span></span>
+<span id="cb174-21"><a href="relational-data.html#cb174-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2     1</span></span>
+<span id="cb174-22"><a href="relational-data.html#cb174-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     1     2</span></span>
+<span id="cb174-23"><a href="relational-data.html#cb174-23" aria-hidden="true" tabindex="-1"></a><span class="fu">setdiff</span>(df1, df2) <span class="co"># 返回前者观察到的后者所没有的差异部分</span></span>
+<span id="cb174-24"><a href="relational-data.html#cb174-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 2</span></span>
+<span id="cb174-25"><a href="relational-data.html#cb174-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       x     y</span></span>
+<span id="cb174-26"><a href="relational-data.html#cb174-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb174-27"><a href="relational-data.html#cb174-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     2     1</span></span>
+<span id="cb174-28"><a href="relational-data.html#cb174-28" aria-hidden="true" tabindex="-1"></a><span class="fu">setdiff</span>(df2, df1)</span>
+<span id="cb174-29"><a href="relational-data.html#cb174-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 2</span></span>
+<span id="cb174-30"><a href="relational-data.html#cb174-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       x     y</span></span>
+<span id="cb174-31"><a href="relational-data.html#cb174-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb174-32"><a href="relational-data.html#cb174-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1     2</span></span></code></pre></div>
+</div>
+<div id="合并-nycflights-数据并分析" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">14.4</span> 合并 nycflights 数据并分析<a href="relational-data.html#合并-nycflights-数据并分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>仔细观察 nycflights 不难发现，里面包含 airlines、airports、planes 和 weather，以及我们常用的 flights 数据集。</p>
+<p><code>airlines</code> 允许您从其缩写代码中查找完整的运营商名称：</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="relational-data.html#cb175-1" aria-hidden="true" tabindex="-1"></a>airlines</span>
+<span id="cb175-2"><a href="relational-data.html#cb175-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 16 x 2</span></span>
+<span id="cb175-3"><a href="relational-data.html#cb175-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    carrier name                       </span></span>
+<span id="cb175-4"><a href="relational-data.html#cb175-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;                      </span></span>
+<span id="cb175-5"><a href="relational-data.html#cb175-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 9E      Endeavor Air Inc.          </span></span>
+<span id="cb175-6"><a href="relational-data.html#cb175-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 AA      American Airlines Inc.     </span></span>
+<span id="cb175-7"><a href="relational-data.html#cb175-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 AS      Alaska Airlines Inc.       </span></span>
+<span id="cb175-8"><a href="relational-data.html#cb175-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 B6      JetBlue Airways            </span></span>
+<span id="cb175-9"><a href="relational-data.html#cb175-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 DL      Delta Air Lines Inc.       </span></span>
+<span id="cb175-10"><a href="relational-data.html#cb175-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 EV      ExpressJet Airlines Inc.   </span></span>
+<span id="cb175-11"><a href="relational-data.html#cb175-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 F9      Frontier Airlines Inc.     </span></span>
+<span id="cb175-12"><a href="relational-data.html#cb175-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 FL      AirTran Airways Corporation</span></span>
+<span id="cb175-13"><a href="relational-data.html#cb175-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 HA      Hawaiian Airlines Inc.     </span></span>
+<span id="cb175-14"><a href="relational-data.html#cb175-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 MQ      Envoy Air                  </span></span>
+<span id="cb175-15"><a href="relational-data.html#cb175-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 OO      SkyWest Airlines Inc.      </span></span>
+<span id="cb175-16"><a href="relational-data.html#cb175-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 UA      United Air Lines Inc.      </span></span>
+<span id="cb175-17"><a href="relational-data.html#cb175-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13 US      US Airways Inc.            </span></span>
+<span id="cb175-18"><a href="relational-data.html#cb175-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14 VX      Virgin America             </span></span>
+<span id="cb175-19"><a href="relational-data.html#cb175-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15 WN      Southwest Airlines Co.     </span></span>
+<span id="cb175-20"><a href="relational-data.html#cb175-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16 YV      Mesa Airlines Inc.</span></span></code></pre></div>
+<p><code>airports</code> 提供有关每个机场的信息，由 <code>faa</code> 机场代码标识：</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="relational-data.html#cb176-1" aria-hidden="true" tabindex="-1"></a>airports</span>
+<span id="cb176-2"><a href="relational-data.html#cb176-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,458 x 8</span></span>
+<span id="cb176-3"><a href="relational-data.html#cb176-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    faa   name                             lat    lon   alt    tz dst   tzone    </span></span>
+<span id="cb176-4"><a href="relational-data.html#cb176-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;                          &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    </span></span>
+<span id="cb176-5"><a href="relational-data.html#cb176-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 04G   Lansdowne Airport               41.1  -80.6  1044    -5 A     America/~</span></span>
+<span id="cb176-6"><a href="relational-data.html#cb176-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 06A   Moton Field Municipal Airport   32.5  -85.7   264    -6 A     America/~</span></span>
+<span id="cb176-7"><a href="relational-data.html#cb176-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 06C   Schaumburg Regional             42.0  -88.1   801    -6 A     America/~</span></span>
+<span id="cb176-8"><a href="relational-data.html#cb176-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 06N   Randall Airport                 41.4  -74.4   523    -5 A     America/~</span></span>
+<span id="cb176-9"><a href="relational-data.html#cb176-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 09J   Jekyll Island Airport           31.1  -81.4    11    -5 A     America/~</span></span>
+<span id="cb176-10"><a href="relational-data.html#cb176-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 0A9   Elizabethton Municipal Airport  36.4  -82.2  1593    -5 A     America/~</span></span>
+<span id="cb176-11"><a href="relational-data.html#cb176-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 0G6   Williams County Airport         41.5  -84.5   730    -5 A     America/~</span></span>
+<span id="cb176-12"><a href="relational-data.html#cb176-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 0G7   Finger Lakes Regional Airport   42.9  -76.8   492    -5 A     America/~</span></span>
+<span id="cb176-13"><a href="relational-data.html#cb176-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 0P2   Shoestring Aviation Airfield    39.8  -76.6  1000    -5 U     America/~</span></span>
+<span id="cb176-14"><a href="relational-data.html#cb176-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 0S9   Jefferson County Intl           48.1 -123.    108    -8 A     America/~</span></span>
+<span id="cb176-15"><a href="relational-data.html#cb176-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 1,448 more rows</span></span></code></pre></div>
+<p><code>planes</code> 提供有关每个平面的信息，由其 <code>tailnum</code> 标识：</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="relational-data.html#cb177-1" aria-hidden="true" tabindex="-1"></a>planes</span>
+<span id="cb177-2"><a href="relational-data.html#cb177-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3,322 x 9</span></span>
+<span id="cb177-3"><a href="relational-data.html#cb177-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    tailnum  year type              manufacturer model engines seats speed engine</span></span>
+<span id="cb177-4"><a href="relational-data.html#cb177-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;        &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; </span></span>
+<span id="cb177-5"><a href="relational-data.html#cb177-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 N10156   2004 Fixed wing multi~ EMBRAER      EMB-~       2    55    NA Turbo~</span></span>
+<span id="cb177-6"><a href="relational-data.html#cb177-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 N102UW   1998 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~</span></span>
+<span id="cb177-7"><a href="relational-data.html#cb177-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 N103US   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~</span></span>
+<span id="cb177-8"><a href="relational-data.html#cb177-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 N104UW   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~</span></span>
+<span id="cb177-9"><a href="relational-data.html#cb177-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 N10575   2002 Fixed wing multi~ EMBRAER      EMB-~       2    55    NA Turbo~</span></span>
+<span id="cb177-10"><a href="relational-data.html#cb177-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 N105UW   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~</span></span>
+<span id="cb177-11"><a href="relational-data.html#cb177-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 N107US   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~</span></span>
+<span id="cb177-12"><a href="relational-data.html#cb177-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 N108UW   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~</span></span>
+<span id="cb177-13"><a href="relational-data.html#cb177-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 N109UW   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~</span></span>
+<span id="cb177-14"><a href="relational-data.html#cb177-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 N110UW   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~</span></span>
+<span id="cb177-15"><a href="relational-data.html#cb177-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 3,312 more rows</span></span></code></pre></div>
+<p><code>weather</code> 则给出了每个纽约机场每小时的天气：</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="relational-data.html#cb178-1" aria-hidden="true" tabindex="-1"></a>weather</span>
+<span id="cb178-2"><a href="relational-data.html#cb178-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 26,115 x 15</span></span>
+<span id="cb178-3"><a href="relational-data.html#cb178-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    origin  year month   day  hour  temp  dewp humid wind_dir wind_speed</span></span>
+<span id="cb178-4"><a href="relational-data.html#cb178-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;</span></span>
+<span id="cb178-5"><a href="relational-data.html#cb178-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 EWR     2013     1     1     1  39.0  26.1  59.4      270      10.4 </span></span>
+<span id="cb178-6"><a href="relational-data.html#cb178-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 EWR     2013     1     1     2  39.0  27.0  61.6      250       8.06</span></span>
+<span id="cb178-7"><a href="relational-data.html#cb178-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 EWR     2013     1     1     3  39.0  28.0  64.4      240      11.5 </span></span>
+<span id="cb178-8"><a href="relational-data.html#cb178-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 EWR     2013     1     1     4  39.9  28.0  62.2      250      12.7 </span></span>
+<span id="cb178-9"><a href="relational-data.html#cb178-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 EWR     2013     1     1     5  39.0  28.0  64.4      260      12.7 </span></span>
+<span id="cb178-10"><a href="relational-data.html#cb178-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 EWR     2013     1     1     6  37.9  28.0  67.2      240      11.5 </span></span>
+<span id="cb178-11"><a href="relational-data.html#cb178-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 EWR     2013     1     1     7  39.0  28.0  64.4      240      15.0 </span></span>
+<span id="cb178-12"><a href="relational-data.html#cb178-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 EWR     2013     1     1     8  39.9  28.0  62.2      250      10.4 </span></span>
+<span id="cb178-13"><a href="relational-data.html#cb178-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 EWR     2013     1     1     9  39.9  28.0  62.2      260      15.0 </span></span>
+<span id="cb178-14"><a href="relational-data.html#cb178-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 EWR     2013     1     1    10  41    28.0  59.6      260      13.8 </span></span>
+<span id="cb178-15"><a href="relational-data.html#cb178-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 26,105 more rows, and 5 more variables: wind_gust &lt;dbl&gt;,</span></span>
+<span id="cb178-16"><a href="relational-data.html#cb178-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   precip &lt;dbl&gt;, pressure &lt;dbl&gt;, visib &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span></code></pre></div>
+<p>它们的关系图如下：</p>
+<div class="figure">
+<img src="https://d33wubrfki0l68.cloudfront.net/245292d1ea724f6c3fd8a92063dcd7bfb9758d02/5751b/diagrams/relational-nycflights.png" alt="" />
+<p class="caption">relational-nycflights</p>
+</div>
+<p>我们首先对数据集进行精简：</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="relational-data.html#cb179-1" aria-hidden="true" tabindex="-1"></a>flights_smaller <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span></span>
+<span id="cb179-2"><a href="relational-data.html#cb179-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(year<span class="sc">:</span>day, hour, origin, dest, tailnum, carrier)</span></code></pre></div>
+<p>由于 <code>carrier</code> 没有补全，所以我们决定联合 <code>airlines</code> 数据集进行选择性合并：</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="relational-data.html#cb180-1" aria-hidden="true" tabindex="-1"></a>flights_smaller <span class="sc">%&gt;%</span></span>
+<span id="cb180-2"><a href="relational-data.html#cb180-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(origin, dest)) <span class="sc">%&gt;%</span></span>
+<span id="cb180-3"><a href="relational-data.html#cb180-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 根据别的数据集在右侧补全数据，依据 / 重叠数据为 carrier</span></span>
+<span id="cb180-4"><a href="relational-data.html#cb180-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(airlines, <span class="at">by =</span> <span class="st">&quot;carrier&quot;</span>)</span>
+<span id="cb180-5"><a href="relational-data.html#cb180-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 x 7</span></span>
+<span id="cb180-6"><a href="relational-data.html#cb180-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day  hour tailnum carrier name                    </span></span>
+<span id="cb180-7"><a href="relational-data.html#cb180-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;                   </span></span>
+<span id="cb180-8"><a href="relational-data.html#cb180-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  2013     1     1     5 N14228  UA      United Air Lines Inc.   </span></span>
+<span id="cb180-9"><a href="relational-data.html#cb180-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  2013     1     1     5 N24211  UA      United Air Lines Inc.   </span></span>
+<span id="cb180-10"><a href="relational-data.html#cb180-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  2013     1     1     5 N619AA  AA      American Airlines Inc.  </span></span>
+<span id="cb180-11"><a href="relational-data.html#cb180-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  2013     1     1     5 N804JB  B6      JetBlue Airways         </span></span>
+<span id="cb180-12"><a href="relational-data.html#cb180-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  2013     1     1     6 N668DN  DL      Delta Air Lines Inc.    </span></span>
+<span id="cb180-13"><a href="relational-data.html#cb180-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  2013     1     1     5 N39463  UA      United Air Lines Inc.   </span></span>
+<span id="cb180-14"><a href="relational-data.html#cb180-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  2013     1     1     6 N516JB  B6      JetBlue Airways         </span></span>
+<span id="cb180-15"><a href="relational-data.html#cb180-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013     1     1     6 N829AS  EV      ExpressJet Airlines Inc.</span></span>
+<span id="cb180-16"><a href="relational-data.html#cb180-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013     1     1     6 N593JB  B6      JetBlue Airways         </span></span>
+<span id="cb180-17"><a href="relational-data.html#cb180-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013     1     1     6 N3ALAA  AA      American Airlines Inc.  </span></span>
+<span id="cb180-18"><a href="relational-data.html#cb180-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 336,766 more rows</span></span></code></pre></div>
+<p>当然我们也可以使用 mutate + match 实现同样效果：</p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="relational-data.html#cb181-1" aria-hidden="true" tabindex="-1"></a>flights_smaller <span class="sc">%&gt;%</span></span>
+<span id="cb181-2"><a href="relational-data.html#cb181-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(origin, dest)) <span class="sc">%&gt;%</span></span>
+<span id="cb181-3"><a href="relational-data.html#cb181-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb181-4"><a href="relational-data.html#cb181-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 从 airlines 的 name 向量获取数据，赋值到新列 “name”</span></span>
+<span id="cb181-5"><a href="relational-data.html#cb181-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> airlines<span class="sc">$</span>name[<span class="fu">match</span>(</span>
+<span id="cb181-6"><a href="relational-data.html#cb181-6" aria-hidden="true" tabindex="-1"></a>            <span class="co"># 获取的数据通过 match 控制</span></span>
+<span id="cb181-7"><a href="relational-data.html#cb181-7" aria-hidden="true" tabindex="-1"></a>            <span class="co"># 通过 filghts 的 carrier 匹配数据，返回对应 airlines 的 carrier</span></span>
+<span id="cb181-8"><a href="relational-data.html#cb181-8" aria-hidden="true" tabindex="-1"></a>            carrier, airlines<span class="sc">$</span>carrier</span>
+<span id="cb181-9"><a href="relational-data.html#cb181-9" aria-hidden="true" tabindex="-1"></a>        )]</span>
+<span id="cb181-10"><a href="relational-data.html#cb181-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb181-11"><a href="relational-data.html#cb181-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 x 7</span></span>
+<span id="cb181-12"><a href="relational-data.html#cb181-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day  hour tailnum carrier name                    </span></span>
+<span id="cb181-13"><a href="relational-data.html#cb181-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;                   </span></span>
+<span id="cb181-14"><a href="relational-data.html#cb181-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  2013     1     1     5 N14228  UA      United Air Lines Inc.   </span></span>
+<span id="cb181-15"><a href="relational-data.html#cb181-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  2013     1     1     5 N24211  UA      United Air Lines Inc.   </span></span>
+<span id="cb181-16"><a href="relational-data.html#cb181-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  2013     1     1     5 N619AA  AA      American Airlines Inc.  </span></span>
+<span id="cb181-17"><a href="relational-data.html#cb181-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  2013     1     1     5 N804JB  B6      JetBlue Airways         </span></span>
+<span id="cb181-18"><a href="relational-data.html#cb181-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  2013     1     1     6 N668DN  DL      Delta Air Lines Inc.    </span></span>
+<span id="cb181-19"><a href="relational-data.html#cb181-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  2013     1     1     5 N39463  UA      United Air Lines Inc.   </span></span>
+<span id="cb181-20"><a href="relational-data.html#cb181-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  2013     1     1     6 N516JB  B6      JetBlue Airways         </span></span>
+<span id="cb181-21"><a href="relational-data.html#cb181-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013     1     1     6 N829AS  EV      ExpressJet Airlines Inc.</span></span>
+<span id="cb181-22"><a href="relational-data.html#cb181-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013     1     1     6 N593JB  B6      JetBlue Airways         </span></span>
+<span id="cb181-23"><a href="relational-data.html#cb181-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013     1     1     6 N3ALAA  AA      American Airlines Inc.  </span></span>
+<span id="cb181-24"><a href="relational-data.html#cb181-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 336,766 more rows</span></span></code></pre></div>
+<p>而如果要与 <code>weather</code> 并接：</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="relational-data.html#cb182-1" aria-hidden="true" tabindex="-1"></a>flights_smaller <span class="sc">%&gt;%</span></span>
+<span id="cb182-2"><a href="relational-data.html#cb182-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(weather) <span class="co"># 如果不写 by，则为默认 NULL，会将左边所有列往右边对应一遍，相当于下面代码：</span></span>
+<span id="cb182-3"><a href="relational-data.html#cb182-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Joining, by = c(&quot;year&quot;, &quot;month&quot;, &quot;day&quot;, &quot;hour&quot;, &quot;origin&quot;)</span></span>
+<span id="cb182-4"><a href="relational-data.html#cb182-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 x 18</span></span>
+<span id="cb182-5"><a href="relational-data.html#cb182-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day  hour origin dest  tailnum carrier  temp  dewp humid</span></span>
+<span id="cb182-6"><a href="relational-data.html#cb182-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb182-7"><a href="relational-data.html#cb182-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  2013     1     1     5 EWR    IAH   N14228  UA       39.0  28.0  64.4</span></span>
+<span id="cb182-8"><a href="relational-data.html#cb182-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  2013     1     1     5 LGA    IAH   N24211  UA       39.9  25.0  54.8</span></span>
+<span id="cb182-9"><a href="relational-data.html#cb182-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  2013     1     1     5 JFK    MIA   N619AA  AA       39.0  27.0  61.6</span></span>
+<span id="cb182-10"><a href="relational-data.html#cb182-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  2013     1     1     5 JFK    BQN   N804JB  B6       39.0  27.0  61.6</span></span>
+<span id="cb182-11"><a href="relational-data.html#cb182-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  2013     1     1     6 LGA    ATL   N668DN  DL       39.9  25.0  54.8</span></span>
+<span id="cb182-12"><a href="relational-data.html#cb182-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  2013     1     1     5 EWR    ORD   N39463  UA       39.0  28.0  64.4</span></span>
+<span id="cb182-13"><a href="relational-data.html#cb182-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  2013     1     1     6 EWR    FLL   N516JB  B6       37.9  28.0  67.2</span></span>
+<span id="cb182-14"><a href="relational-data.html#cb182-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013     1     1     6 LGA    IAD   N829AS  EV       39.9  25.0  54.8</span></span>
+<span id="cb182-15"><a href="relational-data.html#cb182-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013     1     1     6 JFK    MCO   N593JB  B6       37.9  27.0  64.3</span></span>
+<span id="cb182-16"><a href="relational-data.html#cb182-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013     1     1     6 LGA    ORD   N3ALAA  AA       39.9  25.0  54.8</span></span>
+<span id="cb182-17"><a href="relational-data.html#cb182-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 336,766 more rows, and 7 more variables: wind_dir &lt;dbl&gt;,</span></span>
+<span id="cb182-18"><a href="relational-data.html#cb182-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   wind_speed &lt;dbl&gt;, wind_gust &lt;dbl&gt;, precip &lt;dbl&gt;, pressure &lt;dbl&gt;,</span></span>
+<span id="cb182-19"><a href="relational-data.html#cb182-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   visib &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span>
+<span id="cb182-20"><a href="relational-data.html#cb182-20" aria-hidden="true" tabindex="-1"></a><span class="co"># left_join(weather, by = c(&quot;year&quot;, &quot;month&quot;, &quot;day&quot;, &quot;hour&quot;, &quot;origin&quot;))</span></span></code></pre></div>
+<p>事实上 “by =” 可以省略。如果筛选变量填入了用等于连接的向量，则是左右都指定了列：</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="relational-data.html#cb183-1" aria-hidden="true" tabindex="-1"></a>flights_smaller <span class="sc">%&gt;%</span></span>
+<span id="cb183-2"><a href="relational-data.html#cb183-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># flighs_smaller 的 dest 列与 airports 的 faa 列比较、对应和连接</span></span>
+<span id="cb183-3"><a href="relational-data.html#cb183-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(airports, <span class="fu">c</span>(<span class="st">&quot;dest&quot;</span> <span class="ot">=</span> <span class="st">&quot;faa&quot;</span>))</span>
+<span id="cb183-4"><a href="relational-data.html#cb183-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 x 15</span></span>
+<span id="cb183-5"><a href="relational-data.html#cb183-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day  hour origin dest  tailnum carrier name     lat   lon   alt</span></span>
+<span id="cb183-6"><a href="relational-data.html#cb183-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb183-7"><a href="relational-data.html#cb183-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  2013     1     1     5 EWR    IAH   N14228  UA      Georg~  30.0 -95.3    97</span></span>
+<span id="cb183-8"><a href="relational-data.html#cb183-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  2013     1     1     5 LGA    IAH   N24211  UA      Georg~  30.0 -95.3    97</span></span>
+<span id="cb183-9"><a href="relational-data.html#cb183-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  2013     1     1     5 JFK    MIA   N619AA  AA      Miami~  25.8 -80.3     8</span></span>
+<span id="cb183-10"><a href="relational-data.html#cb183-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  2013     1     1     5 JFK    BQN   N804JB  B6      &lt;NA&gt;    NA    NA      NA</span></span>
+<span id="cb183-11"><a href="relational-data.html#cb183-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  2013     1     1     6 LGA    ATL   N668DN  DL      Harts~  33.6 -84.4  1026</span></span>
+<span id="cb183-12"><a href="relational-data.html#cb183-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  2013     1     1     5 EWR    ORD   N39463  UA      Chica~  42.0 -87.9   668</span></span>
+<span id="cb183-13"><a href="relational-data.html#cb183-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  2013     1     1     6 EWR    FLL   N516JB  B6      Fort ~  26.1 -80.2     9</span></span>
+<span id="cb183-14"><a href="relational-data.html#cb183-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013     1     1     6 LGA    IAD   N829AS  EV      Washi~  38.9 -77.5   313</span></span>
+<span id="cb183-15"><a href="relational-data.html#cb183-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013     1     1     6 JFK    MCO   N593JB  B6      Orlan~  28.4 -81.3    96</span></span>
+<span id="cb183-16"><a href="relational-data.html#cb183-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013     1     1     6 LGA    ORD   N3ALAA  AA      Chica~  42.0 -87.9   668</span></span>
+<span id="cb183-17"><a href="relational-data.html#cb183-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 336,766 more rows, and 3 more variables: tz &lt;dbl&gt;, dst &lt;chr&gt;,</span></span>
+<span id="cb183-18"><a href="relational-data.html#cb183-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   tzone &lt;chr&gt;</span></span></code></pre></div>
+<p>分析绘图机场在美国的分布图和到达此处的飞机的延误整体状况：</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="relational-data.html#cb184-1" aria-hidden="true" tabindex="-1"></a>avg_dest_delays <span class="ot">&lt;-</span></span>
+<span id="cb184-2"><a href="relational-data.html#cb184-2" aria-hidden="true" tabindex="-1"></a>    flights <span class="sc">%&gt;%</span></span>
+<span id="cb184-3"><a href="relational-data.html#cb184-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(dest) <span class="sc">%&gt;%</span></span>
+<span id="cb184-4"><a href="relational-data.html#cb184-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 新的列 delay 取值为各目的地的 arr_delay（到达延误）的平均值</span></span>
+<span id="cb184-5"><a href="relational-data.html#cb184-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">delay =</span> <span class="fu">mean</span>(arr_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> <span class="co"># 注意可能存在 NA 值，需要剔除</span></span>
+<span id="cb184-6"><a href="relational-data.html#cb184-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 注意向量内左侧数据其实打不打引号都是可以的，但右侧必须打</span></span>
+<span id="cb184-7"><a href="relational-data.html#cb184-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(airports, <span class="at">by =</span> <span class="fu">c</span>(<span class="at">dest =</span> <span class="st">&quot;faa&quot;</span>)) <span class="co"># 其中 faa 为机场代码</span></span>
+<span id="cb184-8"><a href="relational-data.html#cb184-8" aria-hidden="true" tabindex="-1"></a>avg_dest_delays</span>
+<span id="cb184-9"><a href="relational-data.html#cb184-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 101 x 9</span></span>
+<span id="cb184-10"><a href="relational-data.html#cb184-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    dest  delay name                           lat    lon   alt    tz dst   tzone</span></span>
+<span id="cb184-11"><a href="relational-data.html#cb184-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;                        &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb184-12"><a href="relational-data.html#cb184-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 ABQ    4.38 Albuquerque International S~  35.0 -107.   5355    -7 A     Amer~</span></span>
+<span id="cb184-13"><a href="relational-data.html#cb184-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 ACK    4.85 Nantucket Mem                 41.3  -70.1    48    -5 A     Amer~</span></span>
+<span id="cb184-14"><a href="relational-data.html#cb184-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 ALB   14.4  Albany Intl                   42.7  -73.8   285    -5 A     Amer~</span></span>
+<span id="cb184-15"><a href="relational-data.html#cb184-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 ANC   -2.5  Ted Stevens Anchorage Intl    61.2 -150.    152    -9 A     Amer~</span></span>
+<span id="cb184-16"><a href="relational-data.html#cb184-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 ATL   11.3  Hartsfield Jackson Atlanta ~  33.6  -84.4  1026    -5 A     Amer~</span></span>
+<span id="cb184-17"><a href="relational-data.html#cb184-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 AUS    6.02 Austin Bergstrom Intl         30.2  -97.7   542    -6 A     Amer~</span></span>
+<span id="cb184-18"><a href="relational-data.html#cb184-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 AVL    8.00 Asheville Regional Airport    35.4  -82.5  2165    -5 A     Amer~</span></span>
+<span id="cb184-19"><a href="relational-data.html#cb184-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 BDL    7.05 Bradley Intl                  41.9  -72.7   173    -5 A     Amer~</span></span>
+<span id="cb184-20"><a href="relational-data.html#cb184-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 BGR    8.03 Bangor Intl                   44.8  -68.8   192    -5 A     Amer~</span></span>
+<span id="cb184-21"><a href="relational-data.html#cb184-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 BHM   16.9  Birmingham Intl               33.6  -86.8   644    -6 A     Amer~</span></span>
+<span id="cb184-22"><a href="relational-data.html#cb184-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 91 more rows</span></span>
+<span id="cb184-23"><a href="relational-data.html#cb184-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb184-24"><a href="relational-data.html#cb184-24" aria-hidden="true" tabindex="-1"></a>avg_dest_delays <span class="sc">%&gt;%</span></span>
+<span id="cb184-25"><a href="relational-data.html#cb184-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># lat 和 lon 为机场的经度和纬度信息，颜色代表平均延迟时长</span></span>
+<span id="cb184-26"><a href="relational-data.html#cb184-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(lon, lat, <span class="at">colour =</span> delay)) <span class="sc">+</span></span>
+<span id="cb184-27"><a href="relational-data.html#cb184-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">borders</span>(<span class="st">&quot;state&quot;</span>) <span class="sc">+</span> <span class="co"># 这一句话是在加入美国地图背板</span></span>
+<span id="cb184-28"><a href="relational-data.html#cb184-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># 显示机场位置分布</span></span>
+<span id="cb184-29"><a href="relational-data.html#cb184-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_quickmap</span>() <span class="co"># 保持地图横纵比，防止实际图片拉伸导致的地图变形</span></span></code></pre></div>
+<p><img src="13-relational-data_files/figure-html/avg_dest_delays-1.png" width="672" /></p>
+<p>分析合并出发地的延误状况：</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="relational-data.html#cb185-1" aria-hidden="true" tabindex="-1"></a>airport_locations <span class="ot">&lt;-</span> airports <span class="sc">%&gt;%</span></span>
+<span id="cb185-2"><a href="relational-data.html#cb185-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(faa, lat, lon)</span>
+<span id="cb185-3"><a href="relational-data.html#cb185-3" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb185-4"><a href="relational-data.html#cb185-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(year<span class="sc">:</span>day, hour, origin, dest) <span class="sc">%&gt;%</span></span>
+<span id="cb185-5"><a href="relational-data.html#cb185-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 注意这样 origin 和 dest 都由对应的经纬度坐标数据，存在命名冲突</span></span>
+<span id="cb185-6"><a href="relational-data.html#cb185-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 实际运行时，运行到下面的 left_join 会发现，dplyr 会自动给旧列名加上 “.x”，新列名 “.y”</span></span>
+<span id="cb185-7"><a href="relational-data.html#cb185-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># left_join(</span></span>
+<span id="cb185-8"><a href="relational-data.html#cb185-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">#     airport_locations,</span></span>
+<span id="cb185-9"><a href="relational-data.html#cb185-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">#     by = c(&quot;dest&quot; = &quot;faa&quot;)</span></span>
+<span id="cb185-10"><a href="relational-data.html#cb185-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># )</span></span>
+<span id="cb185-11"><a href="relational-data.html#cb185-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 所以我们使用 suffix 覆盖这个默认行为设置的后缀</span></span>
+<span id="cb185-12"><a href="relational-data.html#cb185-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(</span>
+<span id="cb185-13"><a href="relational-data.html#cb185-13" aria-hidden="true" tabindex="-1"></a>        airport_locations,</span>
+<span id="cb185-14"><a href="relational-data.html#cb185-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;dest&quot;</span> <span class="ot">=</span> <span class="st">&quot;faa&quot;</span>),</span>
+<span id="cb185-15"><a href="relational-data.html#cb185-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_origin&quot;</span>, <span class="st">&quot;_dest&quot;</span>)</span>
+<span id="cb185-16"><a href="relational-data.html#cb185-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb185-17"><a href="relational-data.html#cb185-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 x 8</span></span>
+<span id="cb185-18"><a href="relational-data.html#cb185-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day  hour origin dest    lat   lon</span></span>
+<span id="cb185-19"><a href="relational-data.html#cb185-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb185-20"><a href="relational-data.html#cb185-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  2013     1     1     5 EWR    IAH    30.0 -95.3</span></span>
+<span id="cb185-21"><a href="relational-data.html#cb185-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  2013     1     1     5 LGA    IAH    30.0 -95.3</span></span>
+<span id="cb185-22"><a href="relational-data.html#cb185-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  2013     1     1     5 JFK    MIA    25.8 -80.3</span></span>
+<span id="cb185-23"><a href="relational-data.html#cb185-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  2013     1     1     5 JFK    BQN    NA    NA  </span></span>
+<span id="cb185-24"><a href="relational-data.html#cb185-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  2013     1     1     6 LGA    ATL    33.6 -84.4</span></span>
+<span id="cb185-25"><a href="relational-data.html#cb185-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  2013     1     1     5 EWR    ORD    42.0 -87.9</span></span>
+<span id="cb185-26"><a href="relational-data.html#cb185-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  2013     1     1     6 EWR    FLL    26.1 -80.2</span></span>
+<span id="cb185-27"><a href="relational-data.html#cb185-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013     1     1     6 LGA    IAD    38.9 -77.5</span></span>
+<span id="cb185-28"><a href="relational-data.html#cb185-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013     1     1     6 JFK    MCO    28.4 -81.3</span></span>
+<span id="cb185-29"><a href="relational-data.html#cb185-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013     1     1     6 LGA    ORD    42.0 -87.9</span></span>
+<span id="cb185-30"><a href="relational-data.html#cb185-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 336,766 more rows</span></span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tidy-data.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/13-relational-data.rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["R-Learning.pdf", "R-Learning.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

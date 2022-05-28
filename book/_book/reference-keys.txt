@@ -1,5 +1,6 @@
-r-learning
+welcome
 项目介绍
+项目运行
 贡献
 鸣谢
 license
@@ -102,3 +103,19 @@ csv-格式
 rds-格式
 feather-格式
 其他格式
+tidy-data
+对-table1-数据分析
+对-table2-数据整理
+对-table3-数据整理
+对-table4a-table4b-数据整理
+对-table5-数据整理
+对-stocks-和-treatment-的缺失数据处理
+对-who-数据整理
+relational-data
+理解合并数据概念
+类型1没有重复问题
+类型2一边有重复问题
+类型3两边都有重复问题
+理解多种数据合并方式
+设置操作
+合并-nycflights-数据并分析

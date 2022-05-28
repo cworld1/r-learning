@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 13 Tidy data | R-Learning</title>
+  <meta name="description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 13 Tidy data | R-Learning" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="http://cworld1.github.io/r-learning/source/avatar.jpg" />
+  <meta property="og:description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
+  <meta name="github-repo" content="cworld1 / r - learning" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 13 Tidy data | R-Learning" />
+  
+  <meta name="twitter:description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
+  <meta name="twitter:image" content="http://cworld1.github.io/r-learning/source/avatar.jpg" />
+
+<meta name="author" content="CWorld" />
+
+
+<meta name="date" content="2022-05-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-import.html"/>
+<link rel="next" href="relational-data.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#项目介绍"><i class="fa fa-check"></i><b>1.1</b> 项目介绍</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#项目运行"><i class="fa fa-check"></i><b>1.2</b> 项目运行</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#贡献"><i class="fa fa-check"></i><b>1.3</b> 贡献</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#鸣谢"><i class="fa fa-check"></i><b>1.4</b> 鸣谢</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i><b>1.5</b> License</a></li>
+</ul></li>
+<li class="part"><span><b>I Summary</b></span></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#数据科学"><i class="fa fa-check"></i><b>2.1</b> 数据科学</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction.html"><a href="introduction.html#一些准备"><i class="fa fa-check"></i><b>2.2</b> 一些准备</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="introduction.html"><a href="introduction.html#安装-r"><i class="fa fa-check"></i><b>2.2.1</b> 安装 R</a></li>
+<li class="chapter" data-level="2.2.2" data-path="introduction.html"><a href="introduction.html#安装编辑器"><i class="fa fa-check"></i><b>2.2.2</b> 安装编辑器</a></li>
+<li class="chapter" data-level="2.2.3" data-path="introduction.html"><a href="introduction.html#相关包"><i class="fa fa-check"></i><b>2.2.3</b> 相关包</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="introduction.html"><a href="introduction.html#更多学习途径"><i class="fa fa-check"></i><b>2.3</b> 更多学习途径</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction.html"><a href="introduction.html#初识-r"><i class="fa fa-check"></i><b>2.4</b> 初识 R</a></li>
+</ul></li>
+<li class="part"><span><b>II Explore</b></span></li>
+<li class="chapter" data-level="3" data-path="explore-intro.html"><a href="explore-intro.html"><i class="fa fa-check"></i><b>3</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="explore-intro.html"><a href="explore-intro.html#基本数据形式和函数"><i class="fa fa-check"></i><b>3.1</b> 基本数据形式和函数</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="explore-intro.html"><a href="explore-intro.html#向量矩阵与列表"><i class="fa fa-check"></i><b>3.1.1</b> 向量、矩阵与列表</a></li>
+<li class="chapter" data-level="3.1.2" data-path="explore-intro.html"><a href="explore-intro.html#基本函数"><i class="fa fa-check"></i><b>3.1.2</b> 基本函数</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="explore-intro.html"><a href="explore-intro.html#学习-r-自带的画图功能"><i class="fa fa-check"></i><b>3.2</b> 学习 R 自带的画图功能</a></li>
+<li class="chapter" data-level="3.3" data-path="explore-intro.html"><a href="explore-intro.html#更高级的数据形式"><i class="fa fa-check"></i><b>3.3</b> 更高级的数据形式</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="explore.html"><a href="explore.html"><i class="fa fa-check"></i><b>4</b> 3 Data visualisation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="explore.html"><a href="explore.html#初识-ggplot"><i class="fa fa-check"></i><b>4.1</b> 初识 ggplot</a></li>
+<li class="chapter" data-level="4.2" data-path="explore.html"><a href="explore.html#美学映射"><i class="fa fa-check"></i><b>4.2</b> 美学映射</a></li>
+<li class="chapter" data-level="4.3" data-path="explore.html"><a href="explore.html#修改样式"><i class="fa fa-check"></i><b>4.3</b> 修改样式</a></li>
+<li class="chapter" data-level="4.4" data-path="explore.html"><a href="explore.html#多组画图"><i class="fa fa-check"></i><b>4.4</b> 多组画图</a></li>
+<li class="chapter" data-level="4.5" data-path="explore.html"><a href="explore.html#叠加与参数"><i class="fa fa-check"></i><b>4.5</b> 叠加与参数</a></li>
+<li class="chapter" data-level="4.6" data-path="explore.html"><a href="explore.html#其他常见图"><i class="fa fa-check"></i><b>4.6</b> 其他常见图</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="explore.html"><a href="explore.html#回归曲线图"><i class="fa fa-check"></i><b>4.6.1</b> 回归曲线图</a></li>
+<li class="chapter" data-level="4.6.2" data-path="explore.html"><a href="explore.html#条形图"><i class="fa fa-check"></i><b>4.6.2</b> 条形图</a></li>
+<li class="chapter" data-level="4.6.3" data-path="explore.html"><a href="explore.html#summary-线条信息图"><i class="fa fa-check"></i><b>4.6.3</b> Summary 线条信息图</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="explore.html"><a href="explore.html#坐标系相关"><i class="fa fa-check"></i><b>4.7</b> 坐标系相关</a></li>
+<li class="chapter" data-level="4.8" data-path="explore.html"><a href="explore.html#绘制-diamonds-数据分析图"><i class="fa fa-check"></i><b>4.8</b> 绘制 diamonds 数据分析图</a></li>
+<li class="chapter" data-level="4.9" data-path="explore.html"><a href="explore.html#研究-mpgcars-数据集"><i class="fa fa-check"></i><b>4.9</b> 研究 mpgcars 数据集</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="workflow-basics.html"><a href="workflow-basics.html"><i class="fa fa-check"></i><b>5</b> Workflow: basics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="workflow-basics.html"><a href="workflow-basics.html#基础运算上手"><i class="fa fa-check"></i><b>5.1</b> 基础运算上手</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="transform.html"><a href="transform.html"><i class="fa fa-check"></i><b>6</b> Data transformation</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="transform.html"><a href="transform.html#查看-flights-数据集"><i class="fa fa-check"></i><b>6.1</b> 查看 flights 数据集</a></li>
+<li class="chapter" data-level="6.2" data-path="transform.html"><a href="transform.html#过滤-filter"><i class="fa fa-check"></i><b>6.2</b> 过滤 filter()</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="transform.html"><a href="transform.html#比较"><i class="fa fa-check"></i><b>6.2.1</b> 比较</a></li>
+<li class="chapter" data-level="6.2.2" data-path="transform.html"><a href="transform.html#逻辑运算符"><i class="fa fa-check"></i><b>6.2.2</b> 逻辑运算符</a></li>
+<li class="chapter" data-level="6.2.3" data-path="transform.html"><a href="transform.html#缺失值"><i class="fa fa-check"></i><b>6.2.3</b> 缺失值</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="transform.html"><a href="transform.html#排列-arange"><i class="fa fa-check"></i><b>6.3</b> 排列 arange()</a></li>
+<li class="chapter" data-level="6.4" data-path="transform.html"><a href="transform.html#选择-select"><i class="fa fa-check"></i><b>6.4</b> 选择 select()</a></li>
+<li class="chapter" data-level="6.5" data-path="transform.html"><a href="transform.html#重命名-rename"><i class="fa fa-check"></i><b>6.5</b> 重命名 rename()</a></li>
+<li class="chapter" data-level="6.6" data-path="transform.html"><a href="transform.html#添加新变量-mutate-与-transmute"><i class="fa fa-check"></i><b>6.6</b> 添加新变量 mutate() 与 transmute()</a></li>
+<li class="chapter" data-level="6.7" data-path="transform.html"><a href="transform.html#分组摘要-summarise"><i class="fa fa-check"></i><b>6.7</b> 分组摘要 summarise()</a></li>
+<li class="chapter" data-level="6.8" data-path="transform.html"><a href="transform.html#其他处理数据功能"><i class="fa fa-check"></i><b>6.8</b> 其他处理数据功能</a></li>
+<li class="chapter" data-level="6.9" data-path="transform.html"><a href="transform.html#分析-flights-数据集"><i class="fa fa-check"></i><b>6.9</b> 分析 flights 数据集</a>
+<ul>
+<li class="chapter" data-level="6.9.1" data-path="transform.html"><a href="transform.html#计算目的地相关的图"><i class="fa fa-check"></i><b>6.9.1</b> 计算目的地相关的图</a></li>
+<li class="chapter" data-level="6.9.2" data-path="transform.html"><a href="transform.html#获取热门目的地及有关数据"><i class="fa fa-check"></i><b>6.9.2</b> 获取热门目的地及有关数据</a></li>
+<li class="chapter" data-level="6.9.3" data-path="transform.html"><a href="transform.html#绘制飞机延误时长分布图"><i class="fa fa-check"></i><b>6.9.3</b> 绘制飞机延误时长分布图</a></li>
+<li class="chapter" data-level="6.9.4" data-path="transform.html"><a href="transform.html#计算每天最早和最晚的航班"><i class="fa fa-check"></i><b>6.9.4</b> 计算每天最早和最晚的航班</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="workflow-scripts.html"><a href="workflow-scripts.html"><i class="fa fa-check"></i><b>7</b> Workflow: scripts</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="workflow-scripts.html"><a href="workflow-scripts.html#运行代码"><i class="fa fa-check"></i><b>7.1</b> 运行代码</a></li>
+<li class="chapter" data-level="7.2" data-path="workflow-scripts.html"><a href="workflow-scripts.html#rstudio-诊断"><i class="fa fa-check"></i><b>7.2</b> RStudio 诊断</a></li>
+<li class="chapter" data-level="7.3" data-path="workflow-scripts.html"><a href="workflow-scripts.html#使用-visual-studio-code-编写-r"><i class="fa fa-check"></i><b>7.3</b> 使用 Visual studio code 编写 R</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>8</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图分析-diamonds-数据集"><i class="fa fa-check"></i><b>8.1</b> 绘图分析 diamonds 数据集</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#可视化分布"><i class="fa fa-check"></i><b>8.1.1</b> 可视化分布</a></li>
+<li class="chapter" data-level="8.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘制频率直方图"><i class="fa fa-check"></i><b>8.1.2</b> 绘制频率直方图</a></li>
+<li class="chapter" data-level="8.1.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#异常数据杂质"><i class="fa fa-check"></i><b>8.1.3</b> 异常数据（杂质）</a></li>
+<li class="chapter" data-level="8.1.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#处理异常数据"><i class="fa fa-check"></i><b>8.1.4</b> 处理异常数据</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图统计-flights-数据集"><i class="fa fa-check"></i><b>8.2</b> 绘图统计 flights 数据集</a></li>
+<li class="chapter" data-level="8.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图统计-diamonds-数据集"><i class="fa fa-check"></i><b>8.3</b> 绘图统计 diamonds 数据集</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#连续变量多类绘图"><i class="fa fa-check"></i><b>8.3.1</b> 连续变量多类绘图</a></li>
+<li class="chapter" data-level="8.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#关于变量排序-reorder"><i class="fa fa-check"></i><b>8.3.2</b> 关于变量排序 reorder()</a></li>
+<li class="chapter" data-level="8.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#两个分类变量"><i class="fa fa-check"></i><b>8.3.3</b> 两个分类变量</a></li>
+<li class="chapter" data-level="8.3.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#两个连续变量"><i class="fa fa-check"></i><b>8.3.4</b> 两个连续变量</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="workflow-projects.html"><a href="workflow-projects.html"><i class="fa fa-check"></i><b>9</b> Workflow: projects</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="workflow-projects.html"><a href="workflow-projects.html#运行环境"><i class="fa fa-check"></i><b>9.1</b> 运行环境</a></li>
+<li class="chapter" data-level="9.2" data-path="workflow-projects.html"><a href="workflow-projects.html#工作区"><i class="fa fa-check"></i><b>9.2</b> 工作区</a></li>
+<li class="chapter" data-level="9.3" data-path="workflow-projects.html"><a href="workflow-projects.html#路径与目录"><i class="fa fa-check"></i><b>9.3</b> 路径与目录</a></li>
+<li class="chapter" data-level="9.4" data-path="workflow-projects.html"><a href="workflow-projects.html#rstudio-项目"><i class="fa fa-check"></i><b>9.4</b> RStudio 项目</a></li>
+</ul></li>
+<li class="part"><span><b>III Wrangle</b></span></li>
+<li class="chapter" data-level="10" data-path="wrangle-intro.html"><a href="wrangle-intro.html"><i class="fa fa-check"></i><b>10</b> Introduction</a></li>
+<li class="chapter" data-level="11" data-path="tibbles.html"><a href="tibbles.html"><i class="fa fa-check"></i><b>11</b> Tibbles</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="tibbles.html"><a href="tibbles.html#创建-tibble"><i class="fa fa-check"></i><b>11.1</b> 创建 tibble</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="tibbles.html"><a href="tibbles.html#as_tibble"><i class="fa fa-check"></i><b>11.1.1</b> as_tibble()</a></li>
+<li class="chapter" data-level="11.1.2" data-path="tibbles.html"><a href="tibbles.html#tibble"><i class="fa fa-check"></i><b>11.1.2</b> tibble()</a></li>
+<li class="chapter" data-level="11.1.3" data-path="tibbles.html"><a href="tibbles.html#tribble"><i class="fa fa-check"></i><b>11.1.3</b> tribble()</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="tibbles.html"><a href="tibbles.html#tibbles-vs.-data.frame"><i class="fa fa-check"></i><b>11.2</b> tibbles VS. data.frame</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="tibbles.html"><a href="tibbles.html#控制台打印方面"><i class="fa fa-check"></i><b>11.2.1</b> 控制台打印方面</a></li>
+<li class="chapter" data-level="11.2.2" data-path="tibbles.html"><a href="tibbles.html#读取子元素方面"><i class="fa fa-check"></i><b>11.2.2</b> 读取子元素方面</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="tibbles.html"><a href="tibbles.html#tibble-的转换"><i class="fa fa-check"></i><b>11.3</b> tibble 的转换</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>12</b> Data import</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="data-import.html"><a href="data-import.html#简单读取文件"><i class="fa fa-check"></i><b>12.1</b> 简单读取文件</a></li>
+<li class="chapter" data-level="12.2" data-path="data-import.html"><a href="data-import.html#解析向量"><i class="fa fa-check"></i><b>12.2</b> 解析向量</a></li>
+<li class="chapter" data-level="12.3" data-path="data-import.html"><a href="data-import.html#数字类型"><i class="fa fa-check"></i><b>12.3</b> 数字类型</a></li>
+<li class="chapter" data-level="12.4" data-path="data-import.html"><a href="data-import.html#字符类型"><i class="fa fa-check"></i><b>12.4</b> 字符类型</a></li>
+<li class="chapter" data-level="12.5" data-path="data-import.html"><a href="data-import.html#因子类型"><i class="fa fa-check"></i><b>12.5</b> 因子类型</a></li>
+<li class="chapter" data-level="12.6" data-path="data-import.html"><a href="data-import.html#日期时间类型"><i class="fa fa-check"></i><b>12.6</b> 日期时间类型</a></li>
+<li class="chapter" data-level="12.7" data-path="data-import.html"><a href="data-import.html#解析文件"><i class="fa fa-check"></i><b>12.7</b> 解析文件</a>
+<ul>
+<li class="chapter" data-level="12.7.1" data-path="data-import.html"><a href="data-import.html#自动匹配"><i class="fa fa-check"></i><b>12.7.1</b> 自动匹配</a></li>
+<li class="chapter" data-level="12.7.2" data-path="data-import.html"><a href="data-import.html#自动匹配遇到的问题"><i class="fa fa-check"></i><b>12.7.2</b> 自动匹配遇到的问题</a></li>
+<li class="chapter" data-level="12.7.3" data-path="data-import.html"><a href="data-import.html#其他的匹配解决策略"><i class="fa fa-check"></i><b>12.7.3</b> 其他的匹配解决策略</a></li>
+</ul></li>
+<li class="chapter" data-level="12.8" data-path="data-import.html"><a href="data-import.html#写入数据"><i class="fa fa-check"></i><b>12.8</b> 写入数据</a>
+<ul>
+<li class="chapter" data-level="12.8.1" data-path="data-import.html"><a href="data-import.html#csv-格式"><i class="fa fa-check"></i><b>12.8.1</b> csv 格式</a></li>
+<li class="chapter" data-level="12.8.2" data-path="data-import.html"><a href="data-import.html#rds-格式"><i class="fa fa-check"></i><b>12.8.2</b> rds 格式</a></li>
+<li class="chapter" data-level="12.8.3" data-path="data-import.html"><a href="data-import.html#feather-格式"><i class="fa fa-check"></i><b>12.8.3</b> feather 格式</a></li>
+<li class="chapter" data-level="12.8.4" data-path="data-import.html"><a href="data-import.html#其他格式"><i class="fa fa-check"></i><b>12.8.4</b> 其他格式</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>13</b> Tidy data</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="tidy-data.html"><a href="tidy-data.html#对-table1-数据分析"><i class="fa fa-check"></i><b>13.1</b> 对 table1 数据分析</a></li>
+<li class="chapter" data-level="13.2" data-path="tidy-data.html"><a href="tidy-data.html#对-table2-数据整理"><i class="fa fa-check"></i><b>13.2</b> 对 table2 数据整理</a></li>
+<li class="chapter" data-level="13.3" data-path="tidy-data.html"><a href="tidy-data.html#对-table3-数据整理"><i class="fa fa-check"></i><b>13.3</b> 对 table3 数据整理</a></li>
+<li class="chapter" data-level="13.4" data-path="tidy-data.html"><a href="tidy-data.html#对-table4a-table4b-数据整理"><i class="fa fa-check"></i><b>13.4</b> 对 table4a &amp; table4b 数据整理</a></li>
+<li class="chapter" data-level="13.5" data-path="tidy-data.html"><a href="tidy-data.html#对-table5-数据整理"><i class="fa fa-check"></i><b>13.5</b> 对 table5 数据整理</a></li>
+<li class="chapter" data-level="13.6" data-path="tidy-data.html"><a href="tidy-data.html#对-stocks-和-treatment-的缺失数据处理"><i class="fa fa-check"></i><b>13.6</b> 对 stocks 和 treatment 的缺失数据处理</a></li>
+<li class="chapter" data-level="13.7" data-path="tidy-data.html"><a href="tidy-data.html#对-who-数据整理"><i class="fa fa-check"></i><b>13.7</b> 对 who 数据整理</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="relational-data.html"><a href="relational-data.html"><i class="fa fa-check"></i><b>14</b> Relational data</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="relational-data.html"><a href="relational-data.html#理解合并数据概念"><i class="fa fa-check"></i><b>14.1</b> 理解合并数据概念</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="relational-data.html"><a href="relational-data.html#类型1没有重复问题"><i class="fa fa-check"></i><b>14.1.1</b> 类型1：没有重复问题</a></li>
+<li class="chapter" data-level="14.1.2" data-path="relational-data.html"><a href="relational-data.html#类型2一边有重复问题"><i class="fa fa-check"></i><b>14.1.2</b> 类型2：一边有重复问题</a></li>
+<li class="chapter" data-level="14.1.3" data-path="relational-data.html"><a href="relational-data.html#类型3两边都有重复问题"><i class="fa fa-check"></i><b>14.1.3</b> 类型3：两边都有重复问题</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="relational-data.html"><a href="relational-data.html#理解多种数据合并方式"><i class="fa fa-check"></i><b>14.2</b> 理解多种数据合并方式</a></li>
+<li class="chapter" data-level="14.3" data-path="relational-data.html"><a href="relational-data.html#设置操作"><i class="fa fa-check"></i><b>14.3</b> 设置操作</a></li>
+<li class="chapter" data-level="14.4" data-path="relational-data.html"><a href="relational-data.html#合并-nycflights-数据并分析"><i class="fa fa-check"></i><b>14.4</b> 合并 nycflights 数据并分析</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R-Learning</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tidy-data" class="section level1 hasAnchor" number="13">
+<h1><span class="header-section-number">Chapter 13</span> Tidy data<a href="tidy-data.html#tidy-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>一个好的数据集应该：变量在列中，观察结果在行中，值储存在单元格中；不整洁的数据，我们可以用 tidyr 包中的 pivot_longer() 和 pivot_wider() 辅助修正</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="tidy-data.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div id="对-table1-数据分析" class="section level2 hasAnchor" number="13.1">
+<h2><span class="header-section-number">13.1</span> 对 table1 数据分析<a href="tidy-data.html#对-table1-数据分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>table1 数据集中 cases 为增长人数（单位：万）。这份数据展现得很不错，我们可以轻松绘制想要的图像。</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="tidy-data.html#cb156-1" aria-hidden="true" tabindex="-1"></a>table1</span>
+<span id="cb156-2"><a href="tidy-data.html#cb156-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 x 4</span></span>
+<span id="cb156-3"><a href="tidy-data.html#cb156-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country      year  cases population</span></span>
+<span id="cb156-4"><a href="tidy-data.html#cb156-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span id="cb156-5"><a href="tidy-data.html#cb156-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span></span>
+<span id="cb156-6"><a href="tidy-data.html#cb156-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span></span>
+<span id="cb156-7"><a href="tidy-data.html#cb156-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Brazil       1999  37737  172006362</span></span>
+<span id="cb156-8"><a href="tidy-data.html#cb156-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Brazil       2000  80488  174504898</span></span>
+<span id="cb156-9"><a href="tidy-data.html#cb156-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 China        1999 212258 1272915272</span></span>
+<span id="cb156-10"><a href="tidy-data.html#cb156-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 China        2000 213766 1280428583</span></span>
+<span id="cb156-11"><a href="tidy-data.html#cb156-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(table1, <span class="fu">aes</span>(year, cases)) <span class="sc">+</span></span>
+<span id="cb156-12"><a href="tidy-data.html#cb156-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> country, <span class="at">colour =</span> country)) <span class="sc">+</span></span>
+<span id="cb156-13"><a href="tidy-data.html#cb156-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> country))</span></code></pre></div>
+<p><img src="12-tidy-data_files/figure-html/table1-1.png" width="672" /></p>
+</div>
+<div id="对-table2-数据整理" class="section level2 hasAnchor" number="13.2">
+<h2><span class="header-section-number">13.2</span> 对 table2 数据整理<a href="tidy-data.html#对-table2-数据整理" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>行中不应该出现将 cases 和 population 放在一起的现象。它们应该作为筛选变量，方便后续对 “新增” “目前总人数” 这个两个变量进行分析，即 type 拆分为列，count 跟随到新列：</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="tidy-data.html#cb157-1" aria-hidden="true" tabindex="-1"></a>table2</span>
+<span id="cb157-2"><a href="tidy-data.html#cb157-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 12 x 4</span></span>
+<span id="cb157-3"><a href="tidy-data.html#cb157-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country      year type            count</span></span>
+<span id="cb157-4"><a href="tidy-data.html#cb157-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;</span></span>
+<span id="cb157-5"><a href="tidy-data.html#cb157-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Afghanistan  1999 cases             745</span></span>
+<span id="cb157-6"><a href="tidy-data.html#cb157-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Afghanistan  1999 population   19987071</span></span>
+<span id="cb157-7"><a href="tidy-data.html#cb157-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Afghanistan  2000 cases            2666</span></span>
+<span id="cb157-8"><a href="tidy-data.html#cb157-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Afghanistan  2000 population   20595360</span></span>
+<span id="cb157-9"><a href="tidy-data.html#cb157-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Brazil       1999 cases           37737</span></span>
+<span id="cb157-10"><a href="tidy-data.html#cb157-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Brazil       1999 population  172006362</span></span>
+<span id="cb157-11"><a href="tidy-data.html#cb157-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Brazil       2000 cases           80488</span></span>
+<span id="cb157-12"><a href="tidy-data.html#cb157-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Brazil       2000 population  174504898</span></span>
+<span id="cb157-13"><a href="tidy-data.html#cb157-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 China        1999 cases          212258</span></span>
+<span id="cb157-14"><a href="tidy-data.html#cb157-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 China        1999 population 1272915272</span></span>
+<span id="cb157-15"><a href="tidy-data.html#cb157-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 China        2000 cases          213766</span></span>
+<span id="cb157-16"><a href="tidy-data.html#cb157-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 China        2000 population 1280428583</span></span>
+<span id="cb157-17"><a href="tidy-data.html#cb157-17" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">%&gt;%</span></span>
+<span id="cb157-18"><a href="tidy-data.html#cb157-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> type, <span class="at">values_from =</span> count)</span>
+<span id="cb157-19"><a href="tidy-data.html#cb157-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 x 4</span></span>
+<span id="cb157-20"><a href="tidy-data.html#cb157-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country      year  cases population</span></span>
+<span id="cb157-21"><a href="tidy-data.html#cb157-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span id="cb157-22"><a href="tidy-data.html#cb157-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span></span>
+<span id="cb157-23"><a href="tidy-data.html#cb157-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span></span>
+<span id="cb157-24"><a href="tidy-data.html#cb157-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Brazil       1999  37737  172006362</span></span>
+<span id="cb157-25"><a href="tidy-data.html#cb157-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Brazil       2000  80488  174504898</span></span>
+<span id="cb157-26"><a href="tidy-data.html#cb157-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 China        1999 212258 1272915272</span></span>
+<span id="cb157-27"><a href="tidy-data.html#cb157-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 China        2000 213766 1280428583</span></span></code></pre></div>
+</div>
+<div id="对-table3-数据整理" class="section level2 hasAnchor" number="13.3">
+<h2><span class="header-section-number">13.3</span> 对 table3 数据整理<a href="tidy-data.html#对-table3-数据整理" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>行中不应该出现将 cases 和 population 放在一起的现象，需要手动拆分：</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="tidy-data.html#cb158-1" aria-hidden="true" tabindex="-1"></a>table3</span>
+<span id="cb158-2"><a href="tidy-data.html#cb158-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 x 3</span></span>
+<span id="cb158-3"><a href="tidy-data.html#cb158-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country      year rate             </span></span>
+<span id="cb158-4"><a href="tidy-data.html#cb158-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            </span></span>
+<span id="cb158-5"><a href="tidy-data.html#cb158-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Afghanistan  1999 745/19987071     </span></span>
+<span id="cb158-6"><a href="tidy-data.html#cb158-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Afghanistan  2000 2666/20595360    </span></span>
+<span id="cb158-7"><a href="tidy-data.html#cb158-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Brazil       1999 37737/172006362  </span></span>
+<span id="cb158-8"><a href="tidy-data.html#cb158-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Brazil       2000 80488/174504898  </span></span>
+<span id="cb158-9"><a href="tidy-data.html#cb158-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 China        1999 212258/1272915272</span></span>
+<span id="cb158-10"><a href="tidy-data.html#cb158-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 China        2000 213766/1280428583</span></span>
+<span id="cb158-11"><a href="tidy-data.html#cb158-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 默认情况下，将在看到非字母数字字符（即不是数字或字母的字符）的位置拆分值</span></span>
+<span id="cb158-12"><a href="tidy-data.html#cb158-12" aria-hidden="true" tabindex="-1"></a>table3 <span class="sc">%&gt;%</span></span>
+<span id="cb158-13"><a href="tidy-data.html#cb158-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">separate</span>(rate, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>))</span>
+<span id="cb158-14"><a href="tidy-data.html#cb158-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 x 4</span></span>
+<span id="cb158-15"><a href="tidy-data.html#cb158-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country      year cases  population</span></span>
+<span id="cb158-16"><a href="tidy-data.html#cb158-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;     </span></span>
+<span id="cb158-17"><a href="tidy-data.html#cb158-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Afghanistan  1999 745    19987071  </span></span>
+<span id="cb158-18"><a href="tidy-data.html#cb158-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Afghanistan  2000 2666   20595360  </span></span>
+<span id="cb158-19"><a href="tidy-data.html#cb158-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Brazil       1999 37737  172006362 </span></span>
+<span id="cb158-20"><a href="tidy-data.html#cb158-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Brazil       2000 80488  174504898 </span></span>
+<span id="cb158-21"><a href="tidy-data.html#cb158-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 China        1999 212258 1272915272</span></span>
+<span id="cb158-22"><a href="tidy-data.html#cb158-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 China        2000 213766 1280428583</span></span>
+<span id="cb158-23"><a href="tidy-data.html#cb158-23" aria-hidden="true" tabindex="-1"></a><span class="co"># convert 可以自动将数据的格式进行转化。如这里的 cases 和 population 都应该是 int 类型数据</span></span>
+<span id="cb158-24"><a href="tidy-data.html#cb158-24" aria-hidden="true" tabindex="-1"></a>table3 <span class="sc">%&gt;%</span></span>
+<span id="cb158-25"><a href="tidy-data.html#cb158-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">separate</span>(rate, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>), <span class="at">convert =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb158-26"><a href="tidy-data.html#cb158-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 x 4</span></span>
+<span id="cb158-27"><a href="tidy-data.html#cb158-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country      year  cases population</span></span>
+<span id="cb158-28"><a href="tidy-data.html#cb158-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span id="cb158-29"><a href="tidy-data.html#cb158-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span></span>
+<span id="cb158-30"><a href="tidy-data.html#cb158-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span></span>
+<span id="cb158-31"><a href="tidy-data.html#cb158-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Brazil       1999  37737  172006362</span></span>
+<span id="cb158-32"><a href="tidy-data.html#cb158-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Brazil       2000  80488  174504898</span></span>
+<span id="cb158-33"><a href="tidy-data.html#cb158-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 China        1999 212258 1272915272</span></span>
+<span id="cb158-34"><a href="tidy-data.html#cb158-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 China        2000 213766 1280428583</span></span>
+<span id="cb158-35"><a href="tidy-data.html#cb158-35" aria-hidden="true" tabindex="-1"></a><span class="co"># 分隔符也可以手动设置</span></span>
+<span id="cb158-36"><a href="tidy-data.html#cb158-36" aria-hidden="true" tabindex="-1"></a>table3 <span class="sc">%&gt;%</span></span>
+<span id="cb158-37"><a href="tidy-data.html#cb158-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">separate</span>(rate, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;/&quot;</span>)</span>
+<span id="cb158-38"><a href="tidy-data.html#cb158-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 x 4</span></span>
+<span id="cb158-39"><a href="tidy-data.html#cb158-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country      year cases  population</span></span>
+<span id="cb158-40"><a href="tidy-data.html#cb158-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;     </span></span>
+<span id="cb158-41"><a href="tidy-data.html#cb158-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Afghanistan  1999 745    19987071  </span></span>
+<span id="cb158-42"><a href="tidy-data.html#cb158-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Afghanistan  2000 2666   20595360  </span></span>
+<span id="cb158-43"><a href="tidy-data.html#cb158-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Brazil       1999 37737  172006362 </span></span>
+<span id="cb158-44"><a href="tidy-data.html#cb158-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Brazil       2000 80488  174504898 </span></span>
+<span id="cb158-45"><a href="tidy-data.html#cb158-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 China        1999 212258 1272915272</span></span>
+<span id="cb158-46"><a href="tidy-data.html#cb158-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 China        2000 213766 1280428583</span></span>
+<span id="cb158-47"><a href="tidy-data.html#cb158-47" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置为数字表示分割位置，如这里分割为世纪 + 两位数年</span></span>
+<span id="cb158-48"><a href="tidy-data.html#cb158-48" aria-hidden="true" tabindex="-1"></a>table3 <span class="sc">%&gt;%</span></span>
+<span id="cb158-49"><a href="tidy-data.html#cb158-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">separate</span>(year, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;century&quot;</span>, <span class="st">&quot;year&quot;</span>), <span class="at">sep =</span> <span class="dv">2</span>)</span>
+<span id="cb158-50"><a href="tidy-data.html#cb158-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 x 4</span></span>
+<span id="cb158-51"><a href="tidy-data.html#cb158-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country     century year  rate             </span></span>
+<span id="cb158-52"><a href="tidy-data.html#cb158-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;            </span></span>
+<span id="cb158-53"><a href="tidy-data.html#cb158-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Afghanistan 19      99    745/19987071     </span></span>
+<span id="cb158-54"><a href="tidy-data.html#cb158-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Afghanistan 20      00    2666/20595360    </span></span>
+<span id="cb158-55"><a href="tidy-data.html#cb158-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Brazil      19      99    37737/172006362  </span></span>
+<span id="cb158-56"><a href="tidy-data.html#cb158-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Brazil      20      00    80488/174504898  </span></span>
+<span id="cb158-57"><a href="tidy-data.html#cb158-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 China       19      99    212258/1272915272</span></span>
+<span id="cb158-58"><a href="tidy-data.html#cb158-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 China       20      00    213766/1280428583</span></span></code></pre></div>
+</div>
+<div id="对-table4a-table4b-数据整理" class="section level2 hasAnchor" number="13.4">
+<h2><span class="header-section-number">13.4</span> 对 table4a &amp; table4b 数据整理<a href="tidy-data.html#对-table4a-table4b-数据整理" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>列中不应该出现将 1999 和 2000 分开的现象。它们应该作为筛选变量，方便后续对 “年份” 这个总变量进行分析，即旧变量合并为 year，值合并为 cases：</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="tidy-data.html#cb159-1" aria-hidden="true" tabindex="-1"></a>table4a_new <span class="ot">&lt;-</span> table4a <span class="sc">%&gt;%</span></span>
+<span id="cb159-2"><a href="tidy-data.html#cb159-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(</span>
+<span id="cb159-3"><a href="tidy-data.html#cb159-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="st">`</span><span class="at">1999</span><span class="st">`</span>, <span class="st">`</span><span class="at">2000</span><span class="st">`</span>), <span class="co"># 指定修改列。注意这里变量是以数字开头，所以有必要用 `` 引用（当然数字开头是不规范的）</span></span>
+<span id="cb159-4"><a href="tidy-data.html#cb159-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>, <span class="co"># 上述变量名汇总到 year 上</span></span>
+<span id="cb159-5"><a href="tidy-data.html#cb159-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">values_to =</span> <span class="st">&quot;cases&quot;</span> <span class="co"># 上述对应数值汇总到 cases 上</span></span>
+<span id="cb159-6"><a href="tidy-data.html#cb159-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb159-7"><a href="tidy-data.html#cb159-7" aria-hidden="true" tabindex="-1"></a>table4b_new <span class="ot">&lt;-</span> table4b <span class="sc">%&gt;%</span></span>
+<span id="cb159-8"><a href="tidy-data.html#cb159-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(</span>
+<span id="cb159-9"><a href="tidy-data.html#cb159-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="st">`</span><span class="at">1999</span><span class="st">`</span>, <span class="st">`</span><span class="at">2000</span><span class="st">`</span>),</span>
+<span id="cb159-10"><a href="tidy-data.html#cb159-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb159-11"><a href="tidy-data.html#cb159-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">values_to =</span> <span class="st">&quot;population&quot;</span></span>
+<span id="cb159-12"><a href="tidy-data.html#cb159-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb159-13"><a href="tidy-data.html#cb159-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 最后合并两个表的数据内容</span></span>
+<span id="cb159-14"><a href="tidy-data.html#cb159-14" aria-hidden="true" tabindex="-1"></a><span class="co">#* dplyr::left_join()</span></span>
+<span id="cb159-15"><a href="tidy-data.html#cb159-15" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(table4a_new, table4b_new)</span>
+<span id="cb159-16"><a href="tidy-data.html#cb159-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Joining, by = c(&quot;country&quot;, &quot;year&quot;)</span></span>
+<span id="cb159-17"><a href="tidy-data.html#cb159-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 x 4</span></span>
+<span id="cb159-18"><a href="tidy-data.html#cb159-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country     year   cases population</span></span>
+<span id="cb159-19"><a href="tidy-data.html#cb159-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span id="cb159-20"><a href="tidy-data.html#cb159-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Afghanistan 1999     745   19987071</span></span>
+<span id="cb159-21"><a href="tidy-data.html#cb159-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Afghanistan 2000    2666   20595360</span></span>
+<span id="cb159-22"><a href="tidy-data.html#cb159-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Brazil      1999   37737  172006362</span></span>
+<span id="cb159-23"><a href="tidy-data.html#cb159-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Brazil      2000   80488  174504898</span></span>
+<span id="cb159-24"><a href="tidy-data.html#cb159-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 China       1999  212258 1272915272</span></span>
+<span id="cb159-25"><a href="tidy-data.html#cb159-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 China       2000  213766 1280428583</span></span></code></pre></div>
+</div>
+<div id="对-table5-数据整理" class="section level2 hasAnchor" number="13.5">
+<h2><span class="header-section-number">13.5</span> 对 table5 数据整理<a href="tidy-data.html#对-table5-数据整理" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>我们需要手动拆分 cases 和 population 同时要将年份数据进行合并：</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="tidy-data.html#cb160-1" aria-hidden="true" tabindex="-1"></a>table5 <span class="sc">%&gt;%</span></span>
+<span id="cb160-2"><a href="tidy-data.html#cb160-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 注意如果不声明 sep，默认加间隔符号 “_”！</span></span>
+<span id="cb160-3"><a href="tidy-data.html#cb160-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unite</span>(year_4cs, century, year, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb160-4"><a href="tidy-data.html#cb160-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">separate</span>(rate, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;/&quot;</span>)</span>
+<span id="cb160-5"><a href="tidy-data.html#cb160-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 x 4</span></span>
+<span id="cb160-6"><a href="tidy-data.html#cb160-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country     year_4cs cases  population</span></span>
+<span id="cb160-7"><a href="tidy-data.html#cb160-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;     </span></span>
+<span id="cb160-8"><a href="tidy-data.html#cb160-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Afghanistan 1999     745    19987071  </span></span>
+<span id="cb160-9"><a href="tidy-data.html#cb160-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Afghanistan 2000     2666   20595360  </span></span>
+<span id="cb160-10"><a href="tidy-data.html#cb160-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Brazil      1999     37737  172006362 </span></span>
+<span id="cb160-11"><a href="tidy-data.html#cb160-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Brazil      2000     80488  174504898 </span></span>
+<span id="cb160-12"><a href="tidy-data.html#cb160-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 China       1999     212258 1272915272</span></span>
+<span id="cb160-13"><a href="tidy-data.html#cb160-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 China       2000     213766 1280428583</span></span></code></pre></div>
+</div>
+<div id="对-stocks-和-treatment-的缺失数据处理" class="section level2 hasAnchor" number="13.6">
+<h2><span class="header-section-number">13.6</span> 对 stocks 和 treatment 的缺失数据处理<a href="tidy-data.html#对-stocks-和-treatment-的缺失数据处理" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="tidy-data.html#cb161-1" aria-hidden="true" tabindex="-1"></a>stocks <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb161-2"><a href="tidy-data.html#cb161-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">year   =</span> <span class="fu">c</span>(<span class="dv">2015</span>, <span class="dv">2015</span>, <span class="dv">2015</span>, <span class="dv">2015</span>, <span class="dv">2016</span>, <span class="dv">2016</span>, <span class="dv">2016</span>),</span>
+<span id="cb161-3"><a href="tidy-data.html#cb161-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">qtr    =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb161-4"><a href="tidy-data.html#cb161-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">return =</span> <span class="fu">c</span>(<span class="fl">1.88</span>, <span class="fl">0.59</span>, <span class="fl">0.35</span>, <span class="cn">NA</span>, <span class="fl">0.92</span>, <span class="fl">0.17</span>, <span class="fl">2.66</span>)</span>
+<span id="cb161-5"><a href="tidy-data.html#cb161-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb161-6"><a href="tidy-data.html#cb161-6" aria-hidden="true" tabindex="-1"></a>new_stocks <span class="ot">&lt;-</span> stocks <span class="sc">%&gt;%</span></span>
+<span id="cb161-7"><a href="tidy-data.html#cb161-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 拆分成按年作列</span></span>
+<span id="cb161-8"><a href="tidy-data.html#cb161-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> year, <span class="at">values_from =</span> return) <span class="sc">%&gt;%</span></span>
+<span id="cb161-9"><a href="tidy-data.html#cb161-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 重新整理回去。注意表格是怎么整理的</span></span>
+<span id="cb161-10"><a href="tidy-data.html#cb161-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(</span>
+<span id="cb161-11"><a href="tidy-data.html#cb161-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">2015</span><span class="st">`</span>, <span class="st">`</span><span class="at">2016</span><span class="st">`</span>),</span>
+<span id="cb161-12"><a href="tidy-data.html#cb161-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb161-13"><a href="tidy-data.html#cb161-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">values_to =</span> <span class="st">&quot;return&quot;</span>,</span>
+<span id="cb161-14"><a href="tidy-data.html#cb161-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">values_drop_na =</span> <span class="cn">TRUE</span> <span class="co"># 这会对含 NA 的数据行剔除隐藏</span></span>
+<span id="cb161-15"><a href="tidy-data.html#cb161-15" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb161-16"><a href="tidy-data.html#cb161-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>()</span>
+<span id="cb161-17"><a href="tidy-data.html#cb161-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 x 3</span></span>
+<span id="cb161-18"><a href="tidy-data.html#cb161-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     qtr year  return</span></span>
+<span id="cb161-19"><a href="tidy-data.html#cb161-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;</span></span>
+<span id="cb161-20"><a href="tidy-data.html#cb161-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 2015    1.88</span></span>
+<span id="cb161-21"><a href="tidy-data.html#cb161-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2 2015    0.59</span></span>
+<span id="cb161-22"><a href="tidy-data.html#cb161-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     2 2016    0.92</span></span>
+<span id="cb161-23"><a href="tidy-data.html#cb161-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     3 2015    0.35</span></span>
+<span id="cb161-24"><a href="tidy-data.html#cb161-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     3 2016    0.17</span></span>
+<span id="cb161-25"><a href="tidy-data.html#cb161-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6     4 2016    2.66</span></span>
+<span id="cb161-26"><a href="tidy-data.html#cb161-26" aria-hidden="true" tabindex="-1"></a>new_stocks <span class="sc">%&gt;%</span></span>
+<span id="cb161-27"><a href="tidy-data.html#cb161-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">complete</span>(year, qtr) <span class="co"># 这会把所有隐藏的 NA 数据重新找回</span></span>
+<span id="cb161-28"><a href="tidy-data.html#cb161-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 8 x 3</span></span>
+<span id="cb161-29"><a href="tidy-data.html#cb161-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   year    qtr return</span></span>
+<span id="cb161-30"><a href="tidy-data.html#cb161-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span id="cb161-31"><a href="tidy-data.html#cb161-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 2015      1   1.88</span></span>
+<span id="cb161-32"><a href="tidy-data.html#cb161-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 2015      2   0.59</span></span>
+<span id="cb161-33"><a href="tidy-data.html#cb161-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 2015      3   0.35</span></span>
+<span id="cb161-34"><a href="tidy-data.html#cb161-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 2015      4  NA   </span></span>
+<span id="cb161-35"><a href="tidy-data.html#cb161-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 2016      1  NA   </span></span>
+<span id="cb161-36"><a href="tidy-data.html#cb161-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 2016      2   0.92</span></span>
+<span id="cb161-37"><a href="tidy-data.html#cb161-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 2016      3   0.17</span></span>
+<span id="cb161-38"><a href="tidy-data.html#cb161-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 2016      4   2.66</span></span>
+<span id="cb161-39"><a href="tidy-data.html#cb161-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-40"><a href="tidy-data.html#cb161-40" aria-hidden="true" tabindex="-1"></a>treatment <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb161-41"><a href="tidy-data.html#cb161-41" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>person, <span class="sc">~</span>treatment, <span class="sc">~</span>response,</span>
+<span id="cb161-42"><a href="tidy-data.html#cb161-42" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Derrick Whitmore&quot;</span>, <span class="dv">1</span>, <span class="dv">7</span>,</span>
+<span id="cb161-43"><a href="tidy-data.html#cb161-43" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="dv">2</span>, <span class="dv">10</span>,</span>
+<span id="cb161-44"><a href="tidy-data.html#cb161-44" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="dv">3</span>, <span class="dv">9</span>,</span>
+<span id="cb161-45"><a href="tidy-data.html#cb161-45" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Katherine Burke&quot;</span>, <span class="dv">1</span>, <span class="dv">4</span></span>
+<span id="cb161-46"><a href="tidy-data.html#cb161-46" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb161-47"><a href="tidy-data.html#cb161-47" aria-hidden="true" tabindex="-1"></a>treatment <span class="sc">%&gt;%</span></span>
+<span id="cb161-48"><a href="tidy-data.html#cb161-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fill</span>(person) <span class="co"># 对 treatment 的 person 列进行补全处理，碰到 NA 时会将 NA 改为上一个不是 NA 的数据</span></span>
+<span id="cb161-49"><a href="tidy-data.html#cb161-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 x 3</span></span>
+<span id="cb161-50"><a href="tidy-data.html#cb161-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   person           treatment response</span></span>
+<span id="cb161-51"><a href="tidy-data.html#cb161-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb161-52"><a href="tidy-data.html#cb161-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Derrick Whitmore         1        7</span></span>
+<span id="cb161-53"><a href="tidy-data.html#cb161-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Derrick Whitmore         2       10</span></span>
+<span id="cb161-54"><a href="tidy-data.html#cb161-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Derrick Whitmore         3        9</span></span>
+<span id="cb161-55"><a href="tidy-data.html#cb161-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Katherine Burke          1        4</span></span></code></pre></div>
+</div>
+<div id="对-who-数据整理" class="section level2 hasAnchor" number="13.7">
+<h2><span class="header-section-number">13.7</span> 对 who 数据整理<a href="tidy-data.html#对-who-数据整理" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>who 是一个流行病统计数据集。</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="tidy-data.html#cb162-1" aria-hidden="true" tabindex="-1"></a>who</span>
+<span id="cb162-2"><a href="tidy-data.html#cb162-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 7,240 x 60</span></span>
+<span id="cb162-3"><a href="tidy-data.html#cb162-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country  iso2  iso3   year new_sp_m014 new_sp_m1524 new_sp_m2534 new_sp_m3544</span></span>
+<span id="cb162-4"><a href="tidy-data.html#cb162-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;int&gt;       &lt;int&gt;        &lt;int&gt;        &lt;int&gt;        &lt;int&gt;</span></span>
+<span id="cb162-5"><a href="tidy-data.html#cb162-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Afghani~ AF    AFG    1980          NA           NA           NA           NA</span></span>
+<span id="cb162-6"><a href="tidy-data.html#cb162-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Afghani~ AF    AFG    1981          NA           NA           NA           NA</span></span>
+<span id="cb162-7"><a href="tidy-data.html#cb162-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Afghani~ AF    AFG    1982          NA           NA           NA           NA</span></span>
+<span id="cb162-8"><a href="tidy-data.html#cb162-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Afghani~ AF    AFG    1983          NA           NA           NA           NA</span></span>
+<span id="cb162-9"><a href="tidy-data.html#cb162-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Afghani~ AF    AFG    1984          NA           NA           NA           NA</span></span>
+<span id="cb162-10"><a href="tidy-data.html#cb162-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Afghani~ AF    AFG    1985          NA           NA           NA           NA</span></span>
+<span id="cb162-11"><a href="tidy-data.html#cb162-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Afghani~ AF    AFG    1986          NA           NA           NA           NA</span></span>
+<span id="cb162-12"><a href="tidy-data.html#cb162-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Afghani~ AF    AFG    1987          NA           NA           NA           NA</span></span>
+<span id="cb162-13"><a href="tidy-data.html#cb162-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Afghani~ AF    AFG    1988          NA           NA           NA           NA</span></span>
+<span id="cb162-14"><a href="tidy-data.html#cb162-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Afghani~ AF    AFG    1989          NA           NA           NA           NA</span></span>
+<span id="cb162-15"><a href="tidy-data.html#cb162-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 7,230 more rows, and 52 more variables: new_sp_m4554 &lt;int&gt;,</span></span>
+<span id="cb162-16"><a href="tidy-data.html#cb162-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   new_sp_m5564 &lt;int&gt;, new_sp_m65 &lt;int&gt;, new_sp_f014 &lt;int&gt;,</span></span>
+<span id="cb162-17"><a href="tidy-data.html#cb162-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   new_sp_f1524 &lt;int&gt;, new_sp_f2534 &lt;int&gt;, new_sp_f3544 &lt;int&gt;,</span></span>
+<span id="cb162-18"><a href="tidy-data.html#cb162-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   new_sp_f4554 &lt;int&gt;, new_sp_f5564 &lt;int&gt;, new_sp_f65 &lt;int&gt;,</span></span>
+<span id="cb162-19"><a href="tidy-data.html#cb162-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   new_sn_m014 &lt;int&gt;, new_sn_m1524 &lt;int&gt;, new_sn_m2534 &lt;int&gt;,</span></span>
+<span id="cb162-20"><a href="tidy-data.html#cb162-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   new_sn_m3544 &lt;int&gt;, new_sn_m4554 &lt;int&gt;, new_sn_m5564 &lt;int&gt;,</span></span>
+<span id="cb162-21"><a href="tidy-data.html#cb162-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   new_sn_m65 &lt;int&gt;, new_sn_f014 &lt;int&gt;, new_sn_f1524 &lt;int&gt;, ...</span></span>
+<span id="cb162-22"><a href="tidy-data.html#cb162-22" aria-hidden="true" tabindex="-1"></a>who1 <span class="ot">&lt;-</span> who <span class="sc">%&gt;%</span></span>
+<span id="cb162-23"><a href="tidy-data.html#cb162-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(</span>
+<span id="cb162-24"><a href="tidy-data.html#cb162-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">cols =</span> new_sp_m014<span class="sc">:</span>newrel_f65, <span class="co"># 将病症的种类转换成变量（key）</span></span>
+<span id="cb162-25"><a href="tidy-data.html#cb162-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">names_to =</span> <span class="st">&quot;key&quot;</span>,</span>
+<span id="cb162-26"><a href="tidy-data.html#cb162-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">values_to =</span> <span class="st">&quot;cases&quot;</span>, <span class="co"># 将数据转换成 cases 列</span></span>
+<span id="cb162-27"><a href="tidy-data.html#cb162-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">values_drop_na =</span> <span class="cn">TRUE</span> <span class="co"># 删除 NA 数据</span></span>
+<span id="cb162-28"><a href="tidy-data.html#cb162-28" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb162-29"><a href="tidy-data.html#cb162-29" aria-hidden="true" tabindex="-1"></a>who1</span>
+<span id="cb162-30"><a href="tidy-data.html#cb162-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 76,046 x 6</span></span>
+<span id="cb162-31"><a href="tidy-data.html#cb162-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country     iso2  iso3   year key          cases</span></span>
+<span id="cb162-32"><a href="tidy-data.html#cb162-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;        &lt;int&gt;</span></span>
+<span id="cb162-33"><a href="tidy-data.html#cb162-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Afghanistan AF    AFG    1997 new_sp_m014      0</span></span>
+<span id="cb162-34"><a href="tidy-data.html#cb162-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Afghanistan AF    AFG    1997 new_sp_m1524    10</span></span>
+<span id="cb162-35"><a href="tidy-data.html#cb162-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Afghanistan AF    AFG    1997 new_sp_m2534     6</span></span>
+<span id="cb162-36"><a href="tidy-data.html#cb162-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Afghanistan AF    AFG    1997 new_sp_m3544     3</span></span>
+<span id="cb162-37"><a href="tidy-data.html#cb162-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Afghanistan AF    AFG    1997 new_sp_m4554     5</span></span>
+<span id="cb162-38"><a href="tidy-data.html#cb162-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Afghanistan AF    AFG    1997 new_sp_m5564     2</span></span>
+<span id="cb162-39"><a href="tidy-data.html#cb162-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Afghanistan AF    AFG    1997 new_sp_m65       0</span></span>
+<span id="cb162-40"><a href="tidy-data.html#cb162-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Afghanistan AF    AFG    1997 new_sp_f014      5</span></span>
+<span id="cb162-41"><a href="tidy-data.html#cb162-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Afghanistan AF    AFG    1997 new_sp_f1524    38</span></span>
+<span id="cb162-42"><a href="tidy-data.html#cb162-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Afghanistan AF    AFG    1997 new_sp_f2534    36</span></span>
+<span id="cb162-43"><a href="tidy-data.html#cb162-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 76,036 more rows</span></span>
+<span id="cb162-44"><a href="tidy-data.html#cb162-44" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(who1, key, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="co"># 对不同病症人数统计</span></span>
+<span id="cb162-45"><a href="tidy-data.html#cb162-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 56 x 2</span></span>
+<span id="cb162-46"><a href="tidy-data.html#cb162-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    key              n</span></span>
+<span id="cb162-47"><a href="tidy-data.html#cb162-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;        &lt;int&gt;</span></span>
+<span id="cb162-48"><a href="tidy-data.html#cb162-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 new_sp_m4554  3223</span></span>
+<span id="cb162-49"><a href="tidy-data.html#cb162-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 new_sp_m3544  3219</span></span>
+<span id="cb162-50"><a href="tidy-data.html#cb162-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 new_sp_m5564  3218</span></span>
+<span id="cb162-51"><a href="tidy-data.html#cb162-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 new_sp_m1524  3209</span></span>
+<span id="cb162-52"><a href="tidy-data.html#cb162-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 new_sp_m65    3209</span></span>
+<span id="cb162-53"><a href="tidy-data.html#cb162-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 new_sp_m2534  3206</span></span>
+<span id="cb162-54"><a href="tidy-data.html#cb162-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 new_sp_f4554  3204</span></span>
+<span id="cb162-55"><a href="tidy-data.html#cb162-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 new_sp_f2534  3200</span></span>
+<span id="cb162-56"><a href="tidy-data.html#cb162-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 new_sp_f3544  3199</span></span>
+<span id="cb162-57"><a href="tidy-data.html#cb162-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 new_sp_f65    3197</span></span>
+<span id="cb162-58"><a href="tidy-data.html#cb162-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 46 more rows</span></span></code></pre></div>
+<p>对病症名称进行分析得知：</p>
+<ul>
+<li><p>前三个字母：是否包含新的或旧的结核病例</p></li>
+<li><p>中间两个字母：结核病的类型</p>
+<ul>
+<li>rel：复发病例</li>
+<li>ep：肺外结核病例</li>
+<li>sn：无法通过肺涂片诊断的肺结核病例（涂片阴性）</li>
+<li>sp：可通过肺涂片诊断的肺结核病例（涂片阳性）</li>
+</ul></li>
+<li><p>第六个字母：结核病患者的性别。其中 m 为男性，f 为女性</p></li>
+<li><p>最后的数字：年龄组</p>
+<ul>
+<li>014：0 ~ 14 岁</li>
+<li>1524：15 ~ 24 岁</li>
+<li>2534：25 ~ 34 岁</li>
+<li>3544：35 ~ 44 岁</li>
+<li>4554：45 ~ 54 岁</li>
+<li>5564：55 ~ 64岁</li>
+<li>65：65 岁或以上</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="tidy-data.html#cb163-1" aria-hidden="true" tabindex="-1"></a>who2 <span class="ot">&lt;-</span> who1 <span class="sc">%&gt;%</span></span>
+<span id="cb163-2"><a href="tidy-data.html#cb163-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 使用 stringr 的 str_replace 可以进行简单的替换（当然切割时使用位置切割也可以）</span></span>
+<span id="cb163-3"><a href="tidy-data.html#cb163-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">key =</span> stringr<span class="sc">::</span><span class="fu">str_replace</span>(key, <span class="st">&quot;newrel&quot;</span>, <span class="st">&quot;new_rel&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb163-4"><a href="tidy-data.html#cb163-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 通过字符串 “_” 分割为是否包含新病例、结核病类型和性别年龄</span></span>
+<span id="cb163-5"><a href="tidy-data.html#cb163-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">separate</span>(key, <span class="fu">c</span>(<span class="st">&quot;new&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;sexage&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb163-6"><a href="tidy-data.html#cb163-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 通过位置继续分割性别和年龄</span></span>
+<span id="cb163-7"><a href="tidy-data.html#cb163-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">separate</span>(sexage, <span class="fu">c</span>(<span class="st">&quot;sex&quot;</span>, <span class="st">&quot;age&quot;</span>), <span class="at">sep =</span> <span class="dv">1</span>)</span>
+<span id="cb163-8"><a href="tidy-data.html#cb163-8" aria-hidden="true" tabindex="-1"></a>who2</span>
+<span id="cb163-9"><a href="tidy-data.html#cb163-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 76,046 x 9</span></span>
+<span id="cb163-10"><a href="tidy-data.html#cb163-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country     iso2  iso3   year new   type  sex   age   cases</span></span>
+<span id="cb163-11"><a href="tidy-data.html#cb163-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span></span>
+<span id="cb163-12"><a href="tidy-data.html#cb163-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Afghanistan AF    AFG    1997 new   sp    m     014       0</span></span>
+<span id="cb163-13"><a href="tidy-data.html#cb163-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Afghanistan AF    AFG    1997 new   sp    m     1524     10</span></span>
+<span id="cb163-14"><a href="tidy-data.html#cb163-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Afghanistan AF    AFG    1997 new   sp    m     2534      6</span></span>
+<span id="cb163-15"><a href="tidy-data.html#cb163-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Afghanistan AF    AFG    1997 new   sp    m     3544      3</span></span>
+<span id="cb163-16"><a href="tidy-data.html#cb163-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Afghanistan AF    AFG    1997 new   sp    m     4554      5</span></span>
+<span id="cb163-17"><a href="tidy-data.html#cb163-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Afghanistan AF    AFG    1997 new   sp    m     5564      2</span></span>
+<span id="cb163-18"><a href="tidy-data.html#cb163-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Afghanistan AF    AFG    1997 new   sp    m     65        0</span></span>
+<span id="cb163-19"><a href="tidy-data.html#cb163-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Afghanistan AF    AFG    1997 new   sp    f     014       5</span></span>
+<span id="cb163-20"><a href="tidy-data.html#cb163-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Afghanistan AF    AFG    1997 new   sp    f     1524     38</span></span>
+<span id="cb163-21"><a href="tidy-data.html#cb163-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Afghanistan AF    AFG    1997 new   sp    f     2534     36</span></span>
+<span id="cb163-22"><a href="tidy-data.html#cb163-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 76,036 more rows</span></span></code></pre></div>
+<p>深度观察，我们会发现数据还有进一步的优化空间：</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="tidy-data.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(who2, new) <span class="co"># 可以发现这个数据集的 “是否包含新病例” 值其实全部都是 “new”，所以是不必要的数据</span></span>
+<span id="cb164-2"><a href="tidy-data.html#cb164-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 2</span></span>
+<span id="cb164-3"><a href="tidy-data.html#cb164-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   new       n</span></span>
+<span id="cb164-4"><a href="tidy-data.html#cb164-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt; &lt;int&gt;</span></span>
+<span id="cb164-5"><a href="tidy-data.html#cb164-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 new   76046</span></span>
+<span id="cb164-6"><a href="tidy-data.html#cb164-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 同时 “iso2” 和 “iso3” 是国家缩写，也是不需要的数据</span></span>
+<span id="cb164-7"><a href="tidy-data.html#cb164-7" aria-hidden="true" tabindex="-1"></a>who3 <span class="ot">&lt;-</span> who2 <span class="sc">%&gt;%</span></span>
+<span id="cb164-8"><a href="tidy-data.html#cb164-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>new, <span class="sc">-</span>iso2, <span class="sc">-</span>iso3)</span>
+<span id="cb164-9"><a href="tidy-data.html#cb164-9" aria-hidden="true" tabindex="-1"></a>who3</span>
+<span id="cb164-10"><a href="tidy-data.html#cb164-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 76,046 x 6</span></span>
+<span id="cb164-11"><a href="tidy-data.html#cb164-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country      year type  sex   age   cases</span></span>
+<span id="cb164-12"><a href="tidy-data.html#cb164-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span></span>
+<span id="cb164-13"><a href="tidy-data.html#cb164-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Afghanistan  1997 sp    m     014       0</span></span>
+<span id="cb164-14"><a href="tidy-data.html#cb164-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Afghanistan  1997 sp    m     1524     10</span></span>
+<span id="cb164-15"><a href="tidy-data.html#cb164-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Afghanistan  1997 sp    m     2534      6</span></span>
+<span id="cb164-16"><a href="tidy-data.html#cb164-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Afghanistan  1997 sp    m     3544      3</span></span>
+<span id="cb164-17"><a href="tidy-data.html#cb164-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Afghanistan  1997 sp    m     4554      5</span></span>
+<span id="cb164-18"><a href="tidy-data.html#cb164-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Afghanistan  1997 sp    m     5564      2</span></span>
+<span id="cb164-19"><a href="tidy-data.html#cb164-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Afghanistan  1997 sp    m     65        0</span></span>
+<span id="cb164-20"><a href="tidy-data.html#cb164-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Afghanistan  1997 sp    f     014       5</span></span>
+<span id="cb164-21"><a href="tidy-data.html#cb164-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Afghanistan  1997 sp    f     1524     38</span></span>
+<span id="cb164-22"><a href="tidy-data.html#cb164-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Afghanistan  1997 sp    f     2534     36</span></span>
+<span id="cb164-23"><a href="tidy-data.html#cb164-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 76,036 more rows</span></span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-import.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="relational-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/12-tidy-data.rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["R-Learning.pdf", "R-Learning.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
