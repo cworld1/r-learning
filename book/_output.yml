@@ -1,18 +1,44 @@
+# gitbook 配置
 bookdown::gitbook:
   css: source/style.css
   config:
+    # 侧边栏目录
     toc:
+      collapse: section
+      scroll_highlight: true
       before: |
-        <li><a href="https://github.com/cworld1/r-learning" target="blank">R Learning</a> Github 项目</li>
+        <li><a href="#" target="blank">R Learning Notebook</a></li>
       after: |
-        <li>由 <a href="https://github.com/rstudio/bookdown" target="blank">Bookdown</a> 强力驱动</li>
-    edit: https://github.com/cworld1/r-learning/edit/master/%s
-    download: ["pdf", "epub"]
+        <li><a href="https://github.com/rstudio/bookdown" target="blank">由 Bookdown 强力驱动</a></li>
+    toolbar:
+      position: fixed
+    # 编辑
+    edit: https://github.com/cworld1/r-learning/edit/master/book/%s
+    # 下载
+    download:
+      - ["book.pdf", "PDF"]
+      - ["book.epub", "EPUB"]
+    # 分享
+    sharing:
+      facebook: false
+      github: true
+      twitter: false
+      linkedin: false
+      weibo: false
+      instapaper: false
+      vk: false
+      whatsapp: false
+
+# pdf_book 配置
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex
   latex_engine: xelatex
   citation_package: natbib
   keep_tex: yes
+
+# epub_book 配置
 bookdown::epub_book: default
+
+# bs4_book 配置
 bookdown::bs4_book: default
