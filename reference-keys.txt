@@ -32,7 +32,6 @@ summary-线条信息图
 绘制-diamonds-数据分析图
 研究-mpgcars-数据集
 workflow-basics
-基础运算上手
 transform
 查看-flights-数据集
 过滤-filter
@@ -119,3 +118,5 @@ relational-data
 理解多种数据合并方式
 设置操作
 合并-nycflights-数据并分析
+model-intro
+认知

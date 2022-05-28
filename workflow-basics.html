@@ -184,10 +184,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.8" data-path="explore.html"><a href="explore.html#绘制-diamonds-数据分析图"><i class="fa fa-check"></i><b>4.8</b> 绘制 diamonds 数据分析图</a></li>
 <li class="chapter" data-level="4.9" data-path="explore.html"><a href="explore.html#研究-mpgcars-数据集"><i class="fa fa-check"></i><b>4.9</b> 研究 mpgcars 数据集</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="workflow-basics.html"><a href="workflow-basics.html"><i class="fa fa-check"></i><b>5</b> Workflow: basics</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="workflow-basics.html"><a href="workflow-basics.html#基础运算上手"><i class="fa fa-check"></i><b>5.1</b> 基础运算上手</a></li>
-</ul></li>
+<li class="chapter" data-level="5" data-path="workflow-basics.html"><a href="workflow-basics.html"><i class="fa fa-check"></i><b>5</b> Workflow: basics</a></li>
 <li class="chapter" data-level="6" data-path="transform.html"><a href="transform.html"><i class="fa fa-check"></i><b>6</b> Data transformation</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="transform.html"><a href="transform.html#查看-flights-数据集"><i class="fa fa-check"></i><b>6.1</b> 查看 flights 数据集</a></li>
@@ -303,6 +300,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.3" data-path="relational-data.html"><a href="relational-data.html#设置操作"><i class="fa fa-check"></i><b>14.3</b> 设置操作</a></li>
 <li class="chapter" data-level="14.4" data-path="relational-data.html"><a href="relational-data.html#合并-nycflights-数据并分析"><i class="fa fa-check"></i><b>14.4</b> 合并 nycflights 数据并分析</a></li>
 </ul></li>
+<li class="part"><span><b>III Model 模型</b></span></li>
+<li class="chapter" data-level="15" data-path="model-intro.html"><a href="model-intro.html"><i class="fa fa-check"></i><b>15</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="model-intro.html"><a href="model-intro.html#认知"><i class="fa fa-check"></i><b>15.1</b> 认知</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">由 Bookdown 强力驱动</a></li>
 
@@ -325,8 +327,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="workflow-basics" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Workflow: basics<a href="workflow-basics.html#workflow-basics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="基础运算上手" class="section level2 hasAnchor" number="5.1">
-<h2><span class="header-section-number">5.1</span> 基础运算上手<a href="workflow-basics.html#基础运算上手" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>在 R 里，你甚至能当计算器：</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="workflow-basics.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="dv">200</span> <span class="sc">*</span> <span class="dv">30</span></span>
 <span id="cb47-2"><a href="workflow-basics.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.15</span></span>
@@ -346,7 +346,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="workflow-basics.html#cb50-1" aria-hidden="true" tabindex="-1"></a>(y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">length.out =</span> <span class="dv">5</span>)) <span class="co"># 返回一个向量，元素均匀地分布从 1 到 10，共 5 个</span></span>
 <span id="cb50-2"><a href="workflow-basics.html#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  1.00  3.25  5.50  7.75 10.00</span></span></code></pre></div>
 
-</div>
 </div>
             </section>
 
@@ -385,7 +384,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/cworld1/r-learning/edit/master/book/04-workflow-basics.rmd",
+"link": "https://github.com/cworld1/r-learning/edit/master/book/04-workflow-basics.Rmd",
 "text": "Edit"
 },
 "history": {
