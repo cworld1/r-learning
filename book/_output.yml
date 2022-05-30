@@ -1,6 +1,6 @@
 # gitbook 配置
 bookdown::gitbook:
-  css: source/style.css
+  css: source/style.min.css
   config:
     # 侧边栏目录
     toc:
