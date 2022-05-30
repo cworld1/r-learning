@@ -1,9 +1,9 @@
 # R learning
 
 [![R language](https://img.shields.io/badge/R-276DC3?style=flat-square&logo=r)](https://www.r-project.org/)
-[![GitHub stars](https://img.shields.io/github/stars/cworld1/r-learning?style=flat-square)](https://github.com/cworld1/r-learning/)
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/y/cworld1/r-learning?label=commits&style=flat-square)](https://github.com/cworld1/r-learning/commits/)
-[![GitHub license](https://img.shields.io/github/license/cworld1/r-learning?style=flat-square)](https://github.com/cworld1/r-learning/)
+[![GitHub stars](https://img.shields.io/github/stars/cworld1/r-learning?style=flat-square)](https://github.com/cworld1/r-learning/stargazers)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/y/cworld1/r-learning?label=commits&style=flat-square)](https://github.com/cworld1/r-learning/commits)
+[![GitHub license](https://img.shields.io/github/license/cworld1/r-learning?style=flat-square)](https://github.com/cworld1/r-learning/blob/master/LICENSE)
 
 这是关于 CWorld 学习 R 语言的一些笔记和代码。
 
