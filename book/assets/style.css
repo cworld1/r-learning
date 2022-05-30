@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC&family=Noto+Serif+SC:wght@500&display=swap');
+
 /* 侧栏 */
 .book .book-summary ul.summary {
   background-color: #8fa8c01f;
@@ -54,7 +56,7 @@
 }
 
 .book .book-header.fixed {
-  background-color: #ffffff2e !important;
+  background-color: #ffffff8a !important;
   backdrop-filter: blur(20px);
 }
 
@@ -127,6 +129,14 @@ div.sourceCode:hover>.copy-to-clipboard-button {
 
 .book.color-theme-2 button.copy-to-clipboard-button {
   background: #2e2e2e;
+}
+
+.book.color-theme-2 .book-header.fixed {
+  background-color: #1c1f2bd9 !important;
+}
+
+.book.color-theme-2 .book-header .btn {
+  color: #6a708f;
 }
 
 /* 不同尺寸设备修复 */

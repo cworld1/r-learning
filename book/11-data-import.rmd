@@ -32,7 +32,7 @@ csv 文件是最常见的数据存储形式之一。我们将重点关注 read_c
 read_csv() 会给出相当丰富的信息，包括行列数、分隔符、各列的数据格式（自动识别）等：
 
 ```{R read_csv()}
-heights <- read_csv("./source/heights.csv")
+heights <- read_csv("./data/heights.csv")
 ```
 
 对于内联表格我们同样可以这样处理：
@@ -406,15 +406,15 @@ type_convert(df)
 ### csv 格式
 
 ```{R write_csv()}
-write_csv(challenge, "./source/challenge.csv")
+write_csv(challenge, "./data/challenge.csv")
 ```
 
 很简单，不是吗？小心事情还没结束。你看，数据类型就这么丢了：
 
 ```{R data type}
 challenge
-write_csv(challenge, "./source/challenge-2.csv")
-read_csv("./source/challenge-2.csv")
+write_csv(challenge, "./data/challenge-2.csv")
+read_csv("./data/challenge-2.csv")
 ```
 
 ### rds 格式
@@ -422,8 +422,8 @@ read_csv("./source/challenge-2.csv")
 为了解决这个问题，我们提出了新的函数：write_rds() 和 read_rds() 基于 R 的基本函数 readRDS() 和 saveRDS()。注意这些数据会以被 R 称为 RDS 格式的自定义二进制格式存储数据：
 
 ```{R write_rds() & read_rds()}
-write_rds(challenge, "./source/challenge.rds")
-read_rds("./source/challenge.rds")
+write_rds(challenge, "./data/challenge.rds")
+read_rds("./data/challenge.rds")
 ```
 
 表现非常好，但 rds 格式不流行也不通用。
@@ -434,8 +434,8 @@ feather 包也实现了一种快速的二进制文件格式，可以跨编程语
 
 ```{R feather}
 library(feather)
-write_feather(challenge, "./source/challenge.feather")
-read_feather("./source/challenge.feather")
+write_feather(challenge, "./data/challenge.feather")
+read_feather("./data/challenge.feather")
 ```
 
 ### 其他格式
