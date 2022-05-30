@@ -487,8 +487,8 @@ summarise(
     by_day,
     delay = mean(dep_delay, na.rm = TRUE) # 组内的 [delay] 标签追加，按照算法分组返回值
 )
-#> `summarise()` has grouped output by 'year', 'month'. You can override using the
-#> `.groups` argument.
+#> `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups`
+#> argument.
 #> # A tibble: 365 x 4
 #> # Groups:   year, month [12]
 #>     year month   day delay
@@ -507,8 +507,8 @@ summarise(
 # 使用管道符 "%>%" 精简代码
 group_by(flights, year, month, day) %>%
     summarise(delay = mean(dep_delay, na.rm = TRUE))
-#> `summarise()` has grouped output by 'year', 'month'. You can override using the
-#> `.groups` argument.
+#> `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups`
+#> argument.
 #> # A tibble: 365 x 4
 #> # Groups:   year, month [12]
 #>     year month   day delay
@@ -639,8 +639,8 @@ flights %>%
         first = min(dep_time),
         last = max(dep_time)
     )
-#> `summarise()` has grouped output by 'year', 'month'. You can override using the
-#> `.groups` argument.
+#> `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups`
+#> argument.
 #> # A tibble: 365 x 5
 #> # Groups:   year, month [12]
 #>     year month   day first  last

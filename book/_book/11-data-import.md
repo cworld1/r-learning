@@ -29,9 +29,9 @@ read_csv() 会给出相当丰富的信息，包括行列数、分隔符、各列
 
 
 ```r
-heights <- read_csv("./source/heights.csv")
+heights <- read_csv("./data/heights.csv")
 #> Rows: 1192 Columns: 6
-#> -- Column specification --------------------------------------------------------
+#> -- Column specification ------------------------------------------------------------------
 #> Delimiter: ","
 #> chr (2): sex, race
 #> dbl (4): earn, height, ed, age
@@ -48,7 +48,7 @@ read_csv("a,b,c
 1,2,3
 4,5,6")
 #> Rows: 2 Columns: 3
-#> -- Column specification --------------------------------------------------------
+#> -- Column specification ------------------------------------------------------------------
 #> Delimiter: ","
 #> dbl (3): a, b, c
 #> 
@@ -70,7 +70,7 @@ read_csv("The first line of metadata
   x,y,z
   1,2,3", skip = 2)
 #> Rows: 1 Columns: 3
-#> -- Column specification --------------------------------------------------------
+#> -- Column specification ------------------------------------------------------------------
 #> Delimiter: ","
 #> dbl (3): x, y, z
 #> 
@@ -90,7 +90,7 @@ read_csv("# A comment I want to skip
   x,y,z
   1,2,3", comment = "#")
 #> Rows: 1 Columns: 3
-#> -- Column specification --------------------------------------------------------
+#> -- Column specification ------------------------------------------------------------------
 #> Delimiter: ","
 #> dbl (3): x, y, z
 #> 
@@ -108,7 +108,7 @@ read_csv("# A comment I want to skip
 ```r
 read_csv("1,2,3\n4,5,6", col_names = FALSE)
 #> Rows: 2 Columns: 3
-#> -- Column specification --------------------------------------------------------
+#> -- Column specification ------------------------------------------------------------------
 #> Delimiter: ","
 #> dbl (3): X1, X2, X3
 #> 
@@ -127,7 +127,7 @@ read_csv("1,2,3\n4,5,6", col_names = FALSE)
 ```r
 read_csv("1,2,3\n4,5,6", col_names = c("x", "y", "z"))
 #> Rows: 2 Columns: 3
-#> -- Column specification --------------------------------------------------------
+#> -- Column specification ------------------------------------------------------------------
 #> Delimiter: ","
 #> dbl (3): x, y, z
 #> 
@@ -146,7 +146,7 @@ read_csv("1,2,3\n4,5,6", col_names = c("x", "y", "z"))
 ```r
 read_csv("a,b,c\n1,2,.", na = ".")
 #> Rows: 1 Columns: 3
-#> -- Column specification --------------------------------------------------------
+#> -- Column specification ------------------------------------------------------------------
 #> Delimiter: ","
 #> dbl (2): a, b
 #> lgl (1): c
@@ -274,9 +274,9 @@ charToRaw("Hadley")
 
 ```r
 (x1 <- "El Ni\xf1o was particularly bad this year")
-#> [1] "El Ni\361o was particularly bad this year"
+#> [1] "El Ni駉 was particularly bad this year"
 (x2 <- "\x82\xb1\x82\xf1\x82\xc9\x82\xbf\x82\xcd")
-#> [1] "\202\261\202\361\202\311\202\277\202\315"
+#> [1] "偙傫偵偪偼"
 ```
 
 使用 encoding 来转译它们的编码：
@@ -284,9 +284,9 @@ charToRaw("Hadley")
 
 ```r
 parse_character(x1, locale = locale(encoding = "Latin1"))
-#> [1] "El Ni\361o was particularly bad this year"
+#> [1] "El Ni<U+00F1>o was particularly bad this year"
 parse_character(x2, locale = locale(encoding = "Shift-JIS"))
-#> [1] "<U+3053><U+3093><U+306B><U+3061><U+306F>"
+#> [1] "こんにちは"
 ```
 
 有时我们并不知道它是什么类型的编码！所幸的是，guess_encodeing() 会帮助我们尝试：
@@ -530,7 +530,7 @@ col_types 是有必要的，这至少能确保它生成的数据更为可靠一�
 ```r
 challenge2 <- read_csv(readr_example("challenge.csv"), guess_max = 1001)
 #> Rows: 2000 Columns: 2
-#> -- Column specification --------------------------------------------------------
+#> -- Column specification ------------------------------------------------------------------
 #> Delimiter: ","
 #> dbl  (1): x
 #> date (1): y
@@ -584,7 +584,7 @@ df
 #> 3 3     4.56
 type_convert(df)
 #> 
-#> -- Column specification --------------------------------------------------------
+#> -- Column specification ------------------------------------------------------------------
 #> cols(
 #>   x = col_double(),
 #>   y = col_double()
@@ -605,7 +605,7 @@ type_convert(df)
 
 
 ```r
-write_csv(challenge, "./source/challenge.csv")
+write_csv(challenge, "./data/challenge.csv")
 ```
 
 很简单，不是吗？小心事情还没结束。你看，数据类型就这么丢了：
@@ -627,10 +627,10 @@ challenge
 #>  9  3665 NA    
 #> 10  3863 NA    
 #> # ... with 1,990 more rows
-write_csv(challenge, "./source/challenge-2.csv")
-read_csv("./source/challenge-2.csv")
+write_csv(challenge, "./data/challenge-2.csv")
+read_csv("./data/challenge-2.csv")
 #> Rows: 2000 Columns: 2
-#> -- Column specification --------------------------------------------------------
+#> -- Column specification ------------------------------------------------------------------
 #> Delimiter: ","
 #> dbl  (1): x
 #> date (1): y
@@ -659,8 +659,8 @@ read_csv("./source/challenge-2.csv")
 
 
 ```r
-write_rds(challenge, "./source/challenge.rds")
-read_rds("./source/challenge.rds")
+write_rds(challenge, "./data/challenge.rds")
+read_rds("./data/challenge.rds")
 #> # A tibble: 2,000 x 2
 #>        x y     
 #>    <dbl> <date>
@@ -686,9 +686,9 @@ feather 包也实现了一种快速的二进制文件格式，可以跨编程语
 
 ```r
 library(feather)
-#> Warning: package 'feather' was built under R version 4.1.3
-write_feather(challenge, "./source/challenge.feather")
-read_feather("./source/challenge.feather")
+#> Warning: 程辑包'feather'是用R版本4.1.3 来建造的
+write_feather(challenge, "./data/challenge.feather")
+read_feather("./data/challenge.feather")
 #> # A tibble: 2,000 x 2
 #>        x y     
 #>    <dbl> <date>

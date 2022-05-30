@@ -6,8 +6,8 @@ date: "2022-05-30"
 description: "这是关于 CWorld 学习 R 语言的一些笔记和代码。"
 github-repo: cworld1/r-learning
 url: 'https\://cworld1.github.io/r-learning'
-cover-image: "source/avatar.jpg"
-favicon: "source/favicon.ico"
+cover-image: "data/avatar.jpg"
+favicon: "data/favicon.ico"
 
 # 渲染信息
 site: bookdown::bookdown_site

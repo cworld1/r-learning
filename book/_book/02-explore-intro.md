@@ -130,7 +130,7 @@ lm(age ~ weight) # 求两者构成的回归直线斜率（注意波浪号连接�
 # 注意在 R 里面，相对路径的基层路径是由工作区设定的
 getwd() # 获取当前工作区路径
 setwd("D:/Project/R-Project/") # 设置工作区路径
-png("./source/mygraph.png") # 设置好后就可以存储到理想位置
+png("./data/mygraph.png") # 设置好后就可以存储到理想位置
 plot(age, weight) # 绘制散点图
 abline(lm(age ~ weight)) # 绘制回归直线
 title("年龄 - 体重图") # 添加 # 添加标题
@@ -139,7 +139,7 @@ dev.off() # 结束画图并保存
 
 实际运行生成的图：
 
-![mygraph](./source/mygraph.png)
+![mygraph](./data/mygraph.png)
 
 ## 更高级的数据形式
 
@@ -162,12 +162,12 @@ tibble 与 dataframe 非常相似，甚至是使用 dataframe 储存的。tibble
 
 ```r
 library(tidyverse)
-#> -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+#> -- Attaching packages ------------------------------------------------- tidyverse 1.3.1 --
 #> v ggplot2 3.3.5     v purrr   0.3.4
 #> v tibble  3.1.6     v dplyr   1.0.8
 #> v tidyr   1.2.0     v stringr 1.4.0
 #> v readr   2.1.2     v forcats 0.5.1
-#> -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+#> -- Conflicts ---------------------------------------------------- tidyverse_conflicts() --
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()
 
