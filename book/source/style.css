@@ -41,11 +41,21 @@
   color: #346ddb;
 }
 
+.book .book-header,
+.book .book-summary {
+  font-family: 'Noto Sans SC', sans-serif;
+}
+
 /* 顶栏 */
 .dropdown-menu {
   border-radius: 5px;
   padding: 0 20px;
   box-shadow: 0 4px 10px #0000001f;
+}
+
+.book .book-header.fixed {
+  background-color: #ffffff2e !important;
+  backdrop-filter: blur(20px);
 }
 
 /* 内容 */
@@ -92,6 +102,14 @@ div.sourceCode:hover>.copy-to-clipboard-button {
   color: #346ddb;
 }
 
+.book.font-family-0 {
+  font-family: 'Noto Serif SC', serif;
+}
+
+.book.font-family-1 {
+  font-family: 'Noto Sans SC', sans-serif;
+}
+
 /* 其他主题 */
 .book.color-theme-1 .book-summary ul.summary li.chapter.active>a {
   background-color: #a1683a69;
@@ -113,11 +131,24 @@ div.sourceCode:hover>.copy-to-clipboard-button {
 
 /* 不同尺寸设备修复 */
 @media screen and (max-width: 600px) {
-  .page-wrapper {
-    margin-top: 50px;
-  }
 
   .book.with-summary .book-body.fixed .page-wrapper {
     filter: brightness(40%);
   }
+
+  .page-wrapper {
+    margin-top: 0;
+  }
+}
+
+.book .book-body .page-wrapper .page-inner section.normal {
+  padding-top: 70px;
+}
+
+.book .book-body.fixed {
+  top: 0;
+}
+
+.book .book-body .page-wrapper .page-inner {
+  padding: 0 0 40px;
 }
