@@ -2,7 +2,7 @@
 # 基本信息
 title: "R-Learning"
 author: "CWorld"
-date: "2022-05-29"
+date: "2022-05-30"
 description: "这是关于 CWorld 学习 R 语言的一些笔记和代码。"
 github-repo: cworld1/r-learning
 url: 'https\://cworld1.github.io/r-learning'
@@ -19,7 +19,7 @@ bibliography: ['book.bib', 'packages.bib']
 biblio-style: apalike
 link-citations: yes
 ---
-    
+
 # Welcome {#welcome}
 
 这是关于 CWorld 学习 R 语言的一些笔记和代码。目前已开源：[Github R-Learning](https://github.com/cworld1/r-learning)
