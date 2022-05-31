@@ -1,10 +1,10 @@
+name: Render Book
+
 on:
   push:
     branches: [main, master]
   pull_request:
     branches: [main, master]
-
-name: bookdown
 
 env:
   isExtPR: ${{ github.event.pull_request.head.repo.fork == true }}
@@ -34,7 +34,6 @@ jobs:
 
       - name: Build site
         run: |
-          Rscript -e 'install.packages(c("tidyverse", "nycflights13", "hexbin", "gapminder", "Lahman"))'
           Rscript -e 'bookdown::render_book("index.Rmd", quiet = TRUE)'
 
       - name: Deploy
