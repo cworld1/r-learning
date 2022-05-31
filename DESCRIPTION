@@ -1,0 +1,21 @@
+Package: r-learning
+Title: R Learning by CWorld
+Version: 0.9.0
+Authors@R:
+    c(person(given = "CWorld",
+             email = "cworld0@qq.com"))
+Depends:
+    R (>= 3.3.0)
+Imports:
+    tidyverse,
+    nycflights13,
+    hexbin,
+    gapminder,
+    Lahman,
+    dplyr,
+    ggplot2,
+    lubridate,
+    rmarkdown,
+    bookdown
+Suggests:
+Encoding: UTF-8
