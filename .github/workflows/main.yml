@@ -35,6 +35,7 @@ jobs:
       - name: Build site
         run: |
           cd book/
+          Rscript -e 'install.packages("bookdown")'
           Rscript -e 'bookdown::render_book("index.Rmd", quiet = TRUE)'
 
       - name: Deploy
