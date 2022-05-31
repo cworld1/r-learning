@@ -1,12 +1,5 @@
 # Workflow: basics {#workflow-basics}
 
-```{R settings, include = FALSE}
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE
-)
-```
-
 在 R 里，你甚至能当计算器：
 
 ```{R calculate}

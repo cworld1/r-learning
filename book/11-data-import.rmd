@@ -1,12 +1,5 @@
 # Data import {#data-import}
 
-```{R settings, include = FALSE}
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE
-)
-```
-
 ```{R setup, results = "hide", message = FALSE, warning = FALSE}
 library(tidyverse)
 ```

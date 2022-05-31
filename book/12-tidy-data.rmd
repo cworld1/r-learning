@@ -13,7 +13,6 @@ knitr::opts_chunk$set(
 library(tidyverse)
 ```
 
-
 ## 对 table1 数据分析
 table1 数据集中 cases 为增长人数（单位：万）。这份数据展现得很不错，我们可以轻松绘制想要的图像。
 

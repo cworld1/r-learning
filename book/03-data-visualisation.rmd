@@ -1,12 +1,5 @@
 # Data visualisation {#explore}
 
-```{R settings, include = FALSE}
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE
-)
-```
-
 ```{R setup, results = "hide", message = FALSE, warning = FALSE}
 library(tidyverse) # 方便使用其中的 ggplot2
 ```
@@ -87,7 +80,6 @@ ggplot(data = mpg) +
     geom_point(mapping = aes(x = displ, y = hwy)) +
     facet_grid(drv ~ cyl) # 以 drv 为 x 轴，cyl 为 y 轴
 ```
-
 
 ## 叠加与参数
 

@@ -2,13 +2,6 @@
 
 就像我们之前提到的那样，我们常常使用来自 tidyverse 的 tibbles，而不是 R 传统的 data.frame。Tibbles 是一种比 R 自带的 dataframe 更人性化更方便的数据集存储形式。
 
-```{R settings, include = FALSE}
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE
-)
-```
-
 ```{R setup, results = "hide", message = FALSE, warning = FALSE}
 library(tidyverse)
 ```

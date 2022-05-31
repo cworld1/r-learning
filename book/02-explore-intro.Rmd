@@ -2,13 +2,6 @@
 
 # Introduction {#explore-intro}
 
-```{R settings, include = FALSE}
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE
-)
-```
-
 尽快掌握数据探索的基本工具是探究语言的第一要义。数据探索的目标是生成许多有前途的潜在信息，便于以后更深入地探索它们。
 
 ![data-science-explore](https://d33wubrfki0l68.cloudfront.net/795c039ba2520455d833b4034befc8cf360a70ba/558a5/diagrams/data-science-explore.png)
@@ -111,7 +104,7 @@ setwd("D:/Project/R-Project/") # 设置工作区路径
 png("./data/mygraph.png") # 设置好后就可以存储到理想位置
 plot(age, weight) # 绘制散点图
 abline(lm(age ~ weight)) # 绘制回归直线
-title("年龄 - 体重图") # 添加 # 添加标题
+title("年龄 - 体重图") # 添加 # 添加 # 添加标题
 dev.off() # 结束画图并保存
 ```
 
