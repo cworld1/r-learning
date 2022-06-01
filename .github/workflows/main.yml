@@ -18,6 +18,9 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      - name: Install Libcurl
+        run: sudo apt-get install libcurl4-gnutls-dev
+
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-pandoc@v2
