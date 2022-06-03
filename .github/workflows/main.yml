@@ -17,6 +17,8 @@ jobs:
       group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
     steps:
       - name: Install Libcurl
         run: sudo apt-get install libcurl4-gnutls-dev
@@ -38,11 +40,14 @@ jobs:
           key: bookdown-${{ hashFiles('**/*Rmd') }}
           restore-keys: bookdown-
 
+      - name: Install packages
+        run: |
+          Rscript -e 'install.packages(c("tidyverse", "nycflights13", "hexbin", "gapminder", "Lahman", "maps", "feather"))'
+          Rscript -e 'install.packages(c("rmarkdown","bookdown"))'
+
       - name: Build site
         run: |
           cd book/
-          Rscript -e 'install.packages(c("tidyverse", "nycflights13", "hexbin", "gapminder", "Lahman", "maps", "feather"))'
-          Rscript -e 'install.packages(c("rmarkdown","bookdown"))'
           Rscript -e 'bookdown::render_book("index.Rmd", quiet = TRUE)'
 
       - name: Deploy
