@@ -41,7 +41,7 @@ tidyverse 还附带了一些神奇的功能，如 filter、arrange、select、re
 # 筛选月份为 1，天数为 1 的
 filter(flights, month == 1, day == 1)
 
-# 筛选月份为 12 或者天数为 25 的（圣诞节）
+# 筛选月份为 12 且天数为 25 的（圣诞节）
 filter(flights, month == 12 & day == 25)
 
 # 筛选出月份为12，天数为 11 或者 12 的
