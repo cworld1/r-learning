@@ -6,4 +6,9 @@ language:
     explore: '探索'
   ui:
     chapter_name: "Chapter "
+    edit: "编辑"
+    search: "搜索"
+    download: "下载"
+
+
 delete_merged_file: true
