@@ -23,7 +23,7 @@
 <meta name="author" content="CWorld" />
 
 
-<meta name="date" content="2022-05-30" />
+<meta name="date" content="2022-06-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -393,11 +393,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="caption">rstudio-wd</p>
 </div>
 <p>使用 <code>getwd()</code> 命令在 R 控制台中打印出来：</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="workflow-projects.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span>
-<span id="cb101-2"><a href="workflow-projects.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;D:/Project/R-Project/book&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="workflow-projects.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span>
+<span id="cb149-2"><a href="workflow-projects.html#cb149-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;D:/Project/R-Project/book&quot;</span></span></code></pre></div>
 <p>作为 R 用户，可以让你的任何奇怪的目录成为 R 的工作目录。我们应该很快将要分析的项目组织到目录中，并且在处理项目时，将 R 的工作目录设置为与之关联的目录。</p>
 <p>使用 <code>setwd()</code> 从控制台中设置工作目录（不推荐）：</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="workflow-projects.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;/path/to/my/CoolProject&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="workflow-projects.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;/path/to/my/CoolProject&quot;</span>)</span></code></pre></div>
 </div>
 <div id="路径与目录" class="section level2 hasAnchor" number="9.3">
 <h2><span class="header-section-number">9.3</span> 路径与目录<a href="workflow-projects.html#路径与目录" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -425,13 +425,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="caption">rstudio-project-3</p>
 </div>
 <p>以后保存文件应该使用如下方式：</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="workflow-projects.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb103-2"><a href="workflow-projects.html#cb103-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-3"><a href="workflow-projects.html#cb103-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(carat, price)) <span class="sc">+</span></span>
-<span id="cb103-4"><a href="workflow-projects.html#cb103-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hex</span>()</span>
-<span id="cb103-5"><a href="workflow-projects.html#cb103-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;diamonds.pdf&quot;</span>)</span>
-<span id="cb103-6"><a href="workflow-projects.html#cb103-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-7"><a href="workflow-projects.html#cb103-7" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(diamonds, <span class="st">&quot;diamonds.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="workflow-projects.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb151-2"><a href="workflow-projects.html#cb151-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb151-3"><a href="workflow-projects.html#cb151-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(carat, price)) <span class="sc">+</span></span>
+<span id="cb151-4"><a href="workflow-projects.html#cb151-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hex</span>()</span>
+<span id="cb151-5"><a href="workflow-projects.html#cb151-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;diamonds.pdf&quot;</span>)</span>
+<span id="cb151-6"><a href="workflow-projects.html#cb151-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb151-7"><a href="workflow-projects.html#cb151-7" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(diamonds, <span class="st">&quot;diamonds.csv&quot;</span>)</span></code></pre></div>
 
 </div>
 </div>
@@ -476,7 +476,7 @@ gitbook.start({
 },
 "edit": {
 "link": "https://github.com/cworld1/r-learning/edit/master/book/08-workflow-projects.Rmd",
-"text": "Edit"
+"text": "编辑"
 },
 "history": {
 "link": null,
