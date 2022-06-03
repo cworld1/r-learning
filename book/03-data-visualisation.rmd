@@ -202,14 +202,12 @@ ggplot(nz, aes(long, lat, group = group)) +
 极坐标化：
 
 ```{R coord_polar()}
-bar <- ggplot(data = diamonds) +
+ggplot(data = diamonds) +
     geom_bar(
         mapping = aes(x = cut, fill = cut),
-        show.legend = FALSE,
+        show.legend = FALSE, # 隐藏图例，原因是 x 轴默认已经带指示了
         width = 1
     ) +
-    theme(aspect.ratio = 1) +
-    labs(x = NULL, y = NULL) +
     coord_polar() # 设置为极坐标（有点像圆饼图）
 ```
 
