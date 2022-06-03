@@ -128,6 +128,13 @@ tibble 与 dataframe 非常相似，甚至是使用 dataframe 储存的。tibble
 ```{R tribble()}
 library(tidyverse)
 
+# 你可以跟 data.frame 一样直接加入数组：
+tibble(
+    sex = c("male", "female", "male"),
+    response = c(1, 2, 1)
+)
+
+# 也可以像是正常书写表格那样！
 tribble(
     ~sex, ~response,
     "male", 1,
