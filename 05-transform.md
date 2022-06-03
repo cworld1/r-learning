@@ -71,7 +71,7 @@ filter(flights, month == 1, day == 1)
 #> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 
-# 筛选月份为 12 或者天数为 25 的（圣诞节）
+# 筛选月份为 12 且天数为 25 的（圣诞节）
 filter(flights, month == 12 & day == 25)
 #> # A tibble: 719 x 19
 #>     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time

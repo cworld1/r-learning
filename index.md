@@ -2,7 +2,7 @@
 # 基本信息
 title: "R-Learning"
 author: "CWorld"
-date: "2022-05-30"
+date: "2022-06-03"
 description: "这是关于 CWorld 学习 R 语言的一些笔记和代码。"
 github-repo: cworld1/r-learning
 url: 'https\://cworld1.github.io/r-learning'
@@ -37,7 +37,7 @@ link-citations: yes
 - 安装运行代码需要的包：
 
 ```sh
-Rscript -e 'install.packages(c("tidyverse", "nycflights13", "hexbin", "gapminder", "Lahman"))'
+Rscript -e 'install.packages(c("tidyverse", "nycflights13", "hexbin", "gapminder", "Lahman", "maps", "feather"))'
 ```
 
 - 安装构建本书需要的包（如果你需要的话）：

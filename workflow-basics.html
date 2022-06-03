@@ -23,7 +23,7 @@
 <meta name="author" content="CWorld" />
 
 
-<meta name="date" content="2022-05-30" />
+<meta name="date" content="2022-06-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -372,23 +372,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="workflow-basics" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Workflow: basics<a href="workflow-basics.html#workflow-basics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>在 R 里，你甚至能当计算器：</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="workflow-basics.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="dv">200</span> <span class="sc">*</span> <span class="dv">30</span></span>
-<span id="cb47-2"><a href="workflow-basics.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.15</span></span>
-<span id="cb47-3"><a href="workflow-basics.html#cb47-3" aria-hidden="true" tabindex="-1"></a>(<span class="dv">59</span> <span class="sc">+</span> <span class="dv">73</span> <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">/</span> <span class="dv">3</span></span>
-<span id="cb47-4"><a href="workflow-basics.html#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 44.66667</span></span>
-<span id="cb47-5"><a href="workflow-basics.html#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sin</span>(pi <span class="sc">/</span> <span class="dv">2</span>)</span>
-<span id="cb47-6"><a href="workflow-basics.html#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="workflow-basics.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="dv">200</span> <span class="sc">*</span> <span class="dv">30</span></span></code></pre></div>
+<pre><code>## [1] 0.15</code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="workflow-basics.html#cb91-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">59</span> <span class="sc">+</span> <span class="dv">73</span> <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">/</span> <span class="dv">3</span></span></code></pre></div>
+<pre><code>## [1] 44.66667</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="workflow-basics.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sin</span>(pi <span class="sc">/</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
 <p>注意赋值语句应当用 “&lt;-”：</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="workflow-basics.html#cb48-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">*</span> <span class="dv">4</span></span>
-<span id="cb48-2"><a href="workflow-basics.html#cb48-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> x</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="workflow-basics.html#cb95-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">*</span> <span class="dv">4</span></span>
+<span id="cb95-2"><a href="workflow-basics.html#cb95-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> x</span></code></pre></div>
 <p>“=” 用于定义函数所指定的参数。虽然错误的书写不会导致报错，但对于代码的阅读量影响颇大。</p>
 <p>命名上，R 一般使用字母开头，字符只能使用 “.” 和 “_”：</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="workflow-basics.html#cb49-1" aria-hidden="true" tabindex="-1"></a>i_use_snake_case <span class="co"># 推荐的命名法则</span></span>
-<span id="cb49-2"><a href="workflow-basics.html#cb49-2" aria-hidden="true" tabindex="-1"></a>otherPeopleUseCamelCase</span>
-<span id="cb49-3"><a href="workflow-basics.html#cb49-3" aria-hidden="true" tabindex="-1"></a>some.people.use.periods</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="workflow-basics.html#cb96-1" aria-hidden="true" tabindex="-1"></a>i_use_snake_case <span class="co"># 推荐的命名法则</span></span>
+<span id="cb96-2"><a href="workflow-basics.html#cb96-2" aria-hidden="true" tabindex="-1"></a>otherPeopleUseCamelCase</span>
+<span id="cb96-3"><a href="workflow-basics.html#cb96-3" aria-hidden="true" tabindex="-1"></a>some.people.use.periods</span></code></pre></div>
 <p>此外，R 允许在赋值语句打括号用于返回赋值内容。这与 C 语言非常类似：</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="workflow-basics.html#cb50-1" aria-hidden="true" tabindex="-1"></a>(y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">length.out =</span> <span class="dv">5</span>)) <span class="co"># 返回一个向量，元素均匀地分布从 1 到 10，共 5 个</span></span>
-<span id="cb50-2"><a href="workflow-basics.html#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  1.00  3.25  5.50  7.75 10.00</span></span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="workflow-basics.html#cb97-1" aria-hidden="true" tabindex="-1"></a>(y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">length.out =</span> <span class="dv">5</span>)) <span class="co"># 返回一个向量，元素均匀地分布从 1 到 10，共 5 个</span></span></code></pre></div>
+<pre><code>## [1]  1.00  3.25  5.50  7.75 10.00</code></pre>
 
 </div>
             </section>
@@ -429,7 +429,7 @@ gitbook.start({
 },
 "edit": {
 "link": "https://github.com/cworld1/r-learning/edit/master/book/04-workflow-basics.Rmd",
-"text": "Edit"
+"text": "编辑"
 },
 "history": {
 "link": null,
