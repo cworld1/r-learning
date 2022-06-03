@@ -16,6 +16,7 @@ Imports:
     ggplot2,
     lubridate,
     maps,
+    feather,
     rmarkdown,
     bookdown
 Encoding: UTF-8

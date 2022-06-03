@@ -41,7 +41,7 @@ jobs:
       - name: Build site
         run: |
           cd book/
-          Rscript -e 'install.packages(c("tidyverse", "nycflights13", "hexbin", "gapminder", "Lahman", "maps"))'
+          Rscript -e 'install.packages(c("tidyverse", "nycflights13", "hexbin", "gapminder", "Lahman", "maps", "feather"))'
           Rscript -e 'install.packages(c("rmarkdown","bookdown"))'
           Rscript -e 'bookdown::render_book("index.Rmd", quiet = TRUE)'
 

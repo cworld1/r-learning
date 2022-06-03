@@ -22,7 +22,7 @@
 - 安装运行代码需要的包：
 
 ```sh
-Rscript -e 'install.packages(c("tidyverse", "nycflights13", "hexbin", "gapminder", "Lahman", "maps"))'
+Rscript -e 'install.packages(c("tidyverse", "nycflights13", "hexbin", "gapminder", "Lahman", "maps", "feather"))'
 ```
 
 - 安装构建本书需要的包（如果你需要的话）：
