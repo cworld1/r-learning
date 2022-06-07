@@ -18,7 +18,7 @@ library(tidyverse)
 
 ```r
 flights
-#> # A tibble: 336,776 x 19
+#> # A tibble: 336,776 × 19
 #>     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 #>    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
 #>  1  2013     1     1      517            515         2      830            819
@@ -31,7 +31,7 @@ flights
 #>  8  2013     1     1      557            600        -3      709            723
 #>  9  2013     1     1      557            600        -3      838            846
 #> 10  2013     1     1      558            600        -2      753            745
-#> # ... with 336,766 more rows, and 11 more variables: arr_delay <dbl>,
+#> # … with 336,766 more rows, and 11 more variables: arr_delay <dbl>,
 #> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 ```
@@ -54,7 +54,7 @@ tidyverse 还附带了一些神奇的功能，如 filter、arrange、select、re
 ```r
 # 筛选月份为 1，天数为 1 的
 filter(flights, month == 1, day == 1)
-#> # A tibble: 842 x 19
+#> # A tibble: 842 × 19
 #>     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 #>    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
 #>  1  2013     1     1      517            515         2      830            819
@@ -67,13 +67,13 @@ filter(flights, month == 1, day == 1)
 #>  8  2013     1     1      557            600        -3      709            723
 #>  9  2013     1     1      557            600        -3      838            846
 #> 10  2013     1     1      558            600        -2      753            745
-#> # ... with 832 more rows, and 11 more variables: arr_delay <dbl>,
-#> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
-#> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
+#> # … with 832 more rows, and 11 more variables: arr_delay <dbl>, carrier <chr>,
+#> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>,
+#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 
 # 筛选月份为 12 且天数为 25 的（圣诞节）
 filter(flights, month == 12 & day == 25)
-#> # A tibble: 719 x 19
+#> # A tibble: 719 × 19
 #>     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 #>    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
 #>  1  2013    12    25      456            500        -4      649            651
@@ -86,13 +86,13 @@ filter(flights, month == 12 & day == 25)
 #>  8  2013    12    25      559            600        -1      855            856
 #>  9  2013    12    25      559            600        -1      849            855
 #> 10  2013    12    25      600            600         0      850            846
-#> # ... with 709 more rows, and 11 more variables: arr_delay <dbl>,
-#> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
-#> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
+#> # … with 709 more rows, and 11 more variables: arr_delay <dbl>, carrier <chr>,
+#> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>,
+#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 
 # 筛选出月份为12，天数为 11 或者 12 的
 filter(flights, month == 12, day == 11 | day == 12)
-#> # A tibble: 1,922 x 19
+#> # A tibble: 1,922 × 19
 #>     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 #>    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
 #>  1  2013    12    11      459            500        -1      651            651
@@ -105,13 +105,13 @@ filter(flights, month == 12, day == 11 | day == 12)
 #>  8  2013    12    11      553            600        -7      644            701
 #>  9  2013    12    11      554            600        -6      753            755
 #> 10  2013    12    11      554            600        -6      656            659
-#> # ... with 1,912 more rows, and 11 more variables: arr_delay <dbl>,
+#> # … with 1,912 more rows, and 11 more variables: arr_delay <dbl>,
 #> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 
 # 筛选出月份为12，天数为 10 或者 11 或者 12 的
 filter(flights, month == 12, day %in% c(10, 11, 12)) # 注意 “包含于” 表示的方法
-#> # A tibble: 2,865 x 19
+#> # A tibble: 2,865 × 19
 #>     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 #>    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
 #>  1  2013    12    10        7           2359         8      451            445
@@ -124,13 +124,13 @@ filter(flights, month == 12, day %in% c(10, 11, 12)) # 注意 “包含于” �
 #>  8  2013    12    10      548            550        -2     1022           1027
 #>  9  2013    12    10      549            540         9      854            850
 #> 10  2013    12    10      551            600        -9      920            856
-#> # ... with 2,855 more rows, and 11 more variables: arr_delay <dbl>,
+#> # … with 2,855 more rows, and 11 more variables: arr_delay <dbl>,
 #> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 
 # 添加函数参数 na.rm = TRUE 来剔除数据，is.na 来判断是否为 NA（这是通用的）
 filter(flights, month == 1, na.rm = TRUE)
-#> # A tibble: 27,004 x 19
+#> # A tibble: 27,004 × 19
 #>     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 #>    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
 #>  1  2013     1     1      517            515         2      830            819
@@ -143,7 +143,7 @@ filter(flights, month == 1, na.rm = TRUE)
 #>  8  2013     1     1      557            600        -3      709            723
 #>  9  2013     1     1      557            600        -3      838            846
 #> 10  2013     1     1      558            600        -2      753            745
-#> # ... with 26,994 more rows, and 11 more variables: arr_delay <dbl>,
+#> # … with 26,994 more rows, and 11 more variables: arr_delay <dbl>,
 #> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 ```
@@ -229,7 +229,7 @@ x == y
 ```r
 # 按照年月日排序
 arrange(flights, year, month, day)
-#> # A tibble: 336,776 x 19
+#> # A tibble: 336,776 × 19
 #>     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 #>    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
 #>  1  2013     1     1      517            515         2      830            819
@@ -242,12 +242,12 @@ arrange(flights, year, month, day)
 #>  8  2013     1     1      557            600        -3      709            723
 #>  9  2013     1     1      557            600        -3      838            846
 #> 10  2013     1     1      558            600        -2      753            745
-#> # ... with 336,766 more rows, and 11 more variables: arr_delay <dbl>,
+#> # … with 336,766 more rows, and 11 more variables: arr_delay <dbl>,
 #> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 # 反向排序。注意无论正反向，NA 值都总是被排到末尾：
 arrange(flights, desc(dep_delay))
-#> # A tibble: 336,776 x 19
+#> # A tibble: 336,776 × 19
 #>     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 #>    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
 #>  1  2013     1     9      641            900      1301     1242           1530
@@ -260,7 +260,7 @@ arrange(flights, desc(dep_delay))
 #>  8  2013     6    27      959           1900       899     1236           2226
 #>  9  2013     7    22     2257            759       898      121           1026
 #> 10  2013    12     5      756           1700       896     1058           2020
-#> # ... with 336,766 more rows, and 11 more variables: arr_delay <dbl>,
+#> # … with 336,766 more rows, and 11 more variables: arr_delay <dbl>,
 #> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 ```
@@ -279,7 +279,7 @@ arrange(flights, desc(dep_delay))
 ```r
 # 选出年月日
 select(flights, year, month, day)
-#> # A tibble: 336,776 x 3
+#> # A tibble: 336,776 × 3
 #>     year month   day
 #>    <int> <int> <int>
 #>  1  2013     1     1
@@ -292,9 +292,9 @@ select(flights, year, month, day)
 #>  8  2013     1     1
 #>  9  2013     1     1
 #> 10  2013     1     1
-#> # ... with 336,766 more rows
+#> # … with 336,766 more rows
 select(flights, year:day)
-#> # A tibble: 336,776 x 3
+#> # A tibble: 336,776 × 3
 #>     year month   day
 #>    <int> <int> <int>
 #>  1  2013     1     1
@@ -307,10 +307,10 @@ select(flights, year:day)
 #>  8  2013     1     1
 #>  9  2013     1     1
 #> 10  2013     1     1
-#> # ... with 336,766 more rows
+#> # … with 336,766 more rows
 # 选出除年月日以及 flight 的所有列
 select(flights, -c(year:day, flight)) # 有时 c 可以省略掉
-#> # A tibble: 336,776 x 15
+#> # A tibble: 336,776 × 15
 #>    dep_time sched_dep_time dep_delay arr_time sched_arr_time arr_delay carrier
 #>       <int>          <int>     <dbl>    <int>          <int>     <dbl> <chr>  
 #>  1      517            515         2      830            819        11 UA     
@@ -323,12 +323,12 @@ select(flights, -c(year:day, flight)) # 有时 c 可以省略掉
 #>  8      557            600        -3      709            723       -14 EV     
 #>  9      557            600        -3      838            846        -8 B6     
 #> 10      558            600        -2      753            745         8 AA     
-#> # ... with 336,766 more rows, and 8 more variables: tailnum <chr>,
-#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
-#> #   minute <dbl>, time_hour <dttm>
+#> # … with 336,766 more rows, and 8 more variables: tailnum <chr>, origin <chr>,
+#> #   dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>,
+#> #   time_hour <dttm>
 # 选出结尾为 delay 相关的列
 select(flights, ends_with("delay"))
-#> # A tibble: 336,776 x 2
+#> # A tibble: 336,776 × 2
 #>    dep_delay arr_delay
 #>        <dbl>     <dbl>
 #>  1         2        11
@@ -341,10 +341,10 @@ select(flights, ends_with("delay"))
 #>  8        -3       -14
 #>  9        -3        -8
 #> 10        -2         8
-#> # ... with 336,766 more rows
+#> # … with 336,766 more rows
 # 选出开头为 sched 相关的列
 select(flights, starts_with("sched"))
-#> # A tibble: 336,776 x 2
+#> # A tibble: 336,776 × 2
 #>    sched_dep_time sched_arr_time
 #>             <int>          <int>
 #>  1            515            819
@@ -357,10 +357,10 @@ select(flights, starts_with("sched"))
 #>  8            600            723
 #>  9            600            846
 #> 10            600            745
-#> # ... with 336,766 more rows
+#> # … with 336,766 more rows
 # 选出包含 sched 相关的列
 select(flights, contains("sched"))
-#> # A tibble: 336,776 x 2
+#> # A tibble: 336,776 × 2
 #>    sched_dep_time sched_arr_time
 #>             <int>          <int>
 #>  1            515            819
@@ -373,10 +373,10 @@ select(flights, contains("sched"))
 #>  8            600            723
 #>  9            600            846
 #> 10            600            745
-#> # ... with 336,766 more rows
+#> # … with 336,766 more rows
 # 选出的数据不包含带 sched的列，此外其他都包含
 select(flights, -contains("sched"), everything())
-#> # A tibble: 336,776 x 19
+#> # A tibble: 336,776 × 19
 #>     year month   day dep_time dep_delay arr_time arr_delay carrier flight
 #>    <int> <int> <int>    <int>     <dbl>    <int>     <dbl> <chr>    <int>
 #>  1  2013     1     1      517         2      830        11 UA        1545
@@ -389,9 +389,9 @@ select(flights, -contains("sched"), everything())
 #>  8  2013     1     1      557        -3      709       -14 EV        5708
 #>  9  2013     1     1      557        -3      838        -8 B6          79
 #> 10  2013     1     1      558        -2      753         8 AA         301
-#> # ... with 336,766 more rows, and 10 more variables: tailnum <chr>,
-#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
-#> #   minute <dbl>, time_hour <dttm>, sched_dep_time <int>, sched_arr_time <int>
+#> # … with 336,766 more rows, and 10 more variables: tailnum <chr>, origin <chr>,
+#> #   dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>,
+#> #   time_hour <dttm>, sched_dep_time <int>, sched_arr_time <int>
 ```
 
 ## 重命名 rename()
@@ -414,7 +414,7 @@ mutate(
     speed_min = distance / air_time, # 计算出的新数据
     speed_sec = speed_min * 60 # 从刚生成的数据中套新数据
 )
-#> # A tibble: 336,776 x 10
+#> # A tibble: 336,776 × 10
 #>     year month   day dep_delay arr_delay distance air_time  gain speed_min
 #>    <int> <int> <int>     <dbl>     <dbl>    <dbl>    <dbl> <dbl>     <dbl>
 #>  1  2013     1     1         2        11     1400      227    -9      6.17
@@ -427,7 +427,7 @@ mutate(
 #>  8  2013     1     1        -3       -14      229       53    11      4.32
 #>  9  2013     1     1        -3        -8      944      140     5      6.74
 #> 10  2013     1     1        -2         8      733      138   -10      5.31
-#> # ... with 336,766 more rows, and 1 more variable: speed_sec <dbl>
+#> # … with 336,766 more rows, and 1 more variable: speed_sec <dbl>
 # 生成数据中不包含旧数据，应该使用 transmute
 transmute(
     flights_sml,
@@ -435,7 +435,7 @@ transmute(
     speed_min = distance / air_time, # 计算出的新数据
     speed_sec = speed_min * 60 # 从刚生成的数据中套新数据
 )
-#> # A tibble: 336,776 x 3
+#> # A tibble: 336,776 × 3
 #>     gain speed_min speed_sec
 #>    <dbl>     <dbl>     <dbl>
 #>  1    -9      6.17      370.
@@ -448,7 +448,7 @@ transmute(
 #>  8    11      4.32      259.
 #>  9     5      6.74      405.
 #> 10   -10      5.31      319.
-#> # ... with 336,766 more rows
+#> # … with 336,766 more rows
 ```
 
 ## 分组摘要 summarise()
@@ -472,7 +472,7 @@ summarise(
     flights,
     delay = mean(dep_delay, na.rm = TRUE) # mean，取均值，na.rm 忽略空值
 )
-#> # A tibble: 1 x 1
+#> # A tibble: 1 × 1
 #>   delay
 #>   <dbl>
 #> 1  12.6
@@ -487,9 +487,9 @@ summarise(
     by_day,
     delay = mean(dep_delay, na.rm = TRUE) # 组内的 [delay] 标签追加，按照算法分组返回值
 )
-#> `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups`
-#> argument.
-#> # A tibble: 365 x 4
+#> `summarise()` has grouped output by 'year', 'month'. You can override using the
+#> `.groups` argument.
+#> # A tibble: 365 × 4
 #> # Groups:   year, month [12]
 #>     year month   day delay
 #>    <int> <int> <int> <dbl>
@@ -503,13 +503,13 @@ summarise(
 #>  8  2013     1     8  2.55
 #>  9  2013     1     9  2.28
 #> 10  2013     1    10  2.84
-#> # ... with 355 more rows
+#> # … with 355 more rows
 # 使用管道符 "%>%" 精简代码
 group_by(flights, year, month, day) %>%
     summarise(delay = mean(dep_delay, na.rm = TRUE))
-#> `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups`
-#> argument.
-#> # A tibble: 365 x 4
+#> `summarise()` has grouped output by 'year', 'month'. You can override using the
+#> `.groups` argument.
+#> # A tibble: 365 × 4
 #> # Groups:   year, month [12]
 #>     year month   day delay
 #>    <int> <int> <int> <dbl>
@@ -523,7 +523,7 @@ group_by(flights, year, month, day) %>%
 #>  8  2013     1     8  2.55
 #>  9  2013     1     9  2.28
 #> 10  2013     1    10  2.84
-#> # ... with 355 more rows
+#> # … with 355 more rows
 ```
 
 ## 其他处理数据功能
@@ -593,7 +593,7 @@ pop_dests <- group_by(flights, dest) %>%
     filter(n() > 365) %>%
     distinct(dest) # 筛选只要指定的列
 head(pop_dests, 10) # 只展示前十
-#> # A tibble: 10 x 1
+#> # A tibble: 10 × 1
 #> # Groups:   dest [10]
 #>    dest 
 #>    <chr>
@@ -639,9 +639,9 @@ flights %>%
         first = min(dep_time),
         last = max(dep_time)
     )
-#> `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups`
-#> argument.
-#> # A tibble: 365 x 5
+#> `summarise()` has grouped output by 'year', 'month'. You can override using the
+#> `.groups` argument.
+#> # A tibble: 365 × 5
 #> # Groups:   year, month [12]
 #>     year month   day first  last
 #>    <int> <int> <int> <int> <int>
@@ -655,5 +655,5 @@ flights %>%
 #>  8  2013     1     8   454  2351
 #>  9  2013     1     9     2  2252
 #> 10  2013     1    10     3  2320
-#> # ... with 355 more rows
+#> # … with 355 more rows
 ```

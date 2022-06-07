@@ -39,7 +39,7 @@ ggplot(data = diamonds) +
 ```r
 diamonds %>%
     count(cut_width(carat, 0.5)) # cut_width() 将数据切片分组。注意新的列名叫 cut
-#> # A tibble: 11 x 2
+#> # A tibble: 11 × 2
 #>    `cut_width(carat, 0.5)`     n
 #>    <fct>                   <int>
 #>  1 [-0.25,0.25]              785
@@ -86,7 +86,7 @@ ggplot(data = diamonds, mapping = aes(x = carat, colour = cut)) +
 ```r
 diamonds %>%
     count(cut_width(carat, 0.5))
-#> # A tibble: 11 x 2
+#> # A tibble: 11 × 2
 #>    `cut_width(carat, 0.5)`     n
 #>    <fct>                   <int>
 #>  1 [-0.25,0.25]              785
@@ -139,7 +139,7 @@ unusual <- diamonds %>%
     select(price, x, y, z) %>%
     arrange(y) %>%
     print()
-#> # A tibble: 9 x 4
+#> # A tibble: 9 × 4
 #>   price     x     y     z
 #>   <int> <dbl> <dbl> <dbl>
 #> 1  5139  0      0    0   

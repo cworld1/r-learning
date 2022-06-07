@@ -32,13 +32,13 @@ heights <- read_csv("./data/heights.csv")
 
 ```
 ## Rows: 1192 Columns: 6
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","
 ## chr (2): sex, race
 ## dbl (4): earn, height, ed, age
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 对于内联表格我们同样可以这样处理：
@@ -52,16 +52,16 @@ read_csv("a,b,c
 
 ```
 ## Rows: 2 Columns: 3
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","
 ## dbl (3): a, b, c
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ```
-## # A tibble: 2 x 3
+## # A tibble: 2 × 3
 ##       a     b     c
 ##   <dbl> <dbl> <dbl>
 ## 1     1     2     3
@@ -80,16 +80,16 @@ read_csv("The first line of metadata
 
 ```
 ## Rows: 1 Columns: 3
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","
 ## dbl (3): x, y, z
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ```
-## # A tibble: 1 x 3
+## # A tibble: 1 × 3
 ##       x     y     z
 ##   <dbl> <dbl> <dbl>
 ## 1     1     2     3
@@ -106,16 +106,16 @@ read_csv("# A comment I want to skip
 
 ```
 ## Rows: 1 Columns: 3
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","
 ## dbl (3): x, y, z
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ```
-## # A tibble: 1 x 3
+## # A tibble: 1 × 3
 ##       x     y     z
 ##   <dbl> <dbl> <dbl>
 ## 1     1     2     3
@@ -130,16 +130,16 @@ read_csv("1,2,3\n4,5,6", col_names = FALSE)
 
 ```
 ## Rows: 2 Columns: 3
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","
 ## dbl (3): X1, X2, X3
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ```
-## # A tibble: 2 x 3
+## # A tibble: 2 × 3
 ##      X1    X2    X3
 ##   <dbl> <dbl> <dbl>
 ## 1     1     2     3
@@ -155,16 +155,16 @@ read_csv("1,2,3\n4,5,6", col_names = c("x", "y", "z"))
 
 ```
 ## Rows: 2 Columns: 3
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","
 ## dbl (3): x, y, z
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ```
-## # A tibble: 2 x 3
+## # A tibble: 2 × 3
 ##       x     y     z
 ##   <dbl> <dbl> <dbl>
 ## 1     1     2     3
@@ -180,17 +180,17 @@ read_csv("a,b,c\n1,2,.", na = ".")
 
 ```
 ## Rows: 1 Columns: 3
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","
 ## dbl (2): a, b
 ## lgl (1): c
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ```
-## # A tibble: 1 x 3
+## # A tibble: 1 × 3
 ##       a     b c    
 ##   <dbl> <dbl> <lgl>
 ## 1     1     2 NA
@@ -374,7 +374,7 @@ charToRaw("Hadley")
 ```
 
 ```
-## [1] "El Ni駉 was particularly bad this year"
+## [1] "El Ni\xf1o was particularly bad this year"
 ```
 
 ```r
@@ -382,7 +382,7 @@ charToRaw("Hadley")
 ```
 
 ```
-## [1] "偙傫偵偪偼"
+## [1] "\x82\xb1\x82\xf1\x82ɂ\xbf\x82\xcd"
 ```
 
 使用 encoding 来转译它们的编码：
@@ -393,7 +393,7 @@ parse_character(x1, locale = locale(encoding = "Latin1"))
 ```
 
 ```
-## [1] "El Ni<U+00F1>o was particularly bad this year"
+## [1] "El Niño was particularly bad this year"
 ```
 
 ```r
@@ -412,7 +412,7 @@ guess_encoding(charToRaw(x1))
 ```
 
 ```
-## # A tibble: 2 x 2
+## # A tibble: 2 × 2
 ##   encoding   confidence
 ##   <chr>           <dbl>
 ## 1 ISO-8859-1       0.46
@@ -424,7 +424,7 @@ guess_encoding(charToRaw(x2))
 ```
 
 ```
-## # A tibble: 1 x 2
+## # A tibble: 1 × 2
 ##   encoding confidence
 ##   <chr>         <dbl>
 ## 1 KOI8-R         0.42
@@ -713,7 +713,7 @@ tail(challenge)
 ```
 
 ```
-## # A tibble: 6 x 2
+## # A tibble: 6 × 2
 ##       x y         
 ##   <dbl> <date>    
 ## 1 0.805 2019-11-21
@@ -737,13 +737,13 @@ challenge2 <- read_csv(readr_example("challenge.csv"), guess_max = 1001)
 
 ```
 ## Rows: 2000 Columns: 2
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","
 ## dbl  (1): x
 ## date (1): y
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ```r
@@ -751,7 +751,7 @@ challenge2
 ```
 
 ```
-## # A tibble: 2,000 x 2
+## # A tibble: 2,000 × 2
 ##        x y     
 ##    <dbl> <date>
 ##  1   404 NA    
@@ -764,7 +764,7 @@ challenge2
 ##  8  1449 NA    
 ##  9  3665 NA    
 ## 10  3863 NA    
-## # ... with 1,990 more rows
+## # … with 1,990 more rows
 ```
 
 你看。问题解决了呢。
@@ -792,7 +792,7 @@ df
 ```
 
 ```
-## # A tibble: 3 x 2
+## # A tibble: 3 × 2
 ##   x     y    
 ##   <chr> <chr>
 ## 1 1     1.21 
@@ -806,7 +806,7 @@ type_convert(df)
 
 ```
 ## 
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   x = col_double(),
 ##   y = col_double()
@@ -814,7 +814,7 @@ type_convert(df)
 ```
 
 ```
-## # A tibble: 3 x 2
+## # A tibble: 3 × 2
 ##       x     y
 ##   <dbl> <dbl>
 ## 1     1  1.21
@@ -841,7 +841,7 @@ challenge
 ```
 
 ```
-## # A tibble: 2,000 x 2
+## # A tibble: 2,000 × 2
 ##        x y     
 ##    <dbl> <date>
 ##  1   404 NA    
@@ -854,7 +854,7 @@ challenge
 ##  8  1449 NA    
 ##  9  3665 NA    
 ## 10  3863 NA    
-## # ... with 1,990 more rows
+## # … with 1,990 more rows
 ```
 
 ```r
@@ -864,17 +864,17 @@ read_csv("./data/challenge-2.csv")
 
 ```
 ## Rows: 2000 Columns: 2
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","
 ## dbl  (1): x
 ## date (1): y
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ```
-## # A tibble: 2,000 x 2
+## # A tibble: 2,000 × 2
 ##        x y     
 ##    <dbl> <date>
 ##  1   404 NA    
@@ -887,7 +887,7 @@ read_csv("./data/challenge-2.csv")
 ##  8  1449 NA    
 ##  9  3665 NA    
 ## 10  3863 NA    
-## # ... with 1,990 more rows
+## # … with 1,990 more rows
 ```
 
 ### rds 格式
@@ -901,7 +901,7 @@ read_rds("./data/challenge.rds")
 ```
 
 ```
-## # A tibble: 2,000 x 2
+## # A tibble: 2,000 × 2
 ##        x y     
 ##    <dbl> <date>
 ##  1   404 NA    
@@ -914,7 +914,7 @@ read_rds("./data/challenge.rds")
 ##  8  1449 NA    
 ##  9  3665 NA    
 ## 10  3863 NA    
-## # ... with 1,990 more rows
+## # … with 1,990 more rows
 ```
 
 表现非常好，但 rds 格式不流行也不通用。
@@ -926,19 +926,12 @@ feather 包也实现了一种快速的二进制文件格式，可以跨编程语
 
 ```r
 library(feather)
-```
-
-```
-## Warning: 程辑包'feather'是用R版本4.1.3 来建造的
-```
-
-```r
 write_feather(challenge, "./data/challenge.feather")
 read_feather("./data/challenge.feather")
 ```
 
 ```
-## # A tibble: 2,000 x 2
+## # A tibble: 2,000 × 2
 ##        x y     
 ##    <dbl> <date>
 ##  1   404 NA    
@@ -951,7 +944,7 @@ read_feather("./data/challenge.feather")
 ##  8  1449 NA    
 ##  9  3665 NA    
 ## 10  3863 NA    
-## # ... with 1,990 more rows
+## # … with 1,990 more rows
 ```
 
 ### 其他格式

@@ -23,7 +23,7 @@
 <meta name="author" content="CWorld" />
 
 
-<meta name="date" content="2022-06-03" />
+<meta name="date" content="2022-06-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -379,7 +379,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>在后面的案例中，我们将持续关注来自 nycflights13 的数据集 flights。
 它包含 2013 年从纽约市出发的共 336,776 个航班。</p>
 <div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="transform.html#cb100-1" aria-hidden="true" tabindex="-1"></a>flights</span>
-<span id="cb100-2"><a href="transform.html#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 x 19</span></span>
+<span id="cb100-2"><a href="transform.html#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 × 19</span></span>
 <span id="cb100-3"><a href="transform.html#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time</span></span>
 <span id="cb100-4"><a href="transform.html#cb100-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;</span></span>
 <span id="cb100-5"><a href="transform.html#cb100-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  2013     1     1      517            515         2      830            819</span></span>
@@ -392,7 +392,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb100-12"><a href="transform.html#cb100-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013     1     1      557            600        -3      709            723</span></span>
 <span id="cb100-13"><a href="transform.html#cb100-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013     1     1      557            600        -3      838            846</span></span>
 <span id="cb100-14"><a href="transform.html#cb100-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013     1     1      558            600        -2      753            745</span></span>
-<span id="cb100-15"><a href="transform.html#cb100-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 336,766 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span></span>
+<span id="cb100-15"><a href="transform.html#cb100-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 336,766 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span></span>
 <span id="cb100-16"><a href="transform.html#cb100-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
 <span id="cb100-17"><a href="transform.html#cb100-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span></code></pre></div>
 <p>列名称下字母缩写代表该列的数据类型：
@@ -410,7 +410,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.2</span> 过滤 filter()<a href="transform.html#过滤-filter" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="transform.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 筛选月份为 1，天数为 1 的</span></span>
 <span id="cb101-2"><a href="transform.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(flights, month <span class="sc">==</span> <span class="dv">1</span>, day <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb101-3"><a href="transform.html#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 842 x 19</span></span>
+<span id="cb101-3"><a href="transform.html#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 842 × 19</span></span>
 <span id="cb101-4"><a href="transform.html#cb101-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time</span></span>
 <span id="cb101-5"><a href="transform.html#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;</span></span>
 <span id="cb101-6"><a href="transform.html#cb101-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  2013     1     1      517            515         2      830            819</span></span>
@@ -423,13 +423,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb101-13"><a href="transform.html#cb101-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013     1     1      557            600        -3      709            723</span></span>
 <span id="cb101-14"><a href="transform.html#cb101-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013     1     1      557            600        -3      838            846</span></span>
 <span id="cb101-15"><a href="transform.html#cb101-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013     1     1      558            600        -2      753            745</span></span>
-<span id="cb101-16"><a href="transform.html#cb101-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 832 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span></span>
-<span id="cb101-17"><a href="transform.html#cb101-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
-<span id="cb101-18"><a href="transform.html#cb101-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span>
+<span id="cb101-16"><a href="transform.html#cb101-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 832 more rows, and 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;,</span></span>
+<span id="cb101-17"><a href="transform.html#cb101-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,</span></span>
+<span id="cb101-18"><a href="transform.html#cb101-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span>
 <span id="cb101-19"><a href="transform.html#cb101-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb101-20"><a href="transform.html#cb101-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 筛选月份为 12 且天数为 25 的（圣诞节）</span></span>
 <span id="cb101-21"><a href="transform.html#cb101-21" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(flights, month <span class="sc">==</span> <span class="dv">12</span> <span class="sc">&amp;</span> day <span class="sc">==</span> <span class="dv">25</span>)</span>
-<span id="cb101-22"><a href="transform.html#cb101-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 719 x 19</span></span>
+<span id="cb101-22"><a href="transform.html#cb101-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 719 × 19</span></span>
 <span id="cb101-23"><a href="transform.html#cb101-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time</span></span>
 <span id="cb101-24"><a href="transform.html#cb101-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;</span></span>
 <span id="cb101-25"><a href="transform.html#cb101-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  2013    12    25      456            500        -4      649            651</span></span>
@@ -442,13 +442,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb101-32"><a href="transform.html#cb101-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013    12    25      559            600        -1      855            856</span></span>
 <span id="cb101-33"><a href="transform.html#cb101-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013    12    25      559            600        -1      849            855</span></span>
 <span id="cb101-34"><a href="transform.html#cb101-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013    12    25      600            600         0      850            846</span></span>
-<span id="cb101-35"><a href="transform.html#cb101-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 709 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span></span>
-<span id="cb101-36"><a href="transform.html#cb101-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
-<span id="cb101-37"><a href="transform.html#cb101-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span>
+<span id="cb101-35"><a href="transform.html#cb101-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 709 more rows, and 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;,</span></span>
+<span id="cb101-36"><a href="transform.html#cb101-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,</span></span>
+<span id="cb101-37"><a href="transform.html#cb101-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span>
 <span id="cb101-38"><a href="transform.html#cb101-38" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb101-39"><a href="transform.html#cb101-39" aria-hidden="true" tabindex="-1"></a><span class="co"># 筛选出月份为12，天数为 11 或者 12 的</span></span>
 <span id="cb101-40"><a href="transform.html#cb101-40" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(flights, month <span class="sc">==</span> <span class="dv">12</span>, day <span class="sc">==</span> <span class="dv">11</span> <span class="sc">|</span> day <span class="sc">==</span> <span class="dv">12</span>)</span>
-<span id="cb101-41"><a href="transform.html#cb101-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,922 x 19</span></span>
+<span id="cb101-41"><a href="transform.html#cb101-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,922 × 19</span></span>
 <span id="cb101-42"><a href="transform.html#cb101-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time</span></span>
 <span id="cb101-43"><a href="transform.html#cb101-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;</span></span>
 <span id="cb101-44"><a href="transform.html#cb101-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  2013    12    11      459            500        -1      651            651</span></span>
@@ -461,13 +461,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb101-51"><a href="transform.html#cb101-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013    12    11      553            600        -7      644            701</span></span>
 <span id="cb101-52"><a href="transform.html#cb101-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013    12    11      554            600        -6      753            755</span></span>
 <span id="cb101-53"><a href="transform.html#cb101-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013    12    11      554            600        -6      656            659</span></span>
-<span id="cb101-54"><a href="transform.html#cb101-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 1,912 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span></span>
+<span id="cb101-54"><a href="transform.html#cb101-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1,912 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span></span>
 <span id="cb101-55"><a href="transform.html#cb101-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
 <span id="cb101-56"><a href="transform.html#cb101-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span>
 <span id="cb101-57"><a href="transform.html#cb101-57" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb101-58"><a href="transform.html#cb101-58" aria-hidden="true" tabindex="-1"></a><span class="co"># 筛选出月份为12，天数为 10 或者 11 或者 12 的</span></span>
 <span id="cb101-59"><a href="transform.html#cb101-59" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(flights, month <span class="sc">==</span> <span class="dv">12</span>, day <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>)) <span class="co"># 注意 “包含于” 表示的方法</span></span>
-<span id="cb101-60"><a href="transform.html#cb101-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2,865 x 19</span></span>
+<span id="cb101-60"><a href="transform.html#cb101-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2,865 × 19</span></span>
 <span id="cb101-61"><a href="transform.html#cb101-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time</span></span>
 <span id="cb101-62"><a href="transform.html#cb101-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;</span></span>
 <span id="cb101-63"><a href="transform.html#cb101-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  2013    12    10        7           2359         8      451            445</span></span>
@@ -480,13 +480,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb101-70"><a href="transform.html#cb101-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013    12    10      548            550        -2     1022           1027</span></span>
 <span id="cb101-71"><a href="transform.html#cb101-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013    12    10      549            540         9      854            850</span></span>
 <span id="cb101-72"><a href="transform.html#cb101-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013    12    10      551            600        -9      920            856</span></span>
-<span id="cb101-73"><a href="transform.html#cb101-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 2,855 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span></span>
+<span id="cb101-73"><a href="transform.html#cb101-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 2,855 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span></span>
 <span id="cb101-74"><a href="transform.html#cb101-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
 <span id="cb101-75"><a href="transform.html#cb101-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span>
 <span id="cb101-76"><a href="transform.html#cb101-76" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb101-77"><a href="transform.html#cb101-77" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加函数参数 na.rm = TRUE 来剔除数据，is.na 来判断是否为 NA（这是通用的）</span></span>
 <span id="cb101-78"><a href="transform.html#cb101-78" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(flights, month <span class="sc">==</span> <span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb101-79"><a href="transform.html#cb101-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 27,004 x 19</span></span>
+<span id="cb101-79"><a href="transform.html#cb101-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 27,004 × 19</span></span>
 <span id="cb101-80"><a href="transform.html#cb101-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time</span></span>
 <span id="cb101-81"><a href="transform.html#cb101-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;</span></span>
 <span id="cb101-82"><a href="transform.html#cb101-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  2013     1     1      517            515         2      830            819</span></span>
@@ -499,7 +499,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb101-89"><a href="transform.html#cb101-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013     1     1      557            600        -3      709            723</span></span>
 <span id="cb101-90"><a href="transform.html#cb101-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013     1     1      557            600        -3      838            846</span></span>
 <span id="cb101-91"><a href="transform.html#cb101-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013     1     1      558            600        -2      753            745</span></span>
-<span id="cb101-92"><a href="transform.html#cb101-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 26,994 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span></span>
+<span id="cb101-92"><a href="transform.html#cb101-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 26,994 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span></span>
 <span id="cb101-93"><a href="transform.html#cb101-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
 <span id="cb101-94"><a href="transform.html#cb101-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span></code></pre></div>
 <div id="比较" class="section level3 hasAnchor" number="6.2.1">
@@ -562,7 +562,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.3</span> 排列 arange()<a href="transform.html#排列-arange" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="transform.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 按照年月日排序</span></span>
 <span id="cb107-2"><a href="transform.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(flights, year, month, day)</span>
-<span id="cb107-3"><a href="transform.html#cb107-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 x 19</span></span>
+<span id="cb107-3"><a href="transform.html#cb107-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 × 19</span></span>
 <span id="cb107-4"><a href="transform.html#cb107-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time</span></span>
 <span id="cb107-5"><a href="transform.html#cb107-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;</span></span>
 <span id="cb107-6"><a href="transform.html#cb107-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  2013     1     1      517            515         2      830            819</span></span>
@@ -575,12 +575,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb107-13"><a href="transform.html#cb107-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013     1     1      557            600        -3      709            723</span></span>
 <span id="cb107-14"><a href="transform.html#cb107-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013     1     1      557            600        -3      838            846</span></span>
 <span id="cb107-15"><a href="transform.html#cb107-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013     1     1      558            600        -2      753            745</span></span>
-<span id="cb107-16"><a href="transform.html#cb107-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 336,766 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span></span>
+<span id="cb107-16"><a href="transform.html#cb107-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 336,766 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span></span>
 <span id="cb107-17"><a href="transform.html#cb107-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
 <span id="cb107-18"><a href="transform.html#cb107-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span>
 <span id="cb107-19"><a href="transform.html#cb107-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 反向排序。注意无论正反向，NA 值都总是被排到末尾：</span></span>
 <span id="cb107-20"><a href="transform.html#cb107-20" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(flights, <span class="fu">desc</span>(dep_delay))</span>
-<span id="cb107-21"><a href="transform.html#cb107-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 x 19</span></span>
+<span id="cb107-21"><a href="transform.html#cb107-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 × 19</span></span>
 <span id="cb107-22"><a href="transform.html#cb107-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time</span></span>
 <span id="cb107-23"><a href="transform.html#cb107-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;</span></span>
 <span id="cb107-24"><a href="transform.html#cb107-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  2013     1     9      641            900      1301     1242           1530</span></span>
@@ -593,7 +593,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb107-31"><a href="transform.html#cb107-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013     6    27      959           1900       899     1236           2226</span></span>
 <span id="cb107-32"><a href="transform.html#cb107-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013     7    22     2257            759       898      121           1026</span></span>
 <span id="cb107-33"><a href="transform.html#cb107-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013    12     5      756           1700       896     1058           2020</span></span>
-<span id="cb107-34"><a href="transform.html#cb107-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 336,766 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span></span>
+<span id="cb107-34"><a href="transform.html#cb107-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 336,766 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span></span>
 <span id="cb107-35"><a href="transform.html#cb107-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
 <span id="cb107-36"><a href="transform.html#cb107-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span></code></pre></div>
 </div>
@@ -609,7 +609,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="transform.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 选出年月日</span></span>
 <span id="cb108-2"><a href="transform.html#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(flights, year, month, day)</span>
-<span id="cb108-3"><a href="transform.html#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 x 3</span></span>
+<span id="cb108-3"><a href="transform.html#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 × 3</span></span>
 <span id="cb108-4"><a href="transform.html#cb108-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day</span></span>
 <span id="cb108-5"><a href="transform.html#cb108-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
 <span id="cb108-6"><a href="transform.html#cb108-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  2013     1     1</span></span>
@@ -622,9 +622,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb108-13"><a href="transform.html#cb108-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013     1     1</span></span>
 <span id="cb108-14"><a href="transform.html#cb108-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013     1     1</span></span>
 <span id="cb108-15"><a href="transform.html#cb108-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013     1     1</span></span>
-<span id="cb108-16"><a href="transform.html#cb108-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 336,766 more rows</span></span>
+<span id="cb108-16"><a href="transform.html#cb108-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 336,766 more rows</span></span>
 <span id="cb108-17"><a href="transform.html#cb108-17" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(flights, year<span class="sc">:</span>day)</span>
-<span id="cb108-18"><a href="transform.html#cb108-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 x 3</span></span>
+<span id="cb108-18"><a href="transform.html#cb108-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 × 3</span></span>
 <span id="cb108-19"><a href="transform.html#cb108-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day</span></span>
 <span id="cb108-20"><a href="transform.html#cb108-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
 <span id="cb108-21"><a href="transform.html#cb108-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  2013     1     1</span></span>
@@ -637,10 +637,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb108-28"><a href="transform.html#cb108-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013     1     1</span></span>
 <span id="cb108-29"><a href="transform.html#cb108-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013     1     1</span></span>
 <span id="cb108-30"><a href="transform.html#cb108-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013     1     1</span></span>
-<span id="cb108-31"><a href="transform.html#cb108-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 336,766 more rows</span></span>
+<span id="cb108-31"><a href="transform.html#cb108-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 336,766 more rows</span></span>
 <span id="cb108-32"><a href="transform.html#cb108-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 选出除年月日以及 flight 的所有列</span></span>
 <span id="cb108-33"><a href="transform.html#cb108-33" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(flights, <span class="sc">-</span><span class="fu">c</span>(year<span class="sc">:</span>day, flight)) <span class="co"># 有时 c 可以省略掉</span></span>
-<span id="cb108-34"><a href="transform.html#cb108-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 x 15</span></span>
+<span id="cb108-34"><a href="transform.html#cb108-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 × 15</span></span>
 <span id="cb108-35"><a href="transform.html#cb108-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    dep_time sched_dep_time dep_delay arr_time sched_arr_time arr_delay carrier</span></span>
 <span id="cb108-36"><a href="transform.html#cb108-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;  </span></span>
 <span id="cb108-37"><a href="transform.html#cb108-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1      517            515         2      830            819        11 UA     </span></span>
@@ -653,12 +653,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb108-44"><a href="transform.html#cb108-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8      557            600        -3      709            723       -14 EV     </span></span>
 <span id="cb108-45"><a href="transform.html#cb108-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9      557            600        -3      838            846        -8 B6     </span></span>
 <span id="cb108-46"><a href="transform.html#cb108-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10      558            600        -2      753            745         8 AA     </span></span>
-<span id="cb108-47"><a href="transform.html#cb108-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 336,766 more rows, and 8 more variables: tailnum &lt;chr&gt;,</span></span>
-<span id="cb108-48"><a href="transform.html#cb108-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span></span>
-<span id="cb108-49"><a href="transform.html#cb108-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span>
+<span id="cb108-47"><a href="transform.html#cb108-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 336,766 more rows, and 8 more variables: tailnum &lt;chr&gt;, origin &lt;chr&gt;,</span></span>
+<span id="cb108-48"><a href="transform.html#cb108-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,</span></span>
+<span id="cb108-49"><a href="transform.html#cb108-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   time_hour &lt;dttm&gt;</span></span>
 <span id="cb108-50"><a href="transform.html#cb108-50" aria-hidden="true" tabindex="-1"></a><span class="co"># 选出结尾为 delay 相关的列</span></span>
 <span id="cb108-51"><a href="transform.html#cb108-51" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(flights, <span class="fu">ends_with</span>(<span class="st">&quot;delay&quot;</span>))</span>
-<span id="cb108-52"><a href="transform.html#cb108-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 x 2</span></span>
+<span id="cb108-52"><a href="transform.html#cb108-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 × 2</span></span>
 <span id="cb108-53"><a href="transform.html#cb108-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    dep_delay arr_delay</span></span>
 <span id="cb108-54"><a href="transform.html#cb108-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        &lt;dbl&gt;     &lt;dbl&gt;</span></span>
 <span id="cb108-55"><a href="transform.html#cb108-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1         2        11</span></span>
@@ -671,10 +671,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb108-62"><a href="transform.html#cb108-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8        -3       -14</span></span>
 <span id="cb108-63"><a href="transform.html#cb108-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9        -3        -8</span></span>
 <span id="cb108-64"><a href="transform.html#cb108-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10        -2         8</span></span>
-<span id="cb108-65"><a href="transform.html#cb108-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 336,766 more rows</span></span>
+<span id="cb108-65"><a href="transform.html#cb108-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 336,766 more rows</span></span>
 <span id="cb108-66"><a href="transform.html#cb108-66" aria-hidden="true" tabindex="-1"></a><span class="co"># 选出开头为 sched 相关的列</span></span>
 <span id="cb108-67"><a href="transform.html#cb108-67" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(flights, <span class="fu">starts_with</span>(<span class="st">&quot;sched&quot;</span>))</span>
-<span id="cb108-68"><a href="transform.html#cb108-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 x 2</span></span>
+<span id="cb108-68"><a href="transform.html#cb108-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 × 2</span></span>
 <span id="cb108-69"><a href="transform.html#cb108-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    sched_dep_time sched_arr_time</span></span>
 <span id="cb108-70"><a href="transform.html#cb108-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             &lt;int&gt;          &lt;int&gt;</span></span>
 <span id="cb108-71"><a href="transform.html#cb108-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1            515            819</span></span>
@@ -687,10 +687,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb108-78"><a href="transform.html#cb108-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8            600            723</span></span>
 <span id="cb108-79"><a href="transform.html#cb108-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9            600            846</span></span>
 <span id="cb108-80"><a href="transform.html#cb108-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10            600            745</span></span>
-<span id="cb108-81"><a href="transform.html#cb108-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 336,766 more rows</span></span>
+<span id="cb108-81"><a href="transform.html#cb108-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 336,766 more rows</span></span>
 <span id="cb108-82"><a href="transform.html#cb108-82" aria-hidden="true" tabindex="-1"></a><span class="co"># 选出包含 sched 相关的列</span></span>
 <span id="cb108-83"><a href="transform.html#cb108-83" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(flights, <span class="fu">contains</span>(<span class="st">&quot;sched&quot;</span>))</span>
-<span id="cb108-84"><a href="transform.html#cb108-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 x 2</span></span>
+<span id="cb108-84"><a href="transform.html#cb108-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 × 2</span></span>
 <span id="cb108-85"><a href="transform.html#cb108-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    sched_dep_time sched_arr_time</span></span>
 <span id="cb108-86"><a href="transform.html#cb108-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             &lt;int&gt;          &lt;int&gt;</span></span>
 <span id="cb108-87"><a href="transform.html#cb108-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1            515            819</span></span>
@@ -703,10 +703,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb108-94"><a href="transform.html#cb108-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8            600            723</span></span>
 <span id="cb108-95"><a href="transform.html#cb108-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9            600            846</span></span>
 <span id="cb108-96"><a href="transform.html#cb108-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10            600            745</span></span>
-<span id="cb108-97"><a href="transform.html#cb108-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 336,766 more rows</span></span>
+<span id="cb108-97"><a href="transform.html#cb108-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 336,766 more rows</span></span>
 <span id="cb108-98"><a href="transform.html#cb108-98" aria-hidden="true" tabindex="-1"></a><span class="co"># 选出的数据不包含带 sched的列，此外其他都包含</span></span>
 <span id="cb108-99"><a href="transform.html#cb108-99" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(flights, <span class="sc">-</span><span class="fu">contains</span>(<span class="st">&quot;sched&quot;</span>), <span class="fu">everything</span>())</span>
-<span id="cb108-100"><a href="transform.html#cb108-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 x 19</span></span>
+<span id="cb108-100"><a href="transform.html#cb108-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 × 19</span></span>
 <span id="cb108-101"><a href="transform.html#cb108-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day dep_time dep_delay arr_time arr_delay carrier flight</span></span>
 <span id="cb108-102"><a href="transform.html#cb108-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;    &lt;int&gt;</span></span>
 <span id="cb108-103"><a href="transform.html#cb108-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  2013     1     1      517         2      830        11 UA        1545</span></span>
@@ -719,9 +719,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb108-110"><a href="transform.html#cb108-110" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013     1     1      557        -3      709       -14 EV        5708</span></span>
 <span id="cb108-111"><a href="transform.html#cb108-111" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013     1     1      557        -3      838        -8 B6          79</span></span>
 <span id="cb108-112"><a href="transform.html#cb108-112" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013     1     1      558        -2      753         8 AA         301</span></span>
-<span id="cb108-113"><a href="transform.html#cb108-113" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 336,766 more rows, and 10 more variables: tailnum &lt;chr&gt;,</span></span>
-<span id="cb108-114"><a href="transform.html#cb108-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span></span>
-<span id="cb108-115"><a href="transform.html#cb108-115" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, sched_dep_time &lt;int&gt;, sched_arr_time &lt;int&gt;</span></span></code></pre></div>
+<span id="cb108-113"><a href="transform.html#cb108-113" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 336,766 more rows, and 10 more variables: tailnum &lt;chr&gt;, origin &lt;chr&gt;,</span></span>
+<span id="cb108-114"><a href="transform.html#cb108-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,</span></span>
+<span id="cb108-115"><a href="transform.html#cb108-115" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   time_hour &lt;dttm&gt;, sched_dep_time &lt;int&gt;, sched_arr_time &lt;int&gt;</span></span></code></pre></div>
 </div>
 <div id="重命名-rename" class="section level2 hasAnchor" number="6.5">
 <h2><span class="header-section-number">6.5</span> 重命名 rename()<a href="transform.html#重命名-rename" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -738,7 +738,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb110-6"><a href="transform.html#cb110-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">speed_min =</span> distance <span class="sc">/</span> air_time, <span class="co"># 计算出的新数据</span></span>
 <span id="cb110-7"><a href="transform.html#cb110-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">speed_sec =</span> speed_min <span class="sc">*</span> <span class="dv">60</span> <span class="co"># 从刚生成的数据中套新数据</span></span>
 <span id="cb110-8"><a href="transform.html#cb110-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb110-9"><a href="transform.html#cb110-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 x 10</span></span>
+<span id="cb110-9"><a href="transform.html#cb110-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 × 10</span></span>
 <span id="cb110-10"><a href="transform.html#cb110-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day dep_delay arr_delay distance air_time  gain speed_min</span></span>
 <span id="cb110-11"><a href="transform.html#cb110-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;</span></span>
 <span id="cb110-12"><a href="transform.html#cb110-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  2013     1     1         2        11     1400      227    -9      6.17</span></span>
@@ -751,7 +751,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb110-19"><a href="transform.html#cb110-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013     1     1        -3       -14      229       53    11      4.32</span></span>
 <span id="cb110-20"><a href="transform.html#cb110-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013     1     1        -3        -8      944      140     5      6.74</span></span>
 <span id="cb110-21"><a href="transform.html#cb110-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013     1     1        -2         8      733      138   -10      5.31</span></span>
-<span id="cb110-22"><a href="transform.html#cb110-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 336,766 more rows, and 1 more variable: speed_sec &lt;dbl&gt;</span></span>
+<span id="cb110-22"><a href="transform.html#cb110-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 336,766 more rows, and 1 more variable: speed_sec &lt;dbl&gt;</span></span>
 <span id="cb110-23"><a href="transform.html#cb110-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 生成数据中不包含旧数据，应该使用 transmute</span></span>
 <span id="cb110-24"><a href="transform.html#cb110-24" aria-hidden="true" tabindex="-1"></a><span class="fu">transmute</span>(</span>
 <span id="cb110-25"><a href="transform.html#cb110-25" aria-hidden="true" tabindex="-1"></a>    flights_sml,</span>
@@ -759,7 +759,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb110-27"><a href="transform.html#cb110-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">speed_min =</span> distance <span class="sc">/</span> air_time, <span class="co"># 计算出的新数据</span></span>
 <span id="cb110-28"><a href="transform.html#cb110-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">speed_sec =</span> speed_min <span class="sc">*</span> <span class="dv">60</span> <span class="co"># 从刚生成的数据中套新数据</span></span>
 <span id="cb110-29"><a href="transform.html#cb110-29" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb110-30"><a href="transform.html#cb110-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 x 3</span></span>
+<span id="cb110-30"><a href="transform.html#cb110-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 336,776 × 3</span></span>
 <span id="cb110-31"><a href="transform.html#cb110-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     gain speed_min speed_sec</span></span>
 <span id="cb110-32"><a href="transform.html#cb110-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span></span>
 <span id="cb110-33"><a href="transform.html#cb110-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1    -9      6.17      370.</span></span>
@@ -772,7 +772,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb110-40"><a href="transform.html#cb110-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8    11      4.32      259.</span></span>
 <span id="cb110-41"><a href="transform.html#cb110-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9     5      6.74      405.</span></span>
 <span id="cb110-42"><a href="transform.html#cb110-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10   -10      5.31      319.</span></span>
-<span id="cb110-43"><a href="transform.html#cb110-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 336,766 more rows</span></span></code></pre></div>
+<span id="cb110-43"><a href="transform.html#cb110-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 336,766 more rows</span></span></code></pre></div>
 </div>
 <div id="分组摘要-summarise" class="section level2 hasAnchor" number="6.7">
 <h2><span class="header-section-number">6.7</span> 分组摘要 summarise()<a href="transform.html#分组摘要-summarise" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -787,7 +787,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb112-2"><a href="transform.html#cb112-2" aria-hidden="true" tabindex="-1"></a>    flights,</span>
 <span id="cb112-3"><a href="transform.html#cb112-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># mean，取均值，na.rm 忽略空值</span></span>
 <span id="cb112-4"><a href="transform.html#cb112-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb112-5"><a href="transform.html#cb112-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 1</span></span>
+<span id="cb112-5"><a href="transform.html#cb112-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 1</span></span>
 <span id="cb112-6"><a href="transform.html#cb112-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   delay</span></span>
 <span id="cb112-7"><a href="transform.html#cb112-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt;</span></span>
 <span id="cb112-8"><a href="transform.html#cb112-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  12.6</span></span></code></pre></div>
@@ -797,9 +797,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb113-3"><a href="transform.html#cb113-3" aria-hidden="true" tabindex="-1"></a>    by_day,</span>
 <span id="cb113-4"><a href="transform.html#cb113-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 组内的 [delay] 标签追加，按照算法分组返回值</span></span>
 <span id="cb113-5"><a href="transform.html#cb113-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb113-6"><a href="transform.html#cb113-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `summarise()` has grouped output by &#39;year&#39;, &#39;month&#39;. You can override using the `.groups`</span></span>
-<span id="cb113-7"><a href="transform.html#cb113-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; argument.</span></span>
-<span id="cb113-8"><a href="transform.html#cb113-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 365 x 4</span></span>
+<span id="cb113-6"><a href="transform.html#cb113-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `summarise()` has grouped output by &#39;year&#39;, &#39;month&#39;. You can override using the</span></span>
+<span id="cb113-7"><a href="transform.html#cb113-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `.groups` argument.</span></span>
+<span id="cb113-8"><a href="transform.html#cb113-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 365 × 4</span></span>
 <span id="cb113-9"><a href="transform.html#cb113-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Groups:   year, month [12]</span></span>
 <span id="cb113-10"><a href="transform.html#cb113-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day delay</span></span>
 <span id="cb113-11"><a href="transform.html#cb113-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;</span></span>
@@ -813,13 +813,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb113-19"><a href="transform.html#cb113-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013     1     8  2.55</span></span>
 <span id="cb113-20"><a href="transform.html#cb113-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013     1     9  2.28</span></span>
 <span id="cb113-21"><a href="transform.html#cb113-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013     1    10  2.84</span></span>
-<span id="cb113-22"><a href="transform.html#cb113-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 355 more rows</span></span>
+<span id="cb113-22"><a href="transform.html#cb113-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 355 more rows</span></span>
 <span id="cb113-23"><a href="transform.html#cb113-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用管道符 &quot;%&gt;%&quot; 精简代码</span></span>
 <span id="cb113-24"><a href="transform.html#cb113-24" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(flights, year, month, day) <span class="sc">%&gt;%</span></span>
 <span id="cb113-25"><a href="transform.html#cb113-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb113-26"><a href="transform.html#cb113-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `summarise()` has grouped output by &#39;year&#39;, &#39;month&#39;. You can override using the `.groups`</span></span>
-<span id="cb113-27"><a href="transform.html#cb113-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; argument.</span></span>
-<span id="cb113-28"><a href="transform.html#cb113-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 365 x 4</span></span>
+<span id="cb113-26"><a href="transform.html#cb113-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `summarise()` has grouped output by &#39;year&#39;, &#39;month&#39;. You can override using the</span></span>
+<span id="cb113-27"><a href="transform.html#cb113-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `.groups` argument.</span></span>
+<span id="cb113-28"><a href="transform.html#cb113-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 365 × 4</span></span>
 <span id="cb113-29"><a href="transform.html#cb113-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Groups:   year, month [12]</span></span>
 <span id="cb113-30"><a href="transform.html#cb113-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day delay</span></span>
 <span id="cb113-31"><a href="transform.html#cb113-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;</span></span>
@@ -833,7 +833,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb113-39"><a href="transform.html#cb113-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013     1     8  2.55</span></span>
 <span id="cb113-40"><a href="transform.html#cb113-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013     1     9  2.28</span></span>
 <span id="cb113-41"><a href="transform.html#cb113-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013     1    10  2.84</span></span>
-<span id="cb113-42"><a href="transform.html#cb113-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 355 more rows</span></span></code></pre></div>
+<span id="cb113-42"><a href="transform.html#cb113-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 355 more rows</span></span></code></pre></div>
 </div>
 <div id="其他处理数据功能" class="section level2 hasAnchor" number="6.8">
 <h2><span class="header-section-number">6.8</span> 其他处理数据功能<a href="transform.html#其他处理数据功能" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -891,7 +891,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb117-2"><a href="transform.html#cb117-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">n</span>() <span class="sc">&gt;</span> <span class="dv">365</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb117-3"><a href="transform.html#cb117-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">distinct</span>(dest) <span class="co"># 筛选只要指定的列</span></span>
 <span id="cb117-4"><a href="transform.html#cb117-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pop_dests, <span class="dv">10</span>) <span class="co"># 只展示前十</span></span>
-<span id="cb117-5"><a href="transform.html#cb117-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 x 1</span></span>
+<span id="cb117-5"><a href="transform.html#cb117-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 1</span></span>
 <span id="cb117-6"><a href="transform.html#cb117-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Groups:   dest [10]</span></span>
 <span id="cb117-7"><a href="transform.html#cb117-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    dest </span></span>
 <span id="cb117-8"><a href="transform.html#cb117-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;</span></span>
@@ -931,9 +931,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb119-5"><a href="transform.html#cb119-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">first =</span> <span class="fu">min</span>(dep_time),</span>
 <span id="cb119-6"><a href="transform.html#cb119-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">last =</span> <span class="fu">max</span>(dep_time)</span>
 <span id="cb119-7"><a href="transform.html#cb119-7" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb119-8"><a href="transform.html#cb119-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `summarise()` has grouped output by &#39;year&#39;, &#39;month&#39;. You can override using the `.groups`</span></span>
-<span id="cb119-9"><a href="transform.html#cb119-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; argument.</span></span>
-<span id="cb119-10"><a href="transform.html#cb119-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 365 x 5</span></span>
+<span id="cb119-8"><a href="transform.html#cb119-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `summarise()` has grouped output by &#39;year&#39;, &#39;month&#39;. You can override using the</span></span>
+<span id="cb119-9"><a href="transform.html#cb119-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `.groups` argument.</span></span>
+<span id="cb119-10"><a href="transform.html#cb119-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 365 × 5</span></span>
 <span id="cb119-11"><a href="transform.html#cb119-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Groups:   year, month [12]</span></span>
 <span id="cb119-12"><a href="transform.html#cb119-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year month   day first  last</span></span>
 <span id="cb119-13"><a href="transform.html#cb119-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
@@ -947,7 +947,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb119-21"><a href="transform.html#cb119-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2013     1     8   454  2351</span></span>
 <span id="cb119-22"><a href="transform.html#cb119-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2013     1     9     2  2252</span></span>
 <span id="cb119-23"><a href="transform.html#cb119-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2013     1    10     3  2320</span></span>
-<span id="cb119-24"><a href="transform.html#cb119-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 355 more rows</span></span></code></pre></div>
+<span id="cb119-24"><a href="transform.html#cb119-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 355 more rows</span></span></code></pre></div>
 
 </div>
 </div>
@@ -989,7 +989,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/cworld1/r-learning/edit/master/book/05-transform.Rmd",
+"link": "https://github.com/cworld1/r-learning/edit/master/book/05-transform.rmd",
 "text": "编辑"
 },
 "history": {

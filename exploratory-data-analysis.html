@@ -23,7 +23,7 @@
 <meta name="author" content="CWorld" />
 
 
-<meta name="date" content="2022-06-03" />
+<meta name="date" content="2022-06-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -396,7 +396,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>如果想要数据的话也可以用 <a href="https://dplyr.tidyverse.org/reference/count.html">dplyr::count()</a> 统计。但事实上，所有 <code>count()</code> 能做的，<code>group_by</code> + <code>summarise</code> 都能：</p>
 <div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="exploratory-data-analysis.html#cb122-1" aria-hidden="true" tabindex="-1"></a>diamonds <span class="sc">%&gt;%</span></span>
 <span id="cb122-2"><a href="exploratory-data-analysis.html#cb122-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(<span class="fu">cut_width</span>(carat, <span class="fl">0.5</span>)) <span class="co"># cut_width() 将数据切片分组。注意新的列名叫 cut</span></span>
-<span id="cb122-3"><a href="exploratory-data-analysis.html#cb122-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 11 x 2</span></span>
+<span id="cb122-3"><a href="exploratory-data-analysis.html#cb122-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 11 × 2</span></span>
 <span id="cb122-4"><a href="exploratory-data-analysis.html#cb122-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    `cut_width(carat, 0.5)`     n</span></span>
 <span id="cb122-5"><a href="exploratory-data-analysis.html#cb122-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;fct&gt;                   &lt;int&gt;</span></span>
 <span id="cb122-6"><a href="exploratory-data-analysis.html#cb122-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 [-0.25,0.25]              785</span></span>
@@ -427,7 +427,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>想要数据的话使用 <a href="https://dplyr.tidyverse.org/reference/count.html">dplyr::count()</a> 和 <a href="https://ggplot2.tidyverse.org/reference/cut_interval.html">ggplot2::cut_width()</a> 计算：</p>
 <div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="exploratory-data-analysis.html#cb125-1" aria-hidden="true" tabindex="-1"></a>diamonds <span class="sc">%&gt;%</span></span>
 <span id="cb125-2"><a href="exploratory-data-analysis.html#cb125-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(<span class="fu">cut_width</span>(carat, <span class="fl">0.5</span>))</span>
-<span id="cb125-3"><a href="exploratory-data-analysis.html#cb125-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 11 x 2</span></span>
+<span id="cb125-3"><a href="exploratory-data-analysis.html#cb125-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 11 × 2</span></span>
 <span id="cb125-4"><a href="exploratory-data-analysis.html#cb125-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    `cut_width(carat, 0.5)`     n</span></span>
 <span id="cb125-5"><a href="exploratory-data-analysis.html#cb125-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;fct&gt;                   &lt;int&gt;</span></span>
 <span id="cb125-6"><a href="exploratory-data-analysis.html#cb125-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 [-0.25,0.25]              785</span></span>
@@ -462,7 +462,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb128-3"><a href="exploratory-data-analysis.html#cb128-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(price, x, y, z) <span class="sc">%&gt;%</span></span>
 <span id="cb128-4"><a href="exploratory-data-analysis.html#cb128-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(y) <span class="sc">%&gt;%</span></span>
 <span id="cb128-5"><a href="exploratory-data-analysis.html#cb128-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>()</span>
-<span id="cb128-6"><a href="exploratory-data-analysis.html#cb128-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 9 x 4</span></span>
+<span id="cb128-6"><a href="exploratory-data-analysis.html#cb128-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 9 × 4</span></span>
 <span id="cb128-7"><a href="exploratory-data-analysis.html#cb128-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   price     x     y     z</span></span>
 <span id="cb128-8"><a href="exploratory-data-analysis.html#cb128-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span id="cb128-9"><a href="exploratory-data-analysis.html#cb128-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  5139  0      0    0   </span></span>
@@ -667,7 +667,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/cworld1/r-learning/edit/master/book/07-exploratory-data-analysis.Rmd",
+"link": "https://github.com/cworld1/r-learning/edit/master/book/07-exploratory-data-analysis.rmd",
 "text": "编辑"
 },
 "history": {

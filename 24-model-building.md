@@ -149,7 +149,7 @@ grid <- diamonds_new %>%
     data_grid(cut, .model = mod_diamond_new) %>%
     add_predictions(mod_diamond_new)
 grid
-#> # A tibble: 5 x 5
+#> # A tibble: 5 × 5
 #>   cut       lcarat color clarity  pred
 #>   <ord>      <dbl> <chr> <chr>   <dbl>
 #> 1 Fair      -0.515 G     VS2      11.2
@@ -188,7 +188,7 @@ diamonds_new %>%
     mutate(pred = round(2^pred)) %>% # 对期望值反对数并取整
     select(price, pred, carat:table, x:z) %>% # 重新选取需要的数据
     arrange(price) # 按照价格排列
-#> # A tibble: 16 x 11
+#> # A tibble: 16 × 11
 #>    price  pred carat cut       color clarity depth table     x     y     z
 #>    <int> <dbl> <dbl> <ord>     <ord> <ord>   <dbl> <dbl> <dbl> <dbl> <dbl>
 #>  1  1013   264  0.25 Fair      F     SI2      54.4    64  4.3   4.23  2.32
@@ -223,7 +223,7 @@ daily <- flights %>%
     group_by(date) %>%
     summarise(n = n())
 daily
-#> # A tibble: 365 x 2
+#> # A tibble: 365 × 2
 #>    date           n
 #>    <date>     <int>
 #>  1 2013-01-01   842
@@ -236,7 +236,7 @@ daily
 #>  8 2013-01-08   899
 #>  9 2013-01-09   902
 #> 10 2013-01-10   932
-#> # ... with 355 more rows
+#> # … with 355 more rows
 
 ggplot(daily, aes(date, n)) +
     geom_line()
@@ -313,20 +313,20 @@ ggplot(daily, aes(date, resid, colour = wday)) +
 ```r
 daily %>%
     filter(resid < -100)
-#> # A tibble: 11 x 4
+#> # A tibble: 11 × 4
 #>    date           n wday  resid
 #>    <date>     <int> <ord> <dbl>
-#>  1 2013-01-01   842 周二  -109.
-#>  2 2013-01-20   786 周日  -105.
-#>  3 2013-05-26   729 周日  -162.
-#>  4 2013-07-04   737 周四  -229.
-#>  5 2013-07-05   822 周五  -145.
-#>  6 2013-09-01   718 周日  -173.
-#>  7 2013-11-28   634 周四  -332.
-#>  8 2013-11-29   661 周五  -306.
-#>  9 2013-12-24   761 周二  -190.
-#> 10 2013-12-25   719 周三  -244.
-#> 11 2013-12-31   776 周二  -175.
+#>  1 2013-01-01   842 Tue   -109.
+#>  2 2013-01-20   786 Sun   -105.
+#>  3 2013-05-26   729 Sun   -162.
+#>  4 2013-07-04   737 Thu   -229.
+#>  5 2013-07-05   822 Fri   -145.
+#>  6 2013-09-01   718 Sun   -173.
+#>  7 2013-11-28   634 Thu   -332.
+#>  8 2013-11-29   661 Fri   -306.
+#>  9 2013-12-24   761 Tue   -190.
+#> 10 2013-12-25   719 Wed   -244.
+#> 11 2013-12-31   776 Tue   -175.
 ```
 
 请注意这些日期并不是巧合。从美国公共假日角度来看，我们会发现这些数据包含元旦、美国独立日（7月4日）、感恩节和圣诞节。

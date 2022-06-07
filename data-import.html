@@ -23,7 +23,7 @@
 <meta name="author" content="CWorld" />
 
 
-<meta name="date" content="2022-06-03" />
+<meta name="date" content="2022-06-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -375,11 +375,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="简单读取文件" class="section level2 hasAnchor" number="12.1">
 <h2><span class="header-section-number">12.1</span> 简单读取文件<a href="data-import.html#简单读取文件" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <table>
-<colgroup>
-<col width="13%" />
-<col width="25%" />
-<col width="61%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th>文件特征</th>
@@ -440,25 +435,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>read_csv() 会给出相当丰富的信息，包括行列数、分隔符、各列的数据格式（自动识别）等：</p>
 <div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="data-import.html#cb180-1" aria-hidden="true" tabindex="-1"></a>heights <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;./data/heights.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 1192 Columns: 6
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr (2): sex, race
 ## dbl (4): earn, height, ed, age
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <p>对于内联表格我们同样可以这样处理：</p>
 <div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="data-import.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;a,b,c</span></span>
 <span id="cb182-2"><a href="data-import.html#cb182-2" aria-hidden="true" tabindex="-1"></a><span class="st">1,2,3</span></span>
 <span id="cb182-3"><a href="data-import.html#cb182-3" aria-hidden="true" tabindex="-1"></a><span class="st">4,5,6&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 2 Columns: 3
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## dbl (3): a, b, c
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre><code>## # A tibble: 2 x 3
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre><code>## # A tibble: 2 × 3
 ##       a     b     c
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1     1     2     3
@@ -469,13 +464,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb185-3"><a href="data-import.html#cb185-3" aria-hidden="true" tabindex="-1"></a><span class="st">  x,y,z</span></span>
 <span id="cb185-4"><a href="data-import.html#cb185-4" aria-hidden="true" tabindex="-1"></a><span class="st">  1,2,3&quot;</span>, <span class="at">skip =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## Rows: 1 Columns: 3
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## dbl (3): x, y, z
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre><code>## # A tibble: 1 x 3
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre><code>## # A tibble: 1 × 3
 ##       x     y     z
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1     1     2     3</code></pre>
@@ -484,26 +479,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb188-2"><a href="data-import.html#cb188-2" aria-hidden="true" tabindex="-1"></a><span class="st">  x,y,z</span></span>
 <span id="cb188-3"><a href="data-import.html#cb188-3" aria-hidden="true" tabindex="-1"></a><span class="st">  1,2,3&quot;</span>, <span class="at">comment =</span> <span class="st">&quot;#&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 1 Columns: 3
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## dbl (3): x, y, z
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre><code>## # A tibble: 1 x 3
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre><code>## # A tibble: 1 × 3
 ##       x     y     z
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1     1     2     3</code></pre>
 <p>有时导入的数据可能没有表头！忽略掉表头，R 会为你加上 “X1”、“X2”…</p>
 <div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="data-import.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;1,2,3</span><span class="sc">\n</span><span class="st">4,5,6&quot;</span>, <span class="at">col_names =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## Rows: 2 Columns: 3
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## dbl (3): X1, X2, X3
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre><code>## # A tibble: 2 x 3
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre><code>## # A tibble: 2 × 3
 ##      X1    X2    X3
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1     1     2     3
@@ -511,13 +506,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>或者手动加表头：</p>
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="data-import.html#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;1,2,3</span><span class="sc">\n</span><span class="st">4,5,6&quot;</span>, <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>))</span></code></pre></div>
 <pre><code>## Rows: 2 Columns: 3
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## dbl (3): x, y, z
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre><code>## # A tibble: 2 x 3
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre><code>## # A tibble: 2 × 3
 ##       x     y     z
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1     1     2     3
@@ -525,14 +520,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>不只是表头，有时数据也会缺失。对 NA 值的数进行符号标记即可：</p>
 <div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="data-import.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;a,b,c</span><span class="sc">\n</span><span class="st">1,2,.&quot;</span>, <span class="at">na =</span> <span class="st">&quot;.&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 1 Columns: 3
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## dbl (2): a, b
 ## lgl (1): c
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre><code>## # A tibble: 1 x 3
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre><code>## # A tibble: 1 × 3
 ##       a     b c    
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
 ## 1     1     2 NA</code></pre>
@@ -604,23 +599,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>如今我们有一个通用标准：UTF-8。UTF-8几乎可以编码当今人类使用的每个字符，以及许多额外的符号。</p>
 <p>但旧的非通用标准有时也是需要的：</p>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="data-import.html#cb229-1" aria-hidden="true" tabindex="-1"></a>(x1 <span class="ot">&lt;-</span> <span class="st">&quot;El Ni</span><span class="sc">\xf1</span><span class="st">o was particularly bad this year&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;El Ni駉 was particularly bad this year&quot;</code></pre>
+<pre><code>## [1] &quot;El Ni\xf1o was particularly bad this year&quot;</code></pre>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="data-import.html#cb231-1" aria-hidden="true" tabindex="-1"></a>(x2 <span class="ot">&lt;-</span> <span class="st">&quot;</span><span class="sc">\x82\xb1\x82\xf1\x82\xc9\x82\xbf\x82\xcd</span><span class="st">&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;偙傫偵偪偼&quot;</code></pre>
+<pre><code>## [1] &quot;\x82\xb1\x82\xf1\x82ɂ\xbf\x82\xcd&quot;</code></pre>
 <p>使用 encoding 来转译它们的编码：</p>
 <div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="data-import.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_character</span>(x1, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;Latin1&quot;</span>))</span></code></pre></div>
-<pre><code>## [1] &quot;El Ni&lt;U+00F1&gt;o was particularly bad this year&quot;</code></pre>
+<pre><code>## [1] &quot;El Niño was particularly bad this year&quot;</code></pre>
 <div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="data-import.html#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_character</span>(x2, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;Shift-JIS&quot;</span>))</span></code></pre></div>
 <pre><code>## [1] &quot;こんにちは&quot;</code></pre>
 <p>有时我们并不知道它是什么类型的编码！所幸的是，guess_encodeing() 会帮助我们尝试：</p>
 <div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="data-import.html#cb237-1" aria-hidden="true" tabindex="-1"></a><span class="fu">guess_encoding</span>(<span class="fu">charToRaw</span>(x1))</span></code></pre></div>
-<pre><code>## # A tibble: 2 x 2
+<pre><code>## # A tibble: 2 × 2
 ##   encoding   confidence
 ##   &lt;chr&gt;           &lt;dbl&gt;
 ## 1 ISO-8859-1       0.46
 ## 2 ISO-8859-9       0.23</code></pre>
 <div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="data-import.html#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="fu">guess_encoding</span>(<span class="fu">charToRaw</span>(x2))</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 2
+<pre><code>## # A tibble: 1 × 2
 ##   encoding confidence
 ##   &lt;chr&gt;         &lt;dbl&gt;
 ## 1 KOI8-R         0.42</code></pre>
@@ -871,7 +866,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb277-6"><a href="data-import.html#cb277-6" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb277-7"><a href="data-import.html#cb277-7" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb277-8"><a href="data-import.html#cb277-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(challenge)</span></code></pre></div>
-<pre><code>## # A tibble: 6 x 2
+<pre><code>## # A tibble: 6 × 2
 ##       x y         
 ##   &lt;dbl&gt; &lt;date&gt;    
 ## 1 0.805 2019-11-21
@@ -887,15 +882,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>上面提到的自动解析出错只是因为默认的 1000 行不够用而已。哪怕只是多解析一行：</p>
 <div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="data-import.html#cb279-1" aria-hidden="true" tabindex="-1"></a>challenge2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">readr_example</span>(<span class="st">&quot;challenge.csv&quot;</span>), <span class="at">guess_max =</span> <span class="dv">1001</span>)</span></code></pre></div>
 <pre><code>## Rows: 2000 Columns: 2
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## dbl  (1): x
 ## date (1): y
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="data-import.html#cb281-1" aria-hidden="true" tabindex="-1"></a>challenge2</span></code></pre></div>
-<pre><code>## # A tibble: 2,000 x 2
+<pre><code>## # A tibble: 2,000 × 2
 ##        x y     
 ##    &lt;dbl&gt; &lt;date&gt;
 ##  1   404 NA    
@@ -908,7 +903,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8  1449 NA    
 ##  9  3665 NA    
 ## 10  3863 NA    
-## # ... with 1,990 more rows</code></pre>
+## # … with 1,990 more rows</code></pre>
 <p>你看。问题解决了呢。</p>
 <p>另外一种思路是将向量声明为默认字符类型向量，这可能使你的定位更容易一些：</p>
 <div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="data-import.html#cb283-1" aria-hidden="true" tabindex="-1"></a>challenge2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">readr_example</span>(<span class="st">&quot;challenge.csv&quot;</span>),</span>
@@ -922,7 +917,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb284-5"><a href="data-import.html#cb284-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4.56&quot;</span></span>
 <span id="cb284-6"><a href="data-import.html#cb284-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb284-7"><a href="data-import.html#cb284-7" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
-<pre><code>## # A tibble: 3 x 2
+<pre><code>## # A tibble: 3 × 2
 ##   x     y    
 ##   &lt;chr&gt; &lt;chr&gt;
 ## 1 1     1.21 
@@ -930,12 +925,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3 3     4.56</code></pre>
 <div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="data-import.html#cb286-1" aria-hidden="true" tabindex="-1"></a><span class="fu">type_convert</span>(df)</span></code></pre></div>
 <pre><code>## 
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   x = col_double(),
 ##   y = col_double()
 ## )</code></pre>
-<pre><code>## # A tibble: 3 x 2
+<pre><code>## # A tibble: 3 × 2
 ##       x     y
 ##   &lt;dbl&gt; &lt;dbl&gt;
 ## 1     1  1.21
@@ -951,7 +946,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="data-import.html#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(challenge, <span class="st">&quot;./data/challenge.csv&quot;</span>)</span></code></pre></div>
 <p>很简单，不是吗？小心事情还没结束。你看，数据类型就这么丢了：</p>
 <div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="data-import.html#cb290-1" aria-hidden="true" tabindex="-1"></a>challenge</span></code></pre></div>
-<pre><code>## # A tibble: 2,000 x 2
+<pre><code>## # A tibble: 2,000 × 2
 ##        x y     
 ##    &lt;dbl&gt; &lt;date&gt;
 ##  1   404 NA    
@@ -964,18 +959,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8  1449 NA    
 ##  9  3665 NA    
 ## 10  3863 NA    
-## # ... with 1,990 more rows</code></pre>
+## # … with 1,990 more rows</code></pre>
 <div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="data-import.html#cb292-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(challenge, <span class="st">&quot;./data/challenge-2.csv&quot;</span>)</span>
 <span id="cb292-2"><a href="data-import.html#cb292-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;./data/challenge-2.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 2000 Columns: 2
-## -- Column specification ------------------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## dbl  (1): x
 ## date (1): y
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre><code>## # A tibble: 2,000 x 2
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre><code>## # A tibble: 2,000 × 2
 ##        x y     
 ##    &lt;dbl&gt; &lt;date&gt;
 ##  1   404 NA    
@@ -988,14 +983,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8  1449 NA    
 ##  9  3665 NA    
 ## 10  3863 NA    
-## # ... with 1,990 more rows</code></pre>
+## # … with 1,990 more rows</code></pre>
 </div>
 <div id="rds-格式" class="section level3 hasAnchor" number="12.8.2">
 <h3><span class="header-section-number">12.8.2</span> rds 格式<a href="data-import.html#rds-格式" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>为了解决这个问题，我们提出了新的函数：write_rds() 和 read_rds() 基于 R 的基本函数 readRDS() 和 saveRDS()。注意这些数据会以被 R 称为 RDS 格式的自定义二进制格式存储数据：</p>
 <div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="data-import.html#cb295-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(challenge, <span class="st">&quot;./data/challenge.rds&quot;</span>)</span>
 <span id="cb295-2"><a href="data-import.html#cb295-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_rds</span>(<span class="st">&quot;./data/challenge.rds&quot;</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 2,000 x 2
+<pre><code>## # A tibble: 2,000 × 2
 ##        x y     
 ##    &lt;dbl&gt; &lt;date&gt;
 ##  1   404 NA    
@@ -1008,17 +1003,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8  1449 NA    
 ##  9  3665 NA    
 ## 10  3863 NA    
-## # ... with 1,990 more rows</code></pre>
+## # … with 1,990 more rows</code></pre>
 <p>表现非常好，但 rds 格式不流行也不通用。</p>
 </div>
 <div id="feather-格式" class="section level3 hasAnchor" number="12.8.3">
 <h3><span class="header-section-number">12.8.3</span> feather 格式<a href="data-import.html#feather-格式" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>feather 包也实现了一种快速的二进制文件格式，可以跨编程语言共享：</p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="data-import.html#cb297-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(feather)</span></code></pre></div>
-<pre><code>## Warning: 程辑包&#39;feather&#39;是用R版本4.1.3 来建造的</code></pre>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="data-import.html#cb299-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_feather</span>(challenge, <span class="st">&quot;./data/challenge.feather&quot;</span>)</span>
-<span id="cb299-2"><a href="data-import.html#cb299-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_feather</span>(<span class="st">&quot;./data/challenge.feather&quot;</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 2,000 x 2
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="data-import.html#cb297-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(feather)</span>
+<span id="cb297-2"><a href="data-import.html#cb297-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_feather</span>(challenge, <span class="st">&quot;./data/challenge.feather&quot;</span>)</span>
+<span id="cb297-3"><a href="data-import.html#cb297-3" aria-hidden="true" tabindex="-1"></a><span class="fu">read_feather</span>(<span class="st">&quot;./data/challenge.feather&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 2,000 × 2
 ##        x y     
 ##    &lt;dbl&gt; &lt;date&gt;
 ##  1   404 NA    
@@ -1031,7 +1025,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8  1449 NA    
 ##  9  3665 NA    
 ## 10  3863 NA    
-## # ... with 1,990 more rows</code></pre>
+## # … with 1,990 more rows</code></pre>
 </div>
 <div id="其他格式" class="section level3 hasAnchor" number="12.8.4">
 <h3><span class="header-section-number">12.8.4</span> 其他格式<a href="data-import.html#其他格式" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1082,7 +1076,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/cworld1/r-learning/edit/master/book/11-data-import.Rmd",
+"link": "https://github.com/cworld1/r-learning/edit/master/book/11-data-import.rmd",
 "text": "编辑"
 },
 "history": {

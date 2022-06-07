@@ -23,7 +23,7 @@
 <meta name="author" content="CWorld" />
 
 
-<meta name="date" content="2022-06-03" />
+<meta name="date" content="2022-06-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -376,21 +376,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.1</span> 初识 ggplot<a href="explore.html#初识-ggplot" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="explore.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(mpg) <span class="co"># 使用 view() 函数可以方便观察对应数据集</span></span>
 <span id="cb41-2"><a href="explore.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mpg) <span class="co"># 可以在控制台打印数据集头部信息（前十行）</span></span></code></pre></div>
-<pre><code>## # A tibble: 6 x 11
+<pre><code>## # A tibble: 6 × 11
 ##   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
 ##   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; 
-## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa~
-## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa~
-## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa~
-## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa~
-## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa~
-## 6 audi         a4      2.8  1999     6 manual(m5) f        18    26 p     compa~</code></pre>
+## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa…
+## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa…
+## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa…
+## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa…
+## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa…
+## 6 audi         a4      2.8  1999     6 manual(m5) f        18    26 p     compa…</code></pre>
 <p>列 displ：汽车的发动机尺寸，以升为单位。
 列 hwy：汽车在高速公路上的燃油效率，以英里 / 加仑（mpg）为单位</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="explore.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> <span class="co"># 统一设置想要处理的数据集</span></span>
 <span id="cb43-2"><a href="explore.html#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 绘制 point，mapping 属性用来设置相关的 x 轴和 y 轴参数</span></span>
 <span id="cb43-3"><a href="explore.html#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy))</span></code></pre></div>
-<p><img src="03-data-visualisation_files/figure-html/ggplot 绘图-1.png" width="672" /></p>
+<p><img src="03-data-visualisation_files/figure-html/ggplot%20%E7%BB%98%E5%9B%BE-1.png" width="672" /></p>
 </div>
 <div id="美学映射" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> 美学映射<a href="explore.html#美学映射" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -633,7 +633,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/cworld1/r-learning/edit/master/book/03-data-visualisation.Rmd",
+"link": "https://github.com/cworld1/r-learning/edit/master/book/03-data-visualisation.rmd",
 "text": "编辑"
 },
 "history": {

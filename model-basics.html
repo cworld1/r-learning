@@ -23,7 +23,7 @@
 <meta name="author" content="CWorld" />
 
 
-<meta name="date" content="2022-06-03" />
+<meta name="date" content="2022-06-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -374,146 +374,146 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>模型由两部分组成：
 - 定义一系列模型，这些模型表示要捕获的精确但通用的模式。
 - 通过从最接近数据集中查找模型来生成拟合模型。这将采用通用模型系列，并使其具体化。</p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="model-basics.html#cb332-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb332-2"><a href="model-basics.html#cb332-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelr)</span>
-<span id="cb332-3"><a href="model-basics.html#cb332-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">na.action =</span> na.warn)</span></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="model-basics.html#cb330-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb330-2"><a href="model-basics.html#cb330-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelr)</span>
+<span id="cb330-3"><a href="model-basics.html#cb330-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">na.action =</span> na.warn)</span></code></pre></div>
 <div id="对-sim1-模型研究" class="section level2 hasAnchor" number="16.1">
 <h2><span class="header-section-number">16.1</span> 对 sim1 模型研究<a href="model-basics.html#对-sim1-模型研究" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="简单建立-sim1-模型" class="section level3 hasAnchor" number="16.1.1">
 <h3><span class="header-section-number">16.1.1</span> 简单建立 sim1 模型<a href="model-basics.html#简单建立-sim1-模型" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="model-basics.html#cb333-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim1, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
-<span id="cb333-2"><a href="model-basics.html#cb333-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="model-basics.html#cb331-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim1, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
+<span id="cb331-2"><a href="model-basics.html#cb331-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/sim1-1.png" width="672" /></p>
 <p>由图可以发现，x 变量和 y 变量可能有明显线性关系。</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="model-basics.html#cb334-1" aria-hidden="true" tabindex="-1"></a>random_models <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb334-2"><a href="model-basics.html#cb334-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 随机生成 250 个上限 -20 下限 40 的 a1 向量</span></span>
-<span id="cb334-3"><a href="model-basics.html#cb334-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">a1 =</span> <span class="fu">runif</span>(<span class="at">n =</span> <span class="dv">250</span>, <span class="at">min =</span> <span class="sc">-</span><span class="dv">20</span>, <span class="at">max =</span> <span class="dv">40</span>),</span>
-<span id="cb334-4"><a href="model-basics.html#cb334-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 同理随机生成 250 个上限 -5 下限 5 的 a2 向量</span></span>
-<span id="cb334-5"><a href="model-basics.html#cb334-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">a2 =</span> <span class="fu">runif</span>(<span class="dv">250</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>)</span>
-<span id="cb334-6"><a href="model-basics.html#cb334-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="model-basics.html#cb332-1" aria-hidden="true" tabindex="-1"></a>random_models <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb332-2"><a href="model-basics.html#cb332-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 随机生成 250 个上限 -20 下限 40 的 a1 向量</span></span>
+<span id="cb332-3"><a href="model-basics.html#cb332-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">a1 =</span> <span class="fu">runif</span>(<span class="at">n =</span> <span class="dv">250</span>, <span class="at">min =</span> <span class="sc">-</span><span class="dv">20</span>, <span class="at">max =</span> <span class="dv">40</span>),</span>
+<span id="cb332-4"><a href="model-basics.html#cb332-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 同理随机生成 250 个上限 -5 下限 5 的 a2 向量</span></span>
+<span id="cb332-5"><a href="model-basics.html#cb332-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">a2 =</span> <span class="fu">runif</span>(<span class="dv">250</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>)</span>
+<span id="cb332-6"><a href="model-basics.html#cb332-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>如果用随机生成数据的话，模型会看起来非常糟糕：</p>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="model-basics.html#cb335-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb335-2"><a href="model-basics.html#cb335-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(</span>
-<span id="cb335-3"><a href="model-basics.html#cb335-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> random_models,</span>
-<span id="cb335-4"><a href="model-basics.html#cb335-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">intercept =</span> a1, <span class="at">slope =</span> a2), <span class="co"># intercept：截距，slope：斜率</span></span>
-<span id="cb335-5"><a href="model-basics.html#cb335-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">alpha =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">4</span></span>
-<span id="cb335-6"><a href="model-basics.html#cb335-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb335-7"><a href="model-basics.html#cb335-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
-<span id="cb335-8"><a href="model-basics.html#cb335-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> sim1,</span>
-<span id="cb335-9"><a href="model-basics.html#cb335-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">mapping =</span> <span class="fu">aes</span>(x, y)</span>
-<span id="cb335-10"><a href="model-basics.html#cb335-10" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="model-basics.html#cb333-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb333-2"><a href="model-basics.html#cb333-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(</span>
+<span id="cb333-3"><a href="model-basics.html#cb333-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> random_models,</span>
+<span id="cb333-4"><a href="model-basics.html#cb333-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">intercept =</span> a1, <span class="at">slope =</span> a2), <span class="co"># intercept：截距，slope：斜率</span></span>
+<span id="cb333-5"><a href="model-basics.html#cb333-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">alpha =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">4</span></span>
+<span id="cb333-6"><a href="model-basics.html#cb333-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb333-7"><a href="model-basics.html#cb333-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
+<span id="cb333-8"><a href="model-basics.html#cb333-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> sim1,</span>
+<span id="cb333-9"><a href="model-basics.html#cb333-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">mapping =</span> <span class="fu">aes</span>(x, y)</span>
+<span id="cb333-10"><a href="model-basics.html#cb333-10" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/geom_abline()%20&%20geom_point()%20with%20random_models-1.png" width="672" /></p>
 <p>我们希望有直线 y = a2*x + a1 来概括这个数据集的特征。所以我们创造了 model1：</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="model-basics.html#cb336-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="cf">function</span>(a, data) {</span>
-<span id="cb336-2"><a href="model-basics.html#cb336-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 注意我们传入的 data 是一个数据集。这个设计的函数会针对数据集里的数据反复代入计算，最终返回一个向量</span></span>
-<span id="cb336-3"><a href="model-basics.html#cb336-3" aria-hidden="true" tabindex="-1"></a>    a[<span class="dv">1</span>] <span class="sc">+</span> data<span class="sc">$</span>x <span class="sc">*</span> a[<span class="dv">2</span>]</span>
-<span id="cb336-4"><a href="model-basics.html#cb336-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="model-basics.html#cb334-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="cf">function</span>(a, data) {</span>
+<span id="cb334-2"><a href="model-basics.html#cb334-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 注意我们传入的 data 是一个数据集。这个设计的函数会针对数据集里的数据反复代入计算，最终返回一个向量</span></span>
+<span id="cb334-3"><a href="model-basics.html#cb334-3" aria-hidden="true" tabindex="-1"></a>    a[<span class="dv">1</span>] <span class="sc">+</span> data<span class="sc">$</span>x <span class="sc">*</span> a[<span class="dv">2</span>]</span>
+<span id="cb334-4"><a href="model-basics.html#cb334-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>试图用 a1 = 7 和 a2 = 1.5 数据来分析 sim1。这样我们得到了理想模型下对应 y 的值</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="model-basics.html#cb337-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model1</span>(<span class="fu">c</span>(<span class="dv">7</span>, <span class="fl">1.5</span>), sim1)</span>
-<span id="cb337-2"><a href="model-basics.html#cb337-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  8.5  8.5  8.5 10.0 10.0 10.0 11.5 11.5 11.5 13.0 13.0 13.0 14.5 14.5 14.5</span></span>
-<span id="cb337-3"><a href="model-basics.html#cb337-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [16] 16.0 16.0 16.0 17.5 17.5 17.5 19.0 19.0 19.0 20.5 20.5 20.5 22.0 22.0 22.0</span></span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="model-basics.html#cb335-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model1</span>(<span class="fu">c</span>(<span class="dv">7</span>, <span class="fl">1.5</span>), sim1)</span>
+<span id="cb335-2"><a href="model-basics.html#cb335-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  8.5  8.5  8.5 10.0 10.0 10.0 11.5 11.5 11.5 13.0 13.0 13.0 14.5 14.5 14.5</span></span>
+<span id="cb335-3"><a href="model-basics.html#cb335-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [16] 16.0 16.0 16.0 17.5 17.5 17.5 19.0 19.0 19.0 20.5 20.5 20.5 22.0 22.0 22.0</span></span></code></pre></div>
 <p>验证或者求得回归曲线的拟合度使我们通常采用方差，度量随机变量和其数学期望（即均值）之间的偏离程度。所以我们新建了函数来获得方差：</p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="model-basics.html#cb338-1" aria-hidden="true" tabindex="-1"></a>measure_distance <span class="ot">&lt;-</span> <span class="cf">function</span>(mod, data) {</span>
-<span id="cb338-2"><a href="model-basics.html#cb338-2" aria-hidden="true" tabindex="-1"></a>    diff <span class="ot">&lt;-</span> data<span class="sc">$</span>y <span class="sc">-</span> <span class="fu">model1</span>(mod, data) <span class="co"># diff 为 data 中实际 y 值与 model1 得到的理想 y 值的差</span></span>
-<span id="cb338-3"><a href="model-basics.html#cb338-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sqrt</span>(<span class="fu">mean</span>(diff<span class="sc">^</span><span class="dv">2</span>)) <span class="co"># 返回所有 diff 平方的均值进行的开方（方差）</span></span>
-<span id="cb338-4"><a href="model-basics.html#cb338-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb338-5"><a href="model-basics.html#cb338-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 试图用 a1 = 7 和 a2 = 1.5 数据求得关于 sim1 的方差</span></span>
-<span id="cb338-6"><a href="model-basics.html#cb338-6" aria-hidden="true" tabindex="-1"></a><span class="fu">measure_distance</span>(<span class="fu">c</span>(<span class="dv">7</span>, <span class="fl">1.5</span>), sim1)</span>
-<span id="cb338-7"><a href="model-basics.html#cb338-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2.665212</span></span></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="model-basics.html#cb336-1" aria-hidden="true" tabindex="-1"></a>measure_distance <span class="ot">&lt;-</span> <span class="cf">function</span>(mod, data) {</span>
+<span id="cb336-2"><a href="model-basics.html#cb336-2" aria-hidden="true" tabindex="-1"></a>    diff <span class="ot">&lt;-</span> data<span class="sc">$</span>y <span class="sc">-</span> <span class="fu">model1</span>(mod, data) <span class="co"># diff 为 data 中实际 y 值与 model1 得到的理想 y 值的差</span></span>
+<span id="cb336-3"><a href="model-basics.html#cb336-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sqrt</span>(<span class="fu">mean</span>(diff<span class="sc">^</span><span class="dv">2</span>)) <span class="co"># 返回所有 diff 平方的均值进行的开方（方差）</span></span>
+<span id="cb336-4"><a href="model-basics.html#cb336-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb336-5"><a href="model-basics.html#cb336-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 试图用 a1 = 7 和 a2 = 1.5 数据求得关于 sim1 的方差</span></span>
+<span id="cb336-6"><a href="model-basics.html#cb336-6" aria-hidden="true" tabindex="-1"></a><span class="fu">measure_distance</span>(<span class="fu">c</span>(<span class="dv">7</span>, <span class="fl">1.5</span>), sim1)</span>
+<span id="cb336-7"><a href="model-basics.html#cb336-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2.665212</span></span></code></pre></div>
 <p>由于我们这里仅用来研究 sim1 数据集，所以这里新建函数用来提交给 sim1，方便后面 map2_dbl 处理：</p>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="model-basics.html#cb339-1" aria-hidden="true" tabindex="-1"></a>sim1_dist <span class="ot">&lt;-</span> <span class="cf">function</span>(a1, a2) {</span>
-<span id="cb339-2"><a href="model-basics.html#cb339-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">measure_distance</span>(<span class="fu">c</span>(a1, a2), sim1) <span class="co"># nolint</span></span>
-<span id="cb339-3"><a href="model-basics.html#cb339-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb339-4"><a href="model-basics.html#cb339-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 通过 mutate 新增计算得到的列 dist 并赋值回去（方差）</span></span>
-<span id="cb339-5"><a href="model-basics.html#cb339-5" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> random_models <span class="sc">%&gt;%</span></span>
-<span id="cb339-6"><a href="model-basics.html#cb339-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">dist =</span> purrr<span class="sc">::</span><span class="fu">map2_dbl</span>(a1, a2, sim1_dist))</span>
-<span id="cb339-7"><a href="model-basics.html#cb339-7" aria-hidden="true" tabindex="-1"></a>models</span>
-<span id="cb339-8"><a href="model-basics.html#cb339-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 250 x 3</span></span>
-<span id="cb339-9"><a href="model-basics.html#cb339-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        a1     a2  dist</span></span>
-<span id="cb339-10"><a href="model-basics.html#cb339-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb339-11"><a href="model-basics.html#cb339-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  27.1  -0.371 12.0 </span></span>
-<span id="cb339-12"><a href="model-basics.html#cb339-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 -19.9   4.79  12.2 </span></span>
-<span id="cb339-13"><a href="model-basics.html#cb339-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 -14.7   1.61  21.5 </span></span>
-<span id="cb339-14"><a href="model-basics.html#cb339-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  -9.05 -4.94  55.5 </span></span>
-<span id="cb339-15"><a href="model-basics.html#cb339-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 -16.2   1.43  24.0 </span></span>
-<span id="cb339-16"><a href="model-basics.html#cb339-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 -17.1  -1.63  42.9 </span></span>
-<span id="cb339-17"><a href="model-basics.html#cb339-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  24.3  -0.823  9.53</span></span>
-<span id="cb339-18"><a href="model-basics.html#cb339-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  13.3  -2.42  20.3 </span></span>
-<span id="cb339-19"><a href="model-basics.html#cb339-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  38.6  -2.70  16.1 </span></span>
-<span id="cb339-20"><a href="model-basics.html#cb339-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  33.1   0.512 21.0 </span></span>
-<span id="cb339-21"><a href="model-basics.html#cb339-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 240 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="model-basics.html#cb337-1" aria-hidden="true" tabindex="-1"></a>sim1_dist <span class="ot">&lt;-</span> <span class="cf">function</span>(a1, a2) {</span>
+<span id="cb337-2"><a href="model-basics.html#cb337-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">measure_distance</span>(<span class="fu">c</span>(a1, a2), sim1) <span class="co"># nolint</span></span>
+<span id="cb337-3"><a href="model-basics.html#cb337-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb337-4"><a href="model-basics.html#cb337-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 通过 mutate 新增计算得到的列 dist 并赋值回去（方差）</span></span>
+<span id="cb337-5"><a href="model-basics.html#cb337-5" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> random_models <span class="sc">%&gt;%</span></span>
+<span id="cb337-6"><a href="model-basics.html#cb337-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">dist =</span> purrr<span class="sc">::</span><span class="fu">map2_dbl</span>(a1, a2, sim1_dist))</span>
+<span id="cb337-7"><a href="model-basics.html#cb337-7" aria-hidden="true" tabindex="-1"></a>models</span>
+<span id="cb337-8"><a href="model-basics.html#cb337-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 250 × 3</span></span>
+<span id="cb337-9"><a href="model-basics.html#cb337-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        a1     a2  dist</span></span>
+<span id="cb337-10"><a href="model-basics.html#cb337-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb337-11"><a href="model-basics.html#cb337-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  38.1  -1.61  17.4 </span></span>
+<span id="cb337-12"><a href="model-basics.html#cb337-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  15.1   3.55  19.7 </span></span>
+<span id="cb337-13"><a href="model-basics.html#cb337-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  -2.31 -0.544 22.2 </span></span>
+<span id="cb337-14"><a href="model-basics.html#cb337-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  38.7  -3.95  17.4 </span></span>
+<span id="cb337-15"><a href="model-basics.html#cb337-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  38.5  -2.07  16.7 </span></span>
+<span id="cb337-16"><a href="model-basics.html#cb337-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  22.4  -1.06   9.26</span></span>
+<span id="cb337-17"><a href="model-basics.html#cb337-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  -6.18 -4.78  51.9 </span></span>
+<span id="cb337-18"><a href="model-basics.html#cb337-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8   3.05  3.99  11.2 </span></span>
+<span id="cb337-19"><a href="model-basics.html#cb337-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  21.7   4.98  34.7 </span></span>
+<span id="cb337-20"><a href="model-basics.html#cb337-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 -12.1   0.764 23.8 </span></span>
+<span id="cb337-21"><a href="model-basics.html#cb337-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 240 more rows</span></span></code></pre></div>
 <blockquote>
 <p>注意这里的 map2_dbl 会返回离散程度较小的，即拟合程度最高的。例如：</p>
 </blockquote>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="model-basics.html#cb340-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb340-2"><a href="model-basics.html#cb340-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>),</span>
-<span id="cb340-3"><a href="model-basics.html#cb340-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">8</span>)</span>
-<span id="cb340-4"><a href="model-basics.html#cb340-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb340-5"><a href="model-basics.html#cb340-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 这个包的 map2_dbl 表达式相当于 pmin(df$x, df$y)</span></span>
-<span id="cb340-6"><a href="model-basics.html#cb340-6" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">map2_dbl</span>(df<span class="sc">$</span>x, df<span class="sc">$</span>y, min)</span>
-<span id="cb340-7"><a href="model-basics.html#cb340-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 5</span></span></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="model-basics.html#cb338-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb338-2"><a href="model-basics.html#cb338-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>),</span>
+<span id="cb338-3"><a href="model-basics.html#cb338-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">8</span>)</span>
+<span id="cb338-4"><a href="model-basics.html#cb338-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb338-5"><a href="model-basics.html#cb338-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 这个包的 map2_dbl 表达式相当于 pmin(df$x, df$y)</span></span>
+<span id="cb338-6"><a href="model-basics.html#cb338-6" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">map2_dbl</span>(df<span class="sc">$</span>x, df<span class="sc">$</span>y, min)</span>
+<span id="cb338-7"><a href="model-basics.html#cb338-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 5</span></span></code></pre></div>
 <p>最后将实际得到的模型简单直观地展示出来：</p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="model-basics.html#cb341-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim1, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
-<span id="cb341-2"><a href="model-basics.html#cb341-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;grey30&quot;</span>) <span class="sc">+</span></span>
-<span id="cb341-3"><a href="model-basics.html#cb341-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(</span>
-<span id="cb341-4"><a href="model-basics.html#cb341-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">intercept =</span> a1, <span class="at">slope =</span> a2, <span class="at">colour =</span> <span class="sc">-</span>dist), <span class="co"># 由 dist 反向上色，即越精确颜色越鲜亮</span></span>
-<span id="cb341-5"><a href="model-basics.html#cb341-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">filter</span>(models, <span class="fu">rank</span>(dist) <span class="sc">&lt;=</span> <span class="dv">10</span>) <span class="co"># 不是所有线条都需要显示，这里选择 dist 排名前 10</span></span>
-<span id="cb341-6"><a href="model-basics.html#cb341-6" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="model-basics.html#cb339-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim1, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
+<span id="cb339-2"><a href="model-basics.html#cb339-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;grey30&quot;</span>) <span class="sc">+</span></span>
+<span id="cb339-3"><a href="model-basics.html#cb339-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(</span>
+<span id="cb339-4"><a href="model-basics.html#cb339-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">intercept =</span> a1, <span class="at">slope =</span> a2, <span class="at">colour =</span> <span class="sc">-</span>dist), <span class="co"># 由 dist 反向上色，即越精确颜色越鲜亮</span></span>
+<span id="cb339-5"><a href="model-basics.html#cb339-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">filter</span>(models, <span class="fu">rank</span>(dist) <span class="sc">&lt;=</span> <span class="dv">10</span>) <span class="co"># 不是所有线条都需要显示，这里选择 dist 排名前 10</span></span>
+<span id="cb339-6"><a href="model-basics.html#cb339-6" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/geom_point()%20&%20geom_abline()%20with%20models-1.png" width="672" /></p>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="model-basics.html#cb342-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 将 a1 和 a2 用图表示出来（同样上色），这里选择 dist 排名前 10 来高亮显示（叠加）</span></span>
-<span id="cb342-2"><a href="model-basics.html#cb342-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(models, <span class="fu">aes</span>(a1, a2)) <span class="sc">+</span></span>
-<span id="cb342-3"><a href="model-basics.html#cb342-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
-<span id="cb342-4"><a href="model-basics.html#cb342-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">filter</span>(models, <span class="fu">rank</span>(dist) <span class="sc">&lt;=</span> <span class="dv">10</span>), <span class="co"># 先画高亮部分</span></span>
-<span id="cb342-5"><a href="model-basics.html#cb342-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">size =</span> <span class="dv">4</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span></span>
-<span id="cb342-6"><a href="model-basics.html#cb342-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb342-7"><a href="model-basics.html#cb342-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="sc">-</span>dist))</span></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="model-basics.html#cb340-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 将 a1 和 a2 用图表示出来（同样上色），这里选择 dist 排名前 10 来高亮显示（叠加）</span></span>
+<span id="cb340-2"><a href="model-basics.html#cb340-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(models, <span class="fu">aes</span>(a1, a2)) <span class="sc">+</span></span>
+<span id="cb340-3"><a href="model-basics.html#cb340-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
+<span id="cb340-4"><a href="model-basics.html#cb340-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">filter</span>(models, <span class="fu">rank</span>(dist) <span class="sc">&lt;=</span> <span class="dv">10</span>), <span class="co"># 先画高亮部分</span></span>
+<span id="cb340-5"><a href="model-basics.html#cb340-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">size =</span> <span class="dv">4</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span></span>
+<span id="cb340-6"><a href="model-basics.html#cb340-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb340-7"><a href="model-basics.html#cb340-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="sc">-</span>dist))</span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/geom_point()%20&%20geom_abline()%20with%20models-2.png" width="672" /></p>
 <p>事实上除了用 runif 创建随机模型外，我们还常常使用标准步长的规整矩阵数据模型来验算已知的回归模型：</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="model-basics.html#cb343-1" aria-hidden="true" tabindex="-1"></a>grid_models <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb343-2"><a href="model-basics.html#cb343-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># expand.grid 用于于快速创建数据集（data frame格式）</span></span>
-<span id="cb343-3"><a href="model-basics.html#cb343-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">a1 =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">20</span>, <span class="at">length =</span> <span class="dv">25</span>), <span class="co"># seq 用于快速生成序列，参数分别代表起始、结束和序列长</span></span>
-<span id="cb343-4"><a href="model-basics.html#cb343-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">a2 =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="at">length =</span> <span class="dv">25</span>)</span>
-<span id="cb343-5"><a href="model-basics.html#cb343-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb343-6"><a href="model-basics.html#cb343-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">dist =</span> purrr<span class="sc">::</span><span class="fu">map2_dbl</span>(a1, a2, sim1_dist))</span>
-<span id="cb343-7"><a href="model-basics.html#cb343-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb343-8"><a href="model-basics.html#cb343-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(grid_models, <span class="fu">aes</span>(a1, a2)) <span class="sc">+</span></span>
-<span id="cb343-9"><a href="model-basics.html#cb343-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
-<span id="cb343-10"><a href="model-basics.html#cb343-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">filter</span>(grid_models, <span class="fu">rank</span>(dist) <span class="sc">&lt;=</span> <span class="dv">10</span>),</span>
-<span id="cb343-11"><a href="model-basics.html#cb343-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">size =</span> <span class="dv">4</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span></span>
-<span id="cb343-12"><a href="model-basics.html#cb343-12" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb343-13"><a href="model-basics.html#cb343-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="sc">-</span>dist))</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="model-basics.html#cb341-1" aria-hidden="true" tabindex="-1"></a>grid_models <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb341-2"><a href="model-basics.html#cb341-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># expand.grid 用于于快速创建数据集（data frame格式）</span></span>
+<span id="cb341-3"><a href="model-basics.html#cb341-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">a1 =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">20</span>, <span class="at">length =</span> <span class="dv">25</span>), <span class="co"># seq 用于快速生成序列，参数分别代表起始、结束和序列长</span></span>
+<span id="cb341-4"><a href="model-basics.html#cb341-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">a2 =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="at">length =</span> <span class="dv">25</span>)</span>
+<span id="cb341-5"><a href="model-basics.html#cb341-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb341-6"><a href="model-basics.html#cb341-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">dist =</span> purrr<span class="sc">::</span><span class="fu">map2_dbl</span>(a1, a2, sim1_dist))</span>
+<span id="cb341-7"><a href="model-basics.html#cb341-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb341-8"><a href="model-basics.html#cb341-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(grid_models, <span class="fu">aes</span>(a1, a2)) <span class="sc">+</span></span>
+<span id="cb341-9"><a href="model-basics.html#cb341-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
+<span id="cb341-10"><a href="model-basics.html#cb341-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">filter</span>(grid_models, <span class="fu">rank</span>(dist) <span class="sc">&lt;=</span> <span class="dv">10</span>),</span>
+<span id="cb341-11"><a href="model-basics.html#cb341-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">size =</span> <span class="dv">4</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span></span>
+<span id="cb341-12"><a href="model-basics.html#cb341-12" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb341-13"><a href="model-basics.html#cb341-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="sc">-</span>dist))</span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/grid_models-1.png" width="672" /></p>
 <p>同样，我们把拟合出的回归模型放到原始数据集对照，事实告诉我们拟合的效果非常好：</p>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="model-basics.html#cb344-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim1, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
-<span id="cb344-2"><a href="model-basics.html#cb344-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;grey30&quot;</span>) <span class="sc">+</span></span>
-<span id="cb344-3"><a href="model-basics.html#cb344-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(</span>
-<span id="cb344-4"><a href="model-basics.html#cb344-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">intercept =</span> a1, <span class="at">slope =</span> a2, <span class="at">colour =</span> <span class="sc">-</span>dist),</span>
-<span id="cb344-5"><a href="model-basics.html#cb344-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">filter</span>(grid_models, <span class="fu">rank</span>(dist) <span class="sc">&lt;=</span> <span class="dv">10</span>)</span>
-<span id="cb344-6"><a href="model-basics.html#cb344-6" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="model-basics.html#cb342-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim1, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
+<span id="cb342-2"><a href="model-basics.html#cb342-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;grey30&quot;</span>) <span class="sc">+</span></span>
+<span id="cb342-3"><a href="model-basics.html#cb342-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(</span>
+<span id="cb342-4"><a href="model-basics.html#cb342-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">intercept =</span> a1, <span class="at">slope =</span> a2, <span class="at">colour =</span> <span class="sc">-</span>dist),</span>
+<span id="cb342-5"><a href="model-basics.html#cb342-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">filter</span>(grid_models, <span class="fu">rank</span>(dist) <span class="sc">&lt;=</span> <span class="dv">10</span>)</span>
+<span id="cb342-6"><a href="model-basics.html#cb342-6" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/geom_point()%20&%20geom_abline()%20with%20grid_models-1.png" width="672" /></p>
 <p>当然这对 a1、a2 数据是我们根据矩阵数据集拟合得到的。我们现在可以通过大致拟合度，继续细化数据。这样已知细化下去，我们终究得到拟合度极高的数据。</p>
 <p>所以我们提出了一个名为<strong>牛顿-拉夫森</strong>搜索的数字最小化工具。牛顿-拉夫森工具的思想很简单：你选择一个起点，环顾四周最陡峭的斜坡。然后，你沿着斜坡滑了一点，然后一遍又一遍地重复，直到你不能再低了。</p>
 <p>在 R 中，我们可以使用 optim() 做到这一点：</p>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="model-basics.html#cb345-1" aria-hidden="true" tabindex="-1"></a>best <span class="ot">&lt;-</span> <span class="fu">optim</span>(</span>
-<span id="cb345-2"><a href="model-basics.html#cb345-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">par =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="co"># 要优化的参数的初始值</span></span>
-<span id="cb345-3"><a href="model-basics.html#cb345-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">fn =</span> measure_distance, <span class="co"># 要最小化（或最大化）的函数，所以 par 参数是要进行最小化的参数向量。它应该返回标量结果</span></span>
-<span id="cb345-4"><a href="model-basics.html#cb345-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> sim1</span>
-<span id="cb345-5"><a href="model-basics.html#cb345-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="model-basics.html#cb343-1" aria-hidden="true" tabindex="-1"></a>best <span class="ot">&lt;-</span> <span class="fu">optim</span>(</span>
+<span id="cb343-2"><a href="model-basics.html#cb343-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">par =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="co"># 要优化的参数的初始值</span></span>
+<span id="cb343-3"><a href="model-basics.html#cb343-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">fn =</span> measure_distance, <span class="co"># 要最小化（或最大化）的函数，所以 par 参数是要进行最小化的参数向量。它应该返回标量结果</span></span>
+<span id="cb343-4"><a href="model-basics.html#cb343-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> sim1</span>
+<span id="cb343-5"><a href="model-basics.html#cb343-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>注意 optm() 将返回一个 list，其中 par 为找到的最佳参数向量，value 为参数向量对应的返回值：</p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="model-basics.html#cb346-1" aria-hidden="true" tabindex="-1"></a>best<span class="sc">$</span>par</span>
-<span id="cb346-2"><a href="model-basics.html#cb346-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 4.222248 2.051204</span></span></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="model-basics.html#cb344-1" aria-hidden="true" tabindex="-1"></a>best<span class="sc">$</span>par</span>
+<span id="cb344-2"><a href="model-basics.html#cb344-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 4.222248 2.051204</span></span></code></pre></div>
 <p>我们画图验证一下刚刚得到的 a1 和 a2。相应的，它的拟合程度也相当完美：</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="model-basics.html#cb347-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim1, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
-<span id="cb347-2"><a href="model-basics.html#cb347-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;grey30&quot;</span>) <span class="sc">+</span></span>
-<span id="cb347-3"><a href="model-basics.html#cb347-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">intercept =</span> best<span class="sc">$</span>par[<span class="dv">1</span>], <span class="at">slope =</span> best<span class="sc">$</span>par[<span class="dv">2</span>], <span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="model-basics.html#cb345-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim1, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
+<span id="cb345-2"><a href="model-basics.html#cb345-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;grey30&quot;</span>) <span class="sc">+</span></span>
+<span id="cb345-3"><a href="model-basics.html#cb345-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">intercept =</span> best<span class="sc">$</span>par[<span class="dv">1</span>], <span class="at">slope =</span> best<span class="sc">$</span>par[<span class="dv">2</span>], <span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/geom_point()%20&%20geom_abline()%20with%20best$par-1.png" width="672" /></p>
 <p>线性模型的一般形式为 y = a_1 + a_2 * x_1 + a_3 * x_2 + … + a_n * x_(n - 1)。在 R 里有一个专门为拟合线性模型而设计的工具 lm()。
 lm() 用一种特殊的方式来指定模型，即公式。公式例如 y ~ x，lm() 将自动转换为 y = a_1 + a_2 * x 这样的函数：</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="model-basics.html#cb348-1" aria-hidden="true" tabindex="-1"></a>sim1_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> sim1)</span>
-<span id="cb348-2"><a href="model-basics.html#cb348-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 结果与预期完全一致</span></span>
-<span id="cb348-3"><a href="model-basics.html#cb348-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(sim1_mod) <span class="co"># coef() 是一个通用函数，用于从建模函数返回的对象中提取模型系数</span></span>
-<span id="cb348-4"><a href="model-basics.html#cb348-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)           x </span></span>
-<span id="cb348-5"><a href="model-basics.html#cb348-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    4.220822    2.051533</span></span></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="model-basics.html#cb346-1" aria-hidden="true" tabindex="-1"></a>sim1_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> sim1)</span>
+<span id="cb346-2"><a href="model-basics.html#cb346-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 结果与预期完全一致</span></span>
+<span id="cb346-3"><a href="model-basics.html#cb346-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(sim1_mod) <span class="co"># coef() 是一个通用函数，用于从建模函数返回的对象中提取模型系数</span></span>
+<span id="cb346-4"><a href="model-basics.html#cb346-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)           x </span></span>
+<span id="cb346-5"><a href="model-basics.html#cb346-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    4.220822    2.051533</span></span></code></pre></div>
 </div>
 <div id="对-sim1-模型可视化观察分析" class="section level3 hasAnchor" number="16.1.2">
 <h3><span class="header-section-number">16.1.2</span> 对 sim1 模型可视化观察分析<a href="model-basics.html#对-sim1-模型可视化观察分析" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -521,77 +521,77 @@ lm() 用一种特殊的方式来指定模型，即公式。公式例如 y ~ x，
 <div id="分析预测数据" class="section level4 hasAnchor" number="16.1.2.1">
 <h4><span class="header-section-number">16.1.2.1</span> 分析预测数据<a href="model-basics.html#分析预测数据" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>为了模型的预测，我们先创建网格，其最简单的方法是使用 data_grid() 函数：</p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="model-basics.html#cb349-1" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> sim1 <span class="sc">%&gt;%</span> <span class="co"># 相当于对 sim1 定制对应的 x 数据集</span></span>
-<span id="cb349-2"><a href="model-basics.html#cb349-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(x)</span>
-<span id="cb349-3"><a href="model-basics.html#cb349-3" aria-hidden="true" tabindex="-1"></a>grid</span>
-<span id="cb349-4"><a href="model-basics.html#cb349-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 x 1</span></span>
-<span id="cb349-5"><a href="model-basics.html#cb349-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        x</span></span>
-<span id="cb349-6"><a href="model-basics.html#cb349-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt;</span></span>
-<span id="cb349-7"><a href="model-basics.html#cb349-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1     1</span></span>
-<span id="cb349-8"><a href="model-basics.html#cb349-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2     2</span></span>
-<span id="cb349-9"><a href="model-basics.html#cb349-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3     3</span></span>
-<span id="cb349-10"><a href="model-basics.html#cb349-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4     4</span></span>
-<span id="cb349-11"><a href="model-basics.html#cb349-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5     5</span></span>
-<span id="cb349-12"><a href="model-basics.html#cb349-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6     6</span></span>
-<span id="cb349-13"><a href="model-basics.html#cb349-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7     7</span></span>
-<span id="cb349-14"><a href="model-basics.html#cb349-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8     8</span></span>
-<span id="cb349-15"><a href="model-basics.html#cb349-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9     9</span></span>
-<span id="cb349-16"><a href="model-basics.html#cb349-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10    10</span></span></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="model-basics.html#cb347-1" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> sim1 <span class="sc">%&gt;%</span> <span class="co"># 相当于对 sim1 定制对应的 x 数据集</span></span>
+<span id="cb347-2"><a href="model-basics.html#cb347-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(x)</span>
+<span id="cb347-3"><a href="model-basics.html#cb347-3" aria-hidden="true" tabindex="-1"></a>grid</span>
+<span id="cb347-4"><a href="model-basics.html#cb347-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 1</span></span>
+<span id="cb347-5"><a href="model-basics.html#cb347-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        x</span></span>
+<span id="cb347-6"><a href="model-basics.html#cb347-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt;</span></span>
+<span id="cb347-7"><a href="model-basics.html#cb347-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1     1</span></span>
+<span id="cb347-8"><a href="model-basics.html#cb347-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2     2</span></span>
+<span id="cb347-9"><a href="model-basics.html#cb347-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3     3</span></span>
+<span id="cb347-10"><a href="model-basics.html#cb347-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4     4</span></span>
+<span id="cb347-11"><a href="model-basics.html#cb347-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5     5</span></span>
+<span id="cb347-12"><a href="model-basics.html#cb347-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6     6</span></span>
+<span id="cb347-13"><a href="model-basics.html#cb347-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7     7</span></span>
+<span id="cb347-14"><a href="model-basics.html#cb347-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8     8</span></span>
+<span id="cb347-15"><a href="model-basics.html#cb347-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9     9</span></span>
+<span id="cb347-16"><a href="model-basics.html#cb347-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10    10</span></span></code></pre></div>
 <p>接下来我们开始预测。请注意 sim1_mod 来自之前 lm() 函数生成的代码：</p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="model-basics.html#cb350-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sim1_mod &lt;- lm(y ~ x, data = sim1)</span></span>
-<span id="cb350-2"><a href="model-basics.html#cb350-2" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> grid <span class="sc">%&gt;%</span></span>
-<span id="cb350-3"><a href="model-basics.html#cb350-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_predictions</span>(sim1_mod)</span>
-<span id="cb350-4"><a href="model-basics.html#cb350-4" aria-hidden="true" tabindex="-1"></a>predictions</span>
-<span id="cb350-5"><a href="model-basics.html#cb350-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 x 2</span></span>
-<span id="cb350-6"><a href="model-basics.html#cb350-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        x  pred</span></span>
-<span id="cb350-7"><a href="model-basics.html#cb350-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;dbl&gt;</span></span>
-<span id="cb350-8"><a href="model-basics.html#cb350-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1     1  6.27</span></span>
-<span id="cb350-9"><a href="model-basics.html#cb350-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2     2  8.32</span></span>
-<span id="cb350-10"><a href="model-basics.html#cb350-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3     3 10.4 </span></span>
-<span id="cb350-11"><a href="model-basics.html#cb350-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4     4 12.4 </span></span>
-<span id="cb350-12"><a href="model-basics.html#cb350-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5     5 14.5 </span></span>
-<span id="cb350-13"><a href="model-basics.html#cb350-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6     6 16.5 </span></span>
-<span id="cb350-14"><a href="model-basics.html#cb350-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7     7 18.6 </span></span>
-<span id="cb350-15"><a href="model-basics.html#cb350-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8     8 20.6 </span></span>
-<span id="cb350-16"><a href="model-basics.html#cb350-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9     9 22.7 </span></span>
-<span id="cb350-17"><a href="model-basics.html#cb350-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10    10 24.7</span></span></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="model-basics.html#cb348-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sim1_mod &lt;- lm(y ~ x, data = sim1)</span></span>
+<span id="cb348-2"><a href="model-basics.html#cb348-2" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> grid <span class="sc">%&gt;%</span></span>
+<span id="cb348-3"><a href="model-basics.html#cb348-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_predictions</span>(sim1_mod)</span>
+<span id="cb348-4"><a href="model-basics.html#cb348-4" aria-hidden="true" tabindex="-1"></a>predictions</span>
+<span id="cb348-5"><a href="model-basics.html#cb348-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 2</span></span>
+<span id="cb348-6"><a href="model-basics.html#cb348-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        x  pred</span></span>
+<span id="cb348-7"><a href="model-basics.html#cb348-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;dbl&gt;</span></span>
+<span id="cb348-8"><a href="model-basics.html#cb348-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1     1  6.27</span></span>
+<span id="cb348-9"><a href="model-basics.html#cb348-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2     2  8.32</span></span>
+<span id="cb348-10"><a href="model-basics.html#cb348-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3     3 10.4 </span></span>
+<span id="cb348-11"><a href="model-basics.html#cb348-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4     4 12.4 </span></span>
+<span id="cb348-12"><a href="model-basics.html#cb348-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5     5 14.5 </span></span>
+<span id="cb348-13"><a href="model-basics.html#cb348-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6     6 16.5 </span></span>
+<span id="cb348-14"><a href="model-basics.html#cb348-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7     7 18.6 </span></span>
+<span id="cb348-15"><a href="model-basics.html#cb348-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8     8 20.6 </span></span>
+<span id="cb348-16"><a href="model-basics.html#cb348-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9     9 22.7 </span></span>
+<span id="cb348-17"><a href="model-basics.html#cb348-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10    10 24.7</span></span></code></pre></div>
 <p>最后绘制预测结果：</p>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="model-basics.html#cb351-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim1, <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
-<span id="cb351-2"><a href="model-basics.html#cb351-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb351-3"><a href="model-basics.html#cb351-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> pred), <span class="at">data =</span> predictions, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="model-basics.html#cb349-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim1, <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb349-2"><a href="model-basics.html#cb349-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb349-3"><a href="model-basics.html#cb349-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> pred), <span class="at">data =</span> predictions, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/geom_point()%20&%20geom_line()%20with%20predictions-1.png" width="672" /></p>
 </div>
 <div id="分析残差" class="section level4 hasAnchor" number="16.1.2.2">
 <h4><span class="header-section-number">16.1.2.2</span> 分析残差<a href="model-basics.html#分析残差" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>残差是我们的预测值与实际值之间的距离：</p>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="model-basics.html#cb352-1" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> sim1 <span class="sc">%&gt;%</span></span>
-<span id="cb352-2"><a href="model-basics.html#cb352-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 注意这里使用的参数是 sim1，因为我们需要原始数据集才能发现残差</span></span>
-<span id="cb352-3"><a href="model-basics.html#cb352-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_residuals</span>(sim1_mod) <span class="co"># 用法与 add_predictions() 非常相似</span></span>
-<span id="cb352-4"><a href="model-basics.html#cb352-4" aria-hidden="true" tabindex="-1"></a>residuals</span>
-<span id="cb352-5"><a href="model-basics.html#cb352-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 30 x 3</span></span>
-<span id="cb352-6"><a href="model-basics.html#cb352-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        x     y    resid</span></span>
-<span id="cb352-7"><a href="model-basics.html#cb352-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span id="cb352-8"><a href="model-basics.html#cb352-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1     1  4.20 -2.07   </span></span>
-<span id="cb352-9"><a href="model-basics.html#cb352-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2     1  7.51  1.24   </span></span>
-<span id="cb352-10"><a href="model-basics.html#cb352-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3     1  2.13 -4.15   </span></span>
-<span id="cb352-11"><a href="model-basics.html#cb352-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4     2  8.99  0.665  </span></span>
-<span id="cb352-12"><a href="model-basics.html#cb352-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5     2 10.2   1.92   </span></span>
-<span id="cb352-13"><a href="model-basics.html#cb352-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6     2 11.3   2.97   </span></span>
-<span id="cb352-14"><a href="model-basics.html#cb352-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7     3  7.36 -3.02   </span></span>
-<span id="cb352-15"><a href="model-basics.html#cb352-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8     3 10.5   0.130  </span></span>
-<span id="cb352-16"><a href="model-basics.html#cb352-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9     3 10.5   0.136  </span></span>
-<span id="cb352-17"><a href="model-basics.html#cb352-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10     4 12.4   0.00763</span></span>
-<span id="cb352-18"><a href="model-basics.html#cb352-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 20 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="model-basics.html#cb350-1" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> sim1 <span class="sc">%&gt;%</span></span>
+<span id="cb350-2"><a href="model-basics.html#cb350-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 注意这里使用的参数是 sim1，因为我们需要原始数据集才能发现残差</span></span>
+<span id="cb350-3"><a href="model-basics.html#cb350-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_residuals</span>(sim1_mod) <span class="co"># 用法与 add_predictions() 非常相似</span></span>
+<span id="cb350-4"><a href="model-basics.html#cb350-4" aria-hidden="true" tabindex="-1"></a>residuals</span>
+<span id="cb350-5"><a href="model-basics.html#cb350-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 30 × 3</span></span>
+<span id="cb350-6"><a href="model-basics.html#cb350-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        x     y    resid</span></span>
+<span id="cb350-7"><a href="model-basics.html#cb350-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb350-8"><a href="model-basics.html#cb350-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1     1  4.20 -2.07   </span></span>
+<span id="cb350-9"><a href="model-basics.html#cb350-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2     1  7.51  1.24   </span></span>
+<span id="cb350-10"><a href="model-basics.html#cb350-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3     1  2.13 -4.15   </span></span>
+<span id="cb350-11"><a href="model-basics.html#cb350-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4     2  8.99  0.665  </span></span>
+<span id="cb350-12"><a href="model-basics.html#cb350-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5     2 10.2   1.92   </span></span>
+<span id="cb350-13"><a href="model-basics.html#cb350-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6     2 11.3   2.97   </span></span>
+<span id="cb350-14"><a href="model-basics.html#cb350-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7     3  7.36 -3.02   </span></span>
+<span id="cb350-15"><a href="model-basics.html#cb350-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8     3 10.5   0.130  </span></span>
+<span id="cb350-16"><a href="model-basics.html#cb350-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9     3 10.5   0.136  </span></span>
+<span id="cb350-17"><a href="model-basics.html#cb350-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10     4 12.4   0.00763</span></span>
+<span id="cb350-18"><a href="model-basics.html#cb350-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 20 more rows</span></span></code></pre></div>
 <p>最后绘制残差关于 x 的图：</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="model-basics.html#cb353-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(residuals, <span class="fu">aes</span>(resid)) <span class="sc">+</span></span>
-<span id="cb353-2"><a href="model-basics.html#cb353-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># geom_freqpoly 即频率多边形，非常适合模糊化地绘制表现一个向量的数据的大小和出现次数</span></span>
-<span id="cb353-3"><a href="model-basics.html#cb353-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_freqpoly</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="model-basics.html#cb351-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(residuals, <span class="fu">aes</span>(resid)) <span class="sc">+</span></span>
+<span id="cb351-2"><a href="model-basics.html#cb351-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># geom_freqpoly 即频率多边形，非常适合模糊化地绘制表现一个向量的数据的大小和出现次数</span></span>
+<span id="cb351-3"><a href="model-basics.html#cb351-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_freqpoly</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/ggplot()%20with%20residuals-1.png" width="672" /></p>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="model-basics.html#cb354-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb354-2"><a href="model-basics.html#cb354-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 或者加入数据 x 来看到更多的数据。很容易发现它的分布非常完美：</span></span>
-<span id="cb354-3"><a href="model-basics.html#cb354-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(residuals, <span class="fu">aes</span>(x, resid)) <span class="sc">+</span></span>
-<span id="cb354-4"><a href="model-basics.html#cb354-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ref_line</span>(<span class="at">h =</span> <span class="dv">0</span>) <span class="sc">+</span> <span class="co"># 调整基线为 0 而不是最小</span></span>
-<span id="cb354-5"><a href="model-basics.html#cb354-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="sc">-</span><span class="fu">abs</span>(resid)))</span></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="model-basics.html#cb352-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb352-2"><a href="model-basics.html#cb352-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 或者加入数据 x 来看到更多的数据。很容易发现它的分布非常完美：</span></span>
+<span id="cb352-3"><a href="model-basics.html#cb352-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(residuals, <span class="fu">aes</span>(x, resid)) <span class="sc">+</span></span>
+<span id="cb352-4"><a href="model-basics.html#cb352-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ref_line</span>(<span class="at">h =</span> <span class="dv">0</span>) <span class="sc">+</span> <span class="co"># 调整基线为 0 而不是最小</span></span>
+<span id="cb352-5"><a href="model-basics.html#cb352-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="sc">-</span><span class="fu">abs</span>(resid)))</span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/ggplot()%20with%20residuals-2.png" width="672" /></p>
 </div>
 </div>
@@ -601,242 +601,242 @@ lm() 用一种特殊的方式来指定模型，即公式。公式例如 y ~ x，
 <div id="关于-model_matrix" class="section level3 hasAnchor" number="16.2.1">
 <h3><span class="header-section-number">16.2.1</span> 关于 model_matrix()<a href="model-basics.html#关于-model_matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>要想提取关键自定义变量的值，我们可以使用 model_matrix() 函数。如：</p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="model-basics.html#cb355-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb355-2"><a href="model-basics.html#cb355-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>y, <span class="sc">~</span>x1, <span class="sc">~</span>x2,</span>
-<span id="cb355-3"><a href="model-basics.html#cb355-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">5</span>,</span>
-<span id="cb355-4"><a href="model-basics.html#cb355-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">6</span></span>
-<span id="cb355-5"><a href="model-basics.html#cb355-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb355-6"><a href="model-basics.html#cb355-6" aria-hidden="true" tabindex="-1"></a><span class="fu">model_matrix</span>(df, y <span class="sc">~</span> x1)</span>
-<span id="cb355-7"><a href="model-basics.html#cb355-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 x 2</span></span>
-<span id="cb355-8"><a href="model-basics.html#cb355-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `(Intercept)`    x1</span></span>
-<span id="cb355-9"><a href="model-basics.html#cb355-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb355-10"><a href="model-basics.html#cb355-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1             1     2</span></span>
-<span id="cb355-11"><a href="model-basics.html#cb355-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2             1     1</span></span>
-<span id="cb355-12"><a href="model-basics.html#cb355-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb355-13"><a href="model-basics.html#cb355-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果添加其他变量：</span></span>
-<span id="cb355-14"><a href="model-basics.html#cb355-14" aria-hidden="true" tabindex="-1"></a><span class="fu">model_matrix</span>(df, y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
-<span id="cb355-15"><a href="model-basics.html#cb355-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 x 3</span></span>
-<span id="cb355-16"><a href="model-basics.html#cb355-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `(Intercept)`    x1    x2</span></span>
-<span id="cb355-17"><a href="model-basics.html#cb355-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb355-18"><a href="model-basics.html#cb355-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1             1     2     5</span></span>
-<span id="cb355-19"><a href="model-basics.html#cb355-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2             1     1     6</span></span>
-<span id="cb355-20"><a href="model-basics.html#cb355-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb355-21"><a href="model-basics.html#cb355-21" aria-hidden="true" tabindex="-1"></a><span class="co"># R 将截距添加到模型的方式是直接填充名为截距的列（当然这个列填充前的值是没有意义的）。</span></span>
-<span id="cb355-22"><a href="model-basics.html#cb355-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 默认添加。如果不需要，使用 “-1” 命令显式删除它：</span></span>
-<span id="cb355-23"><a href="model-basics.html#cb355-23" aria-hidden="true" tabindex="-1"></a><span class="fu">model_matrix</span>(df, y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb355-24"><a href="model-basics.html#cb355-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 x 2</span></span>
-<span id="cb355-25"><a href="model-basics.html#cb355-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      x1    x2</span></span>
-<span id="cb355-26"><a href="model-basics.html#cb355-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb355-27"><a href="model-basics.html#cb355-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     2     5</span></span>
-<span id="cb355-28"><a href="model-basics.html#cb355-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     1     6</span></span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="model-basics.html#cb353-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb353-2"><a href="model-basics.html#cb353-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>y, <span class="sc">~</span>x1, <span class="sc">~</span>x2,</span>
+<span id="cb353-3"><a href="model-basics.html#cb353-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">5</span>,</span>
+<span id="cb353-4"><a href="model-basics.html#cb353-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">6</span></span>
+<span id="cb353-5"><a href="model-basics.html#cb353-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb353-6"><a href="model-basics.html#cb353-6" aria-hidden="true" tabindex="-1"></a><span class="fu">model_matrix</span>(df, y <span class="sc">~</span> x1)</span>
+<span id="cb353-7"><a href="model-basics.html#cb353-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
+<span id="cb353-8"><a href="model-basics.html#cb353-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `(Intercept)`    x1</span></span>
+<span id="cb353-9"><a href="model-basics.html#cb353-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb353-10"><a href="model-basics.html#cb353-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1             1     2</span></span>
+<span id="cb353-11"><a href="model-basics.html#cb353-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2             1     1</span></span>
+<span id="cb353-12"><a href="model-basics.html#cb353-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb353-13"><a href="model-basics.html#cb353-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果添加其他变量：</span></span>
+<span id="cb353-14"><a href="model-basics.html#cb353-14" aria-hidden="true" tabindex="-1"></a><span class="fu">model_matrix</span>(df, y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
+<span id="cb353-15"><a href="model-basics.html#cb353-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span id="cb353-16"><a href="model-basics.html#cb353-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `(Intercept)`    x1    x2</span></span>
+<span id="cb353-17"><a href="model-basics.html#cb353-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb353-18"><a href="model-basics.html#cb353-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1             1     2     5</span></span>
+<span id="cb353-19"><a href="model-basics.html#cb353-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2             1     1     6</span></span>
+<span id="cb353-20"><a href="model-basics.html#cb353-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb353-21"><a href="model-basics.html#cb353-21" aria-hidden="true" tabindex="-1"></a><span class="co"># R 将截距添加到模型的方式是直接填充名为截距的列（当然这个列填充前的值是没有意义的）。</span></span>
+<span id="cb353-22"><a href="model-basics.html#cb353-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 默认添加。如果不需要，使用 “-1” 命令显式删除它：</span></span>
+<span id="cb353-23"><a href="model-basics.html#cb353-23" aria-hidden="true" tabindex="-1"></a><span class="fu">model_matrix</span>(df, y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb353-24"><a href="model-basics.html#cb353-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
+<span id="cb353-25"><a href="model-basics.html#cb353-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      x1    x2</span></span>
+<span id="cb353-26"><a href="model-basics.html#cb353-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb353-27"><a href="model-basics.html#cb353-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     2     5</span></span>
+<span id="cb353-28"><a href="model-basics.html#cb353-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     1     6</span></span></code></pre></div>
 <p>对于分类变量，尤其是分类为字符的：想象一下，你有一个 tibble 数据集，其中性别可以是男性或女性。将其转换为初始数据是没有意义的，因为不是数字 —— 你不能简单地计算它！</p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="model-basics.html#cb356-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb356-2"><a href="model-basics.html#cb356-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>sex, <span class="sc">~</span>response,</span>
-<span id="cb356-3"><a href="model-basics.html#cb356-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;male&quot;</span>, <span class="dv">1</span>,</span>
-<span id="cb356-4"><a href="model-basics.html#cb356-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;female&quot;</span>, <span class="dv">2</span>,</span>
-<span id="cb356-5"><a href="model-basics.html#cb356-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;male&quot;</span>, <span class="dv">1</span></span>
-<span id="cb356-6"><a href="model-basics.html#cb356-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb356-7"><a href="model-basics.html#cb356-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 可以看到函数会自动将自变量的名名为 “列” “某种值”，其数据用来表示该列数据是否是指定的 “某种值”：</span></span>
-<span id="cb356-8"><a href="model-basics.html#cb356-8" aria-hidden="true" tabindex="-1"></a><span class="fu">model_matrix</span>(df, response <span class="sc">~</span> sex)</span>
-<span id="cb356-9"><a href="model-basics.html#cb356-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
-<span id="cb356-10"><a href="model-basics.html#cb356-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `(Intercept)` sexmale</span></span>
-<span id="cb356-11"><a href="model-basics.html#cb356-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span id="cb356-12"><a href="model-basics.html#cb356-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1             1       1</span></span>
-<span id="cb356-13"><a href="model-basics.html#cb356-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2             1       0</span></span>
-<span id="cb356-14"><a href="model-basics.html#cb356-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3             1       1</span></span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="model-basics.html#cb354-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb354-2"><a href="model-basics.html#cb354-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>sex, <span class="sc">~</span>response,</span>
+<span id="cb354-3"><a href="model-basics.html#cb354-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;male&quot;</span>, <span class="dv">1</span>,</span>
+<span id="cb354-4"><a href="model-basics.html#cb354-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;female&quot;</span>, <span class="dv">2</span>,</span>
+<span id="cb354-5"><a href="model-basics.html#cb354-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;male&quot;</span>, <span class="dv">1</span></span>
+<span id="cb354-6"><a href="model-basics.html#cb354-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb354-7"><a href="model-basics.html#cb354-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 可以看到函数会自动将自变量的名名为 “列” “某种值”，其数据用来表示该列数据是否是指定的 “某种值”：</span></span>
+<span id="cb354-8"><a href="model-basics.html#cb354-8" aria-hidden="true" tabindex="-1"></a><span class="fu">model_matrix</span>(df, response <span class="sc">~</span> sex)</span>
+<span id="cb354-9"><a href="model-basics.html#cb354-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span id="cb354-10"><a href="model-basics.html#cb354-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `(Intercept)` sexmale</span></span>
+<span id="cb354-11"><a href="model-basics.html#cb354-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb354-12"><a href="model-basics.html#cb354-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1             1       1</span></span>
+<span id="cb354-13"><a href="model-basics.html#cb354-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2             1       0</span></span>
+<span id="cb354-14"><a href="model-basics.html#cb354-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3             1       1</span></span></code></pre></div>
 <p>对于 sim2，我们可以先使用 ggplot() 进行可视化观察：</p>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="model-basics.html#cb357-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim2) <span class="sc">+</span></span>
-<span id="cb357-2"><a href="model-basics.html#cb357-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(x, y))</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="model-basics.html#cb355-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim2) <span class="sc">+</span></span>
+<span id="cb355-2"><a href="model-basics.html#cb355-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(x, y))</span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/ggplot()%20with%20sim2-1.png" width="672" /></p>
 <p>同理我们可以对 sim2 数据集也这样将字符串转化为初始数据并预测：</p>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="model-basics.html#cb358-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> sim2) <span class="co"># 产生理想线性回归模型</span></span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="model-basics.html#cb356-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> sim2) <span class="co"># 产生理想线性回归模型</span></span></code></pre></div>
 <p>注意回归模型中每个 x 的分类对应一个 “斜率”。也就是说，一个 x 的 某值在模型上只会对应一个值，即平均值：</p>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="model-basics.html#cb359-1" aria-hidden="true" tabindex="-1"></a>grid2 <span class="ot">&lt;-</span> sim2 <span class="sc">%&gt;%</span></span>
-<span id="cb359-2"><a href="model-basics.html#cb359-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(x) <span class="sc">%&gt;%</span> <span class="co"># 产生初始数据</span></span>
-<span id="cb359-3"><a href="model-basics.html#cb359-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_predictions</span>(mod2) <span class="co"># 依据初始数据对模型进行预测</span></span>
-<span id="cb359-4"><a href="model-basics.html#cb359-4" aria-hidden="true" tabindex="-1"></a>grid2</span>
-<span id="cb359-5"><a href="model-basics.html#cb359-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 x 2</span></span>
-<span id="cb359-6"><a href="model-basics.html#cb359-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   x      pred</span></span>
-<span id="cb359-7"><a href="model-basics.html#cb359-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt;</span></span>
-<span id="cb359-8"><a href="model-basics.html#cb359-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 a      1.15</span></span>
-<span id="cb359-9"><a href="model-basics.html#cb359-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 b      8.12</span></span>
-<span id="cb359-10"><a href="model-basics.html#cb359-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 c      6.13</span></span>
-<span id="cb359-11"><a href="model-basics.html#cb359-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 d      1.91</span></span></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="model-basics.html#cb357-1" aria-hidden="true" tabindex="-1"></a>grid2 <span class="ot">&lt;-</span> sim2 <span class="sc">%&gt;%</span></span>
+<span id="cb357-2"><a href="model-basics.html#cb357-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(x) <span class="sc">%&gt;%</span> <span class="co"># 产生初始数据</span></span>
+<span id="cb357-3"><a href="model-basics.html#cb357-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_predictions</span>(mod2) <span class="co"># 依据初始数据对模型进行预测</span></span>
+<span id="cb357-4"><a href="model-basics.html#cb357-4" aria-hidden="true" tabindex="-1"></a>grid2</span>
+<span id="cb357-5"><a href="model-basics.html#cb357-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 × 2</span></span>
+<span id="cb357-6"><a href="model-basics.html#cb357-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   x      pred</span></span>
+<span id="cb357-7"><a href="model-basics.html#cb357-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt;</span></span>
+<span id="cb357-8"><a href="model-basics.html#cb357-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 a      1.15</span></span>
+<span id="cb357-9"><a href="model-basics.html#cb357-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 b      8.12</span></span>
+<span id="cb357-10"><a href="model-basics.html#cb357-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 c      6.13</span></span>
+<span id="cb357-11"><a href="model-basics.html#cb357-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 d      1.91</span></span></code></pre></div>
 <p>我们对理想模型与原始数据叠加进行可视化：</p>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="model-basics.html#cb360-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim2, <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
-<span id="cb360-2"><a href="model-basics.html#cb360-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb360-3"><a href="model-basics.html#cb360-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">data =</span> grid2, <span class="fu">aes</span>(<span class="at">y =</span> pred), <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="model-basics.html#cb358-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim2, <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb358-2"><a href="model-basics.html#cb358-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb358-3"><a href="model-basics.html#cb358-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">data =</span> grid2, <span class="fu">aes</span>(<span class="at">y =</span> pred), <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>)</span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/ggplot()%20with%20grid2-1.png" width="672" /></p>
 </div>
 </div>
 <div id="对-sim3分类变量模型研究" class="section level2 hasAnchor" number="16.3">
 <h2><span class="header-section-number">16.3</span> 对 sim3（分类变量）模型研究<a href="model-basics.html#对-sim3分类变量模型研究" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>sim3 同时包含 x1 的数值和 x2 的字母分类：</p>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="model-basics.html#cb361-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim3, <span class="fu">aes</span>(x1, y)) <span class="sc">+</span></span>
-<span id="cb361-2"><a href="model-basics.html#cb361-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> x2))</span></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="model-basics.html#cb359-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim3, <span class="fu">aes</span>(x1, y)) <span class="sc">+</span></span>
+<span id="cb359-2"><a href="model-basics.html#cb359-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> x2))</span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/sim3-1.png" width="672" /></p>
 <p>由于并不知道 x1 和 x2 同时影响了 y 的值，我们假设了两个模型：</p>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="model-basics.html#cb362-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> sim3)</span>
-<span id="cb362-2"><a href="model-basics.html#cb362-2" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">*</span> x2, <span class="at">data =</span> sim3)</span></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="model-basics.html#cb360-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> sim3)</span>
+<span id="cb360-2"><a href="model-basics.html#cb360-2" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">*</span> x2, <span class="at">data =</span> sim3)</span></code></pre></div>
 <p>使用 “+” 来阐述变量之间的关系时，模型将独立计算每个初始数据的效应。如 y ~ x1 + x2 被转换为 y = a_0 + a_1 * x1 + a_2 * x2。</p>
 <p>但使用 * 来阐述时，函数将结合两者的数据去初始化模型。如 y ~ x1 * x2 被转换为 y = a_0 + a_1 * x1 + a_2 * x2 + a_12 * x1 * x2。</p>
 <p>注意一旦使用 *，所有模型的参数都会包含在模型中。“实践出真知”，我们决定尝试同时使用两个模型计算出结果去拟合原始数据并观察：</p>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="model-basics.html#cb363-1" aria-hidden="true" tabindex="-1"></a>grid3 <span class="ot">&lt;-</span> sim3 <span class="sc">%&gt;%</span></span>
-<span id="cb363-2"><a href="model-basics.html#cb363-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(x1, x2) <span class="sc">%&gt;%</span> <span class="co"># 由于初始值有两个，这里就需要填入两个变量来产生初始数据</span></span>
-<span id="cb363-3"><a href="model-basics.html#cb363-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 同时从两个模型一起运算使用 gather_prediction()，相反的，我们也有 spread_prediction()</span></span>
-<span id="cb363-4"><a href="model-basics.html#cb363-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather_predictions</span>(mod1, mod2) <span class="co"># 会在生成的 tibble 中第一列声明使用的哪个模型得到的预期数据</span></span>
-<span id="cb363-5"><a href="model-basics.html#cb363-5" aria-hidden="true" tabindex="-1"></a>grid3</span>
-<span id="cb363-6"><a href="model-basics.html#cb363-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 80 x 4</span></span>
-<span id="cb363-7"><a href="model-basics.html#cb363-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    model    x1 x2     pred</span></span>
-<span id="cb363-8"><a href="model-basics.html#cb363-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;fct&gt; &lt;dbl&gt;</span></span>
-<span id="cb363-9"><a href="model-basics.html#cb363-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 mod1      1 a      1.67</span></span>
-<span id="cb363-10"><a href="model-basics.html#cb363-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 mod1      1 b      4.56</span></span>
-<span id="cb363-11"><a href="model-basics.html#cb363-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 mod1      1 c      6.48</span></span>
-<span id="cb363-12"><a href="model-basics.html#cb363-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 mod1      1 d      4.03</span></span>
-<span id="cb363-13"><a href="model-basics.html#cb363-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 mod1      2 a      1.48</span></span>
-<span id="cb363-14"><a href="model-basics.html#cb363-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 mod1      2 b      4.37</span></span>
-<span id="cb363-15"><a href="model-basics.html#cb363-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 mod1      2 c      6.28</span></span>
-<span id="cb363-16"><a href="model-basics.html#cb363-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 mod1      2 d      3.84</span></span>
-<span id="cb363-17"><a href="model-basics.html#cb363-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 mod1      3 a      1.28</span></span>
-<span id="cb363-18"><a href="model-basics.html#cb363-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 mod1      3 b      4.17</span></span>
-<span id="cb363-19"><a href="model-basics.html#cb363-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 70 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="model-basics.html#cb361-1" aria-hidden="true" tabindex="-1"></a>grid3 <span class="ot">&lt;-</span> sim3 <span class="sc">%&gt;%</span></span>
+<span id="cb361-2"><a href="model-basics.html#cb361-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(x1, x2) <span class="sc">%&gt;%</span> <span class="co"># 由于初始值有两个，这里就需要填入两个变量来产生初始数据</span></span>
+<span id="cb361-3"><a href="model-basics.html#cb361-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 同时从两个模型一起运算使用 gather_prediction()，相反的，我们也有 spread_prediction()</span></span>
+<span id="cb361-4"><a href="model-basics.html#cb361-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather_predictions</span>(mod1, mod2) <span class="co"># 会在生成的 tibble 中第一列声明使用的哪个模型得到的预期数据</span></span>
+<span id="cb361-5"><a href="model-basics.html#cb361-5" aria-hidden="true" tabindex="-1"></a>grid3</span>
+<span id="cb361-6"><a href="model-basics.html#cb361-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 80 × 4</span></span>
+<span id="cb361-7"><a href="model-basics.html#cb361-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    model    x1 x2     pred</span></span>
+<span id="cb361-8"><a href="model-basics.html#cb361-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;fct&gt; &lt;dbl&gt;</span></span>
+<span id="cb361-9"><a href="model-basics.html#cb361-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 mod1      1 a      1.67</span></span>
+<span id="cb361-10"><a href="model-basics.html#cb361-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 mod1      1 b      4.56</span></span>
+<span id="cb361-11"><a href="model-basics.html#cb361-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 mod1      1 c      6.48</span></span>
+<span id="cb361-12"><a href="model-basics.html#cb361-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 mod1      1 d      4.03</span></span>
+<span id="cb361-13"><a href="model-basics.html#cb361-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 mod1      2 a      1.48</span></span>
+<span id="cb361-14"><a href="model-basics.html#cb361-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 mod1      2 b      4.37</span></span>
+<span id="cb361-15"><a href="model-basics.html#cb361-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 mod1      2 c      6.28</span></span>
+<span id="cb361-16"><a href="model-basics.html#cb361-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 mod1      2 d      3.84</span></span>
+<span id="cb361-17"><a href="model-basics.html#cb361-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 mod1      3 a      1.28</span></span>
+<span id="cb361-18"><a href="model-basics.html#cb361-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 mod1      3 b      4.17</span></span>
+<span id="cb361-19"><a href="model-basics.html#cb361-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 70 more rows</span></span></code></pre></div>
 <p>最后我们将得到的数据画图分析：</p>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="model-basics.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim3, <span class="fu">aes</span>(x1, y, <span class="at">colour =</span> x2)) <span class="sc">+</span></span>
-<span id="cb364-2"><a href="model-basics.html#cb364-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb364-3"><a href="model-basics.html#cb364-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> grid3, <span class="fu">aes</span>(<span class="at">y =</span> pred)) <span class="sc">+</span></span>
-<span id="cb364-4"><a href="model-basics.html#cb364-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>model) <span class="co"># 切图分组</span></span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="model-basics.html#cb362-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim3, <span class="fu">aes</span>(x1, y, <span class="at">colour =</span> x2)) <span class="sc">+</span></span>
+<span id="cb362-2"><a href="model-basics.html#cb362-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb362-3"><a href="model-basics.html#cb362-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> grid3, <span class="fu">aes</span>(<span class="at">y =</span> pred)) <span class="sc">+</span></span>
+<span id="cb362-4"><a href="model-basics.html#cb362-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>model) <span class="co"># 切图分组</span></span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/ggplot()%20with%20grid3-1.png" width="672" /></p>
 <p>哪种模型更适合此数据？我们可以看看残差：</p>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="model-basics.html#cb365-1" aria-hidden="true" tabindex="-1"></a>sim3_resid <span class="ot">&lt;-</span> sim3 <span class="sc">%&gt;%</span></span>
-<span id="cb365-2"><a href="model-basics.html#cb365-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 多个模型获得残差与得到预期值样，也有 gather_residuals()</span></span>
-<span id="cb365-3"><a href="model-basics.html#cb365-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather_residuals</span>(mod1, mod2)</span>
-<span id="cb365-4"><a href="model-basics.html#cb365-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb365-5"><a href="model-basics.html#cb365-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim3_resid, <span class="fu">aes</span>(x1, resid, <span class="at">colour =</span> x2)) <span class="sc">+</span></span>
-<span id="cb365-6"><a href="model-basics.html#cb365-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb365-7"><a href="model-basics.html#cb365-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># geom_ref_line(h = 0) + # 调整基线为 0 而不是最小（效果不好已注释掉）</span></span>
-<span id="cb365-8"><a href="model-basics.html#cb365-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 这里我们按照模型和 x2 的值切图，因为它可以更容易地看到每个组中的情况</span></span>
-<span id="cb365-9"><a href="model-basics.html#cb365-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(model <span class="sc">~</span> x2)</span></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="model-basics.html#cb363-1" aria-hidden="true" tabindex="-1"></a>sim3_resid <span class="ot">&lt;-</span> sim3 <span class="sc">%&gt;%</span></span>
+<span id="cb363-2"><a href="model-basics.html#cb363-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 多个模型获得残差与得到预期值样，也有 gather_residuals()</span></span>
+<span id="cb363-3"><a href="model-basics.html#cb363-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather_residuals</span>(mod1, mod2)</span>
+<span id="cb363-4"><a href="model-basics.html#cb363-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb363-5"><a href="model-basics.html#cb363-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim3_resid, <span class="fu">aes</span>(x1, resid, <span class="at">colour =</span> x2)) <span class="sc">+</span></span>
+<span id="cb363-6"><a href="model-basics.html#cb363-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb363-7"><a href="model-basics.html#cb363-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># geom_ref_line(h = 0) + # 调整基线为 0 而不是最小（效果不好已注释掉）</span></span>
+<span id="cb363-8"><a href="model-basics.html#cb363-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 这里我们按照模型和 x2 的值切图，因为它可以更容易地看到每个组中的情况</span></span>
+<span id="cb363-9"><a href="model-basics.html#cb363-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(model <span class="sc">~</span> x2)</span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/sim3_resid-1.png" width="672" /></p>
 <p>可以看到，mod2 的拟合度更好，残差更接近 0。</p>
 </div>
 <div id="对-sim4连续且相互作用模型研究" class="section level2 hasAnchor" number="16.4">
 <h2><span class="header-section-number">16.4</span> 对 sim4（连续且相互作用）模型研究<a href="model-basics.html#对-sim4连续且相互作用模型研究" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>按照之前的方法，我们建立两个模型：</p>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="model-basics.html#cb366-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> sim4)</span>
-<span id="cb366-2"><a href="model-basics.html#cb366-2" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">*</span> x2, <span class="at">data =</span> sim4)</span>
-<span id="cb366-3"><a href="model-basics.html#cb366-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb366-4"><a href="model-basics.html#cb366-4" aria-hidden="true" tabindex="-1"></a>grid4 <span class="ot">&lt;-</span> sim4 <span class="sc">%&gt;%</span></span>
-<span id="cb366-5"><a href="model-basics.html#cb366-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(</span>
-<span id="cb366-6"><a href="model-basics.html#cb366-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 以 x1 / x2 的最大和最小为界限，生成包含五个数据的等差数列</span></span>
-<span id="cb366-7"><a href="model-basics.html#cb366-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">x1 =</span> <span class="fu">seq_range</span>(x1, <span class="dv">5</span>),</span>
-<span id="cb366-8"><a href="model-basics.html#cb366-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">x2 =</span> <span class="fu">seq_range</span>(x2, <span class="dv">5</span>)</span>
-<span id="cb366-9"><a href="model-basics.html#cb366-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
-<span id="cb366-10"><a href="model-basics.html#cb366-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather_predictions</span>(mod1, mod2) <span class="sc">%&gt;%</span> <span class="co"># 对两个模型求取预期结果并合并</span></span>
-<span id="cb366-11"><a href="model-basics.html#cb366-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>()</span>
-<span id="cb366-12"><a href="model-basics.html#cb366-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 50 x 4</span></span>
-<span id="cb366-13"><a href="model-basics.html#cb366-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    model    x1    x2   pred</span></span>
-<span id="cb366-14"><a href="model-basics.html#cb366-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></span>
-<span id="cb366-15"><a href="model-basics.html#cb366-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 mod1   -1    -1    0.996</span></span>
-<span id="cb366-16"><a href="model-basics.html#cb366-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 mod1   -1    -0.5 -0.395</span></span>
-<span id="cb366-17"><a href="model-basics.html#cb366-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 mod1   -1     0   -1.79 </span></span>
-<span id="cb366-18"><a href="model-basics.html#cb366-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 mod1   -1     0.5 -3.18 </span></span>
-<span id="cb366-19"><a href="model-basics.html#cb366-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 mod1   -1     1   -4.57 </span></span>
-<span id="cb366-20"><a href="model-basics.html#cb366-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 mod1   -0.5  -1    1.91 </span></span>
-<span id="cb366-21"><a href="model-basics.html#cb366-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 mod1   -0.5  -0.5  0.516</span></span>
-<span id="cb366-22"><a href="model-basics.html#cb366-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 mod1   -0.5   0   -0.875</span></span>
-<span id="cb366-23"><a href="model-basics.html#cb366-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 mod1   -0.5   0.5 -2.27 </span></span>
-<span id="cb366-24"><a href="model-basics.html#cb366-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 mod1   -0.5   1   -3.66 </span></span>
-<span id="cb366-25"><a href="model-basics.html#cb366-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 40 more rows</span></span>
-<span id="cb366-26"><a href="model-basics.html#cb366-26" aria-hidden="true" tabindex="-1"></a>grid4</span>
-<span id="cb366-27"><a href="model-basics.html#cb366-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 50 x 4</span></span>
-<span id="cb366-28"><a href="model-basics.html#cb366-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    model    x1    x2   pred</span></span>
-<span id="cb366-29"><a href="model-basics.html#cb366-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></span>
-<span id="cb366-30"><a href="model-basics.html#cb366-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 mod1   -1    -1    0.996</span></span>
-<span id="cb366-31"><a href="model-basics.html#cb366-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 mod1   -1    -0.5 -0.395</span></span>
-<span id="cb366-32"><a href="model-basics.html#cb366-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 mod1   -1     0   -1.79 </span></span>
-<span id="cb366-33"><a href="model-basics.html#cb366-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 mod1   -1     0.5 -3.18 </span></span>
-<span id="cb366-34"><a href="model-basics.html#cb366-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 mod1   -1     1   -4.57 </span></span>
-<span id="cb366-35"><a href="model-basics.html#cb366-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 mod1   -0.5  -1    1.91 </span></span>
-<span id="cb366-36"><a href="model-basics.html#cb366-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 mod1   -0.5  -0.5  0.516</span></span>
-<span id="cb366-37"><a href="model-basics.html#cb366-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 mod1   -0.5   0   -0.875</span></span>
-<span id="cb366-38"><a href="model-basics.html#cb366-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 mod1   -0.5   0.5 -2.27 </span></span>
-<span id="cb366-39"><a href="model-basics.html#cb366-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 mod1   -0.5   1   -3.66 </span></span>
-<span id="cb366-40"><a href="model-basics.html#cb366-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 40 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="model-basics.html#cb364-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> sim4)</span>
+<span id="cb364-2"><a href="model-basics.html#cb364-2" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">*</span> x2, <span class="at">data =</span> sim4)</span>
+<span id="cb364-3"><a href="model-basics.html#cb364-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb364-4"><a href="model-basics.html#cb364-4" aria-hidden="true" tabindex="-1"></a>grid4 <span class="ot">&lt;-</span> sim4 <span class="sc">%&gt;%</span></span>
+<span id="cb364-5"><a href="model-basics.html#cb364-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(</span>
+<span id="cb364-6"><a href="model-basics.html#cb364-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 以 x1 / x2 的最大和最小为界限，生成包含五个数据的等差数列</span></span>
+<span id="cb364-7"><a href="model-basics.html#cb364-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">x1 =</span> <span class="fu">seq_range</span>(x1, <span class="dv">5</span>),</span>
+<span id="cb364-8"><a href="model-basics.html#cb364-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">x2 =</span> <span class="fu">seq_range</span>(x2, <span class="dv">5</span>)</span>
+<span id="cb364-9"><a href="model-basics.html#cb364-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb364-10"><a href="model-basics.html#cb364-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather_predictions</span>(mod1, mod2) <span class="sc">%&gt;%</span> <span class="co"># 对两个模型求取预期结果并合并</span></span>
+<span id="cb364-11"><a href="model-basics.html#cb364-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>()</span>
+<span id="cb364-12"><a href="model-basics.html#cb364-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 50 × 4</span></span>
+<span id="cb364-13"><a href="model-basics.html#cb364-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    model    x1    x2   pred</span></span>
+<span id="cb364-14"><a href="model-basics.html#cb364-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span id="cb364-15"><a href="model-basics.html#cb364-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 mod1   -1    -1    0.996</span></span>
+<span id="cb364-16"><a href="model-basics.html#cb364-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 mod1   -1    -0.5 -0.395</span></span>
+<span id="cb364-17"><a href="model-basics.html#cb364-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 mod1   -1     0   -1.79 </span></span>
+<span id="cb364-18"><a href="model-basics.html#cb364-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 mod1   -1     0.5 -3.18 </span></span>
+<span id="cb364-19"><a href="model-basics.html#cb364-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 mod1   -1     1   -4.57 </span></span>
+<span id="cb364-20"><a href="model-basics.html#cb364-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 mod1   -0.5  -1    1.91 </span></span>
+<span id="cb364-21"><a href="model-basics.html#cb364-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 mod1   -0.5  -0.5  0.516</span></span>
+<span id="cb364-22"><a href="model-basics.html#cb364-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 mod1   -0.5   0   -0.875</span></span>
+<span id="cb364-23"><a href="model-basics.html#cb364-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 mod1   -0.5   0.5 -2.27 </span></span>
+<span id="cb364-24"><a href="model-basics.html#cb364-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 mod1   -0.5   1   -3.66 </span></span>
+<span id="cb364-25"><a href="model-basics.html#cb364-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 40 more rows</span></span>
+<span id="cb364-26"><a href="model-basics.html#cb364-26" aria-hidden="true" tabindex="-1"></a>grid4</span>
+<span id="cb364-27"><a href="model-basics.html#cb364-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 50 × 4</span></span>
+<span id="cb364-28"><a href="model-basics.html#cb364-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    model    x1    x2   pred</span></span>
+<span id="cb364-29"><a href="model-basics.html#cb364-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span id="cb364-30"><a href="model-basics.html#cb364-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 mod1   -1    -1    0.996</span></span>
+<span id="cb364-31"><a href="model-basics.html#cb364-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 mod1   -1    -0.5 -0.395</span></span>
+<span id="cb364-32"><a href="model-basics.html#cb364-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 mod1   -1     0   -1.79 </span></span>
+<span id="cb364-33"><a href="model-basics.html#cb364-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 mod1   -1     0.5 -3.18 </span></span>
+<span id="cb364-34"><a href="model-basics.html#cb364-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 mod1   -1     1   -4.57 </span></span>
+<span id="cb364-35"><a href="model-basics.html#cb364-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 mod1   -0.5  -1    1.91 </span></span>
+<span id="cb364-36"><a href="model-basics.html#cb364-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 mod1   -0.5  -0.5  0.516</span></span>
+<span id="cb364-37"><a href="model-basics.html#cb364-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 mod1   -0.5   0   -0.875</span></span>
+<span id="cb364-38"><a href="model-basics.html#cb364-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 mod1   -0.5   0.5 -2.27 </span></span>
+<span id="cb364-39"><a href="model-basics.html#cb364-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 mod1   -0.5   1   -3.66 </span></span>
+<span id="cb364-40"><a href="model-basics.html#cb364-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 40 more rows</span></span></code></pre></div>
 <div id="关于-seq_range" class="section level3 hasAnchor" number="16.4.1">
 <h3><span class="header-section-number">16.4.1</span> 关于 seq_range()<a href="model-basics.html#关于-seq_range" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>实际使用上，就像 group_by 与 summarize 一样，seq_range 常常绑定 data_grid 使用：</p>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="model-basics.html#cb367-1" aria-hidden="true" tabindex="-1"></a><span class="co"># seq_range 真的可以很轻易地生成等差数列：</span></span>
-<span id="cb367-2"><a href="model-basics.html#cb367-2" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(<span class="fu">c</span>(<span class="fl">0.0123</span>, <span class="fl">0.923423</span>), <span class="at">n =</span> <span class="dv">5</span>)</span>
-<span id="cb367-3"><a href="model-basics.html#cb367-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.0123000 0.2400808 0.4678615 0.6956423 0.9234230</span></span>
-<span id="cb367-4"><a href="model-basics.html#cb367-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb367-5"><a href="model-basics.html#cb367-5" aria-hidden="true" tabindex="-1"></a><span class="co"># pretty 参数还可以让数据更简化</span></span>
-<span id="cb367-6"><a href="model-basics.html#cb367-6" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(<span class="fu">c</span>(<span class="fl">0.0123</span>, <span class="fl">0.923423</span>), <span class="at">n =</span> <span class="dv">5</span>, <span class="at">pretty =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb367-7"><a href="model-basics.html#cb367-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.0 0.2 0.4 0.6 0.8 1.0</span></span>
-<span id="cb367-8"><a href="model-basics.html#cb367-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb367-9"><a href="model-basics.html#cb367-9" aria-hidden="true" tabindex="-1"></a><span class="co"># trim 参数用于收缩范围，使得生成的序列更接近中值</span></span>
-<span id="cb367-10"><a href="model-basics.html#cb367-10" aria-hidden="true" tabindex="-1"></a>(x1 <span class="ot">&lt;-</span> <span class="fu">rcauchy</span>(<span class="dv">100</span>)) <span class="co"># 生成具有柯西分布特性的随机数</span></span>
-<span id="cb367-11"><a href="model-basics.html#cb367-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [1]   0.37849942   0.44266379   2.89324358  -2.08088618  -1.44943673</span></span>
-<span id="cb367-12"><a href="model-basics.html#cb367-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [6]  -2.20141768   0.48763563   0.06053673  -0.34547167   1.54967746</span></span>
-<span id="cb367-13"><a href="model-basics.html#cb367-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [11]   2.45417964  -0.71862985   2.25166882  -2.69033734   2.94280108</span></span>
-<span id="cb367-14"><a href="model-basics.html#cb367-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [16]   0.88206715   0.25533147   0.03745532  -3.20565520  -9.95730730</span></span>
-<span id="cb367-15"><a href="model-basics.html#cb367-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [21]   5.70401148  -5.49230726  -0.50719679  -0.23293966  -1.75248642</span></span>
-<span id="cb367-16"><a href="model-basics.html#cb367-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [26]  -1.00071082   0.56652327  -2.73793151  -1.10175267  -0.41912018</span></span>
-<span id="cb367-17"><a href="model-basics.html#cb367-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [31]  -0.60861620   0.16150921   0.56124941  -0.45867224  -0.50199098</span></span>
-<span id="cb367-18"><a href="model-basics.html#cb367-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [36]   0.78504379  -0.28653760  -5.89963242   1.42517432   0.87680483</span></span>
-<span id="cb367-19"><a href="model-basics.html#cb367-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [41]  -6.13491754  -0.87173195  -0.79237609  -4.52253340  -1.12752137</span></span>
-<span id="cb367-20"><a href="model-basics.html#cb367-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [46]   1.72887631   0.37556421   0.88723916   0.84529964  -0.67040600</span></span>
-<span id="cb367-21"><a href="model-basics.html#cb367-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [51]   1.05186586   0.21892046  -4.87354144  -1.15681483  -2.52782621</span></span>
-<span id="cb367-22"><a href="model-basics.html#cb367-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [56]  -0.17524861  -9.62257620  -0.19936256  -0.08427578   3.07717174</span></span>
-<span id="cb367-23"><a href="model-basics.html#cb367-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [61]   0.29474209  -0.84902151   2.21325963   2.19264451  -1.10397565</span></span>
-<span id="cb367-24"><a href="model-basics.html#cb367-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [66]   3.00974117  -0.19666272   0.06534479   1.21010247  -0.13372261</span></span>
-<span id="cb367-25"><a href="model-basics.html#cb367-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [71]  -7.19093894   1.44554118  -3.16343580  -2.80559708   3.09999463</span></span>
-<span id="cb367-26"><a href="model-basics.html#cb367-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [76]   8.81890667   0.62587022   0.39642420  -6.11981282  -0.64621301</span></span>
-<span id="cb367-27"><a href="model-basics.html#cb367-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [81]   0.63983803  -3.44654906  -2.71916960 -15.06460538  -1.47298365</span></span>
-<span id="cb367-28"><a href="model-basics.html#cb367-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [86]   1.33027976   0.24647460   0.65864952  -0.63953793  -2.99020675</span></span>
-<span id="cb367-29"><a href="model-basics.html#cb367-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [91]  -0.07367945   3.32352778   1.25266609   0.08086302  51.21369976</span></span>
-<span id="cb367-30"><a href="model-basics.html#cb367-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [96]   2.86715011  -2.07605331  -0.82565346  -2.40441591   3.54189345</span></span>
-<span id="cb367-31"><a href="model-basics.html#cb367-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb367-32"><a href="model-basics.html#cb367-32" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x1, <span class="at">n =</span> <span class="dv">5</span>)</span>
-<span id="cb367-33"><a href="model-basics.html#cb367-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -15.064605   1.504971  18.074547  34.644123  51.213700</span></span>
-<span id="cb367-34"><a href="model-basics.html#cb367-34" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x1, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">trim =</span> <span class="fl">0.10</span>) <span class="co"># 收缩指定范围头尾 10%</span></span>
-<span id="cb367-35"><a href="model-basics.html#cb367-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -6.1205681 -3.8126332 -1.5046984  0.8032364  3.1111713</span></span>
-<span id="cb367-36"><a href="model-basics.html#cb367-36" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x1, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">trim =</span> <span class="fl">0.25</span>) <span class="co"># 收缩指定范围头尾 25%</span></span>
-<span id="cb367-37"><a href="model-basics.html#cb367-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -3.0984749 -1.7645398 -0.4306048  0.9033303  2.2372654</span></span>
-<span id="cb367-38"><a href="model-basics.html#cb367-38" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x1, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">trim =</span> <span class="fl">0.50</span>) <span class="co"># 收缩指定范围头尾 50%</span></span>
-<span id="cb367-39"><a href="model-basics.html#cb367-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -1.4553235 -0.8719625 -0.2886015  0.2947594  0.8781204</span></span>
-<span id="cb367-40"><a href="model-basics.html#cb367-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb367-41"><a href="model-basics.html#cb367-41" aria-hidden="true" tabindex="-1"></a><span class="co"># 与之相反，expand 参数会扩增范围</span></span>
-<span id="cb367-42"><a href="model-basics.html#cb367-42" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb367-43"><a href="model-basics.html#cb367-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb367-44"><a href="model-basics.html#cb367-44" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x2, <span class="at">n =</span> <span class="dv">5</span>)</span>
-<span id="cb367-45"><a href="model-basics.html#cb367-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.00 0.25 0.50 0.75 1.00</span></span>
-<span id="cb367-46"><a href="model-basics.html#cb367-46" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x2, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">expand =</span> <span class="fl">0.10</span>)</span>
-<span id="cb367-47"><a href="model-basics.html#cb367-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.050  0.225  0.500  0.775  1.050</span></span>
-<span id="cb367-48"><a href="model-basics.html#cb367-48" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x2, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">expand =</span> <span class="fl">0.25</span>)</span>
-<span id="cb367-49"><a href="model-basics.html#cb367-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.1250  0.1875  0.5000  0.8125  1.1250</span></span>
-<span id="cb367-50"><a href="model-basics.html#cb367-50" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x2, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">expand =</span> <span class="fl">0.50</span>)</span>
-<span id="cb367-51"><a href="model-basics.html#cb367-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.250  0.125  0.500  0.875  1.250</span></span></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="model-basics.html#cb365-1" aria-hidden="true" tabindex="-1"></a><span class="co"># seq_range 真的可以很轻易地生成等差数列：</span></span>
+<span id="cb365-2"><a href="model-basics.html#cb365-2" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(<span class="fu">c</span>(<span class="fl">0.0123</span>, <span class="fl">0.923423</span>), <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb365-3"><a href="model-basics.html#cb365-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.0123000 0.2400808 0.4678615 0.6956423 0.9234230</span></span>
+<span id="cb365-4"><a href="model-basics.html#cb365-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb365-5"><a href="model-basics.html#cb365-5" aria-hidden="true" tabindex="-1"></a><span class="co"># pretty 参数还可以让数据更简化</span></span>
+<span id="cb365-6"><a href="model-basics.html#cb365-6" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(<span class="fu">c</span>(<span class="fl">0.0123</span>, <span class="fl">0.923423</span>), <span class="at">n =</span> <span class="dv">5</span>, <span class="at">pretty =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb365-7"><a href="model-basics.html#cb365-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.0 0.2 0.4 0.6 0.8 1.0</span></span>
+<span id="cb365-8"><a href="model-basics.html#cb365-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb365-9"><a href="model-basics.html#cb365-9" aria-hidden="true" tabindex="-1"></a><span class="co"># trim 参数用于收缩范围，使得生成的序列更接近中值</span></span>
+<span id="cb365-10"><a href="model-basics.html#cb365-10" aria-hidden="true" tabindex="-1"></a>(x1 <span class="ot">&lt;-</span> <span class="fu">rcauchy</span>(<span class="dv">100</span>)) <span class="co"># 生成具有柯西分布特性的随机数</span></span>
+<span id="cb365-11"><a href="model-basics.html#cb365-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [1] -5.099843e-01  1.113578e+00  3.275384e-01  1.564033e+00 -1.072544e+01</span></span>
+<span id="cb365-12"><a href="model-basics.html#cb365-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [6]  4.542824e+00  4.742423e-01  4.856862e+00 -1.236241e+00 -2.216633e+01</span></span>
+<span id="cb365-13"><a href="model-basics.html#cb365-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [11] -2.104005e-01 -2.197435e+01  1.765321e+00  2.800218e+00  5.891158e-01</span></span>
+<span id="cb365-14"><a href="model-basics.html#cb365-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [16] -4.299692e-01  1.408675e+01 -5.107478e-01 -7.978088e-01  2.593799e+00</span></span>
+<span id="cb365-15"><a href="model-basics.html#cb365-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [21]  1.334079e-01 -1.056251e+00 -6.441935e+00 -5.082423e-01 -2.205713e-02</span></span>
+<span id="cb365-16"><a href="model-basics.html#cb365-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [26]  6.690527e-01 -2.693514e-01 -1.200897e+00  1.361308e+01  1.299604e+00</span></span>
+<span id="cb365-17"><a href="model-basics.html#cb365-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [31]  5.103289e+00  1.562080e+00 -6.406472e-01  1.828069e-01  6.475396e-01</span></span>
+<span id="cb365-18"><a href="model-basics.html#cb365-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [36]  6.141611e-01 -2.277991e+00  1.164407e+01  7.472561e+00  2.113135e-01</span></span>
+<span id="cb365-19"><a href="model-basics.html#cb365-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [41]  3.654750e-01 -5.226763e-01  2.772247e+00  1.302960e+00  8.642287e-01</span></span>
+<span id="cb365-20"><a href="model-basics.html#cb365-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [46] -1.027205e+00  8.605012e-01 -5.710619e+00 -5.168013e-01 -6.153606e+02</span></span>
+<span id="cb365-21"><a href="model-basics.html#cb365-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [51]  2.833372e+00  1.596720e+00 -7.344652e-01 -9.206676e-03  2.857119e-01</span></span>
+<span id="cb365-22"><a href="model-basics.html#cb365-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [56] -3.309689e-01 -9.299961e+00  6.676285e-01  1.159862e+00 -2.545276e-01</span></span>
+<span id="cb365-23"><a href="model-basics.html#cb365-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [61] -1.364749e+00  8.802963e+00 -5.510191e-01 -5.889290e+00  6.034754e-01</span></span>
+<span id="cb365-24"><a href="model-basics.html#cb365-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [66]  1.031316e+00 -9.142037e-01  4.865604e-01 -2.193467e+00 -1.457804e+00</span></span>
+<span id="cb365-25"><a href="model-basics.html#cb365-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [71] -1.046786e+00 -1.214404e-01  7.906613e-02 -3.536750e-01  2.317742e+00</span></span>
+<span id="cb365-26"><a href="model-basics.html#cb365-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [76] -1.729086e-01 -1.071579e+00 -6.484889e+00 -1.609986e-01 -2.706689e+01</span></span>
+<span id="cb365-27"><a href="model-basics.html#cb365-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [81] -5.496736e+00 -2.129272e+00  8.467661e-01  7.187200e+00 -1.261395e+01</span></span>
+<span id="cb365-28"><a href="model-basics.html#cb365-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [86]  2.509250e-01 -3.808524e-01 -9.095990e-03 -6.068128e-03 -3.023423e+00</span></span>
+<span id="cb365-29"><a href="model-basics.html#cb365-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [91] -2.700409e-01 -4.442910e+00 -1.156807e+00  1.553502e+00 -5.961938e-01</span></span>
+<span id="cb365-30"><a href="model-basics.html#cb365-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [96]  8.969452e-01 -1.528263e+00 -2.055891e-01  3.609918e-01 -2.020474e+00</span></span>
+<span id="cb365-31"><a href="model-basics.html#cb365-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb365-32"><a href="model-basics.html#cb365-32" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x1, <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb365-33"><a href="model-basics.html#cb365-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -615.36057 -457.99874 -300.63691 -143.27508   14.08675</span></span>
+<span id="cb365-34"><a href="model-basics.html#cb365-34" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x1, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">trim =</span> <span class="fl">0.10</span>) <span class="co"># 收缩指定范围头尾 10%</span></span>
+<span id="cb365-35"><a href="model-basics.html#cb365-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -10.819869  -6.314534  -1.809200   2.696134   7.201468</span></span>
+<span id="cb365-36"><a href="model-basics.html#cb365-36" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x1, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">trim =</span> <span class="fl">0.25</span>) <span class="co"># 收缩指定范围头尾 25%</span></span>
+<span id="cb365-37"><a href="model-basics.html#cb365-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -3.9106025 -2.3103825 -0.7101625  0.8900575  2.4902776</span></span>
+<span id="cb365-38"><a href="model-basics.html#cb365-38" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x1, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">trim =</span> <span class="fl">0.50</span>) <span class="co"># 收缩指定范围头尾 50%</span></span>
+<span id="cb365-39"><a href="model-basics.html#cb365-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -1.06008304 -0.57696032 -0.09383759  0.38928513  0.87240786</span></span>
+<span id="cb365-40"><a href="model-basics.html#cb365-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb365-41"><a href="model-basics.html#cb365-41" aria-hidden="true" tabindex="-1"></a><span class="co"># 与之相反，expand 参数会扩增范围</span></span>
+<span id="cb365-42"><a href="model-basics.html#cb365-42" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb365-43"><a href="model-basics.html#cb365-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb365-44"><a href="model-basics.html#cb365-44" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x2, <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb365-45"><a href="model-basics.html#cb365-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.00 0.25 0.50 0.75 1.00</span></span>
+<span id="cb365-46"><a href="model-basics.html#cb365-46" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x2, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">expand =</span> <span class="fl">0.10</span>)</span>
+<span id="cb365-47"><a href="model-basics.html#cb365-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.050  0.225  0.500  0.775  1.050</span></span>
+<span id="cb365-48"><a href="model-basics.html#cb365-48" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x2, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">expand =</span> <span class="fl">0.25</span>)</span>
+<span id="cb365-49"><a href="model-basics.html#cb365-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.1250  0.1875  0.5000  0.8125  1.1250</span></span>
+<span id="cb365-50"><a href="model-basics.html#cb365-50" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x2, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">expand =</span> <span class="fl">0.50</span>)</span>
+<span id="cb365-51"><a href="model-basics.html#cb365-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.250  0.125  0.500  0.875  1.250</span></span></code></pre></div>
 </div>
 <div id="对-sim4-模型可视化绘图" class="section level3 hasAnchor" number="16.4.2">
 <h3><span class="header-section-number">16.4.2</span> 对 sim4 模型可视化绘图<a href="model-basics.html#对-sim4-模型可视化绘图" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>和之前一样，我们对 sim4 的两个模型进行可视化绘图。</p>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="model-basics.html#cb368-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(grid4, <span class="fu">aes</span>(x1, x2)) <span class="sc">+</span></span>
-<span id="cb368-2"><a href="model-basics.html#cb368-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> pred)) <span class="sc">+</span> <span class="co"># 这种砖块图非常便于观察拟合度</span></span>
-<span id="cb368-3"><a href="model-basics.html#cb368-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>model)</span></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="model-basics.html#cb366-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(grid4, <span class="fu">aes</span>(x1, x2)) <span class="sc">+</span></span>
+<span id="cb366-2"><a href="model-basics.html#cb366-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> pred)) <span class="sc">+</span> <span class="co"># 这种砖块图非常便于观察拟合度</span></span>
+<span id="cb366-3"><a href="model-basics.html#cb366-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>model)</span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/ggplot()%20with%20model-1.png" width="672" /></p>
 <p>x1 与 x2 似乎存在某种明显的关系！我们尝试继续深入观察：</p>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="model-basics.html#cb369-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb369-2"><a href="model-basics.html#cb369-2" aria-hidden="true" tabindex="-1"></a>p[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(grid4, <span class="fu">aes</span>(x1, pred, <span class="at">colour =</span> x2, <span class="at">group =</span> x2)) <span class="sc">+</span></span>
-<span id="cb369-3"><a href="model-basics.html#cb369-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb369-4"><a href="model-basics.html#cb369-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>model)</span>
-<span id="cb369-5"><a href="model-basics.html#cb369-5" aria-hidden="true" tabindex="-1"></a>p[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(grid4, <span class="fu">aes</span>(x2, pred, <span class="at">colour =</span> x1, <span class="at">group =</span> x1)) <span class="sc">+</span></span>
-<span id="cb369-6"><a href="model-basics.html#cb369-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb369-7"><a href="model-basics.html#cb369-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>model)</span>
-<span id="cb369-8"><a href="model-basics.html#cb369-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
-<span id="cb369-9"><a href="model-basics.html#cb369-9" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.newpage</span>() <span class="co"># 新建布局包</span></span>
-<span id="cb369-10"><a href="model-basics.html#cb369-10" aria-hidden="true" tabindex="-1"></a><span class="fu">pushViewport</span>(<span class="fu">viewport</span>(<span class="at">layout =</span> <span class="fu">grid.layout</span>(<span class="dv">2</span>, <span class="dv">1</span>))) <span class="co"># 设置 2x1 布局</span></span>
-<span id="cb369-11"><a href="model-basics.html#cb369-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p[[<span class="dv">1</span>]], <span class="at">vp =</span> <span class="fu">viewport</span>(<span class="at">layout.pos.row =</span> <span class="dv">1</span>, <span class="at">layout.pos.col =</span> <span class="dv">1</span>))</span>
-<span id="cb369-12"><a href="model-basics.html#cb369-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p[[<span class="dv">2</span>]], <span class="at">vp =</span> <span class="fu">viewport</span>(<span class="at">layout.pos.row =</span> <span class="dv">2</span>, <span class="at">layout.pos.col =</span> <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="model-basics.html#cb367-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb367-2"><a href="model-basics.html#cb367-2" aria-hidden="true" tabindex="-1"></a>p[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(grid4, <span class="fu">aes</span>(x1, pred, <span class="at">colour =</span> x2, <span class="at">group =</span> x2)) <span class="sc">+</span></span>
+<span id="cb367-3"><a href="model-basics.html#cb367-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb367-4"><a href="model-basics.html#cb367-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>model)</span>
+<span id="cb367-5"><a href="model-basics.html#cb367-5" aria-hidden="true" tabindex="-1"></a>p[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(grid4, <span class="fu">aes</span>(x2, pred, <span class="at">colour =</span> x1, <span class="at">group =</span> x1)) <span class="sc">+</span></span>
+<span id="cb367-6"><a href="model-basics.html#cb367-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb367-7"><a href="model-basics.html#cb367-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>model)</span>
+<span id="cb367-8"><a href="model-basics.html#cb367-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
+<span id="cb367-9"><a href="model-basics.html#cb367-9" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.newpage</span>() <span class="co"># 新建布局包</span></span>
+<span id="cb367-10"><a href="model-basics.html#cb367-10" aria-hidden="true" tabindex="-1"></a><span class="fu">pushViewport</span>(<span class="fu">viewport</span>(<span class="at">layout =</span> <span class="fu">grid.layout</span>(<span class="dv">2</span>, <span class="dv">1</span>))) <span class="co"># 设置 2x1 布局</span></span>
+<span id="cb367-11"><a href="model-basics.html#cb367-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p[[<span class="dv">1</span>]], <span class="at">vp =</span> <span class="fu">viewport</span>(<span class="at">layout.pos.row =</span> <span class="dv">1</span>, <span class="at">layout.pos.col =</span> <span class="dv">1</span>))</span>
+<span id="cb367-12"><a href="model-basics.html#cb367-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p[[<span class="dv">2</span>]], <span class="at">vp =</span> <span class="fu">viewport</span>(<span class="at">layout.pos.row =</span> <span class="dv">2</span>, <span class="at">layout.pos.col =</span> <span class="dv">1</span>))</span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/group%20with%20x1%20&%20x2-1.png" width="672" /></p>
 <p>可以看到有明显的相互作用关系！为了预测 y，我们需要同时考虑 x1 和 x2 的值。</p>
 </div>
@@ -844,116 +844,116 @@ lm() 用一种特殊的方式来指定模型，即公式。公式例如 y ~ x，
 <div id="对-sim5模型转换模型研究" class="section level2 hasAnchor" number="16.5">
 <h2><span class="header-section-number">16.5</span> 对 sim5（模型转换）模型研究<a href="model-basics.html#对-sim5模型转换模型研究" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>因为包不自带 sim5，这里我们只能自己建（恼</p>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="model-basics.html#cb370-1" aria-hidden="true" tabindex="-1"></a>sim5 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb370-2"><a href="model-basics.html#cb370-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fl">3.5</span> <span class="sc">*</span> pi, <span class="at">length =</span> <span class="dv">50</span>),</span>
-<span id="cb370-3"><a href="model-basics.html#cb370-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="dv">4</span> <span class="sc">*</span> <span class="fu">sin</span>(x) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x)) <span class="co"># 随机生成与 x 向量长度相同的向量并加上 4 倍 sin(x)</span></span>
-<span id="cb370-4"><a href="model-basics.html#cb370-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb370-5"><a href="model-basics.html#cb370-5" aria-hidden="true" tabindex="-1"></a>sim5</span>
-<span id="cb370-6"><a href="model-basics.html#cb370-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 50 x 2</span></span>
-<span id="cb370-7"><a href="model-basics.html#cb370-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        x     y</span></span>
-<span id="cb370-8"><a href="model-basics.html#cb370-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb370-9"><a href="model-basics.html#cb370-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 0      1.32</span></span>
-<span id="cb370-10"><a href="model-basics.html#cb370-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 0.224 -1.20</span></span>
-<span id="cb370-11"><a href="model-basics.html#cb370-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 0.449  2.21</span></span>
-<span id="cb370-12"><a href="model-basics.html#cb370-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 0.673  3.65</span></span>
-<span id="cb370-13"><a href="model-basics.html#cb370-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 0.898  4.23</span></span>
-<span id="cb370-14"><a href="model-basics.html#cb370-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 1.12   1.44</span></span>
-<span id="cb370-15"><a href="model-basics.html#cb370-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 1.35   2.44</span></span>
-<span id="cb370-16"><a href="model-basics.html#cb370-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 1.57   4.30</span></span>
-<span id="cb370-17"><a href="model-basics.html#cb370-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 1.80   2.16</span></span>
-<span id="cb370-18"><a href="model-basics.html#cb370-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2.02   3.22</span></span>
-<span id="cb370-19"><a href="model-basics.html#cb370-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 40 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="model-basics.html#cb368-1" aria-hidden="true" tabindex="-1"></a>sim5 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb368-2"><a href="model-basics.html#cb368-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fl">3.5</span> <span class="sc">*</span> pi, <span class="at">length =</span> <span class="dv">50</span>),</span>
+<span id="cb368-3"><a href="model-basics.html#cb368-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="dv">4</span> <span class="sc">*</span> <span class="fu">sin</span>(x) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x)) <span class="co"># 随机生成与 x 向量长度相同的向量并加上 4 倍 sin(x)</span></span>
+<span id="cb368-4"><a href="model-basics.html#cb368-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb368-5"><a href="model-basics.html#cb368-5" aria-hidden="true" tabindex="-1"></a>sim5</span>
+<span id="cb368-6"><a href="model-basics.html#cb368-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 50 × 2</span></span>
+<span id="cb368-7"><a href="model-basics.html#cb368-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        x        y</span></span>
+<span id="cb368-8"><a href="model-basics.html#cb368-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb368-9"><a href="model-basics.html#cb368-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 0     -0.851  </span></span>
+<span id="cb368-10"><a href="model-basics.html#cb368-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 0.224  2.57   </span></span>
+<span id="cb368-11"><a href="model-basics.html#cb368-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 0.449 -0.00264</span></span>
+<span id="cb368-12"><a href="model-basics.html#cb368-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 0.673  2.15   </span></span>
+<span id="cb368-13"><a href="model-basics.html#cb368-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 0.898  1.82   </span></span>
+<span id="cb368-14"><a href="model-basics.html#cb368-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 1.12   4.98   </span></span>
+<span id="cb368-15"><a href="model-basics.html#cb368-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 1.35   2.43   </span></span>
+<span id="cb368-16"><a href="model-basics.html#cb368-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 1.57   4.77   </span></span>
+<span id="cb368-17"><a href="model-basics.html#cb368-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 1.80   3.00   </span></span>
+<span id="cb368-18"><a href="model-basics.html#cb368-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2.02   5.02   </span></span>
+<span id="cb368-19"><a href="model-basics.html#cb368-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 40 more rows</span></span></code></pre></div>
 <div id="关于-i-和-model_matrix续" class="section level3 hasAnchor" number="16.5.1">
 <h3><span class="header-section-number">16.5.1</span> 关于 I() 和 model_matrix()（续）<a href="model-basics.html#关于-i-和-model_matrix续" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>我们还可以在模型公式内随意转换。例如，<code>log(y) ~ sqrt(x1) + x2</code> 将转换为 <code>log(y) = a_1 + a_2 * sqrt(x1) + a_3 * x2</code>。</p>
 <p>如果转换涉及 <code>+</code>、<code>*</code>、<code>^</code> 或 <code>-</code>，则我们需要将其包装在 <code>I()</code> 函数中，这样 R 就不会将其视为模型规范的一部分。例如，y ~ x + I(x ^ 2) 翻译为 <code>y = a_1 + a_2 * x + a_3 * x^2</code>。如果上述情况忘记了 <code>I()</code> 指定成 <code>y ~ x ^ 2 + x</code>，R 将视为 <code>y ~ x * x + x</code>。</p>
 <p><code>x * x</code> 表示 x 与自身的相互作用，这与 x 效果相同。R 会自动删除冗余变量，会直接转换成 <code>y = a_1 + a_2 * x</code>。这很糟糕，毕竟这并不是你想要的效果。所以一定要注意避免！</p>
 <p>而对于自己创立的模型，我们可以使用 model_matrix() 来准确查看拟合的方程：</p>
-<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="model-basics.html#cb371-1" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb371-2"><a href="model-basics.html#cb371-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>y, <span class="sc">~</span>x,</span>
-<span id="cb371-3"><a href="model-basics.html#cb371-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">1</span>,</span>
-<span id="cb371-4"><a href="model-basics.html#cb371-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>, <span class="dv">2</span>,</span>
-<span id="cb371-5"><a href="model-basics.html#cb371-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span>, <span class="dv">3</span></span>
-<span id="cb371-6"><a href="model-basics.html#cb371-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb371-7"><a href="model-basics.html#cb371-7" aria-hidden="true" tabindex="-1"></a><span class="fu">model_matrix</span>(tb, y <span class="sc">~</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> x)</span>
-<span id="cb371-8"><a href="model-basics.html#cb371-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
-<span id="cb371-9"><a href="model-basics.html#cb371-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `(Intercept)`     x</span></span>
-<span id="cb371-10"><a href="model-basics.html#cb371-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb371-11"><a href="model-basics.html#cb371-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1             1     1</span></span>
-<span id="cb371-12"><a href="model-basics.html#cb371-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2             1     2</span></span>
-<span id="cb371-13"><a href="model-basics.html#cb371-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3             1     3</span></span>
-<span id="cb371-14"><a href="model-basics.html#cb371-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb371-15"><a href="model-basics.html#cb371-15" aria-hidden="true" tabindex="-1"></a><span class="fu">model_matrix</span>(tb, y <span class="sc">~</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> x)</span>
-<span id="cb371-16"><a href="model-basics.html#cb371-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 x 3</span></span>
-<span id="cb371-17"><a href="model-basics.html#cb371-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `(Intercept)` `I(x^2)`     x</span></span>
-<span id="cb371-18"><a href="model-basics.html#cb371-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb371-19"><a href="model-basics.html#cb371-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1             1        1     1</span></span>
-<span id="cb371-20"><a href="model-basics.html#cb371-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2             1        4     2</span></span>
-<span id="cb371-21"><a href="model-basics.html#cb371-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3             1        9     3</span></span></code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="model-basics.html#cb369-1" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb369-2"><a href="model-basics.html#cb369-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>y, <span class="sc">~</span>x,</span>
+<span id="cb369-3"><a href="model-basics.html#cb369-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">1</span>,</span>
+<span id="cb369-4"><a href="model-basics.html#cb369-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>, <span class="dv">2</span>,</span>
+<span id="cb369-5"><a href="model-basics.html#cb369-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span>, <span class="dv">3</span></span>
+<span id="cb369-6"><a href="model-basics.html#cb369-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb369-7"><a href="model-basics.html#cb369-7" aria-hidden="true" tabindex="-1"></a><span class="fu">model_matrix</span>(tb, y <span class="sc">~</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> x)</span>
+<span id="cb369-8"><a href="model-basics.html#cb369-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span id="cb369-9"><a href="model-basics.html#cb369-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `(Intercept)`     x</span></span>
+<span id="cb369-10"><a href="model-basics.html#cb369-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb369-11"><a href="model-basics.html#cb369-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1             1     1</span></span>
+<span id="cb369-12"><a href="model-basics.html#cb369-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2             1     2</span></span>
+<span id="cb369-13"><a href="model-basics.html#cb369-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3             1     3</span></span>
+<span id="cb369-14"><a href="model-basics.html#cb369-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb369-15"><a href="model-basics.html#cb369-15" aria-hidden="true" tabindex="-1"></a><span class="fu">model_matrix</span>(tb, y <span class="sc">~</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> x)</span>
+<span id="cb369-16"><a href="model-basics.html#cb369-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 3</span></span>
+<span id="cb369-17"><a href="model-basics.html#cb369-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `(Intercept)` `I(x^2)`     x</span></span>
+<span id="cb369-18"><a href="model-basics.html#cb369-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb369-19"><a href="model-basics.html#cb369-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1             1        1     1</span></span>
+<span id="cb369-20"><a href="model-basics.html#cb369-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2             1        4     2</span></span>
+<span id="cb369-21"><a href="model-basics.html#cb369-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3             1        9     3</span></span></code></pre></div>
 </div>
 <div id="关于-poly" class="section level3 hasAnchor" number="16.5.2">
 <h3><span class="header-section-number">16.5.2</span> 关于 poly()<a href="model-basics.html#关于-poly" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>转换模型非常有用，因为我们可以使用它们来近似非线性函数。微积分课上我们学过泰勒定理，它告诉我们可以用无限的多项式和来近似任何平滑曲线函数。
 这意味着我们也可以使用多项式函数通过拟合。</p>
 <p>手动键入该序列很繁琐复杂，而 R 提供了一个函数：<code>poly()</code></p>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="model-basics.html#cb372-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model_matrix</span>(tb, y <span class="sc">~</span> <span class="fu">poly</span>(x, <span class="dv">2</span>)) <span class="co"># 注意这个 “2” 是 degree 参数，表示多项式的最高次数</span></span>
-<span id="cb372-2"><a href="model-basics.html#cb372-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 x 3</span></span>
-<span id="cb372-3"><a href="model-basics.html#cb372-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `(Intercept)` `poly(x, 2)1` `poly(x, 2)2`</span></span>
-<span id="cb372-4"><a href="model-basics.html#cb372-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;</span></span>
-<span id="cb372-5"><a href="model-basics.html#cb372-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1             1     -7.07e- 1         0.408</span></span>
-<span id="cb372-6"><a href="model-basics.html#cb372-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2             1     -7.85e-17        -0.816</span></span>
-<span id="cb372-7"><a href="model-basics.html#cb372-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3             1      7.07e- 1         0.408</span></span></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="model-basics.html#cb370-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model_matrix</span>(tb, y <span class="sc">~</span> <span class="fu">poly</span>(x, <span class="dv">2</span>)) <span class="co"># 注意这个 “2” 是 degree 参数，表示多项式的最高次数</span></span>
+<span id="cb370-2"><a href="model-basics.html#cb370-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 3</span></span>
+<span id="cb370-3"><a href="model-basics.html#cb370-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `(Intercept)` `poly(x, 2)1` `poly(x, 2)2`</span></span>
+<span id="cb370-4"><a href="model-basics.html#cb370-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;</span></span>
+<span id="cb370-5"><a href="model-basics.html#cb370-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1             1     -7.07e- 1         0.408</span></span>
+<span id="cb370-6"><a href="model-basics.html#cb370-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2             1     -7.85e-17        -0.816</span></span>
+<span id="cb370-7"><a href="model-basics.html#cb370-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3             1      7.07e- 1         0.408</span></span></code></pre></div>
 </div>
 <div id="关于-ns" class="section level3 hasAnchor" number="16.5.3">
 <h3><span class="header-section-number">16.5.3</span> 关于 ns()<a href="model-basics.html#关于-ns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>注意 poly 生成的多项式函数同泰勒函数一样，出现了一个相对棘手的问题：在数据范围之外，多项式总是迅速接近无穷大。</p>
 <p>所以我们剔除了另一种更安全的替代方案，即样条回归：<code>splines::ns()</code></p>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="model-basics.html#cb373-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(splines)</span>
-<span id="cb373-2"><a href="model-basics.html#cb373-2" aria-hidden="true" tabindex="-1"></a><span class="fu">model_matrix</span>(tb, y <span class="sc">~</span> <span class="fu">ns</span>(x, <span class="dv">2</span>))</span>
-<span id="cb373-3"><a href="model-basics.html#cb373-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 x 3</span></span>
-<span id="cb373-4"><a href="model-basics.html#cb373-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `(Intercept)` `ns(x, 2)1` `ns(x, 2)2`</span></span>
-<span id="cb373-5"><a href="model-basics.html#cb373-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span></span>
-<span id="cb373-6"><a href="model-basics.html#cb373-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1             1       0           0    </span></span>
-<span id="cb373-7"><a href="model-basics.html#cb373-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2             1       0.566      -0.211</span></span>
-<span id="cb373-8"><a href="model-basics.html#cb373-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3             1       0.344       0.771</span></span></code></pre></div>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="model-basics.html#cb371-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(splines)</span>
+<span id="cb371-2"><a href="model-basics.html#cb371-2" aria-hidden="true" tabindex="-1"></a><span class="fu">model_matrix</span>(tb, y <span class="sc">~</span> <span class="fu">ns</span>(x, <span class="dv">2</span>))</span>
+<span id="cb371-3"><a href="model-basics.html#cb371-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 3</span></span>
+<span id="cb371-4"><a href="model-basics.html#cb371-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `(Intercept)` `ns(x, 2)1` `ns(x, 2)2`</span></span>
+<span id="cb371-5"><a href="model-basics.html#cb371-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span></span>
+<span id="cb371-6"><a href="model-basics.html#cb371-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1             1       0           0    </span></span>
+<span id="cb371-7"><a href="model-basics.html#cb371-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2             1       0.566      -0.211</span></span>
+<span id="cb371-8"><a href="model-basics.html#cb371-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3             1       0.344       0.771</span></span></code></pre></div>
 <p>尝试可视化！我们建立了不同次数的 5 个模型：</p>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="model-basics.html#cb374-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">ns</span>(x, <span class="dv">1</span>), <span class="at">data =</span> sim5)</span>
-<span id="cb374-2"><a href="model-basics.html#cb374-2" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">ns</span>(x, <span class="dv">2</span>), <span class="at">data =</span> sim5)</span>
-<span id="cb374-3"><a href="model-basics.html#cb374-3" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">ns</span>(x, <span class="dv">3</span>), <span class="at">data =</span> sim5)</span>
-<span id="cb374-4"><a href="model-basics.html#cb374-4" aria-hidden="true" tabindex="-1"></a>mod4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">ns</span>(x, <span class="dv">4</span>), <span class="at">data =</span> sim5)</span>
-<span id="cb374-5"><a href="model-basics.html#cb374-5" aria-hidden="true" tabindex="-1"></a>mod5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">ns</span>(x, <span class="dv">5</span>), <span class="at">data =</span> sim5)</span>
-<span id="cb374-6"><a href="model-basics.html#cb374-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb374-7"><a href="model-basics.html#cb374-7" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> sim5 <span class="sc">%&gt;%</span></span>
-<span id="cb374-8"><a href="model-basics.html#cb374-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(<span class="at">x =</span> <span class="fu">seq_range</span>(x, <span class="at">n =</span> <span class="dv">50</span>, <span class="at">expand =</span> <span class="fl">0.1</span>)) <span class="sc">%&gt;%</span> <span class="co"># 向外扩张 10% 生成矩阵</span></span>
-<span id="cb374-9"><a href="model-basics.html#cb374-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># .pred 参数用来修改生成期望值列的列名</span></span>
-<span id="cb374-10"><a href="model-basics.html#cb374-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather_predictions</span>(mod1, mod2, mod3, mod4, mod5, <span class="at">.pred =</span> <span class="st">&quot;y&quot;</span>)</span>
-<span id="cb374-11"><a href="model-basics.html#cb374-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb374-12"><a href="model-basics.html#cb374-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim5, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
-<span id="cb374-13"><a href="model-basics.html#cb374-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb374-14"><a href="model-basics.html#cb374-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> grid, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb374-15"><a href="model-basics.html#cb374-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>model) <span class="co"># 以 model 分组</span></span></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="model-basics.html#cb372-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">ns</span>(x, <span class="dv">1</span>), <span class="at">data =</span> sim5)</span>
+<span id="cb372-2"><a href="model-basics.html#cb372-2" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">ns</span>(x, <span class="dv">2</span>), <span class="at">data =</span> sim5)</span>
+<span id="cb372-3"><a href="model-basics.html#cb372-3" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">ns</span>(x, <span class="dv">3</span>), <span class="at">data =</span> sim5)</span>
+<span id="cb372-4"><a href="model-basics.html#cb372-4" aria-hidden="true" tabindex="-1"></a>mod4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">ns</span>(x, <span class="dv">4</span>), <span class="at">data =</span> sim5)</span>
+<span id="cb372-5"><a href="model-basics.html#cb372-5" aria-hidden="true" tabindex="-1"></a>mod5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">ns</span>(x, <span class="dv">5</span>), <span class="at">data =</span> sim5)</span>
+<span id="cb372-6"><a href="model-basics.html#cb372-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb372-7"><a href="model-basics.html#cb372-7" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> sim5 <span class="sc">%&gt;%</span></span>
+<span id="cb372-8"><a href="model-basics.html#cb372-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(<span class="at">x =</span> <span class="fu">seq_range</span>(x, <span class="at">n =</span> <span class="dv">50</span>, <span class="at">expand =</span> <span class="fl">0.1</span>)) <span class="sc">%&gt;%</span> <span class="co"># 向外扩张 10% 生成矩阵</span></span>
+<span id="cb372-9"><a href="model-basics.html#cb372-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># .pred 参数用来修改生成期望值列的列名</span></span>
+<span id="cb372-10"><a href="model-basics.html#cb372-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather_predictions</span>(mod1, mod2, mod3, mod4, mod5, <span class="at">.pred =</span> <span class="st">&quot;y&quot;</span>)</span>
+<span id="cb372-11"><a href="model-basics.html#cb372-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb372-12"><a href="model-basics.html#cb372-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim5, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
+<span id="cb372-13"><a href="model-basics.html#cb372-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb372-14"><a href="model-basics.html#cb372-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> grid, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb372-15"><a href="model-basics.html#cb372-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>model) <span class="co"># 以 model 分组</span></span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/modn-1.png" width="672" /></p>
 <p>就像我们在数学中学习的泰勒公式一样，项的次数越高，其拟合性往往越好。mod5 的拟合度就明显大于其他模型。</p>
 </div>
 <div id="na-值缺少值问题" class="section level3 hasAnchor" number="16.5.4">
 <h3><span class="header-section-number">16.5.4</span> NA 值（缺少值）问题<a href="model-basics.html#na-值缺少值问题" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>如果你的数据你还有 NA 值的话，R 当然会提示你错误！</p>
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="model-basics.html#cb375-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb375-2"><a href="model-basics.html#cb375-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>x, <span class="sc">~</span>y,</span>
-<span id="cb375-3"><a href="model-basics.html#cb375-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="fl">2.2</span>,</span>
-<span id="cb375-4"><a href="model-basics.html#cb375-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>, <span class="cn">NA</span>,</span>
-<span id="cb375-5"><a href="model-basics.html#cb375-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span>, <span class="fl">3.5</span>,</span>
-<span id="cb375-6"><a href="model-basics.html#cb375-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">4</span>, <span class="fl">8.3</span>,</span>
-<span id="cb375-7"><a href="model-basics.html#cb375-7" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="dv">10</span></span>
-<span id="cb375-8"><a href="model-basics.html#cb375-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb375-9"><a href="model-basics.html#cb375-9" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- lm(y ~ x, data = df)</span></span>
-<span id="cb375-10"><a href="model-basics.html#cb375-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: Dropping 2 rows with missing values</span></span>
-<span id="cb375-11"><a href="model-basics.html#cb375-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb375-12"><a href="model-basics.html#cb375-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 加上 “na.action = na.exclude” 表示不包含 NA 值计算：</span></span>
-<span id="cb375-13"><a href="model-basics.html#cb375-13" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df, <span class="at">na.action =</span> na.exclude)</span>
-<span id="cb375-14"><a href="model-basics.html#cb375-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 这样这个模型就只有 3 种观测值可用了：</span></span>
-<span id="cb375-15"><a href="model-basics.html#cb375-15" aria-hidden="true" tabindex="-1"></a><span class="fu">nobs</span>(mod) <span class="co"># nobs() 用于查看可观测次数</span></span>
-<span id="cb375-16"><a href="model-basics.html#cb375-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3</span></span></code></pre></div>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="model-basics.html#cb373-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb373-2"><a href="model-basics.html#cb373-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>x, <span class="sc">~</span>y,</span>
+<span id="cb373-3"><a href="model-basics.html#cb373-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="fl">2.2</span>,</span>
+<span id="cb373-4"><a href="model-basics.html#cb373-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>, <span class="cn">NA</span>,</span>
+<span id="cb373-5"><a href="model-basics.html#cb373-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span>, <span class="fl">3.5</span>,</span>
+<span id="cb373-6"><a href="model-basics.html#cb373-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">4</span>, <span class="fl">8.3</span>,</span>
+<span id="cb373-7"><a href="model-basics.html#cb373-7" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="dv">10</span></span>
+<span id="cb373-8"><a href="model-basics.html#cb373-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb373-9"><a href="model-basics.html#cb373-9" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- lm(y ~ x, data = df)</span></span>
+<span id="cb373-10"><a href="model-basics.html#cb373-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: Dropping 2 rows with missing values</span></span>
+<span id="cb373-11"><a href="model-basics.html#cb373-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb373-12"><a href="model-basics.html#cb373-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 加上 “na.action = na.exclude” 表示不包含 NA 值计算：</span></span>
+<span id="cb373-13"><a href="model-basics.html#cb373-13" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df, <span class="at">na.action =</span> na.exclude)</span>
+<span id="cb373-14"><a href="model-basics.html#cb373-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 这样这个模型就只有 3 种观测值可用了：</span></span>
+<span id="cb373-15"><a href="model-basics.html#cb373-15" aria-hidden="true" tabindex="-1"></a><span class="fu">nobs</span>(mod) <span class="co"># nobs() 用于查看可观测次数</span></span>
+<span id="cb373-16"><a href="model-basics.html#cb373-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3</span></span></code></pre></div>
 </div>
 </div>
 <div id="其他常见线性模型" class="section level2 hasAnchor" number="16.6">

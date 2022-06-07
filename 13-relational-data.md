@@ -39,7 +39,7 @@ y <- tribble(
 
 ```r
 inner_join(x, y, by = "key")
-#> # A tibble: 2 x 3
+#> # A tibble: 2 × 3
 #>     key val_x val_y
 #>   <dbl> <chr> <chr>
 #> 1     1 x1    y1   
@@ -51,21 +51,21 @@ inner_join(x, y, by = "key")
 
 ```r
 left_join(x, y, by = "key") # 左连接，保留左侧丢掉右侧不匹配的数据
-#> # A tibble: 3 x 3
+#> # A tibble: 3 × 3
 #>     key val_x val_y
 #>   <dbl> <chr> <chr>
 #> 1     1 x1    y1   
 #> 2     2 x2    y2   
 #> 3     3 x3    <NA>
 right_join(x, y, by = "key") # 右连接，保留右侧丢掉左侧不匹配的数据
-#> # A tibble: 3 x 3
+#> # A tibble: 3 × 3
 #>     key val_x val_y
 #>   <dbl> <chr> <chr>
 #> 1     1 x1    y1   
 #> 2     2 x2    y2   
 #> 3     4 <NA>  y3
 full_join(x, y, by = "key") # 全连接，保留全部数据，哪怕不互相匹配
-#> # A tibble: 4 x 3
+#> # A tibble: 4 × 3
 #>     key val_x val_y
 #>   <dbl> <chr> <chr>
 #> 1     1 x1    y1   
@@ -79,13 +79,13 @@ full_join(x, y, by = "key") # 全连接，保留全部数据，哪怕不互相�
 
 ```r
 semi_join(x, y, by = "key") # 半连接，对左侧数据筛选出右侧数据能匹配的数据
-#> # A tibble: 2 x 2
+#> # A tibble: 2 × 2
 #>     key val_x
 #>   <dbl> <chr>
 #> 1     1 x1   
 #> 2     2 x2
 anti_join(x, y, by = "key") # 反连接，对左侧数据排除掉右侧数据能匹配的数据
-#> # A tibble: 1 x 2
+#> # A tibble: 1 × 2
 #>     key val_x
 #>   <dbl> <chr>
 #> 1     3 x3
@@ -114,7 +114,7 @@ y <- tribble(
 
 ```r
 left_join(x, y, by = "key") # 左边所有列都从右边寻求
-#> # A tibble: 4 x 3
+#> # A tibble: 4 × 3
 #>     key val_x val_y
 #>   <dbl> <chr> <chr>
 #> 1     1 x1    y1   
@@ -122,7 +122,7 @@ left_join(x, y, by = "key") # 左边所有列都从右边寻求
 #> 3     2 x3    y2   
 #> 4     1 x4    y1
 right_join(x, y, by = "key") # 右边所有列都从左边寻求（一对多时全保留）
-#> # A tibble: 4 x 3
+#> # A tibble: 4 × 3
 #>     key val_x val_y
 #>   <dbl> <chr> <chr>
 #> 1     1 x1    y1   
@@ -156,7 +156,7 @@ y <- tribble(
 
 ```r
 left_join(x, y, by = "key")
-#> # A tibble: 6 x 3
+#> # A tibble: 6 × 3
 #>     key val_x val_y
 #>   <dbl> <chr> <chr>
 #> 1     1 x1    y1   
@@ -195,24 +195,24 @@ df2 <- tribble(
     1, 2
 )
 intersect(df1, df2) # 返回两者共同的数据集
-#> # A tibble: 1 x 2
+#> # A tibble: 1 × 2
 #>       x     y
 #>   <dbl> <dbl>
 #> 1     1     1
 union(df1, df2) # 合并两个数据集的数据（相同的只做一次记录）
-#> # A tibble: 3 x 2
+#> # A tibble: 3 × 2
 #>       x     y
 #>   <dbl> <dbl>
 #> 1     1     1
 #> 2     2     1
 #> 3     1     2
 setdiff(df1, df2) # 返回前者观察到的后者所没有的差异部分
-#> # A tibble: 1 x 2
+#> # A tibble: 1 × 2
 #>       x     y
 #>   <dbl> <dbl>
 #> 1     2     1
 setdiff(df2, df1)
-#> # A tibble: 1 x 2
+#> # A tibble: 1 × 2
 #>       x     y
 #>   <dbl> <dbl>
 #> 1     1     2
@@ -227,7 +227,7 @@ setdiff(df2, df1)
 
 ```r
 airlines
-#> # A tibble: 16 x 2
+#> # A tibble: 16 × 2
 #>    carrier name                       
 #>    <chr>   <chr>                      
 #>  1 9E      Endeavor Air Inc.          
@@ -253,20 +253,20 @@ airlines
 
 ```r
 airports
-#> # A tibble: 1,458 x 8
+#> # A tibble: 1,458 × 8
 #>    faa   name                             lat    lon   alt    tz dst   tzone    
 #>    <chr> <chr>                          <dbl>  <dbl> <dbl> <dbl> <chr> <chr>    
-#>  1 04G   Lansdowne Airport               41.1  -80.6  1044    -5 A     America/~
-#>  2 06A   Moton Field Municipal Airport   32.5  -85.7   264    -6 A     America/~
-#>  3 06C   Schaumburg Regional             42.0  -88.1   801    -6 A     America/~
-#>  4 06N   Randall Airport                 41.4  -74.4   523    -5 A     America/~
-#>  5 09J   Jekyll Island Airport           31.1  -81.4    11    -5 A     America/~
-#>  6 0A9   Elizabethton Municipal Airport  36.4  -82.2  1593    -5 A     America/~
-#>  7 0G6   Williams County Airport         41.5  -84.5   730    -5 A     America/~
-#>  8 0G7   Finger Lakes Regional Airport   42.9  -76.8   492    -5 A     America/~
-#>  9 0P2   Shoestring Aviation Airfield    39.8  -76.6  1000    -5 U     America/~
-#> 10 0S9   Jefferson County Intl           48.1 -123.    108    -8 A     America/~
-#> # ... with 1,448 more rows
+#>  1 04G   Lansdowne Airport               41.1  -80.6  1044    -5 A     America/…
+#>  2 06A   Moton Field Municipal Airport   32.5  -85.7   264    -6 A     America/…
+#>  3 06C   Schaumburg Regional             42.0  -88.1   801    -6 A     America/…
+#>  4 06N   Randall Airport                 41.4  -74.4   523    -5 A     America/…
+#>  5 09J   Jekyll Island Airport           31.1  -81.4    11    -5 A     America/…
+#>  6 0A9   Elizabethton Municipal Airport  36.4  -82.2  1593    -5 A     America/…
+#>  7 0G6   Williams County Airport         41.5  -84.5   730    -5 A     America/…
+#>  8 0G7   Finger Lakes Regional Airport   42.9  -76.8   492    -5 A     America/…
+#>  9 0P2   Shoestring Aviation Airfield    39.8  -76.6  1000    -5 U     America/…
+#> 10 0S9   Jefferson County Intl           48.1 -123.    108    -8 A     America/…
+#> # … with 1,448 more rows
 ```
 
 `planes` 提供有关每个平面的信息，由其 `tailnum` 标识：
@@ -274,20 +274,20 @@ airports
 
 ```r
 planes
-#> # A tibble: 3,322 x 9
+#> # A tibble: 3,322 × 9
 #>    tailnum  year type              manufacturer model engines seats speed engine
 #>    <chr>   <int> <chr>             <chr>        <chr>   <int> <int> <int> <chr> 
-#>  1 N10156   2004 Fixed wing multi~ EMBRAER      EMB-~       2    55    NA Turbo~
-#>  2 N102UW   1998 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~
-#>  3 N103US   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~
-#>  4 N104UW   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~
-#>  5 N10575   2002 Fixed wing multi~ EMBRAER      EMB-~       2    55    NA Turbo~
-#>  6 N105UW   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~
-#>  7 N107US   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~
-#>  8 N108UW   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~
-#>  9 N109UW   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~
-#> 10 N110UW   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~
-#> # ... with 3,312 more rows
+#>  1 N10156   2004 Fixed wing multi… EMBRAER      EMB-…       2    55    NA Turbo…
+#>  2 N102UW   1998 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+#>  3 N103US   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+#>  4 N104UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+#>  5 N10575   2002 Fixed wing multi… EMBRAER      EMB-…       2    55    NA Turbo…
+#>  6 N105UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+#>  7 N107US   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+#>  8 N108UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+#>  9 N109UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+#> 10 N110UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+#> # … with 3,312 more rows
 ```
 
 `weather` 则给出了每个纽约机场每小时的天气：
@@ -295,7 +295,7 @@ planes
 
 ```r
 weather
-#> # A tibble: 26,115 x 15
+#> # A tibble: 26,115 × 15
 #>    origin  year month   day  hour  temp  dewp humid wind_dir wind_speed
 #>    <chr>  <int> <int> <int> <int> <dbl> <dbl> <dbl>    <dbl>      <dbl>
 #>  1 EWR     2013     1     1     1  39.0  26.1  59.4      270      10.4 
@@ -308,8 +308,8 @@ weather
 #>  8 EWR     2013     1     1     8  39.9  28.0  62.2      250      10.4 
 #>  9 EWR     2013     1     1     9  39.9  28.0  62.2      260      15.0 
 #> 10 EWR     2013     1     1    10  41    28.0  59.6      260      13.8 
-#> # ... with 26,105 more rows, and 5 more variables: wind_gust <dbl>,
-#> #   precip <dbl>, pressure <dbl>, visib <dbl>, time_hour <dttm>
+#> # … with 26,105 more rows, and 5 more variables: wind_gust <dbl>, precip <dbl>,
+#> #   pressure <dbl>, visib <dbl>, time_hour <dttm>
 ```
 
 它们的关系图如下：
@@ -332,7 +332,7 @@ flights_smaller %>%
     select(-c(origin, dest)) %>%
     # 根据别的数据集在右侧补全数据，依据 / 重叠数据为 carrier
     left_join(airlines, by = "carrier")
-#> # A tibble: 336,776 x 7
+#> # A tibble: 336,776 × 7
 #>     year month   day  hour tailnum carrier name                    
 #>    <int> <int> <int> <dbl> <chr>   <chr>   <chr>                   
 #>  1  2013     1     1     5 N14228  UA      United Air Lines Inc.   
@@ -345,7 +345,7 @@ flights_smaller %>%
 #>  8  2013     1     1     6 N829AS  EV      ExpressJet Airlines Inc.
 #>  9  2013     1     1     6 N593JB  B6      JetBlue Airways         
 #> 10  2013     1     1     6 N3ALAA  AA      American Airlines Inc.  
-#> # ... with 336,766 more rows
+#> # … with 336,766 more rows
 ```
 
 当然我们也可以使用 mutate + match 实现同样效果：
@@ -362,7 +362,7 @@ flights_smaller %>%
             carrier, airlines$carrier
         )]
     )
-#> # A tibble: 336,776 x 7
+#> # A tibble: 336,776 × 7
 #>     year month   day  hour tailnum carrier name                    
 #>    <int> <int> <int> <dbl> <chr>   <chr>   <chr>                   
 #>  1  2013     1     1     5 N14228  UA      United Air Lines Inc.   
@@ -375,7 +375,7 @@ flights_smaller %>%
 #>  8  2013     1     1     6 N829AS  EV      ExpressJet Airlines Inc.
 #>  9  2013     1     1     6 N593JB  B6      JetBlue Airways         
 #> 10  2013     1     1     6 N3ALAA  AA      American Airlines Inc.  
-#> # ... with 336,766 more rows
+#> # … with 336,766 more rows
 ```
 
 而如果要与 `weather` 并接：
@@ -385,7 +385,7 @@ flights_smaller %>%
 flights_smaller %>%
     left_join(weather) # 如果不写 by，则为默认 NULL，会将左边所有列往右边对应一遍，相当于下面代码：
 #> Joining, by = c("year", "month", "day", "hour", "origin")
-#> # A tibble: 336,776 x 18
+#> # A tibble: 336,776 × 18
 #>     year month   day  hour origin dest  tailnum carrier  temp  dewp humid
 #>    <int> <int> <int> <dbl> <chr>  <chr> <chr>   <chr>   <dbl> <dbl> <dbl>
 #>  1  2013     1     1     5 EWR    IAH   N14228  UA       39.0  28.0  64.4
@@ -398,7 +398,7 @@ flights_smaller %>%
 #>  8  2013     1     1     6 LGA    IAD   N829AS  EV       39.9  25.0  54.8
 #>  9  2013     1     1     6 JFK    MCO   N593JB  B6       37.9  27.0  64.3
 #> 10  2013     1     1     6 LGA    ORD   N3ALAA  AA       39.9  25.0  54.8
-#> # ... with 336,766 more rows, and 7 more variables: wind_dir <dbl>,
+#> # … with 336,766 more rows, and 7 more variables: wind_dir <dbl>,
 #> #   wind_speed <dbl>, wind_gust <dbl>, precip <dbl>, pressure <dbl>,
 #> #   visib <dbl>, time_hour <dttm>
 # left_join(weather, by = c("year", "month", "day", "hour", "origin"))
@@ -411,20 +411,20 @@ flights_smaller %>%
 flights_smaller %>%
     # flighs_smaller 的 dest 列与 airports 的 faa 列比较、对应和连接
     left_join(airports, c("dest" = "faa"))
-#> # A tibble: 336,776 x 15
+#> # A tibble: 336,776 × 15
 #>     year month   day  hour origin dest  tailnum carrier name     lat   lon   alt
 #>    <int> <int> <int> <dbl> <chr>  <chr> <chr>   <chr>   <chr>  <dbl> <dbl> <dbl>
-#>  1  2013     1     1     5 EWR    IAH   N14228  UA      Georg~  30.0 -95.3    97
-#>  2  2013     1     1     5 LGA    IAH   N24211  UA      Georg~  30.0 -95.3    97
-#>  3  2013     1     1     5 JFK    MIA   N619AA  AA      Miami~  25.8 -80.3     8
+#>  1  2013     1     1     5 EWR    IAH   N14228  UA      Georg…  30.0 -95.3    97
+#>  2  2013     1     1     5 LGA    IAH   N24211  UA      Georg…  30.0 -95.3    97
+#>  3  2013     1     1     5 JFK    MIA   N619AA  AA      Miami…  25.8 -80.3     8
 #>  4  2013     1     1     5 JFK    BQN   N804JB  B6      <NA>    NA    NA      NA
-#>  5  2013     1     1     6 LGA    ATL   N668DN  DL      Harts~  33.6 -84.4  1026
-#>  6  2013     1     1     5 EWR    ORD   N39463  UA      Chica~  42.0 -87.9   668
-#>  7  2013     1     1     6 EWR    FLL   N516JB  B6      Fort ~  26.1 -80.2     9
-#>  8  2013     1     1     6 LGA    IAD   N829AS  EV      Washi~  38.9 -77.5   313
-#>  9  2013     1     1     6 JFK    MCO   N593JB  B6      Orlan~  28.4 -81.3    96
-#> 10  2013     1     1     6 LGA    ORD   N3ALAA  AA      Chica~  42.0 -87.9   668
-#> # ... with 336,766 more rows, and 3 more variables: tz <dbl>, dst <chr>,
+#>  5  2013     1     1     6 LGA    ATL   N668DN  DL      Harts…  33.6 -84.4  1026
+#>  6  2013     1     1     5 EWR    ORD   N39463  UA      Chica…  42.0 -87.9   668
+#>  7  2013     1     1     6 EWR    FLL   N516JB  B6      Fort …  26.1 -80.2     9
+#>  8  2013     1     1     6 LGA    IAD   N829AS  EV      Washi…  38.9 -77.5   313
+#>  9  2013     1     1     6 JFK    MCO   N593JB  B6      Orlan…  28.4 -81.3    96
+#> 10  2013     1     1     6 LGA    ORD   N3ALAA  AA      Chica…  42.0 -87.9   668
+#> # … with 336,766 more rows, and 3 more variables: tz <dbl>, dst <chr>,
 #> #   tzone <chr>
 ```
 
@@ -440,20 +440,20 @@ avg_dest_delays <-
     # 注意向量内左侧数据其实打不打引号都是可以的，但右侧必须打
     inner_join(airports, by = c(dest = "faa")) # 其中 faa 为机场代码
 avg_dest_delays
-#> # A tibble: 101 x 9
+#> # A tibble: 101 × 9
 #>    dest  delay name                           lat    lon   alt    tz dst   tzone
 #>    <chr> <dbl> <chr>                        <dbl>  <dbl> <dbl> <dbl> <chr> <chr>
-#>  1 ABQ    4.38 Albuquerque International S~  35.0 -107.   5355    -7 A     Amer~
-#>  2 ACK    4.85 Nantucket Mem                 41.3  -70.1    48    -5 A     Amer~
-#>  3 ALB   14.4  Albany Intl                   42.7  -73.8   285    -5 A     Amer~
-#>  4 ANC   -2.5  Ted Stevens Anchorage Intl    61.2 -150.    152    -9 A     Amer~
-#>  5 ATL   11.3  Hartsfield Jackson Atlanta ~  33.6  -84.4  1026    -5 A     Amer~
-#>  6 AUS    6.02 Austin Bergstrom Intl         30.2  -97.7   542    -6 A     Amer~
-#>  7 AVL    8.00 Asheville Regional Airport    35.4  -82.5  2165    -5 A     Amer~
-#>  8 BDL    7.05 Bradley Intl                  41.9  -72.7   173    -5 A     Amer~
-#>  9 BGR    8.03 Bangor Intl                   44.8  -68.8   192    -5 A     Amer~
-#> 10 BHM   16.9  Birmingham Intl               33.6  -86.8   644    -6 A     Amer~
-#> # ... with 91 more rows
+#>  1 ABQ    4.38 Albuquerque International S…  35.0 -107.   5355    -7 A     Amer…
+#>  2 ACK    4.85 Nantucket Mem                 41.3  -70.1    48    -5 A     Amer…
+#>  3 ALB   14.4  Albany Intl                   42.7  -73.8   285    -5 A     Amer…
+#>  4 ANC   -2.5  Ted Stevens Anchorage Intl    61.2 -150.    152    -9 A     Amer…
+#>  5 ATL   11.3  Hartsfield Jackson Atlanta …  33.6  -84.4  1026    -5 A     Amer…
+#>  6 AUS    6.02 Austin Bergstrom Intl         30.2  -97.7   542    -6 A     Amer…
+#>  7 AVL    8.00 Asheville Regional Airport    35.4  -82.5  2165    -5 A     Amer…
+#>  8 BDL    7.05 Bradley Intl                  41.9  -72.7   173    -5 A     Amer…
+#>  9 BGR    8.03 Bangor Intl                   44.8  -68.8   192    -5 A     Amer…
+#> 10 BHM   16.9  Birmingham Intl               33.6  -86.8   644    -6 A     Amer…
+#> # … with 91 more rows
 
 avg_dest_delays %>%
     # lat 和 lon 为机场的经度和纬度信息，颜色代表平均延迟时长
@@ -485,7 +485,7 @@ flights %>%
         by = c("dest" = "faa"),
         suffix = c("_origin", "_dest")
     )
-#> # A tibble: 336,776 x 8
+#> # A tibble: 336,776 × 8
 #>     year month   day  hour origin dest    lat   lon
 #>    <int> <int> <int> <dbl> <chr>  <chr> <dbl> <dbl>
 #>  1  2013     1     1     5 EWR    IAH    30.0 -95.3
@@ -498,5 +498,5 @@ flights %>%
 #>  8  2013     1     1     6 LGA    IAD    38.9 -77.5
 #>  9  2013     1     1     6 JFK    MCO    28.4 -81.3
 #> 10  2013     1     1     6 LGA    ORD    42.0 -87.9
-#> # ... with 336,766 more rows
+#> # … with 336,766 more rows
 ```
