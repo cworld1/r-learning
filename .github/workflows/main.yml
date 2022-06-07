@@ -20,35 +20,32 @@ jobs:
     permissions:
       contents: write
     steps:
-      # - name: Install Libcurl
-      #   run: sudo apt-get install libcurl4-gnutls-dev
+      - name: Install Libcurl
+        run: sudo apt-get install libcurl4-gnutls-dev
 
       - uses: actions/checkout@v2
 
-      # - uses: r-lib/actions/setup-pandoc@v2
+      - uses: r-lib/actions/setup-pandoc@v2
 
-      # - uses: r-lib/actions/setup-r@v2
-      #   with:
-      #     use-public-rspm: true
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
 
-      # # - uses: r-lib/actions/setup-renv@v2
+      - uses: r-lib/actions/setup-renv@v2
 
-      # - name: Cache bookdown results
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: book
-      #     key: bookdown-${{ hashFiles('**/*Rmd') }}
-      #     restore-keys: bookdown-
+      - name: Cache bookdown results
+        uses: actions/cache@v2
+        with:
+          path: book
+          key: bookdown-${{ hashFiles('**/*Rmd') }}
+          restore-keys: bookdown-
 
-      # - name: Install packages
-      #   run: |
-      #     Rscript -e 'install.packages(c("tidyverse", "nycflights13", "hexbin", "gapminder", "Lahman", "maps", "feather"))'
-      #     Rscript -e 'install.packages(c("rmarkdown","bookdown"))'
-
-      # - name: Build site
-      #   run: |
-      #     cd book/
-      #     Rscript -e 'bookdown::render_book("index.Rmd", quiet = TRUE)'
+      - name: Build site
+        run: |
+          cd book/
+          Rscript -e 'install.packages(c("tidyverse", "nycflights13", "hexbin", "gapminder", "Lahman", "maps", "feather"))'
+          Rscript -e 'install.packages(c("rmarkdown","bookdown"))'
+          Rscript -e 'bookdown::render_book("index.Rmd", quiet = TRUE)'
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
