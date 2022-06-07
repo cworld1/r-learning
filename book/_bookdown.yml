@@ -1,14 +1,18 @@
-new_session: true
 book_filename: 'R-Learning'
+new_session: true
+delete_merged_file: true
+before_chapter_script: "_common.R"
+
 language:
   label:
-    summary: '简介'
-    explore: '探索'
+    summary: "简介"
+    explore: "探索"
+    wrangle: "扭结"
+    program: "项目"
+    model: "模型"
+    communicate: "沟通"
   ui:
     chapter_name: "Chapter "
     edit: "编辑"
     search: "搜索"
     download: "下载"
-
-
-delete_merged_file: true
