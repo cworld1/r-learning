@@ -25,7 +25,7 @@ single_quote <- "'" # 或者 "'"
 
 但注意字符串的打印表示形式与字符串本身不同：打印的表示形式为显示转义。要查看字符串的原始内容，我们需要用上 `str_view()` 或者 R 自带包的 `writeLines()`：
 
-```{R str_view}
+```{R writeLines()}
 x <- c(single_quote, double_quote)
 x
 writeLines(x) # 查看原始
@@ -176,7 +176,11 @@ str_sort(fruit, locale = "haw") # 使用 Hawaiian 排序
 
 ```{r str_view()}
 str_view(fruit, "an")
-# 匹配字符串遵循 regexps 规则，其中 “.” 表示任意字符：
+```
+
+匹配字符串遵循 regexps 规则，其中 “.” 表示任意字符：
+
+```{R str_view() with dot}
 str_view(fruit, ".a.")
 ```
 
@@ -198,7 +202,6 @@ str_view(c("abc", "a.c", "bef"), "a\\.c")
 ```{R righteousness with incline}
 x <- "a\\b"
 writeLines(x)
-#> a\b
 
 str_view(x, "\\\\")
 ```
@@ -210,10 +213,16 @@ str_view(x, "\\\\")
 - `^` + 匹配串：刚好与字符串的开头相匹配。
 - 匹配串 + `$`：刚好与字符串的末尾相匹配。
 
-```{R anchors with ^ & $}
+```{R anchors with ^}
 apple <- c("bad apple", "milk with apple & banana", "apple music", "apple")
 str_view(apple, "^a") # 以 “a” 开头的字符串
+```
+
+```{R anchors with $}
 str_view(apple, "a$") # 以 “a” 结尾的字符串
+```
+
+```{R anchors with ^ & $}
 str_view(x, "^apple$") # 以 “apple” 开头和结束（不多不少完全匹配）的字符串
 ```
 
@@ -234,10 +243,16 @@ str_view(x, "^apple$") # 以 “apple” 开头和结束（不多不少完全匹
 
 注意和上面的一样，在使用时仍然要常常进行二次转义。不过说到这里，比起二次转义，有很多人认为中括号转义会更舒服：
 
-```{R bracket transfer}
+```{R bracket transfer with dot}
 abc <- c("abc", "a.c", "a*c", "a c")
 str_view(abc, "a[.]c")
+```
+
+```{R bracket transfer with asterisk}
 str_view(abc, ".[*]c")
+```
+
+```{R bracket transfer with blank}
 str_view(abc, "a[ ]")
 ```
 
@@ -257,12 +272,21 @@ str_view(c("grey", "gray"), "gr(e|a)y")
 - 匹配字符 + `+`：1 或更多次字符匹配（这个字符允许出现一次或多次）
 - 匹配字符 + `*`：0 或更多次字符匹配（这个字符可能没有，也可能有很多个）
 
-```{R repeat matching}
+查找 “CC” 或者 “C” 串：
+
+```{R repeat matching1}
 x <- "1888 is the longest year in Roman numerals: MDCCCLXXXVIII"
-str_view(x, "CC?") # 查找 “CC” 或者 “C” 串
-str_view(x, "CC+") # 查找 “CC” 或者 “CCC...” 串
-# 查找 “CL”、“CX”、“CLX”、“CXL”
-# 或者 “CLLL...” 或者 “CXXX...” 或者 “CLXXX...” 或者 “CLLL...X”...
+str_view(x, "CC?")
+```
+
+查找 “CC” 或者 “CCC...” 串：
+
+```{R repeat matching2}
+str_view(x, "CC+")
+```
+
+查找 “CL”、“CX”、“CLX”、“CXL”，或者 “CLLL...”、“CXXX...”、“CLXXX...”、“CLLL...X”...
+```{R repeat matching3}
 str_view(x, "C[LX]+")
 ```
 
@@ -275,16 +299,25 @@ str_view(x, "C[LX]+")
 - `{,m}`： 0 到 m 个
 - `{n,m}`：介于 n 和 m 个之间
 
-```{R manual declaration}
+```{R manual declaration1}
 str_view(x, "C{2}")
+```
+
+```{R manual declaration2}
 str_view(x, "C{2,}")
+```
+
+```{R manual declaration3}
 str_view(x, "C{2,3}")
 ```
 
 在通常情况下，如果碰到了能同时匹配到同一个点位的情况，Regex 会自动选择最长的。但你可以使用 “?” 来反其道而行之：
 
-```{R the shortest choice}
+```{R the shortest choice1}
 str_view(x, "C{2,3}?")
+```
+
+```{R the shortest choice2}
 str_view(x, "C[LX]+?")
 ```
 
@@ -478,10 +511,14 @@ head(matches)
 
 但需要注意，我们这里仅提取了第一个匹配项。通过选择所有具有1个以上匹配项的句子，我们可以很容易地看到，其实这样的数据有不少：
 
-```{R str_extract_all() with more}
+```{R str_extract_all() with more1}
 more <- sentences[str_count(sentences, colour_match) > 1]
-str_view_all(more, colour_match) # 可以明显看到一个句子匹配到了多个颜色
+str_view_all(more, colour_match) #
+```
 
+可以明显看到一个句子匹配到了多个颜色。
+
+```{R str_extract_all() with more2}
 str_extract(more, colour_match) # 但 stringr 它真就只匹配一个。。
 str_extract_all(more, colour_match) # 使用 str_extract_all() 解决问题！
 ```
