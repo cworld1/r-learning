@@ -1,19 +1,4 @@
----
-title: "27 R Markdown"
-date:2022 - 05 - 26
-author: CWorld
-output: html_document
----
-
-```{R setup, include = FALSE}
-library(tidyverse)
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE
-)
-```
-
-## 引言
+# R Markdown {#r-markdown}
 
 在 R 中，R Markdown 为数据科学提供了一个统一的创作框架，结合了代码、结果和文本创作。
 同时这种文档完全可复制，并支持数十种导出格式，如 pdf、docx、pptx 等。
@@ -39,15 +24,15 @@ output: html_document
 
 - 一些被标识符包围的代码块：
 
-```rmarkdown
-\`\`\`{r setup, include = FALSE}
+````rmarkdown
+`r ''````{r setup, include = FALSE}
 library(ggplot2)
 library(dplyr)
 
 smaller <- diamonds %>%
-    filter(carat <= 2.5)
-\`\`\`
+  filter(carat <= 2.5)
 ```
+````
 
 - 混合了简单文本格式的文本（Markdown 语法）。
 
@@ -102,7 +87,7 @@ knitr::kable(
 ````rmarkdown
 {r raw_data}
 rawdata <- readr::read_csv("a_very_large_file.csv")
-
+```
 
 {r processed_data, cache = TRUE, dependson = "raw_data"}
 processed_data <- rawdata %>%
@@ -165,7 +150,7 @@ params:
 rmarkdown::render("fuel-economy.Rmd", params = list(my_class = "suv"))
 ```
 
-pandoc 也能生成不同样式的书目：
+pandoc 也能生成不同样式的引文和书目（写配置到 Rmd 文件的 fontmatter 中）：
 
 ```yaml
 bibliography: rmarkdown.bib
