@@ -60,6 +60,7 @@
 .book .book-header.fixed {
   background-color: #ffffff8a !important;
   backdrop-filter: blur(20px);
+  right: 18px;
 }
 
 /* 标题 */
@@ -173,20 +174,18 @@ div.sourceCode:hover>.copy-to-clipboard-button {
   .book.with-summary .book-body.fixed .page-wrapper {
     filter: brightness(40%);
   }
-
-  .page-wrapper {
-    margin-top: 0;
-  }
-}
-
-.book .book-body .page-wrapper .page-inner section.normal {
-  padding-top: 70px;
 }
 
 .book .book-body.fixed {
-  top: 0;
+  top: 0 !important;
 }
 
-.book .book-body .page-wrapper .page-inner {
-  padding: 0 0 40px;
+.book .book-body.fixed .body-inner {
+  position: static;
+  min-height: calc(100% - 50px);
+  top: auto !important;
+}
+
+.book .book-body.fixed .page-wrapper .page-inner {
+  margin-top: 50px;
 }
