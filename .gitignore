@@ -35,6 +35,12 @@
 .Ruserdata
 .Rbuildignore
 
+# Book
+book/R-Learning.rds
+book/_bookdown_files
+book/_book/*
+!book/_book/CNAME
+
 # Customlize
 test.r
 courses
