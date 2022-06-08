@@ -479,16 +479,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb231-8"><a href="model-basics.html#cb231-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 250 × 3</span></span>
 <span id="cb231-9"><a href="model-basics.html#cb231-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         a1     a2  dist</span></span>
 <span id="cb231-10"><a href="model-basics.html#cb231-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb231-11"><a href="model-basics.html#cb231-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  -2.95  -0.649 23.4 </span></span>
-<span id="cb231-12"><a href="model-basics.html#cb231-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  -0.174 -0.739 21.4 </span></span>
-<span id="cb231-13"><a href="model-basics.html#cb231-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  27.7   -0.374 12.5 </span></span>
-<span id="cb231-14"><a href="model-basics.html#cb231-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  22.7    3.26  25.5 </span></span>
-<span id="cb231-15"><a href="model-basics.html#cb231-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  -0.625 -1.89  28.9 </span></span>
-<span id="cb231-16"><a href="model-basics.html#cb231-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  -4.25  -3.69  43.3 </span></span>
-<span id="cb231-17"><a href="model-basics.html#cb231-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  13.4   -0.159  7.33</span></span>
-<span id="cb231-18"><a href="model-basics.html#cb231-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 -11.4    2.26  14.6 </span></span>
-<span id="cb231-19"><a href="model-basics.html#cb231-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  17.2    4.30  26.2 </span></span>
-<span id="cb231-20"><a href="model-basics.html#cb231-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  30.4    3.40  33.8 </span></span>
+<span id="cb231-11"><a href="model-basics.html#cb231-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1   6.42  -5.00  41.8 </span></span>
+<span id="cb231-12"><a href="model-basics.html#cb231-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 -16.6    3.50  13.6 </span></span>
+<span id="cb231-13"><a href="model-basics.html#cb231-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3   8.29  -3.66  32.0 </span></span>
+<span id="cb231-14"><a href="model-basics.html#cb231-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 -12.2    0.124 27.7 </span></span>
+<span id="cb231-15"><a href="model-basics.html#cb231-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  35.3   -2.76  14.7 </span></span>
+<span id="cb231-16"><a href="model-basics.html#cb231-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  25.2    1.97  20.7 </span></span>
+<span id="cb231-17"><a href="model-basics.html#cb231-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7   9.06  -2.19  22.2 </span></span>
+<span id="cb231-18"><a href="model-basics.html#cb231-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8   1.91   2.00   3.35</span></span>
+<span id="cb231-19"><a href="model-basics.html#cb231-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  12.0   -2.73  23.1 </span></span>
+<span id="cb231-20"><a href="model-basics.html#cb231-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  -0.181 -4.41  44.1 </span></span>
 <span id="cb231-21"><a href="model-basics.html#cb231-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 240 more rows</span></span></code></pre></div>
 <blockquote>
 <p>注意这里的 map2_dbl 会返回离散程度较小的，即拟合程度最高的。例如：</p>
@@ -823,35 +823,35 @@ lm() 用一种特殊的方式来指定模型，即公式。公式例如 y ~ x，
 <span id="cb259-8"><a href="model-basics.html#cb259-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb259-9"><a href="model-basics.html#cb259-9" aria-hidden="true" tabindex="-1"></a><span class="co"># trim 参数用于收缩范围，使得生成的序列更接近中值</span></span>
 <span id="cb259-10"><a href="model-basics.html#cb259-10" aria-hidden="true" tabindex="-1"></a>(x1 <span class="ot">&lt;-</span> <span class="fu">rcauchy</span>(<span class="dv">100</span>)) <span class="co"># 生成具有柯西分布特性的随机数</span></span>
-<span id="cb259-11"><a href="model-basics.html#cb259-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [1] -8.191994e-01  9.747405e+00  7.145625e-01 -6.826957e-01  8.920609e-01</span></span>
-<span id="cb259-12"><a href="model-basics.html#cb259-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [6]  5.129859e-01 -3.848363e-03 -2.244329e-01 -6.257195e-01 -3.594947e+00</span></span>
-<span id="cb259-13"><a href="model-basics.html#cb259-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [11] -1.163742e+00 -6.233162e+00 -1.850337e-01 -2.498525e-01 -5.391693e+00</span></span>
-<span id="cb259-14"><a href="model-basics.html#cb259-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [16] -5.989912e-01  4.002539e+00  3.179316e-01 -2.407020e-01 -6.427532e+00</span></span>
-<span id="cb259-15"><a href="model-basics.html#cb259-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [21]  6.498338e-01 -2.508388e+00 -1.008759e+00  1.052659e+01  1.100684e+00</span></span>
-<span id="cb259-16"><a href="model-basics.html#cb259-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [26]  2.299928e+00  1.729992e+01  2.930966e-01  2.283299e-01  1.484043e+00</span></span>
-<span id="cb259-17"><a href="model-basics.html#cb259-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [31] -8.092877e-02  7.763132e-01 -6.313965e-01  3.033782e-02 -3.112077e+00</span></span>
-<span id="cb259-18"><a href="model-basics.html#cb259-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [36] -8.896050e-02  7.039707e-01  1.167110e+00  1.257038e+00 -1.597004e+00</span></span>
-<span id="cb259-19"><a href="model-basics.html#cb259-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [41] -3.142424e+00  2.192209e+00 -1.831146e+00  2.310014e+00  3.386427e+01</span></span>
-<span id="cb259-20"><a href="model-basics.html#cb259-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [46]  2.346850e+00  1.162920e-01  4.150772e+00 -6.228797e-01 -3.991952e-01</span></span>
-<span id="cb259-21"><a href="model-basics.html#cb259-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [51]  3.985424e-01 -1.994692e+00  3.554919e-01  2.328850e-01 -2.752705e+00</span></span>
-<span id="cb259-22"><a href="model-basics.html#cb259-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [56]  1.476671e+00  1.885744e+00 -2.819205e-01  2.620824e+00 -9.352746e-01</span></span>
-<span id="cb259-23"><a href="model-basics.html#cb259-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [61]  1.675011e+00  1.282114e+00  1.615002e+00 -6.942618e+00  1.035726e-01</span></span>
-<span id="cb259-24"><a href="model-basics.html#cb259-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [66]  9.673838e+00  1.170321e+01  7.441583e+02  1.314447e+00 -3.771039e-01</span></span>
-<span id="cb259-25"><a href="model-basics.html#cb259-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [71] -5.932370e-01  2.187079e+00 -2.439449e+00  8.208135e-01 -5.833515e-01</span></span>
-<span id="cb259-26"><a href="model-basics.html#cb259-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [76] -2.309927e+03  5.927249e-01 -2.506177e+00  3.883301e-01  6.180727e-02</span></span>
-<span id="cb259-27"><a href="model-basics.html#cb259-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [81]  6.501705e+00 -2.050845e+01  2.367815e-01 -5.812783e-01 -5.475176e+00</span></span>
-<span id="cb259-28"><a href="model-basics.html#cb259-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [86] -4.441116e-01  1.650913e+00 -6.242644e-01 -4.807851e-01  9.575741e-01</span></span>
-<span id="cb259-29"><a href="model-basics.html#cb259-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [91]  2.284958e+00  9.936086e+00  8.007736e-01 -1.592437e+00  5.710557e-01</span></span>
-<span id="cb259-30"><a href="model-basics.html#cb259-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [96]  1.153982e+00  3.482808e-01 -2.863742e+00 -1.188941e+00  8.394386e-01</span></span>
+<span id="cb259-11"><a href="model-basics.html#cb259-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [1]    1.60626378   -0.02099563   -0.23499762   -4.56931976 -226.77875931</span></span>
+<span id="cb259-12"><a href="model-basics.html#cb259-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [6]   -0.45364834    6.26723028   -7.57816092    0.67610111    0.25897077</span></span>
+<span id="cb259-13"><a href="model-basics.html#cb259-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [11]    0.51037132   -3.14977706   -0.66424799    0.15905984    0.57340541</span></span>
+<span id="cb259-14"><a href="model-basics.html#cb259-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [16]   -1.14854047    0.75741229   -3.00385894  -12.13799799   -1.80161615</span></span>
+<span id="cb259-15"><a href="model-basics.html#cb259-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [21]    0.27773514    0.09388090  -36.43513977   -1.32125733   -0.59895508</span></span>
+<span id="cb259-16"><a href="model-basics.html#cb259-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [26]    2.15031323    5.77608267    2.84482189  -15.25407712    1.49320250</span></span>
+<span id="cb259-17"><a href="model-basics.html#cb259-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [31]    0.36242295    0.39767776   -0.14685107   -2.94565911   -0.36036778</span></span>
+<span id="cb259-18"><a href="model-basics.html#cb259-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [36]   -0.74677364    1.55407358   -0.60022141    3.08248252    8.35906349</span></span>
+<span id="cb259-19"><a href="model-basics.html#cb259-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [41]    0.21730703    2.45300891   -0.00613240   -3.41014833    0.80019760</span></span>
+<span id="cb259-20"><a href="model-basics.html#cb259-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [46]   -0.68324895   -7.41480881    1.59811540   -0.34981072   -1.48547821</span></span>
+<span id="cb259-21"><a href="model-basics.html#cb259-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [51]    1.03830392   -2.73550775   -3.55163337    0.16499591   -9.29584016</span></span>
+<span id="cb259-22"><a href="model-basics.html#cb259-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [56]    0.10165334    0.70366596   -0.76190748    0.71360613   -0.64283934</span></span>
+<span id="cb259-23"><a href="model-basics.html#cb259-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [61]   -4.89912604    0.42886303   -1.90777054    1.12055833   -1.01445949</span></span>
+<span id="cb259-24"><a href="model-basics.html#cb259-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [66]    0.01607366    2.19555429    1.42288814   -2.97268543    0.79642533</span></span>
+<span id="cb259-25"><a href="model-basics.html#cb259-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [71]   -2.71241583   -0.51147876   -1.82566888    0.35337582   -2.20498364</span></span>
+<span id="cb259-26"><a href="model-basics.html#cb259-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [76]    0.02230369   -0.15414640    4.76092121    1.95387488   -0.11631375</span></span>
+<span id="cb259-27"><a href="model-basics.html#cb259-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [81]   -0.60892163   -0.48272536   -1.63166406   -0.83465935    0.41067460</span></span>
+<span id="cb259-28"><a href="model-basics.html#cb259-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [86]    0.21563916    1.16116312    1.86079490   -0.31908859   -1.90972677</span></span>
+<span id="cb259-29"><a href="model-basics.html#cb259-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [91]    1.63591572   -9.13306741    0.96083764   -1.70959968   -0.17796672</span></span>
+<span id="cb259-30"><a href="model-basics.html#cb259-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [96]    2.76991599    9.41819092   44.86172634    0.17522703    1.90908301</span></span>
 <span id="cb259-31"><a href="model-basics.html#cb259-31" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb259-32"><a href="model-basics.html#cb259-32" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x1, <span class="at">n =</span> <span class="dv">5</span>)</span>
-<span id="cb259-33"><a href="model-basics.html#cb259-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -2309.92729 -1546.40588  -782.88448   -19.36308   744.15833</span></span>
+<span id="cb259-33"><a href="model-basics.html#cb259-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -226.77876 -158.86864  -90.95852  -23.04840   44.86173</span></span>
 <span id="cb259-34"><a href="model-basics.html#cb259-34" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x1, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">trim =</span> <span class="fl">0.10</span>) <span class="co"># 收缩指定范围头尾 10%</span></span>
-<span id="cb259-35"><a href="model-basics.html#cb259-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -5.513075 -1.643404  2.226268  6.095939  9.965611</span></span>
+<span id="cb259-35"><a href="model-basics.html#cb259-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -9.141206 -5.652985 -2.164763  1.323458  4.811679</span></span>
 <span id="cb259-36"><a href="model-basics.html#cb259-36" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x1, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">trim =</span> <span class="fl">0.25</span>) <span class="co"># 收缩指定范围头尾 25%</span></span>
-<span id="cb259-37"><a href="model-basics.html#cb259-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -2.50755886 -1.29740996 -0.08726105  1.12288785  2.33303676</span></span>
+<span id="cb259-37"><a href="model-basics.html#cb259-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -3.0950578 -1.8370238 -0.5789899  0.6790440  1.9370779</span></span>
 <span id="cb259-38"><a href="model-basics.html#cb259-38" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x1, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">trim =</span> <span class="fl">0.50</span>) <span class="co"># 收缩指定范围头尾 50%</span></span>
-<span id="cb259-39"><a href="model-basics.html#cb259-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.6442213 -0.1606166  0.3229881  0.8065928  1.2901975</span></span>
+<span id="cb259-39"><a href="model-basics.html#cb259-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -1.5220247 -0.9314291 -0.3408335  0.2497620  0.8403576</span></span>
 <span id="cb259-40"><a href="model-basics.html#cb259-40" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb259-41"><a href="model-basics.html#cb259-41" aria-hidden="true" tabindex="-1"></a><span class="co"># 与之相反，expand 参数会扩增范围</span></span>
 <span id="cb259-42"><a href="model-basics.html#cb259-42" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
@@ -900,16 +900,16 @@ lm() 用一种特殊的方式来指定模型，即公式。公式例如 y ~ x，
 <span id="cb262-6"><a href="model-basics.html#cb262-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 50 × 2</span></span>
 <span id="cb262-7"><a href="model-basics.html#cb262-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        x     y</span></span>
 <span id="cb262-8"><a href="model-basics.html#cb262-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb262-9"><a href="model-basics.html#cb262-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 0     0.802</span></span>
-<span id="cb262-10"><a href="model-basics.html#cb262-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 0.224 1.62 </span></span>
-<span id="cb262-11"><a href="model-basics.html#cb262-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 0.449 0.267</span></span>
-<span id="cb262-12"><a href="model-basics.html#cb262-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 0.673 0.945</span></span>
-<span id="cb262-13"><a href="model-basics.html#cb262-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 0.898 2.21 </span></span>
-<span id="cb262-14"><a href="model-basics.html#cb262-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 1.12  2.64 </span></span>
-<span id="cb262-15"><a href="model-basics.html#cb262-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 1.35  4.36 </span></span>
-<span id="cb262-16"><a href="model-basics.html#cb262-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 1.57  4.15 </span></span>
-<span id="cb262-17"><a href="model-basics.html#cb262-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 1.80  4.06 </span></span>
-<span id="cb262-18"><a href="model-basics.html#cb262-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2.02  3.44 </span></span>
+<span id="cb262-9"><a href="model-basics.html#cb262-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 0     0.391</span></span>
+<span id="cb262-10"><a href="model-basics.html#cb262-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 0.224 0.352</span></span>
+<span id="cb262-11"><a href="model-basics.html#cb262-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 0.449 0.468</span></span>
+<span id="cb262-12"><a href="model-basics.html#cb262-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 0.673 3.02 </span></span>
+<span id="cb262-13"><a href="model-basics.html#cb262-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 0.898 2.38 </span></span>
+<span id="cb262-14"><a href="model-basics.html#cb262-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 1.12  3.97 </span></span>
+<span id="cb262-15"><a href="model-basics.html#cb262-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 1.35  3.20 </span></span>
+<span id="cb262-16"><a href="model-basics.html#cb262-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 1.57  3.65 </span></span>
+<span id="cb262-17"><a href="model-basics.html#cb262-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 1.80  5.13 </span></span>
+<span id="cb262-18"><a href="model-basics.html#cb262-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2.02  4.30 </span></span>
 <span id="cb262-19"><a href="model-basics.html#cb262-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 40 more rows</span></span></code></pre></div>
 <div id="关于-i-和-model_matrix续" class="section level3 hasAnchor" number="17.5.1">
 <h3><span class="header-section-number">17.5.1</span> 关于 I() 和 model_matrix()（续）<a href="model-basics.html#关于-i-和-model_matrix续" class="anchor-section" aria-label="Anchor link to header"></a></h3>
