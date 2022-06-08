@@ -5,12 +5,8 @@ before_chapter_script: "_common.R"
 
 language:
   label:
-    summary: "简介"
-    explore: "探索"
-    wrangle: "扭结"
-    program: "项目"
-    model: "模型"
-    communicate: "沟通"
+    fig: "图 "
+    tab: "表 "
   ui:
     chapter_name: "Chapter "
     edit: "编辑"
