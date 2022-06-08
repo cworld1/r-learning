@@ -7,22 +7,18 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
-  workflow_dispatch:
+
+env:
+  isExtPR: ${{ github.event.pull_request.head.repo.fork == true }}
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    # Only restrict concurrency for non-PR jobs
-    concurrency:
-      group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
+    runs-on: macOS-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       contents: write
     steps:
-      - name: Install Libcurl
-        run: sudo apt-get install libcurl4-gnutls-dev
-
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-pandoc@v2
@@ -31,20 +27,18 @@ jobs:
         with:
           use-public-rspm: true
 
-      - uses: r-lib/actions/setup-renv@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
 
-      - name: Cache bookdown results
-        uses: actions/cache@v2
-        with:
-          path: book
-          key: bookdown-${{ hashFiles('**/*Rmd') }}
-          restore-keys: bookdown-
+      - name: Install more system dependencies
+        run: |
+          brew install --cask xquartz
+          brew install pkg-config cairo
+          brew install gsl
+          brew install libxml2
 
       - name: Build site
         run: |
           cd book/
-          Rscript -e 'install.packages(c("tidyverse", "nycflights13", "hexbin", "gapminder", "Lahman", "maps", "feather"))'
-          Rscript -e 'install.packages(c("rmarkdown","bookdown"))'
           Rscript -e 'bookdown::render_book("index.Rmd", quiet = TRUE)'
 
       - name: Deploy
