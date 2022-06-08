@@ -33,6 +33,7 @@
 .Rhistory
 .RData
 .Ruserdata
+.Rbuildignore
 
 # Customlize
 test.r
