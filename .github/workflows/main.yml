@@ -1,7 +1,6 @@
 name: Render Book
 
-# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
-# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+# 受到启发：https://github.com/dgrtwo/tidy-text-mining/tree/master/.github/workflows
 on:
   push:
     branches: [main, master]
