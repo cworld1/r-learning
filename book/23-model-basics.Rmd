@@ -1,12 +1,5 @@
 # Model basics {#model-basics}
 
-```{R settings, include = FALSE}
-knitr::opts_chunk$set(
-    comment = "#>",
-    collapse = TRUE
-)
-```
-
 模型由两部分组成：
 - 定义一系列模型，这些模型表示要捕获的精确但通用的模式。
 - 通过从最接近数据集中查找模型来生成拟合模型。这将采用通用模型系列，并使其具体化。
@@ -518,7 +511,7 @@ ggplot(sim5, aes(x, y)) +
 
 如果你的数据你还有 NA 值的话，R 当然会提示你错误！
 
-```{R}
+```{R mod() with df}
 df <- tribble(
     ~x, ~y,
     1, 2.2,

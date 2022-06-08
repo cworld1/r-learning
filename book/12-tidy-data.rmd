@@ -1,12 +1,5 @@
 # Tidy data {#tidy-data}
 
-```{R settings, include = FALSE}
-knitr::opts_chunk$set(
-    comment = "#>",
-    collapse = TRUE
-)
-```
-
 一个好的数据集应该：变量在列中，观察结果在行中，值储存在单元格中；不整洁的数据，我们可以用 tidyr 包中的 pivot_longer() 和 pivot_wider() 辅助修正
 
 ```{R setup, results = "hide", message = FALSE, warning = FALSE}

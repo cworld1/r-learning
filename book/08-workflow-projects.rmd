@@ -1,12 +1,5 @@
 # Workflow: projects {#workflow-projects}
 
-```{R settings, include = FALSE}
-knitr::opts_chunk$set(
-    comment = "#>",
-    collapse = TRUE
-)
-```
-
 ## 运行环境
 
 使用 R 脚本（和数据文件），可以重新创建环境。从环境中重新创建 R 脚本要困难得多！你要么必须从内存中重新键入大量代码，要么必须仔细挖掘你的 R 脚本执行历史记录。
