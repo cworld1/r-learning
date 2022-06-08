@@ -174,7 +174,7 @@ str_sort(fruit, locale = "haw") # 使用 Hawaiian 排序
 
 使用 `str_view()` 可以可视化地观察匹配到的字符串：
 
-```{r str_view()}
+```{R str_view()}
 str_view(fruit, "an")
 ```
 
@@ -184,14 +184,14 @@ str_view(fruit, "an")
 str_view(fruit, ".a.")
 ```
 
-但我们很快就发现一个问题：“.” 固然好用，但当我们真正要匹配字符 “.” 的时候，就会变得棘手。regexps 提供了转义法，即 `.`，但这个 “\” 会与我们的 R 语言规范相冲突。所以我们提出了转义斜杠。
+但我们很快就发现一个问题：“.” 固然好用，但当我们真正要匹配字符 “.” 的时候，就会变得棘手。regexps 提供了转义法，即 `\.`，但这个 “\” 会与我们的 R 语言规范相冲突。所以我们提出了转义斜杠。
 
-```{r righteousness with dot}
+```{R righteousness with dot}
 # 双斜杠会转义斜杠
-dot <- "\\."
+dot_symbol <- "\\."
 
 # 实际打印出来的表达式是单斜杠
-writeLines(dot)
+writeLines(dot_symbol)
 
 # 而通过 regexps 转换匹配时，刚好就只是一个 “.” 而已
 str_view(c("abc", "a.c", "bef"), "a\\.c")
