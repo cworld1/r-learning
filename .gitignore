@@ -1,7 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode
-# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode
-
-### VisualStudioCode ###
+# VSCode
+*.code-workspace
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -9,26 +7,7 @@
 !.vscode/extensions.json
 !.vscode/*.code-snippets
 
-# Local History for Visual Studio Code
-.history/
-
-# Built Visual Studio Code Extensions
-*.vsix
-
-### VisualStudioCode Patch ###
-# Ignore all local history of files
-.history
-.ionide
-
-# Support for Project snippet scope
-.vscode/*.code-snippets
-
-# Ignore code-workspaces
-*.code-workspace
-
-# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
-
-# R & bookdown
+# R & Bookdown
 .Rproj.user
 .Rhistory
 .RData
@@ -36,10 +15,15 @@
 .Rbuildignore
 
 # Book
-book/R-Learning.rds
-book/_bookdown_files
-book/_book/*
+book/*
 !book/_book/CNAME
+!book/assets
+!book/data
+!book/*.R
+!book/*.yml
+!book/*.Rmd
+!book/*.bib
+!book/_404.md
 
 # Customlize
 test.r
