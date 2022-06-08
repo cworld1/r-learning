@@ -28,17 +28,14 @@ read_csv() 会给出相当丰富的信息，包括行列数、分隔符、各列
 
 ```r
 heights <- read_csv("./data/heights.csv")
-```
-
-```
-## Rows: 1192 Columns: 6
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: ","
-## chr (2): sex, race
-## dbl (4): earn, height, ed, age
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+#> Rows: 1192 Columns: 6
+#> ── Column specification ────────────────────────────────────────────────────────
+#> Delimiter: ","
+#> chr (2): sex, race
+#> dbl (4): earn, height, ed, age
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 对于内联表格我们同样可以这样处理：
@@ -48,24 +45,18 @@ heights <- read_csv("./data/heights.csv")
 read_csv("a,b,c
 1,2,3
 4,5,6")
-```
-
-```
-## Rows: 2 Columns: 3
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: ","
-## dbl (3): a, b, c
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-```
-
-```
-## # A tibble: 2 × 3
-##       a     b     c
-##   <dbl> <dbl> <dbl>
-## 1     1     2     3
-## 2     4     5     6
+#> Rows: 2 Columns: 3
+#> ── Column specification ────────────────────────────────────────────────────────
+#> Delimiter: ","
+#> dbl (3): a, b, c
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+#> # A tibble: 2 × 3
+#>       a     b     c
+#>   <dbl> <dbl> <dbl>
+#> 1     1     2     3
+#> 2     4     5     6
 ```
 
 如果内容的开头有一些不需要的数据，我们可以跳过开头的内容：
@@ -76,23 +67,17 @@ read_csv("The first line of metadata
   The second line of metadata
   x,y,z
   1,2,3", skip = 2)
-```
-
-```
-## Rows: 1 Columns: 3
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: ","
-## dbl (3): x, y, z
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-```
-
-```
-## # A tibble: 1 × 3
-##       x     y     z
-##   <dbl> <dbl> <dbl>
-## 1     1     2     3
+#> Rows: 1 Columns: 3
+#> ── Column specification ────────────────────────────────────────────────────────
+#> Delimiter: ","
+#> dbl (3): x, y, z
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+#> # A tibble: 1 × 3
+#>       x     y     z
+#>   <dbl> <dbl> <dbl>
+#> 1     1     2     3
 ```
 
 或者直接跳过以指定字符开头的行（如以 “#” 开头）
@@ -102,23 +87,17 @@ read_csv("The first line of metadata
 read_csv("# A comment I want to skip
   x,y,z
   1,2,3", comment = "#")
-```
-
-```
-## Rows: 1 Columns: 3
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: ","
-## dbl (3): x, y, z
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-```
-
-```
-## # A tibble: 1 × 3
-##       x     y     z
-##   <dbl> <dbl> <dbl>
-## 1     1     2     3
+#> Rows: 1 Columns: 3
+#> ── Column specification ────────────────────────────────────────────────────────
+#> Delimiter: ","
+#> dbl (3): x, y, z
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+#> # A tibble: 1 × 3
+#>       x     y     z
+#>   <dbl> <dbl> <dbl>
+#> 1     1     2     3
 ```
 
 有时导入的数据可能没有表头！忽略掉表头，R 会为你加上 “X1”、“X2”...
@@ -126,24 +105,18 @@ read_csv("# A comment I want to skip
 
 ```r
 read_csv("1,2,3\n4,5,6", col_names = FALSE)
-```
-
-```
-## Rows: 2 Columns: 3
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: ","
-## dbl (3): X1, X2, X3
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-```
-
-```
-## # A tibble: 2 × 3
-##      X1    X2    X3
-##   <dbl> <dbl> <dbl>
-## 1     1     2     3
-## 2     4     5     6
+#> Rows: 2 Columns: 3
+#> ── Column specification ────────────────────────────────────────────────────────
+#> Delimiter: ","
+#> dbl (3): X1, X2, X3
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+#> # A tibble: 2 × 3
+#>      X1    X2    X3
+#>   <dbl> <dbl> <dbl>
+#> 1     1     2     3
+#> 2     4     5     6
 ```
 
 或者手动加表头：
@@ -151,24 +124,18 @@ read_csv("1,2,3\n4,5,6", col_names = FALSE)
 
 ```r
 read_csv("1,2,3\n4,5,6", col_names = c("x", "y", "z"))
-```
-
-```
-## Rows: 2 Columns: 3
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: ","
-## dbl (3): x, y, z
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-```
-
-```
-## # A tibble: 2 × 3
-##       x     y     z
-##   <dbl> <dbl> <dbl>
-## 1     1     2     3
-## 2     4     5     6
+#> Rows: 2 Columns: 3
+#> ── Column specification ────────────────────────────────────────────────────────
+#> Delimiter: ","
+#> dbl (3): x, y, z
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+#> # A tibble: 2 × 3
+#>       x     y     z
+#>   <dbl> <dbl> <dbl>
+#> 1     1     2     3
+#> 2     4     5     6
 ```
 
 不只是表头，有时数据也会缺失。对 NA 值的数进行符号标记即可：
@@ -176,24 +143,18 @@ read_csv("1,2,3\n4,5,6", col_names = c("x", "y", "z"))
 
 ```r
 read_csv("a,b,c\n1,2,.", na = ".")
-```
-
-```
-## Rows: 1 Columns: 3
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: ","
-## dbl (2): a, b
-## lgl (1): c
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-```
-
-```
-## # A tibble: 1 × 3
-##       a     b c    
-##   <dbl> <dbl> <lgl>
-## 1     1     2 NA
+#> Rows: 1 Columns: 3
+#> ── Column specification ────────────────────────────────────────────────────────
+#> Delimiter: ","
+#> dbl (2): a, b
+#> lgl (1): c
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+#> # A tibble: 1 × 3
+#>       a     b c    
+#>   <dbl> <dbl> <lgl>
+#> 1     1     2 NA
 ```
 
 ## 解析向量
@@ -203,26 +164,11 @@ read_csv("a,b,c\n1,2,.", na = ".")
 
 ```r
 str(parse_logical(c("TRUE", "FALSE", "NA"))) # str() 用于显示 R 对象的内部结构
-```
-
-```
-##  logi [1:3] TRUE FALSE NA
-```
-
-```r
+#>  logi [1:3] TRUE FALSE NA
 str(parse_integer(c("1", "2", "3")))
-```
-
-```
-##  int [1:3] 1 2 3
-```
-
-```r
+#>  int [1:3] 1 2 3
 str(parse_date(c("2010-01-01", "1979-10-14")))
-```
-
-```
-##  Date[1:2], format: "2010-01-01" "1979-10-14"
+#>  Date[1:2], format: "2010-01-01" "1979-10-14"
 ```
 
 我们也可以设置缺省值：
@@ -230,10 +176,7 @@ str(parse_date(c("2010-01-01", "1979-10-14")))
 
 ```r
 parse_integer(c("1", "231", ".", "456"), na = ".")
-```
-
-```
-## [1]   1 231  NA 456
+#> [1]   1 231  NA 456
 ```
 
 解析失败会提示相关警示：
@@ -282,18 +225,9 @@ problems(x)
 
 ```r
 parse_double("1.23")
-```
-
-```
-## [1] 1.23
-```
-
-```r
+#> [1] 1.23
 parse_double("1,23", locale = locale(decimal_mark = ",")) # 改用 “,” 识别
-```
-
-```
-## [1] 1.23
+#> [1] 1.23
 ```
 
 数字前后非数字字符：
@@ -301,26 +235,11 @@ parse_double("1,23", locale = locale(decimal_mark = ",")) # 改用 “,” 识�
 
 ```r
 parse_number("$100")
-```
-
-```
-## [1] 100
-```
-
-```r
+#> [1] 100
 parse_number("20%")
-```
-
-```
-## [1] 20
-```
-
-```r
+#> [1] 20
 parse_number("It cost $123.45")
-```
-
-```
-## [1] 123.45
+#> [1] 123.45
 ```
 
 位数标记（grouping_mark）：
@@ -328,26 +247,11 @@ parse_number("It cost $123.45")
 
 ```r
 parse_number("$123,456,789")
-```
-
-```
-## [1] 123456789
-```
-
-```r
+#> [1] 123456789
 parse_number("123.456.789", locale = locale(grouping_mark = ".")) # 常见于欧洲
-```
-
-```
-## [1] 123456789
-```
-
-```r
+#> [1] 123456789
 parse_number("123'456'789", locale = locale(grouping_mark = "'")) # 常见于瑞士
-```
-
-```
-## [1] 123456789
+#> [1] 123456789
 ```
 
 ## 字符类型
@@ -356,10 +260,7 @@ parse_number("123'456'789", locale = locale(grouping_mark = "'")) # 常见于瑞
 
 ```r
 charToRaw("Hadley")
-```
-
-```
-## [1] 48 61 64 6c 65 79
+#> [1] 48 61 64 6c 65 79
 ```
 
 像这样，从十六进制数字到字符的映射的编码称为 ASCII，也是美国信息交换标准代码。但英语以外的编码就非常复杂了，用不同编码读取数据，他们将完全不同。
@@ -371,18 +272,9 @@ charToRaw("Hadley")
 
 ```r
 (x1 <- "El Ni\xf1o was particularly bad this year")
-```
-
-```
-## [1] "El Ni\xf1o was particularly bad this year"
-```
-
-```r
+#> [1] "El Ni\xf1o was particularly bad this year"
 (x2 <- "\x82\xb1\x82\xf1\x82\xc9\x82\xbf\x82\xcd")
-```
-
-```
-## [1] "\x82\xb1\x82\xf1\x82ɂ\xbf\x82\xcd"
+#> [1] "\x82\xb1\x82\xf1\x82ɂ\xbf\x82\xcd"
 ```
 
 使用 encoding 来转译它们的编码：
@@ -390,18 +282,9 @@ charToRaw("Hadley")
 
 ```r
 parse_character(x1, locale = locale(encoding = "Latin1"))
-```
-
-```
-## [1] "El Niño was particularly bad this year"
-```
-
-```r
+#> [1] "El Niño was particularly bad this year"
 parse_character(x2, locale = locale(encoding = "Shift-JIS"))
-```
-
-```
-## [1] "こんにちは"
+#> [1] "こんにちは"
 ```
 
 有时我们并不知道它是什么类型的编码！所幸的是，guess_encodeing() 会帮助我们尝试：
@@ -409,25 +292,16 @@ parse_character(x2, locale = locale(encoding = "Shift-JIS"))
 
 ```r
 guess_encoding(charToRaw(x1))
-```
-
-```
-## # A tibble: 2 × 2
-##   encoding   confidence
-##   <chr>           <dbl>
-## 1 ISO-8859-1       0.46
-## 2 ISO-8859-9       0.23
-```
-
-```r
+#> # A tibble: 2 × 2
+#>   encoding   confidence
+#>   <chr>           <dbl>
+#> 1 ISO-8859-1       0.46
+#> 2 ISO-8859-9       0.23
 guess_encoding(charToRaw(x2))
-```
-
-```
-## # A tibble: 1 × 2
-##   encoding confidence
-##   <chr>         <dbl>
-## 1 KOI8-R         0.42
+#> # A tibble: 1 × 2
+#>   encoding confidence
+#>   <chr>         <dbl>
+#> 1 KOI8-R         0.42
 ```
 
 ## 因子类型
@@ -458,19 +332,10 @@ parse_datetime() 根据 ISO8601 国际标准转换日期时间：
 
 ```r
 parse_datetime("2010-10-01T2010")
-```
-
-```
-## [1] "2010-10-01 20:10:00 UTC"
-```
-
-```r
+#> [1] "2010-10-01 20:10:00 UTC"
 # If time is omitted, it will be set to midnight
 parse_datetime("20101010")
-```
-
-```
-## [1] "2010-10-10 UTC"
+#> [1] "2010-10-10 UTC"
 ```
 
 parse_date() 用于转换四位数年份，使用 “-” 或 “/” 都可（但没有分隔符则会报错）：
@@ -478,10 +343,7 @@ parse_date() 用于转换四位数年份，使用 “-” 或 “/” 都可（�
 
 ```r
 parse_date("2010-10-01")
-```
-
-```
-## [1] "2010-10-01"
+#> [1] "2010-10-01"
 ```
 
 parse_time() 用于转换时分秒（秒和上下午可选）：
@@ -490,18 +352,9 @@ parse_time() 用于转换时分秒（秒和上下午可选）：
 ```r
 library(hms) # R 不自带，我们需要调用 hms 包（tidyverse 的 readr 包也有）
 parse_time("01:10 am")
-```
-
-```
-## 01:10:00
-```
-
-```r
+#> 01:10:00
 parse_time("20:10:01")
-```
-
-```
-## 20:10:01
+#> 20:10:01
 ```
 
 此外日期时间字符串形式可以自己制定：
@@ -531,26 +384,11 @@ parse_time("20:10:01")
 
 ```r
 parse_date("01/02/15", "%m/%d/%y")
-```
-
-```
-## [1] "2015-01-02"
-```
-
-```r
+#> [1] "2015-01-02"
 parse_date("01/02/15", "%d/%m/%y")
-```
-
-```
-## [1] "2015-02-01"
-```
-
-```r
+#> [1] "2015-02-01"
 parse_date("01/02/15", "%y/%m/%d")
-```
-
-```
-## [1] "2001-02-15"
+#> [1] "2001-02-15"
 ```
 
 如果将 %b 或 %B 与非英语的月份名称一起使用，则需要将 lang 参数设置为 locale()。使用函数 date_names_langs() 查看内置语言列表，或者使用 date_names() 自定义。
@@ -558,10 +396,7 @@ parse_date("01/02/15", "%y/%m/%d")
 
 ```r
 parse_date("1 janvier 2015", "%d %B %Y", locale = locale("fr"))
-```
-
-```
-## [1] "2015-01-01"
+#> [1] "2015-01-01"
 ```
 
 ## 解析文件
@@ -573,50 +408,17 @@ readr 一般读取前 1000 行，并使用一些 “启发式” 的方法（保
 
 ```r
 guess_parser("2010-10-01")
-```
-
-```
-## [1] "date"
-```
-
-```r
+#> [1] "date"
 guess_parser("15:01")
-```
-
-```
-## [1] "time"
-```
-
-```r
+#> [1] "time"
 guess_parser(c("TRUE", "FALSE"))
-```
-
-```
-## [1] "logical"
-```
-
-```r
+#> [1] "logical"
 guess_parser(c("1", "5", "9"))
-```
-
-```
-## [1] "double"
-```
-
-```r
+#> [1] "double"
 guess_parser(c("12,352,561"))
-```
-
-```
-## [1] "number"
-```
-
-```r
+#> [1] "number"
 str(parse_guess("2010-10-10"))
-```
-
-```
-##  Date[1:1], format: "2010-10-10"
+#>  Date[1:1], format: "2010-10-10"
 ```
 
 这种 “启发式” 尝试以下每种类型，并在找到满足匹配项时停止：
@@ -695,13 +497,8 @@ challenge <- read_csv(
     y = col_logical() # 第二列为 y，逻辑值类型
   )
 )
-```
+#> Warning: One or more parsing issues, see `problems()` for details
 
-```
-## Warning: One or more parsing issues, see `problems()` for details
-```
-
-```r
 challenge <- read_csv(
   readr_example("challenge.csv"),
   col_types = cols(
@@ -710,18 +507,15 @@ challenge <- read_csv(
   )
 )
 tail(challenge)
-```
-
-```
-## # A tibble: 6 × 2
-##       x y         
-##   <dbl> <date>    
-## 1 0.805 2019-11-21
-## 2 0.164 2018-03-29
-## 3 0.472 2014-08-04
-## 4 0.718 2015-08-16
-## 5 0.270 2020-02-04
-## 6 0.608 2019-01-06
+#> # A tibble: 6 × 2
+#>       x y         
+#>   <dbl> <date>    
+#> 1 0.805 2019-11-21
+#> 2 0.164 2018-03-29
+#> 3 0.472 2014-08-04
+#> 4 0.718 2015-08-16
+#> 5 0.270 2020-02-04
+#> 6 0.608 2019-01-06
 ```
 
 col_types 是有必要的，这至少能确保它生成的数据更为可靠一些。
@@ -733,38 +527,29 @@ col_types 是有必要的，这至少能确保它生成的数据更为可靠一�
 
 ```r
 challenge2 <- read_csv(readr_example("challenge.csv"), guess_max = 1001)
-```
-
-```
-## Rows: 2000 Columns: 2
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: ","
-## dbl  (1): x
-## date (1): y
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-```
-
-```r
+#> Rows: 2000 Columns: 2
+#> ── Column specification ────────────────────────────────────────────────────────
+#> Delimiter: ","
+#> dbl  (1): x
+#> date (1): y
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 challenge2
-```
-
-```
-## # A tibble: 2,000 × 2
-##        x y     
-##    <dbl> <date>
-##  1   404 NA    
-##  2  4172 NA    
-##  3  3004 NA    
-##  4   787 NA    
-##  5    37 NA    
-##  6  2332 NA    
-##  7  2489 NA    
-##  8  1449 NA    
-##  9  3665 NA    
-## 10  3863 NA    
-## # … with 1,990 more rows
+#> # A tibble: 2,000 × 2
+#>        x y     
+#>    <dbl> <date>
+#>  1   404 NA    
+#>  2  4172 NA    
+#>  3  3004 NA    
+#>  4   787 NA    
+#>  5    37 NA    
+#>  6  2332 NA    
+#>  7  2489 NA    
+#>  8  1449 NA    
+#>  9  3665 NA    
+#> 10  3863 NA    
+#> # … with 1,990 more rows
 ```
 
 你看。问题解决了呢。
@@ -789,37 +574,25 @@ df <- tribble(
   "3", "4.56"
 )
 df
-```
-
-```
-## # A tibble: 3 × 2
-##   x     y    
-##   <chr> <chr>
-## 1 1     1.21 
-## 2 2     2.32 
-## 3 3     4.56
-```
-
-```r
+#> # A tibble: 3 × 2
+#>   x     y    
+#>   <chr> <chr>
+#> 1 1     1.21 
+#> 2 2     2.32 
+#> 3 3     4.56
 type_convert(df)
-```
-
-```
-## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   x = col_double(),
-##   y = col_double()
-## )
-```
-
-```
-## # A tibble: 3 × 2
-##       x     y
-##   <dbl> <dbl>
-## 1     1  1.21
-## 2     2  2.32
-## 3     3  4.56
+#> 
+#> ── Column specification ────────────────────────────────────────────────────────
+#> cols(
+#>   x = col_double(),
+#>   y = col_double()
+#> )
+#> # A tibble: 3 × 2
+#>       x     y
+#>   <dbl> <dbl>
+#> 1     1  1.21
+#> 2     2  2.32
+#> 3     3  4.56
 ```
 
 可以看到 “启发性” 转换到底转换成了什么类型。
@@ -838,56 +611,44 @@ write_csv(challenge, "./data/challenge.csv")
 
 ```r
 challenge
-```
-
-```
-## # A tibble: 2,000 × 2
-##        x y     
-##    <dbl> <date>
-##  1   404 NA    
-##  2  4172 NA    
-##  3  3004 NA    
-##  4   787 NA    
-##  5    37 NA    
-##  6  2332 NA    
-##  7  2489 NA    
-##  8  1449 NA    
-##  9  3665 NA    
-## 10  3863 NA    
-## # … with 1,990 more rows
-```
-
-```r
+#> # A tibble: 2,000 × 2
+#>        x y     
+#>    <dbl> <date>
+#>  1   404 NA    
+#>  2  4172 NA    
+#>  3  3004 NA    
+#>  4   787 NA    
+#>  5    37 NA    
+#>  6  2332 NA    
+#>  7  2489 NA    
+#>  8  1449 NA    
+#>  9  3665 NA    
+#> 10  3863 NA    
+#> # … with 1,990 more rows
 write_csv(challenge, "./data/challenge-2.csv")
 read_csv("./data/challenge-2.csv")
-```
-
-```
-## Rows: 2000 Columns: 2
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: ","
-## dbl  (1): x
-## date (1): y
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-```
-
-```
-## # A tibble: 2,000 × 2
-##        x y     
-##    <dbl> <date>
-##  1   404 NA    
-##  2  4172 NA    
-##  3  3004 NA    
-##  4   787 NA    
-##  5    37 NA    
-##  6  2332 NA    
-##  7  2489 NA    
-##  8  1449 NA    
-##  9  3665 NA    
-## 10  3863 NA    
-## # … with 1,990 more rows
+#> Rows: 2000 Columns: 2
+#> ── Column specification ────────────────────────────────────────────────────────
+#> Delimiter: ","
+#> dbl  (1): x
+#> date (1): y
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+#> # A tibble: 2,000 × 2
+#>        x y     
+#>    <dbl> <date>
+#>  1   404 NA    
+#>  2  4172 NA    
+#>  3  3004 NA    
+#>  4   787 NA    
+#>  5    37 NA    
+#>  6  2332 NA    
+#>  7  2489 NA    
+#>  8  1449 NA    
+#>  9  3665 NA    
+#> 10  3863 NA    
+#> # … with 1,990 more rows
 ```
 
 ### rds 格式
@@ -898,23 +659,20 @@ read_csv("./data/challenge-2.csv")
 ```r
 write_rds(challenge, "./data/challenge.rds")
 read_rds("./data/challenge.rds")
-```
-
-```
-## # A tibble: 2,000 × 2
-##        x y     
-##    <dbl> <date>
-##  1   404 NA    
-##  2  4172 NA    
-##  3  3004 NA    
-##  4   787 NA    
-##  5    37 NA    
-##  6  2332 NA    
-##  7  2489 NA    
-##  8  1449 NA    
-##  9  3665 NA    
-## 10  3863 NA    
-## # … with 1,990 more rows
+#> # A tibble: 2,000 × 2
+#>        x y     
+#>    <dbl> <date>
+#>  1   404 NA    
+#>  2  4172 NA    
+#>  3  3004 NA    
+#>  4   787 NA    
+#>  5    37 NA    
+#>  6  2332 NA    
+#>  7  2489 NA    
+#>  8  1449 NA    
+#>  9  3665 NA    
+#> 10  3863 NA    
+#> # … with 1,990 more rows
 ```
 
 表现非常好，但 rds 格式不流行也不通用。
@@ -928,23 +686,20 @@ feather 包也实现了一种快速的二进制文件格式，可以跨编程语
 library(feather)
 write_feather(challenge, "./data/challenge.feather")
 read_feather("./data/challenge.feather")
-```
-
-```
-## # A tibble: 2,000 × 2
-##        x y     
-##    <dbl> <date>
-##  1   404 NA    
-##  2  4172 NA    
-##  3  3004 NA    
-##  4   787 NA    
-##  5    37 NA    
-##  6  2332 NA    
-##  7  2489 NA    
-##  8  1449 NA    
-##  9  3665 NA    
-## 10  3863 NA    
-## # … with 1,990 more rows
+#> # A tibble: 2,000 × 2
+#>        x y     
+#>    <dbl> <date>
+#>  1   404 NA    
+#>  2  4172 NA    
+#>  3  3004 NA    
+#>  4   787 NA    
+#>  5    37 NA    
+#>  6  2332 NA    
+#>  7  2489 NA    
+#>  8  1449 NA    
+#>  9  3665 NA    
+#> 10  3863 NA    
+#> # … with 1,990 more rows
 ```
 
 ### 其他格式

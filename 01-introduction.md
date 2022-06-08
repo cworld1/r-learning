@@ -49,10 +49,7 @@ install.packages(c("nycflights13", "gapminder", "Lahman"))
 
 ```r
 print("hello world!")
-```
-
-```
-## [1] "hello world!"
+#> [1] "hello world!"
 ```
 
 R 里有一些约定俗成的代码形式。如：

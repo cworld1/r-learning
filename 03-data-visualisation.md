@@ -11,18 +11,15 @@ library(tidyverse) # 方便使用其中的 ggplot2
 ```r
 view(mpg) # 使用 view() 函数可以方便观察对应数据集
 head(mpg) # 可以在控制台打印数据集头部信息（前十行）
-```
-
-```
-## # A tibble: 6 × 11
-##   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
-##   <chr>        <chr> <dbl> <int> <int> <chr>      <chr> <int> <int> <chr> <chr> 
-## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa…
-## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa…
-## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa…
-## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa…
-## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa…
-## 6 audi         a4      2.8  1999     6 manual(m5) f        18    26 p     compa…
+#> # A tibble: 6 × 11
+#>   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
+#>   <chr>        <chr> <dbl> <int> <int> <chr>      <chr> <int> <int> <chr> <chr> 
+#> 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa…
+#> 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa…
+#> 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa…
+#> 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa…
+#> 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa…
+#> 6 audi         a4      2.8  1999     6 manual(m5) f        18    26 p     compa…
 ```
 
 列 displ：汽车的发动机尺寸，以升为单位。
@@ -55,10 +52,7 @@ ggplot(data = mpg) +
 ```r
 ggplot(data = mpg) +
     geom_point(mapping = aes(x = displ, y = hwy, size = class))
-```
-
-```
-## Warning: Using size for a discrete variable is not advised.
+#> Warning: Using size for a discrete variable is not advised.
 ```
 
 <img src="03-data-visualisation_files/figure-html/aes size-1.png" width="672" />
@@ -69,16 +63,10 @@ ggplot(data = mpg) +
 ```r
 ggplot(data = mpg) +
     geom_point(mapping = aes(x = displ, y = hwy, shape = class))
-```
-
-```
-## Warning: The shape palette can deal with a maximum of 6 discrete values because
-## more than 6 becomes difficult to discriminate; you have 7. Consider
-## specifying shapes manually if you must have them.
-```
-
-```
-## Warning: Removed 62 rows containing missing values (geom_point).
+#> Warning: The shape palette can deal with a maximum of 6 discrete values because
+#> more than 6 becomes difficult to discriminate; you have 7. Consider
+#> specifying shapes manually if you must have them.
+#> Warning: Removed 62 rows containing missing values (geom_point).
 ```
 
 <img src="03-data-visualisation_files/figure-html/aes shape-1.png" width="672" />
@@ -89,10 +77,7 @@ ggplot(data = mpg) +
 ```r
 ggplot(data = mpg) +
     geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
-```
-
-```
-## Warning: Using alpha for a discrete variable is not advised.
+#> Warning: Using alpha for a discrete variable is not advised.
 ```
 
 <img src="03-data-visualisation_files/figure-html/aes alpha-1.png" width="672" />
@@ -146,10 +131,7 @@ mapping 为默认接收内容，可以省略：
 ggplot(data = mpg) +
     geom_point(aes(x = displ, y = hwy)) +
     geom_smooth(aes(x = displ, y = hwy))
-```
-
-```
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
 <img src="03-data-visualisation_files/figure-html/omit mapping-1.png" width="672" />
@@ -161,10 +143,7 @@ ggplot(data = mpg) +
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
     geom_point() +
     geom_smooth()
-```
-
-```
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
 <img src="03-data-visualisation_files/figure-html/default mapping-1.png" width="672" />
@@ -176,10 +155,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
     geom_point(color = "blue") +
     geom_smooth(data = filter(mpg, class == "subcompact"))
-```
-
-```
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
 <img src="03-data-visualisation_files/figure-html/cover mapping-1.png" width="672" />
@@ -198,10 +174,7 @@ ggplot(data = mpg) +
         show.legend = FALSE,
         se = FALSE
     )
-```
-
-```
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
 <img src="03-data-visualisation_files/figure-html/geom_smooth()-1.png" width="672" />
@@ -286,10 +259,7 @@ ggplot(data = diamonds) +
         fun.min = min, # 下限为最小值
         fun.y = mean # 标点为平均数
     )
-```
-
-```
-## Warning: `fun.y` is deprecated. Use `fun` instead.
+#> Warning: `fun.y` is deprecated. Use `fun` instead.
 ```
 
 <img src="03-data-visualisation_files/figure-html/stat_summary()-1.png" width="672" />
@@ -371,45 +341,15 @@ library(grid) # 引用一下布局包
 grid.newpage() # 新建布局包
 pushViewport(viewport(layout = grid.layout(3, 2))) # 设置 2x3 布局
 print(p[[1]], vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
-```
-
-```
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
-```
-
-```r
+#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 print(p[[2]], vp = viewport(layout.pos.row = 1, layout.pos.col = 2))
-```
-
-```
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
-```
-
-```r
+#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 print(p[[3]], vp = viewport(layout.pos.row = 2, layout.pos.col = 1))
-```
-
-```
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
-```
-
-```r
+#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 print(p[[4]], vp = viewport(layout.pos.row = 2, layout.pos.col = 2))
-```
-
-```
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
-```
-
-```r
+#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 print(p[[5]], vp = viewport(layout.pos.row = 3, layout.pos.col = 1))
-```
-
-```
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
-```
-
-```r
+#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 print(p[[6]], vp = viewport(layout.pos.row = 3, layout.pos.col = 2))
 ```
 

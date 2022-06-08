@@ -14,8 +14,6 @@
 - 表格数据：一组值，每个值都与一个变量和一个观测值相关联。
 
 
-
-
 ```r
 library(tidyverse)
 ```
@@ -332,9 +330,24 @@ diamonds_new %>%
 
 注意仅求数据可以用 count() 实现：
 
-```
+
+```r
 diamonds %>%
     count(color, cut)
+#> # A tibble: 35 × 3
+#>    color cut           n
+#>    <ord> <ord>     <int>
+#>  1 D     Fair        163
+#>  2 D     Good        662
+#>  3 D     Very Good  1513
+#>  4 D     Premium    1603
+#>  5 D     Ideal      2834
+#>  6 E     Fair        224
+#>  7 E     Good        933
+#>  8 E     Very Good  2400
+#>  9 E     Premium    2337
+#> 10 E     Ideal      3903
+#> # … with 25 more rows
 ```
 
 ### 两个连续变量

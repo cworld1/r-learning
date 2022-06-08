@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 21 Graphics for communication | R-Learning</title>
+  <meta name="description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 21 Graphics for communication | R-Learning" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://r.cworld.top//assets/avatar.jpg" />
+  <meta property="og:description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
+  <meta name="github-repo" content="cworld1/r-learning" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 21 Graphics for communication | R-Learning" />
+  
+  <meta name="twitter:description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
+  <meta name="twitter:image" content="https://r.cworld.top//assets/avatar.jpg" />
+
+<meta name="author" content="CWorld" />
+
+
+<meta name="date" content="2022-06-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="r-markdown.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
+<script src="libs/str_view-binding-1.4.0/str_view.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="assets/style.min.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="#" target="blank">R Learning Notebook</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#项目介绍"><i class="fa fa-check"></i><b>1.1</b> 项目介绍</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#项目运行"><i class="fa fa-check"></i><b>1.2</b> 项目运行</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#贡献"><i class="fa fa-check"></i><b>1.3</b> 贡献</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#鸣谢"><i class="fa fa-check"></i><b>1.4</b> 鸣谢</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i><b>1.5</b> License</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#数据科学"><i class="fa fa-check"></i><b>2.1</b> 数据科学</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction.html"><a href="introduction.html#一些准备"><i class="fa fa-check"></i><b>2.2</b> 一些准备</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="introduction.html"><a href="introduction.html#安装-r"><i class="fa fa-check"></i><b>2.2.1</b> 安装 R</a></li>
+<li class="chapter" data-level="2.2.2" data-path="introduction.html"><a href="introduction.html#安装编辑器"><i class="fa fa-check"></i><b>2.2.2</b> 安装编辑器</a></li>
+<li class="chapter" data-level="2.2.3" data-path="introduction.html"><a href="introduction.html#相关包"><i class="fa fa-check"></i><b>2.2.3</b> 相关包</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="introduction.html"><a href="introduction.html#更多学习途径"><i class="fa fa-check"></i><b>2.3</b> 更多学习途径</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction.html"><a href="introduction.html#初识-r"><i class="fa fa-check"></i><b>2.4</b> 初识 R</a></li>
+</ul></li>
+<li class="part"><span><b>I Explore 探索</b></span></li>
+<li class="chapter" data-level="3" data-path="explore-intro.html"><a href="explore-intro.html"><i class="fa fa-check"></i><b>3</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="explore-intro.html"><a href="explore-intro.html#基本数据形式和函数"><i class="fa fa-check"></i><b>3.1</b> 基本数据形式和函数</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="explore-intro.html"><a href="explore-intro.html#向量矩阵与列表"><i class="fa fa-check"></i><b>3.1.1</b> 向量、矩阵与列表</a></li>
+<li class="chapter" data-level="3.1.2" data-path="explore-intro.html"><a href="explore-intro.html#基本函数"><i class="fa fa-check"></i><b>3.1.2</b> 基本函数</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="explore-intro.html"><a href="explore-intro.html#学习-r-自带的画图功能"><i class="fa fa-check"></i><b>3.2</b> 学习 R 自带的画图功能</a></li>
+<li class="chapter" data-level="3.3" data-path="explore-intro.html"><a href="explore-intro.html#更高级的数据形式"><i class="fa fa-check"></i><b>3.3</b> 更高级的数据形式</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="explore.html"><a href="explore.html"><i class="fa fa-check"></i><b>4</b> Data visualisation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="explore.html"><a href="explore.html#初识-ggplot"><i class="fa fa-check"></i><b>4.1</b> 初识 ggplot</a></li>
+<li class="chapter" data-level="4.2" data-path="explore.html"><a href="explore.html#美学映射"><i class="fa fa-check"></i><b>4.2</b> 美学映射</a></li>
+<li class="chapter" data-level="4.3" data-path="explore.html"><a href="explore.html#修改样式"><i class="fa fa-check"></i><b>4.3</b> 修改样式</a></li>
+<li class="chapter" data-level="4.4" data-path="explore.html"><a href="explore.html#多组画图"><i class="fa fa-check"></i><b>4.4</b> 多组画图</a></li>
+<li class="chapter" data-level="4.5" data-path="explore.html"><a href="explore.html#叠加与参数"><i class="fa fa-check"></i><b>4.5</b> 叠加与参数</a></li>
+<li class="chapter" data-level="4.6" data-path="explore.html"><a href="explore.html#其他常见图"><i class="fa fa-check"></i><b>4.6</b> 其他常见图</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="explore.html"><a href="explore.html#回归曲线图"><i class="fa fa-check"></i><b>4.6.1</b> 回归曲线图</a></li>
+<li class="chapter" data-level="4.6.2" data-path="explore.html"><a href="explore.html#条形图"><i class="fa fa-check"></i><b>4.6.2</b> 条形图</a></li>
+<li class="chapter" data-level="4.6.3" data-path="explore.html"><a href="explore.html#summary-线条信息图"><i class="fa fa-check"></i><b>4.6.3</b> Summary 线条信息图</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="explore.html"><a href="explore.html#坐标系相关"><i class="fa fa-check"></i><b>4.7</b> 坐标系相关</a></li>
+<li class="chapter" data-level="4.8" data-path="explore.html"><a href="explore.html#绘制-diamonds-数据分析图"><i class="fa fa-check"></i><b>4.8</b> 绘制 diamonds 数据分析图</a></li>
+<li class="chapter" data-level="4.9" data-path="explore.html"><a href="explore.html#研究-mpgcars-数据集"><i class="fa fa-check"></i><b>4.9</b> 研究 mpgcars 数据集</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="workflow-basics.html"><a href="workflow-basics.html"><i class="fa fa-check"></i><b>5</b> Workflow: basics</a></li>
+<li class="chapter" data-level="6" data-path="transform.html"><a href="transform.html"><i class="fa fa-check"></i><b>6</b> Data transformation</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="transform.html"><a href="transform.html#查看-flights-数据集"><i class="fa fa-check"></i><b>6.1</b> 查看 flights 数据集</a></li>
+<li class="chapter" data-level="6.2" data-path="transform.html"><a href="transform.html#过滤-filter"><i class="fa fa-check"></i><b>6.2</b> 过滤 filter()</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="transform.html"><a href="transform.html#比较"><i class="fa fa-check"></i><b>6.2.1</b> 比较</a></li>
+<li class="chapter" data-level="6.2.2" data-path="transform.html"><a href="transform.html#逻辑运算符"><i class="fa fa-check"></i><b>6.2.2</b> 逻辑运算符</a></li>
+<li class="chapter" data-level="6.2.3" data-path="transform.html"><a href="transform.html#缺失值"><i class="fa fa-check"></i><b>6.2.3</b> 缺失值</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="transform.html"><a href="transform.html#排列-arange"><i class="fa fa-check"></i><b>6.3</b> 排列 arange()</a></li>
+<li class="chapter" data-level="6.4" data-path="transform.html"><a href="transform.html#选择-select"><i class="fa fa-check"></i><b>6.4</b> 选择 select()</a></li>
+<li class="chapter" data-level="6.5" data-path="transform.html"><a href="transform.html#重命名-rename"><i class="fa fa-check"></i><b>6.5</b> 重命名 rename()</a></li>
+<li class="chapter" data-level="6.6" data-path="transform.html"><a href="transform.html#添加新变量-mutate-与-transmute"><i class="fa fa-check"></i><b>6.6</b> 添加新变量 mutate() 与 transmute()</a></li>
+<li class="chapter" data-level="6.7" data-path="transform.html"><a href="transform.html#分组摘要-summarise"><i class="fa fa-check"></i><b>6.7</b> 分组摘要 summarise()</a></li>
+<li class="chapter" data-level="6.8" data-path="transform.html"><a href="transform.html#其他处理数据功能"><i class="fa fa-check"></i><b>6.8</b> 其他处理数据功能</a></li>
+<li class="chapter" data-level="6.9" data-path="transform.html"><a href="transform.html#分析-flights-数据集"><i class="fa fa-check"></i><b>6.9</b> 分析 flights 数据集</a>
+<ul>
+<li class="chapter" data-level="6.9.1" data-path="transform.html"><a href="transform.html#计算目的地相关的图"><i class="fa fa-check"></i><b>6.9.1</b> 计算目的地相关的图</a></li>
+<li class="chapter" data-level="6.9.2" data-path="transform.html"><a href="transform.html#获取热门目的地及有关数据"><i class="fa fa-check"></i><b>6.9.2</b> 获取热门目的地及有关数据</a></li>
+<li class="chapter" data-level="6.9.3" data-path="transform.html"><a href="transform.html#绘制飞机延误时长分布图"><i class="fa fa-check"></i><b>6.9.3</b> 绘制飞机延误时长分布图</a></li>
+<li class="chapter" data-level="6.9.4" data-path="transform.html"><a href="transform.html#计算每天最早和最晚的航班"><i class="fa fa-check"></i><b>6.9.4</b> 计算每天最早和最晚的航班</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="workflow-scripts.html"><a href="workflow-scripts.html"><i class="fa fa-check"></i><b>7</b> Workflow: scripts</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="workflow-scripts.html"><a href="workflow-scripts.html#运行代码"><i class="fa fa-check"></i><b>7.1</b> 运行代码</a></li>
+<li class="chapter" data-level="7.2" data-path="workflow-scripts.html"><a href="workflow-scripts.html#rstudio-诊断"><i class="fa fa-check"></i><b>7.2</b> RStudio 诊断</a></li>
+<li class="chapter" data-level="7.3" data-path="workflow-scripts.html"><a href="workflow-scripts.html#使用-visual-studio-code-编写-r"><i class="fa fa-check"></i><b>7.3</b> 使用 Visual studio code 编写 R</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>8</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图分析-diamonds-数据集"><i class="fa fa-check"></i><b>8.1</b> 绘图分析 diamonds 数据集</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#可视化分布"><i class="fa fa-check"></i><b>8.1.1</b> 可视化分布</a></li>
+<li class="chapter" data-level="8.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘制频率直方图"><i class="fa fa-check"></i><b>8.1.2</b> 绘制频率直方图</a></li>
+<li class="chapter" data-level="8.1.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#异常数据杂质"><i class="fa fa-check"></i><b>8.1.3</b> 异常数据（杂质）</a></li>
+<li class="chapter" data-level="8.1.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#处理异常数据"><i class="fa fa-check"></i><b>8.1.4</b> 处理异常数据</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图统计-flights-数据集"><i class="fa fa-check"></i><b>8.2</b> 绘图统计 flights 数据集</a></li>
+<li class="chapter" data-level="8.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图统计-diamonds-数据集"><i class="fa fa-check"></i><b>8.3</b> 绘图统计 diamonds 数据集</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#连续变量多类绘图"><i class="fa fa-check"></i><b>8.3.1</b> 连续变量多类绘图</a></li>
+<li class="chapter" data-level="8.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#关于变量排序-reorder"><i class="fa fa-check"></i><b>8.3.2</b> 关于变量排序 reorder()</a></li>
+<li class="chapter" data-level="8.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#两个分类变量"><i class="fa fa-check"></i><b>8.3.3</b> 两个分类变量</a></li>
+<li class="chapter" data-level="8.3.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#两个连续变量"><i class="fa fa-check"></i><b>8.3.4</b> 两个连续变量</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="workflow-projects.html"><a href="workflow-projects.html"><i class="fa fa-check"></i><b>9</b> Workflow: projects</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="workflow-projects.html"><a href="workflow-projects.html#运行环境"><i class="fa fa-check"></i><b>9.1</b> 运行环境</a></li>
+<li class="chapter" data-level="9.2" data-path="workflow-projects.html"><a href="workflow-projects.html#工作区"><i class="fa fa-check"></i><b>9.2</b> 工作区</a></li>
+<li class="chapter" data-level="9.3" data-path="workflow-projects.html"><a href="workflow-projects.html#路径与目录"><i class="fa fa-check"></i><b>9.3</b> 路径与目录</a></li>
+<li class="chapter" data-level="9.4" data-path="workflow-projects.html"><a href="workflow-projects.html#rstudio-项目"><i class="fa fa-check"></i><b>9.4</b> RStudio 项目</a></li>
+</ul></li>
+<li class="part"><span><b>II Wrangle 扭结</b></span></li>
+<li class="chapter" data-level="10" data-path="wrangle-intro.html"><a href="wrangle-intro.html"><i class="fa fa-check"></i><b>10</b> Introduction</a></li>
+<li class="chapter" data-level="11" data-path="tibbles.html"><a href="tibbles.html"><i class="fa fa-check"></i><b>11</b> Tibbles</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="tibbles.html"><a href="tibbles.html#创建-tibble"><i class="fa fa-check"></i><b>11.1</b> 创建 tibble</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="tibbles.html"><a href="tibbles.html#as_tibble"><i class="fa fa-check"></i><b>11.1.1</b> as_tibble()</a></li>
+<li class="chapter" data-level="11.1.2" data-path="tibbles.html"><a href="tibbles.html#tibble"><i class="fa fa-check"></i><b>11.1.2</b> tibble()</a></li>
+<li class="chapter" data-level="11.1.3" data-path="tibbles.html"><a href="tibbles.html#tribble"><i class="fa fa-check"></i><b>11.1.3</b> tribble()</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="tibbles.html"><a href="tibbles.html#tibbles-vs.-data.frame"><i class="fa fa-check"></i><b>11.2</b> tibbles VS. data.frame</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="tibbles.html"><a href="tibbles.html#控制台打印方面"><i class="fa fa-check"></i><b>11.2.1</b> 控制台打印方面</a></li>
+<li class="chapter" data-level="11.2.2" data-path="tibbles.html"><a href="tibbles.html#读取子元素方面"><i class="fa fa-check"></i><b>11.2.2</b> 读取子元素方面</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="tibbles.html"><a href="tibbles.html#tibble-的转换"><i class="fa fa-check"></i><b>11.3</b> tibble 的转换</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>12</b> Data import</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="data-import.html"><a href="data-import.html#简单读取文件"><i class="fa fa-check"></i><b>12.1</b> 简单读取文件</a></li>
+<li class="chapter" data-level="12.2" data-path="data-import.html"><a href="data-import.html#解析向量"><i class="fa fa-check"></i><b>12.2</b> 解析向量</a></li>
+<li class="chapter" data-level="12.3" data-path="data-import.html"><a href="data-import.html#数字类型"><i class="fa fa-check"></i><b>12.3</b> 数字类型</a></li>
+<li class="chapter" data-level="12.4" data-path="data-import.html"><a href="data-import.html#字符类型"><i class="fa fa-check"></i><b>12.4</b> 字符类型</a></li>
+<li class="chapter" data-level="12.5" data-path="data-import.html"><a href="data-import.html#因子类型"><i class="fa fa-check"></i><b>12.5</b> 因子类型</a></li>
+<li class="chapter" data-level="12.6" data-path="data-import.html"><a href="data-import.html#日期时间类型"><i class="fa fa-check"></i><b>12.6</b> 日期时间类型</a></li>
+<li class="chapter" data-level="12.7" data-path="data-import.html"><a href="data-import.html#解析文件"><i class="fa fa-check"></i><b>12.7</b> 解析文件</a>
+<ul>
+<li class="chapter" data-level="12.7.1" data-path="data-import.html"><a href="data-import.html#自动匹配"><i class="fa fa-check"></i><b>12.7.1</b> 自动匹配</a></li>
+<li class="chapter" data-level="12.7.2" data-path="data-import.html"><a href="data-import.html#自动匹配遇到的问题"><i class="fa fa-check"></i><b>12.7.2</b> 自动匹配遇到的问题</a></li>
+<li class="chapter" data-level="12.7.3" data-path="data-import.html"><a href="data-import.html#其他的匹配解决策略"><i class="fa fa-check"></i><b>12.7.3</b> 其他的匹配解决策略</a></li>
+</ul></li>
+<li class="chapter" data-level="12.8" data-path="data-import.html"><a href="data-import.html#写入数据"><i class="fa fa-check"></i><b>12.8</b> 写入数据</a>
+<ul>
+<li class="chapter" data-level="12.8.1" data-path="data-import.html"><a href="data-import.html#csv-格式"><i class="fa fa-check"></i><b>12.8.1</b> csv 格式</a></li>
+<li class="chapter" data-level="12.8.2" data-path="data-import.html"><a href="data-import.html#rds-格式"><i class="fa fa-check"></i><b>12.8.2</b> rds 格式</a></li>
+<li class="chapter" data-level="12.8.3" data-path="data-import.html"><a href="data-import.html#feather-格式"><i class="fa fa-check"></i><b>12.8.3</b> feather 格式</a></li>
+<li class="chapter" data-level="12.8.4" data-path="data-import.html"><a href="data-import.html#其他格式"><i class="fa fa-check"></i><b>12.8.4</b> 其他格式</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>13</b> Tidy data</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="tidy-data.html"><a href="tidy-data.html#对-table1-数据分析"><i class="fa fa-check"></i><b>13.1</b> 对 table1 数据分析</a></li>
+<li class="chapter" data-level="13.2" data-path="tidy-data.html"><a href="tidy-data.html#对-table2-数据整理"><i class="fa fa-check"></i><b>13.2</b> 对 table2 数据整理</a></li>
+<li class="chapter" data-level="13.3" data-path="tidy-data.html"><a href="tidy-data.html#对-table3-数据整理"><i class="fa fa-check"></i><b>13.3</b> 对 table3 数据整理</a></li>
+<li class="chapter" data-level="13.4" data-path="tidy-data.html"><a href="tidy-data.html#对-table4a-table4b-数据整理"><i class="fa fa-check"></i><b>13.4</b> 对 table4a &amp; table4b 数据整理</a></li>
+<li class="chapter" data-level="13.5" data-path="tidy-data.html"><a href="tidy-data.html#对-table5-数据整理"><i class="fa fa-check"></i><b>13.5</b> 对 table5 数据整理</a></li>
+<li class="chapter" data-level="13.6" data-path="tidy-data.html"><a href="tidy-data.html#对-stocks-和-treatment-的缺失数据处理"><i class="fa fa-check"></i><b>13.6</b> 对 stocks 和 treatment 的缺失数据处理</a></li>
+<li class="chapter" data-level="13.7" data-path="tidy-data.html"><a href="tidy-data.html#对-who-数据整理"><i class="fa fa-check"></i><b>13.7</b> 对 who 数据整理</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="relational-data.html"><a href="relational-data.html"><i class="fa fa-check"></i><b>14</b> Relational data</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="relational-data.html"><a href="relational-data.html#理解合并数据概念"><i class="fa fa-check"></i><b>14.1</b> 理解合并数据概念</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="relational-data.html"><a href="relational-data.html#类型1没有重复问题"><i class="fa fa-check"></i><b>14.1.1</b> 类型1：没有重复问题</a></li>
+<li class="chapter" data-level="14.1.2" data-path="relational-data.html"><a href="relational-data.html#类型2一边有重复问题"><i class="fa fa-check"></i><b>14.1.2</b> 类型2：一边有重复问题</a></li>
+<li class="chapter" data-level="14.1.3" data-path="relational-data.html"><a href="relational-data.html#类型3两边都有重复问题"><i class="fa fa-check"></i><b>14.1.3</b> 类型3：两边都有重复问题</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="relational-data.html"><a href="relational-data.html#理解多种数据合并方式"><i class="fa fa-check"></i><b>14.2</b> 理解多种数据合并方式</a></li>
+<li class="chapter" data-level="14.3" data-path="relational-data.html"><a href="relational-data.html#设置操作"><i class="fa fa-check"></i><b>14.3</b> 设置操作</a></li>
+<li class="chapter" data-level="14.4" data-path="relational-data.html"><a href="relational-data.html#合并-nycflights-数据并分析"><i class="fa fa-check"></i><b>14.4</b> 合并 nycflights 数据并分析</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="string.html"><a href="string.html"><i class="fa fa-check"></i><b>15</b> Strings</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="string.html"><a href="string.html#字符串基本知识"><i class="fa fa-check"></i><b>15.1</b> 字符串基本知识</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="string.html"><a href="string.html#字符串长度"><i class="fa fa-check"></i><b>15.1.1</b> 字符串长度</a></li>
+<li class="chapter" data-level="15.1.2" data-path="string.html"><a href="string.html#合并字符串"><i class="fa fa-check"></i><b>15.1.2</b> 合并字符串</a></li>
+<li class="chapter" data-level="15.1.3" data-path="string.html"><a href="string.html#提取字符串"><i class="fa fa-check"></i><b>15.1.3</b> 提取字符串</a></li>
+<li class="chapter" data-level="15.1.4" data-path="string.html"><a href="string.html#语言环境"><i class="fa fa-check"></i><b>15.1.4</b> 语言环境</a></li>
+<li class="chapter" data-level="15.1.5" data-path="string.html"><a href="string.html#字符串排序"><i class="fa fa-check"></i><b>15.1.5</b> 字符串排序</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="string.html"><a href="string.html#正则表达式"><i class="fa fa-check"></i><b>15.2</b> 正则表达式</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="string.html"><a href="string.html#基本匹配"><i class="fa fa-check"></i><b>15.2.1</b> 基本匹配</a></li>
+<li class="chapter" data-level="15.2.2" data-path="string.html"><a href="string.html#锚点定位"><i class="fa fa-check"></i><b>15.2.2</b> 锚点定位</a></li>
+<li class="chapter" data-level="15.2.3" data-path="string.html"><a href="string.html#字符型与替代法匹配"><i class="fa fa-check"></i><b>15.2.3</b> 字符型与替代法匹配</a></li>
+<li class="chapter" data-level="15.2.4" data-path="string.html"><a href="string.html#重复匹配"><i class="fa fa-check"></i><b>15.2.4</b> 重复匹配</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="string.html"><a href="string.html#实际应用"><i class="fa fa-check"></i><b>15.3</b> 实际应用</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="string.html"><a href="string.html#匹配检测"><i class="fa fa-check"></i><b>15.3.1</b> 匹配检测</a></li>
+<li class="chapter" data-level="15.3.2" data-path="string.html"><a href="string.html#提取匹配项"><i class="fa fa-check"></i><b>15.3.2</b> 提取匹配项</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="string.html"><a href="string.html#分组匹配"><i class="fa fa-check"></i><b>15.4</b> 分组匹配</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="string.html"><a href="string.html#拆分"><i class="fa fa-check"></i><b>15.4.1</b> 拆分</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="string.html"><a href="string.html#正则表达式其他用法"><i class="fa fa-check"></i><b>15.5</b> 正则表达式其他用法</a></li>
+</ul></li>
+<li class="part"><span><b>III Model 模型</b></span></li>
+<li class="chapter" data-level="16" data-path="model-intro.html"><a href="model-intro.html"><i class="fa fa-check"></i><b>16</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="model-intro.html"><a href="model-intro.html#认知"><i class="fa fa-check"></i><b>16.1</b> 认知</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="model-basics.html"><a href="model-basics.html"><i class="fa fa-check"></i><b>17</b> Model basics</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="model-basics.html"><a href="model-basics.html#对-sim1-模型研究"><i class="fa fa-check"></i><b>17.1</b> 对 sim1 模型研究</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="model-basics.html"><a href="model-basics.html#简单建立-sim1-模型"><i class="fa fa-check"></i><b>17.1.1</b> 简单建立 sim1 模型</a></li>
+<li class="chapter" data-level="17.1.2" data-path="model-basics.html"><a href="model-basics.html#对-sim1-模型可视化观察分析"><i class="fa fa-check"></i><b>17.1.2</b> 对 sim1 模型可视化观察分析</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="model-basics.html"><a href="model-basics.html#对-sim2-模型研究"><i class="fa fa-check"></i><b>17.2</b> 对 sim2 模型研究</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="model-basics.html"><a href="model-basics.html#关于-model_matrix"><i class="fa fa-check"></i><b>17.2.1</b> 关于 model_matrix()</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="model-basics.html"><a href="model-basics.html#对-sim3分类变量模型研究"><i class="fa fa-check"></i><b>17.3</b> 对 sim3（分类变量）模型研究</a></li>
+<li class="chapter" data-level="17.4" data-path="model-basics.html"><a href="model-basics.html#对-sim4连续且相互作用模型研究"><i class="fa fa-check"></i><b>17.4</b> 对 sim4（连续且相互作用）模型研究</a>
+<ul>
+<li class="chapter" data-level="17.4.1" data-path="model-basics.html"><a href="model-basics.html#关于-seq_range"><i class="fa fa-check"></i><b>17.4.1</b> 关于 seq_range()</a></li>
+<li class="chapter" data-level="17.4.2" data-path="model-basics.html"><a href="model-basics.html#对-sim4-模型可视化绘图"><i class="fa fa-check"></i><b>17.4.2</b> 对 sim4 模型可视化绘图</a></li>
+</ul></li>
+<li class="chapter" data-level="17.5" data-path="model-basics.html"><a href="model-basics.html#对-sim5模型转换模型研究"><i class="fa fa-check"></i><b>17.5</b> 对 sim5（模型转换）模型研究</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="model-basics.html"><a href="model-basics.html#关于-i-和-model_matrix续"><i class="fa fa-check"></i><b>17.5.1</b> 关于 I() 和 model_matrix()（续）</a></li>
+<li class="chapter" data-level="17.5.2" data-path="model-basics.html"><a href="model-basics.html#关于-poly"><i class="fa fa-check"></i><b>17.5.2</b> 关于 poly()</a></li>
+<li class="chapter" data-level="17.5.3" data-path="model-basics.html"><a href="model-basics.html#关于-ns"><i class="fa fa-check"></i><b>17.5.3</b> 关于 ns()</a></li>
+<li class="chapter" data-level="17.5.4" data-path="model-basics.html"><a href="model-basics.html#na-值缺少值问题"><i class="fa fa-check"></i><b>17.5.4</b> NA 值（缺少值）问题</a></li>
+</ul></li>
+<li class="chapter" data-level="17.6" data-path="model-basics.html"><a href="model-basics.html#其他常见线性模型"><i class="fa fa-check"></i><b>17.6</b> 其他常见线性模型</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="model-building.html"><a href="model-building.html"><i class="fa fa-check"></i><b>18</b> Model building</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="model-building.html"><a href="model-building.html#分析-diamonds-品质与价格反常的原因"><i class="fa fa-check"></i><b>18.1</b> 分析 diamonds 品质与价格反常的原因</a>
+<ul>
+<li class="chapter" data-level="18.1.1" data-path="model-building.html"><a href="model-building.html#重量与价格"><i class="fa fa-check"></i><b>18.1.1</b> 重量与价格</a></li>
+<li class="chapter" data-level="18.1.2" data-path="model-building.html"><a href="model-building.html#推广出更复杂的模型"><i class="fa fa-check"></i><b>18.1.2</b> 推广出更复杂的模型</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="model-building.html"><a href="model-building.html#分析-flights-每日航班数量变化因素"><i class="fa fa-check"></i><b>18.2</b> 分析 flights 每日航班数量变化因素</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="model-building.html"><a href="model-building.html#星期几对航班的影响"><i class="fa fa-check"></i><b>18.2.1</b> 星期几对航班的影响</a></li>
+<li class="chapter" data-level="18.2.2" data-path="model-building.html"><a href="model-building.html#季节性周六效应"><i class="fa fa-check"></i><b>18.2.2</b> 季节性周六效应</a></li>
+<li class="chapter" data-level="18.2.3" data-path="model-building.html"><a href="model-building.html#针对一年中的不同时间点"><i class="fa fa-check"></i><b>18.2.3</b> 针对一年中的不同时间点</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="model-building.html"><a href="model-building.html#关于计算变量"><i class="fa fa-check"></i><b>18.3</b> 关于计算变量</a></li>
+<li class="chapter" data-level="18.4" data-path="model-building.html"><a href="model-building.html#有关模型的更多信息"><i class="fa fa-check"></i><b>18.4</b> 有关模型的更多信息</a></li>
+</ul></li>
+<li class="part"><span><b>IV Communicate 沟通</b></span></li>
+<li class="chapter" data-level="19" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>19</b> Introduction</a></li>
+<li class="chapter" data-level="20" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>20</b> R Markdown</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="r-markdown.html"><a href="r-markdown.html#r-markdown-基础知识"><i class="fa fa-check"></i><b>20.1</b> R Markdown 基础知识</a></li>
+<li class="chapter" data-level="20.2" data-path="r-markdown.html"><a href="r-markdown.html#使用-markdown-书写富文本"><i class="fa fa-check"></i><b>20.2</b> 使用 Markdown 书写富文本</a></li>
+<li class="chapter" data-level="20.3" data-path="r-markdown.html"><a href="r-markdown.html#代码块"><i class="fa fa-check"></i><b>20.3</b> 代码块</a></li>
+<li class="chapter" data-level="20.4" data-path="r-markdown.html"><a href="r-markdown.html#yaml-标头"><i class="fa fa-check"></i><b>20.4</b> YAML 标头</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html"><i class="fa fa-check"></i><b>21</b> Graphics for communication</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#图外标签"><i class="fa fa-check"></i><b>21.1</b> 图外标签</a></li>
+<li class="chapter" data-level="21.2" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#图内标注"><i class="fa fa-check"></i><b>21.2</b> 图内标注</a></li>
+<li class="chapter" data-level="21.3" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#比例尺与参考"><i class="fa fa-check"></i><b>21.3</b> 比例尺与参考</a>
+<ul>
+<li class="chapter" data-level="21.3.1" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#比例尺"><i class="fa fa-check"></i><b>21.3.1</b> 比例尺</a></li>
+<li class="chapter" data-level="21.3.2" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#图例"><i class="fa fa-check"></i><b>21.3.2</b> 图例</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">由 Bookdown 强力驱动</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R-Learning</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="graphics-for-communication" class="section level1 hasAnchor" number="21">
+<h1><span class="header-section-number">Chapter 21</span> Graphics for communication<a href="graphics-for-communication.html#graphics-for-communication" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>在之前的数据分析中，我们学会了如何使用绘图作为一种强有力的理解数据的工具。当我们进行绘图可视化分析时，会为每个细节做了一个针对性的分析，方便我们快速查看和分析它们，然后分析下一个细节。在大多数分析过程中，我们会发现不一会就会产生数十或数百张 ggplot 图，而且其中大部分会立即被扔掉。</p>
+<p>当我们已经深刻认识熟悉了数据（如 flights）后，更多要做的是将自己的理解传达给其他人。然而哪些受众人群可能不那么重视其背景知识，也不会深入研究数据。为了帮助其他人快速建立良好的数据心理模型，我们需要深入学习 ggplot2 为我们提供的一些特殊工具，因为在可展示性和优化性上，它带来的实际性进展，实在是太多了。</p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="graphics-for-communication.html#cb308-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div id="图外标签" class="section level2 hasAnchor" number="21.1">
+<h2><span class="header-section-number">21.1</span> 图外标签<a href="graphics-for-communication.html#图外标签" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>试图将探索性图形转换为说明性图形时，最简单的起点是起个一眼丁真的标题。<code>labs</code> 的 <code>title</code> 配置项就是做这个的：</p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="graphics-for-communication.html#cb309-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
+<span id="cb309-2"><a href="graphics-for-communication.html#cb309-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb309-3"><a href="graphics-for-communication.html#cb309-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb309-4"><a href="graphics-for-communication.html#cb309-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Fuel efficiency generally decreases with engine size&quot;</span>)</span>
+<span id="cb309-5"><a href="graphics-for-communication.html#cb309-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></span></code></pre></div>
+<p><img src="28-graphics-for-communication_files/figure-html/labs()%20with%20title-1.png" width="672" /></p>
+<p>标题的目的一般是总结最主要的发现。避免使用仅描述情节的标题，如 “发动机排量与燃油经济性的散点图”。</p>
+<p>此外还有一些小标题你可能用得上：</p>
+<ul>
+<li><code>subtitle</code>：副标题，在标题下方以小号字体添加其他详细信息。</li>
+<li><code>caption</code>：在绘图的右下角添加文本，通常用于描述数据源。</li>
+</ul>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="graphics-for-communication.html#cb310-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
+<span id="cb310-2"><a href="graphics-for-communication.html#cb310-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb310-3"><a href="graphics-for-communication.html#cb310-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb310-4"><a href="graphics-for-communication.html#cb310-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb310-5"><a href="graphics-for-communication.html#cb310-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Fuel efficiency generally decreases with engine size&quot;</span>,</span>
+<span id="cb310-6"><a href="graphics-for-communication.html#cb310-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Two seaters (sports cars) are an exception because of their light weight&quot;</span>,</span>
+<span id="cb310-7"><a href="graphics-for-communication.html#cb310-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Data from fueleconomy.gov&quot;</span></span>
+<span id="cb310-8"><a href="graphics-for-communication.html#cb310-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb310-9"><a href="graphics-for-communication.html#cb310-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></span></code></pre></div>
+<p><img src="28-graphics-for-communication_files/figure-html/labs()%20with%20subtitle%20&%20caption-1.png" width="672" /></p>
+<p>我们也可以替换轴和图例标题。不过最好将简短的变量名称替换为更详细的描述，并包含单位：</p>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="graphics-for-communication.html#cb311-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
+<span id="cb311-2"><a href="graphics-for-communication.html#cb311-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> class)) <span class="sc">+</span></span>
+<span id="cb311-3"><a href="graphics-for-communication.html#cb311-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb311-4"><a href="graphics-for-communication.html#cb311-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb311-5"><a href="graphics-for-communication.html#cb311-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Engine displacement (L)&quot;</span>,</span>
+<span id="cb311-6"><a href="graphics-for-communication.html#cb311-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Highway fuel economy (mpg)&quot;</span>,</span>
+<span id="cb311-7"><a href="graphics-for-communication.html#cb311-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">&quot;Car type&quot;</span></span>
+<span id="cb311-8"><a href="graphics-for-communication.html#cb311-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb311-9"><a href="graphics-for-communication.html#cb311-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></span></code></pre></div>
+<p><img src="28-graphics-for-communication_files/figure-html/labs()%20with%20x%20&%20y%20&%20colour-1.png" width="672" /></p>
+<p>对于我们在建模时常常使用到的求对数等表达式，其实也是可以使用数学方程式代替文本字符串的。只需用上 <a href="https://rdrr.io/r/base/substitute.html">quote()</a> 即可完成转换（有点像在 markdown 里插入 Latex 公式内味，但在书写上要简单一些）：</p>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="graphics-for-communication.html#cb312-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb312-2"><a href="graphics-for-communication.html#cb312-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">runif</span>(<span class="dv">10</span>),</span>
+<span id="cb312-3"><a href="graphics-for-communication.html#cb312-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">runif</span>(<span class="dv">10</span>)</span>
+<span id="cb312-4"><a href="graphics-for-communication.html#cb312-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb312-5"><a href="graphics-for-communication.html#cb312-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
+<span id="cb312-6"><a href="graphics-for-communication.html#cb312-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb312-7"><a href="graphics-for-communication.html#cb312-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb312-8"><a href="graphics-for-communication.html#cb312-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">quote</span>(<span class="fu">sum</span>(x[i] <span class="sc">^</span> <span class="dv">2</span>, i <span class="sc">==</span> <span class="dv">1</span>, n)),</span>
+<span id="cb312-9"><a href="graphics-for-communication.html#cb312-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">quote</span>(alpha <span class="sc">+</span> beta <span class="sc">+</span> <span class="fu">frac</span>(delta, theta))</span>
+<span id="cb312-10"><a href="graphics-for-communication.html#cb312-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="28-graphics-for-communication_files/figure-html/labs()%20with%20quote()-1.png" width="672" /></p>
+</div>
+<div id="图内标注" class="section level2 hasAnchor" number="21.2">
+<h2><span class="header-section-number">21.2</span> 图内标注<a href="graphics-for-communication.html#图内标注" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>除了标记图的主要组成部分之外，标记单个观测值或观测值组通常也很有用。</p>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="graphics-for-communication.html#cb313-1" aria-hidden="true" tabindex="-1"></a>best_in_class <span class="ot">&lt;-</span> mpg <span class="sc">%&gt;%</span></span>
+<span id="cb313-2"><a href="graphics-for-communication.html#cb313-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(class) <span class="sc">%&gt;%</span></span>
+<span id="cb313-3"><a href="graphics-for-communication.html#cb313-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>(<span class="fu">desc</span>(hwy)) <span class="sc">==</span> <span class="dv">1</span>) <span class="co"># 筛选出行名为 1 的，即每种类型的第一个数据</span></span>
+<span id="cb313-4"><a href="graphics-for-communication.html#cb313-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb313-5"><a href="graphics-for-communication.html#cb313-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
+<span id="cb313-6"><a href="graphics-for-communication.html#cb313-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> class)) <span class="sc">+</span></span>
+<span id="cb313-7"><a href="graphics-for-communication.html#cb313-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> model), <span class="at">data =</span> best_in_class)</span></code></pre></div>
+<p><img src="28-graphics-for-communication_files/figure-html/geom_text()-1.png" width="672" /></p>
+<p>事情好像并没有那么简单… 标签彼此重叠，并且与点也重叠在一起。这很难阅读。我们可以通过切换到哪个在文本后面绘制一个矩形，并将标签移动到相应点的上方来解决问题：</p>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="graphics-for-communication.html#cb314-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
+<span id="cb314-2"><a href="graphics-for-communication.html#cb314-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> class)) <span class="sc">+</span></span>
+<span id="cb314-3"><a href="graphics-for-communication.html#cb314-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> model), <span class="at">data =</span> best_in_class, <span class="at">nudge_y =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="co"># geom_label() 能避免之间重叠，nudge_y 或 nudge_x 用于设置偏移量，遵循平面坐标系法则。此外减少不透明度也是不二佳选</span></span></code></pre></div>
+<p><img src="28-graphics-for-communication_files/figure-html/geom_label()-1.png" width="672" /></p>
+<p>这有点帮助，但仔细观察，其实标签之间还是会有那么一点点重叠影响。生这种情况是因为紧凑型和次紧凑型类别中最佳汽车的高速公路里程和排量完全相同。当你无法通过对每个标签应用相同的转换来解决这些问题时，我们推荐使用 <code>ggrepel::geom_label_repel()</code>。它将自动调整标签，使它们不会重叠：</p>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="graphics-for-communication.html#cb315-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
+<span id="cb315-2"><a href="graphics-for-communication.html#cb315-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> class)) <span class="sc">+</span></span>
+<span id="cb315-3"><a href="graphics-for-communication.html#cb315-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">1</span>, <span class="at">data =</span> best_in_class) <span class="sc">+</span></span>
+<span id="cb315-4"><a href="graphics-for-communication.html#cb315-4" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_label_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> model), <span class="at">data =</span> best_in_class)</span></code></pre></div>
+<p><img src="28-graphics-for-communication_files/figure-html/geom_label_repel-1.png" width="672" /></p>
+<p><del>人工智障标签真好用</del>。注意这里添加了外圈大号的空心点，以突出显示所标记的点。</p>
+<p>此外也可以直接把图例挪到图上去做标注。这种方法好像并不优雅，但确实能解决问题而且也不算很难用：</p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="graphics-for-communication.html#cb316-1" aria-hidden="true" tabindex="-1"></a>class_avg <span class="ot">&lt;-</span> mpg <span class="sc">%&gt;%</span></span>
+<span id="cb316-2"><a href="graphics-for-communication.html#cb316-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(class) <span class="sc">%&gt;%</span></span>
+<span id="cb316-3"><a href="graphics-for-communication.html#cb316-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb316-4"><a href="graphics-for-communication.html#cb316-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">displ =</span> <span class="fu">median</span>(displ),</span>
+<span id="cb316-5"><a href="graphics-for-communication.html#cb316-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">hwy =</span> <span class="fu">median</span>(hwy)</span>
+<span id="cb316-6"><a href="graphics-for-communication.html#cb316-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb316-7"><a href="graphics-for-communication.html#cb316-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb316-8"><a href="graphics-for-communication.html#cb316-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy, <span class="at">colour =</span> class)) <span class="sc">+</span></span>
+<span id="cb316-9"><a href="graphics-for-communication.html#cb316-9" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_label_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> class),</span>
+<span id="cb316-10"><a href="graphics-for-communication.html#cb316-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> class_avg,</span>
+<span id="cb316-11"><a href="graphics-for-communication.html#cb316-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">label.size =</span> <span class="dv">0</span>, <span class="co"># 指明标签不占位</span></span>
+<span id="cb316-12"><a href="graphics-for-communication.html#cb316-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">segment.color =</span> <span class="cn">NA</span></span>
+<span id="cb316-13"><a href="graphics-for-communication.html#cb316-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb316-14"><a href="graphics-for-communication.html#cb316-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb316-15"><a href="graphics-for-communication.html#cb316-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="co"># 隐藏旁边的图例</span></span></code></pre></div>
+<p><img src="28-graphics-for-communication_files/figure-html/geom_label_repel()%20with%20theme()%20with%20legend.position-1.png" width="672" /></p>
+<p>此外我们甚至可以在图内加一些信息说明：</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="graphics-for-communication.html#cb317-1" aria-hidden="true" tabindex="-1"></a>label <span class="ot">&lt;-</span> mpg <span class="sc">%&gt;%</span></span>
+<span id="cb317-2"><a href="graphics-for-communication.html#cb317-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb317-3"><a href="graphics-for-communication.html#cb317-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">displ =</span> <span class="fu">max</span>(displ),</span>
+<span id="cb317-4"><a href="graphics-for-communication.html#cb317-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">hwy =</span> <span class="fu">max</span>(hwy),</span>
+<span id="cb317-5"><a href="graphics-for-communication.html#cb317-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">label =</span> <span class="st">&quot;Increasing engine size is </span><span class="sc">\n</span><span class="st">related to decreasing fuel economy.&quot;</span> <span class="co"># 注意 label 在这里书写会自动添加新列</span></span>
+<span id="cb317-6"><a href="graphics-for-communication.html#cb317-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb317-7"><a href="graphics-for-communication.html#cb317-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb317-8"><a href="graphics-for-communication.html#cb317-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 当然单纯写个 label 也可以不要那些数据</span></span>
+<span id="cb317-9"><a href="graphics-for-communication.html#cb317-9" aria-hidden="true" tabindex="-1"></a>label <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb317-10"><a href="graphics-for-communication.html#cb317-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">displ =</span> <span class="cn">Inf</span>,</span>
+<span id="cb317-11"><a href="graphics-for-communication.html#cb317-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">hwy =</span> <span class="cn">Inf</span>,</span>
+<span id="cb317-12"><a href="graphics-for-communication.html#cb317-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="st">&quot;Increasing engine size is </span><span class="sc">\n</span><span class="st">related to decreasing fuel economy.&quot;</span></span>
+<span id="cb317-13"><a href="graphics-for-communication.html#cb317-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb317-14"><a href="graphics-for-communication.html#cb317-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb317-15"><a href="graphics-for-communication.html#cb317-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
+<span id="cb317-16"><a href="graphics-for-communication.html#cb317-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb317-17"><a href="graphics-for-communication.html#cb317-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> label), <span class="at">data =</span> label, <span class="at">vjust =</span> <span class="st">&quot;top&quot;</span>, <span class="at">hjust =</span> <span class="st">&quot;right&quot;</span>) <span class="co"># vjust 和 hjust 用于说明在竖直方向和水平方向的相对位置</span></span></code></pre></div>
+<p><img src="28-graphics-for-communication_files/figure-html/geom_text()%20with%20label-1.png" width="672" /></p>
+<p>除了手动用换行符将内容分解为多行，我们也可以使用自动添加换行符，给定每行所需的字符数即可：</p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="graphics-for-communication.html#cb318-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;Increasing engine size is related to decreasing fuel economy.&quot;</span> <span class="sc">%&gt;%</span></span>
+<span id="cb318-2"><a href="graphics-for-communication.html#cb318-2" aria-hidden="true" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_wrap</span>(<span class="at">width =</span> <span class="dv">40</span>) <span class="sc">%&gt;%</span> <span class="co"># 以行宽分割并添加换行符</span></span>
+<span id="cb318-3"><a href="graphics-for-communication.html#cb318-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">writeLines</span>()</span>
+<span id="cb318-4"><a href="graphics-for-communication.html#cb318-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Increasing engine size is related to</span></span>
+<span id="cb318-5"><a href="graphics-for-communication.html#cb318-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; decreasing fuel economy.</span></span></code></pre></div>
+<p>对于刚刚的 <code>hjust</code> 和 <code>vjust</code> 参数，我们这里给出一个图👇（好耶）：</p>
+<div class="figure">
+<img src="https://d33wubrfki0l68.cloudfront.net/9f9f1806b5c583874a725bdff526e990bd4fcba6/b955a/communicate-plots_files/figure-html/just-1.png" alt="" />
+<p class="caption">“hjust” 和 “vjust” 的所有九种组合</p>
+</div>
+</div>
+<div id="比例尺与参考" class="section level2 hasAnchor" number="21.3">
+<h2><span class="header-section-number">21.3</span> 比例尺与参考<a href="graphics-for-communication.html#比例尺与参考" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="比例尺" class="section level3 hasAnchor" number="21.3.1">
+<h3><span class="header-section-number">21.3.1</span> 比例尺<a href="graphics-for-communication.html#比例尺" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>事实上在你绘制图时，ggplot 会自动为你准备好了比例尺。如：</p>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="graphics-for-communication.html#cb319-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
+<span id="cb319-2"><a href="graphics-for-communication.html#cb319-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> class))</span>
+<span id="cb319-3"><a href="graphics-for-communication.html#cb319-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb319-4"><a href="graphics-for-communication.html#cb319-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot 会自动帮你补全成这样：</span></span>
+<span id="cb319-5"><a href="graphics-for-communication.html#cb319-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
+<span id="cb319-6"><a href="graphics-for-communication.html#cb319-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> class)) <span class="sc">+</span></span>
+<span id="cb319-7"><a href="graphics-for-communication.html#cb319-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>() <span class="sc">+</span></span>
+<span id="cb319-8"><a href="graphics-for-communication.html#cb319-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>() <span class="sc">+</span></span>
+<span id="cb319-9"><a href="graphics-for-communication.html#cb319-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_discrete</span>()</span></code></pre></div>
+<p>不过也是可以自定义的拉。</p>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="graphics-for-communication.html#cb320-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
+<span id="cb320-2"><a href="graphics-for-communication.html#cb320-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb320-3"><a href="graphics-for-communication.html#cb320-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">15</span>, <span class="dv">40</span>, <span class="at">by =</span> <span class="dv">5</span>))</span></code></pre></div>
+<p><img src="28-graphics-for-communication_files/figure-html/scale_y_continuous()%20with%20breaks-1.png" width="672" /></p>
+<p>去掉也不是不可以：</p>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="graphics-for-communication.html#cb321-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
+<span id="cb321-2"><a href="graphics-for-communication.html#cb321-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb321-3"><a href="graphics-for-communication.html#cb321-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb321-4"><a href="graphics-for-communication.html#cb321-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="28-graphics-for-communication_files/figure-html/scale_y_continuous()%20with%20labels-1.png" width="672" /></p>
+<p><code>labels</code> 的另一个用途是当我们的数据点相对较少并且想要突出显示观测值发生的确切位置时。如下图就清晰地它显示了每位美国总统何时开始和结束其任期：</p>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="graphics-for-communication.html#cb322-1" aria-hidden="true" tabindex="-1"></a>presidential <span class="sc">%&gt;%</span></span>
+<span id="cb322-2"><a href="graphics-for-communication.html#cb322-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">33</span> <span class="sc">+</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb322-3"><a href="graphics-for-communication.html#cb322-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(start, id)) <span class="sc">+</span></span>
+<span id="cb322-4"><a href="graphics-for-communication.html#cb322-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb322-5"><a href="graphics-for-communication.html#cb322-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 点展图，以点为中心向 x 方向延伸线条，y 方向错开数据</span></span>
+<span id="cb322-6"><a href="graphics-for-communication.html#cb322-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> end, <span class="at">yend =</span> id)) <span class="sc">+</span></span>
+<span id="cb322-7"><a href="graphics-for-communication.html#cb322-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_date</span>(<span class="cn">NULL</span>, <span class="at">breaks =</span> presidential<span class="sc">$</span>start, <span class="at">date_labels =</span> <span class="st">&quot;&#39;%y&quot;</span>)</span></code></pre></div>
+<p><img src="28-graphics-for-communication_files/figure-html/scale_x_date()-1.png" width="672" /></p>
+</div>
+<div id="图例" class="section level3 hasAnchor" number="21.3.2">
+<h3><span class="header-section-number">21.3.2</span> 图例<a href="graphics-for-communication.html#图例" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>图例也是可以自定义的，比如它的位置：</p>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="graphics-for-communication.html#cb323-1" aria-hidden="true" tabindex="-1"></a>base <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
+<span id="cb323-2"><a href="graphics-for-communication.html#cb323-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> class))</span>
+<span id="cb323-3"><a href="graphics-for-communication.html#cb323-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb323-4"><a href="graphics-for-communication.html#cb323-4" aria-hidden="true" tabindex="-1"></a>base <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;left&quot;</span>)</span></code></pre></div>
+<p><img src="28-graphics-for-communication_files/figure-html/theme()%20with%20legend.position-1.png" width="672" /></p>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="graphics-for-communication.html#cb324-1" aria-hidden="true" tabindex="-1"></a>base <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<p><img src="28-graphics-for-communication_files/figure-html/theme()%20with%20legend.position-2.png" width="672" /></p>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="graphics-for-communication.html#cb325-1" aria-hidden="true" tabindex="-1"></a>base <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="28-graphics-for-communication_files/figure-html/theme()%20with%20legend.position-3.png" width="672" /></p>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="graphics-for-communication.html#cb326-1" aria-hidden="true" tabindex="-1"></a>base <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>) <span class="co"># 默认</span></span></code></pre></div>
+<p><img src="28-graphics-for-communication_files/figure-html/theme()%20with%20legend.position-4.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="r-markdown.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/cworld1/r-learning/edit/master/book/28-graphics-for-communication.Rmd",
+"text": "编辑"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["book.pdf", "PDF"], ["book.epub", "EPUB"]],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

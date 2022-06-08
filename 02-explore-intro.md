@@ -44,25 +44,16 @@ m <- matrix(
     dimnames = list(rownames, colnames) # 设置行和列的标题，默认为 NULL
 )
 m
-```
-
-```
-##      col1 col2 col3
-## row1    3    4    5
-## row2    6    7    8
-## row3    9   10   11
-## row4   12   13   14
-```
-
-```r
+#>      col1 col2 col3
+#> row1    3    4    5
+#> row2    6    7    8
+#> row3    9   10   11
+#> row4   12   13   14
 t(m)
-```
-
-```
-##      row1 row2 row3 row4
-## col1    3    6    9   12
-## col2    4    7   10   13
-## col3    5    8   11   14
+#>      row1 row2 row3 row4
+#> col1    3    6    9   12
+#> col2    4    7   10   13
+#> col3    5    8   11   14
 ```
 
 列表使用 `list()` 创建。一个列表里可以随意放置向量里能放置的所有元素，甚至是一个向量、一个矩阵。
@@ -108,56 +99,24 @@ weight <- c(100, 110, 120, 80, 90, 140)
 
 ```r
 5 %% 3 # 求余数
-```
-
-```
-## [1] 2
-```
-
-```r
+#> [1] 2
 5 %/% 3 # 求模
-```
+#> [1] 1
 
-```
-## [1] 1
-```
-
-```r
 mean(age) # 求平均值
-```
-
-```
-## [1] 11.33333
-```
-
-```r
+#> [1] 11.33333
 sd(age) # 求标准差
-```
-
-```
-## [1] 4.320494
-```
-
-```r
+#> [1] 4.320494
 cor(age, weight) # 求相关度，数值在 -1 到 1，其中 1 是绝对正相关，0 是完全不相关，-1 是绝对负相关
-```
-
-```
-## [1] 1
-```
-
-```r
+#> [1] 1
 lm(age ~ weight) # 求两者构成的回归直线斜率（注意波浪号连接）
-```
-
-```
-## 
-## Call:
-## lm(formula = age ~ weight)
-## 
-## Coefficients:
-## (Intercept)       weight  
-##       -10.0          0.2
+#> 
+#> Call:
+#> lm(formula = age ~ weight)
+#> 
+#> Coefficients:
+#> (Intercept)       weight  
+#>       -10.0          0.2
 ```
 
 ## 学习 R 自带的画图功能
@@ -190,13 +149,10 @@ data.frame(
     a = c(1:3),
     b = c(6:8)
 )
-```
-
-```
-##   a b
-## 1 1 6
-## 2 2 7
-## 3 3 8
+#>   a b
+#> 1 1 6
+#> 2 2 7
+#> 3 3 8
 ```
 
 tibble 与 dataframe 非常相似，甚至是使用 dataframe 储存的。tibble 是 tidyverse 系列的专用数据集格式。它的优点是干净、方便数据处理。
@@ -204,43 +160,19 @@ tibble 与 dataframe 非常相似，甚至是使用 dataframe 储存的。tibble
 
 ```r
 library(tidyverse)
-```
 
-```
-## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
-```
-
-```
-## ✔ ggplot2 3.3.6     ✔ purrr   0.3.4
-## ✔ tibble  3.1.7     ✔ dplyr   1.0.9
-## ✔ tidyr   1.2.0     ✔ stringr 1.4.0
-## ✔ readr   2.1.2     ✔ forcats 0.5.1
-```
-
-```
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-```
-
-```r
 # 你可以跟 data.frame 一样直接加入数组：
 tibble(
     sex = c("male", "female", "male"),
     response = c(1, 2, 1)
 )
-```
+#> # A tibble: 3 × 2
+#>   sex    response
+#>   <chr>     <dbl>
+#> 1 male          1
+#> 2 female        2
+#> 3 male          1
 
-```
-## # A tibble: 3 × 2
-##   sex    response
-##   <chr>     <dbl>
-## 1 male          1
-## 2 female        2
-## 3 male          1
-```
-
-```r
 # 也可以像是正常书写表格那样！
 tribble(
     ~sex, ~response,
@@ -248,13 +180,10 @@ tribble(
     "female", 2,
     "male", 1
 )
-```
-
-```
-## # A tibble: 3 × 2
-##   sex    response
-##   <chr>     <dbl>
-## 1 male          1
-## 2 female        2
-## 3 male          1
+#> # A tibble: 3 × 2
+#>   sex    response
+#>   <chr>     <dbl>
+#> 1 male          1
+#> 2 female        2
+#> 3 male          1
 ```

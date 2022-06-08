@@ -1,7 +1,5 @@
 # Workflow: projects {#workflow-projects}
 
-
-
 ## 运行环境
 
 使用 R 脚本（和数据文件），可以重新创建环境。从环境中重新创建 R 脚本要困难得多！你要么必须从内存中重新键入大量代码，要么必须仔细挖掘你的 R 脚本执行历史记录。
@@ -26,7 +24,7 @@
 
 ```r
 getwd()
-#> [1] "/home/runner/work/r-learning/r-learning/book"
+#> [1] "/Users/runner/work/r-learning/r-learning/book"
 ```
 
 作为 R 用户，可以让你的任何奇怪的目录成为 R 的工作目录。我们应该很快将要分析的项目组织到目录中，并且在处理项目时，将 R 的工作目录设置为与之关联的目录。

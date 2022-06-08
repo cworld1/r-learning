@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 20 R Markdown | R-Learning</title>
+  <meta name="description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 20 R Markdown | R-Learning" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://r.cworld.top//assets/avatar.jpg" />
+  <meta property="og:description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
+  <meta name="github-repo" content="cworld1/r-learning" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 20 R Markdown | R-Learning" />
+  
+  <meta name="twitter:description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
+  <meta name="twitter:image" content="https://r.cworld.top//assets/avatar.jpg" />
+
+<meta name="author" content="CWorld" />
+
+
+<meta name="date" content="2022-06-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="introduction-1.html"/>
+<link rel="next" href="graphics-for-communication.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
+<script src="libs/str_view-binding-1.4.0/str_view.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="assets/style.min.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="#" target="blank">R Learning Notebook</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#项目介绍"><i class="fa fa-check"></i><b>1.1</b> 项目介绍</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#项目运行"><i class="fa fa-check"></i><b>1.2</b> 项目运行</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#贡献"><i class="fa fa-check"></i><b>1.3</b> 贡献</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#鸣谢"><i class="fa fa-check"></i><b>1.4</b> 鸣谢</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i><b>1.5</b> License</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#数据科学"><i class="fa fa-check"></i><b>2.1</b> 数据科学</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction.html"><a href="introduction.html#一些准备"><i class="fa fa-check"></i><b>2.2</b> 一些准备</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="introduction.html"><a href="introduction.html#安装-r"><i class="fa fa-check"></i><b>2.2.1</b> 安装 R</a></li>
+<li class="chapter" data-level="2.2.2" data-path="introduction.html"><a href="introduction.html#安装编辑器"><i class="fa fa-check"></i><b>2.2.2</b> 安装编辑器</a></li>
+<li class="chapter" data-level="2.2.3" data-path="introduction.html"><a href="introduction.html#相关包"><i class="fa fa-check"></i><b>2.2.3</b> 相关包</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="introduction.html"><a href="introduction.html#更多学习途径"><i class="fa fa-check"></i><b>2.3</b> 更多学习途径</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction.html"><a href="introduction.html#初识-r"><i class="fa fa-check"></i><b>2.4</b> 初识 R</a></li>
+</ul></li>
+<li class="part"><span><b>I Explore 探索</b></span></li>
+<li class="chapter" data-level="3" data-path="explore-intro.html"><a href="explore-intro.html"><i class="fa fa-check"></i><b>3</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="explore-intro.html"><a href="explore-intro.html#基本数据形式和函数"><i class="fa fa-check"></i><b>3.1</b> 基本数据形式和函数</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="explore-intro.html"><a href="explore-intro.html#向量矩阵与列表"><i class="fa fa-check"></i><b>3.1.1</b> 向量、矩阵与列表</a></li>
+<li class="chapter" data-level="3.1.2" data-path="explore-intro.html"><a href="explore-intro.html#基本函数"><i class="fa fa-check"></i><b>3.1.2</b> 基本函数</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="explore-intro.html"><a href="explore-intro.html#学习-r-自带的画图功能"><i class="fa fa-check"></i><b>3.2</b> 学习 R 自带的画图功能</a></li>
+<li class="chapter" data-level="3.3" data-path="explore-intro.html"><a href="explore-intro.html#更高级的数据形式"><i class="fa fa-check"></i><b>3.3</b> 更高级的数据形式</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="explore.html"><a href="explore.html"><i class="fa fa-check"></i><b>4</b> Data visualisation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="explore.html"><a href="explore.html#初识-ggplot"><i class="fa fa-check"></i><b>4.1</b> 初识 ggplot</a></li>
+<li class="chapter" data-level="4.2" data-path="explore.html"><a href="explore.html#美学映射"><i class="fa fa-check"></i><b>4.2</b> 美学映射</a></li>
+<li class="chapter" data-level="4.3" data-path="explore.html"><a href="explore.html#修改样式"><i class="fa fa-check"></i><b>4.3</b> 修改样式</a></li>
+<li class="chapter" data-level="4.4" data-path="explore.html"><a href="explore.html#多组画图"><i class="fa fa-check"></i><b>4.4</b> 多组画图</a></li>
+<li class="chapter" data-level="4.5" data-path="explore.html"><a href="explore.html#叠加与参数"><i class="fa fa-check"></i><b>4.5</b> 叠加与参数</a></li>
+<li class="chapter" data-level="4.6" data-path="explore.html"><a href="explore.html#其他常见图"><i class="fa fa-check"></i><b>4.6</b> 其他常见图</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="explore.html"><a href="explore.html#回归曲线图"><i class="fa fa-check"></i><b>4.6.1</b> 回归曲线图</a></li>
+<li class="chapter" data-level="4.6.2" data-path="explore.html"><a href="explore.html#条形图"><i class="fa fa-check"></i><b>4.6.2</b> 条形图</a></li>
+<li class="chapter" data-level="4.6.3" data-path="explore.html"><a href="explore.html#summary-线条信息图"><i class="fa fa-check"></i><b>4.6.3</b> Summary 线条信息图</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="explore.html"><a href="explore.html#坐标系相关"><i class="fa fa-check"></i><b>4.7</b> 坐标系相关</a></li>
+<li class="chapter" data-level="4.8" data-path="explore.html"><a href="explore.html#绘制-diamonds-数据分析图"><i class="fa fa-check"></i><b>4.8</b> 绘制 diamonds 数据分析图</a></li>
+<li class="chapter" data-level="4.9" data-path="explore.html"><a href="explore.html#研究-mpgcars-数据集"><i class="fa fa-check"></i><b>4.9</b> 研究 mpgcars 数据集</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="workflow-basics.html"><a href="workflow-basics.html"><i class="fa fa-check"></i><b>5</b> Workflow: basics</a></li>
+<li class="chapter" data-level="6" data-path="transform.html"><a href="transform.html"><i class="fa fa-check"></i><b>6</b> Data transformation</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="transform.html"><a href="transform.html#查看-flights-数据集"><i class="fa fa-check"></i><b>6.1</b> 查看 flights 数据集</a></li>
+<li class="chapter" data-level="6.2" data-path="transform.html"><a href="transform.html#过滤-filter"><i class="fa fa-check"></i><b>6.2</b> 过滤 filter()</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="transform.html"><a href="transform.html#比较"><i class="fa fa-check"></i><b>6.2.1</b> 比较</a></li>
+<li class="chapter" data-level="6.2.2" data-path="transform.html"><a href="transform.html#逻辑运算符"><i class="fa fa-check"></i><b>6.2.2</b> 逻辑运算符</a></li>
+<li class="chapter" data-level="6.2.3" data-path="transform.html"><a href="transform.html#缺失值"><i class="fa fa-check"></i><b>6.2.3</b> 缺失值</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="transform.html"><a href="transform.html#排列-arange"><i class="fa fa-check"></i><b>6.3</b> 排列 arange()</a></li>
+<li class="chapter" data-level="6.4" data-path="transform.html"><a href="transform.html#选择-select"><i class="fa fa-check"></i><b>6.4</b> 选择 select()</a></li>
+<li class="chapter" data-level="6.5" data-path="transform.html"><a href="transform.html#重命名-rename"><i class="fa fa-check"></i><b>6.5</b> 重命名 rename()</a></li>
+<li class="chapter" data-level="6.6" data-path="transform.html"><a href="transform.html#添加新变量-mutate-与-transmute"><i class="fa fa-check"></i><b>6.6</b> 添加新变量 mutate() 与 transmute()</a></li>
+<li class="chapter" data-level="6.7" data-path="transform.html"><a href="transform.html#分组摘要-summarise"><i class="fa fa-check"></i><b>6.7</b> 分组摘要 summarise()</a></li>
+<li class="chapter" data-level="6.8" data-path="transform.html"><a href="transform.html#其他处理数据功能"><i class="fa fa-check"></i><b>6.8</b> 其他处理数据功能</a></li>
+<li class="chapter" data-level="6.9" data-path="transform.html"><a href="transform.html#分析-flights-数据集"><i class="fa fa-check"></i><b>6.9</b> 分析 flights 数据集</a>
+<ul>
+<li class="chapter" data-level="6.9.1" data-path="transform.html"><a href="transform.html#计算目的地相关的图"><i class="fa fa-check"></i><b>6.9.1</b> 计算目的地相关的图</a></li>
+<li class="chapter" data-level="6.9.2" data-path="transform.html"><a href="transform.html#获取热门目的地及有关数据"><i class="fa fa-check"></i><b>6.9.2</b> 获取热门目的地及有关数据</a></li>
+<li class="chapter" data-level="6.9.3" data-path="transform.html"><a href="transform.html#绘制飞机延误时长分布图"><i class="fa fa-check"></i><b>6.9.3</b> 绘制飞机延误时长分布图</a></li>
+<li class="chapter" data-level="6.9.4" data-path="transform.html"><a href="transform.html#计算每天最早和最晚的航班"><i class="fa fa-check"></i><b>6.9.4</b> 计算每天最早和最晚的航班</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="workflow-scripts.html"><a href="workflow-scripts.html"><i class="fa fa-check"></i><b>7</b> Workflow: scripts</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="workflow-scripts.html"><a href="workflow-scripts.html#运行代码"><i class="fa fa-check"></i><b>7.1</b> 运行代码</a></li>
+<li class="chapter" data-level="7.2" data-path="workflow-scripts.html"><a href="workflow-scripts.html#rstudio-诊断"><i class="fa fa-check"></i><b>7.2</b> RStudio 诊断</a></li>
+<li class="chapter" data-level="7.3" data-path="workflow-scripts.html"><a href="workflow-scripts.html#使用-visual-studio-code-编写-r"><i class="fa fa-check"></i><b>7.3</b> 使用 Visual studio code 编写 R</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>8</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图分析-diamonds-数据集"><i class="fa fa-check"></i><b>8.1</b> 绘图分析 diamonds 数据集</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#可视化分布"><i class="fa fa-check"></i><b>8.1.1</b> 可视化分布</a></li>
+<li class="chapter" data-level="8.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘制频率直方图"><i class="fa fa-check"></i><b>8.1.2</b> 绘制频率直方图</a></li>
+<li class="chapter" data-level="8.1.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#异常数据杂质"><i class="fa fa-check"></i><b>8.1.3</b> 异常数据（杂质）</a></li>
+<li class="chapter" data-level="8.1.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#处理异常数据"><i class="fa fa-check"></i><b>8.1.4</b> 处理异常数据</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图统计-flights-数据集"><i class="fa fa-check"></i><b>8.2</b> 绘图统计 flights 数据集</a></li>
+<li class="chapter" data-level="8.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#绘图统计-diamonds-数据集"><i class="fa fa-check"></i><b>8.3</b> 绘图统计 diamonds 数据集</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#连续变量多类绘图"><i class="fa fa-check"></i><b>8.3.1</b> 连续变量多类绘图</a></li>
+<li class="chapter" data-level="8.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#关于变量排序-reorder"><i class="fa fa-check"></i><b>8.3.2</b> 关于变量排序 reorder()</a></li>
+<li class="chapter" data-level="8.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#两个分类变量"><i class="fa fa-check"></i><b>8.3.3</b> 两个分类变量</a></li>
+<li class="chapter" data-level="8.3.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#两个连续变量"><i class="fa fa-check"></i><b>8.3.4</b> 两个连续变量</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="workflow-projects.html"><a href="workflow-projects.html"><i class="fa fa-check"></i><b>9</b> Workflow: projects</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="workflow-projects.html"><a href="workflow-projects.html#运行环境"><i class="fa fa-check"></i><b>9.1</b> 运行环境</a></li>
+<li class="chapter" data-level="9.2" data-path="workflow-projects.html"><a href="workflow-projects.html#工作区"><i class="fa fa-check"></i><b>9.2</b> 工作区</a></li>
+<li class="chapter" data-level="9.3" data-path="workflow-projects.html"><a href="workflow-projects.html#路径与目录"><i class="fa fa-check"></i><b>9.3</b> 路径与目录</a></li>
+<li class="chapter" data-level="9.4" data-path="workflow-projects.html"><a href="workflow-projects.html#rstudio-项目"><i class="fa fa-check"></i><b>9.4</b> RStudio 项目</a></li>
+</ul></li>
+<li class="part"><span><b>II Wrangle 扭结</b></span></li>
+<li class="chapter" data-level="10" data-path="wrangle-intro.html"><a href="wrangle-intro.html"><i class="fa fa-check"></i><b>10</b> Introduction</a></li>
+<li class="chapter" data-level="11" data-path="tibbles.html"><a href="tibbles.html"><i class="fa fa-check"></i><b>11</b> Tibbles</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="tibbles.html"><a href="tibbles.html#创建-tibble"><i class="fa fa-check"></i><b>11.1</b> 创建 tibble</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="tibbles.html"><a href="tibbles.html#as_tibble"><i class="fa fa-check"></i><b>11.1.1</b> as_tibble()</a></li>
+<li class="chapter" data-level="11.1.2" data-path="tibbles.html"><a href="tibbles.html#tibble"><i class="fa fa-check"></i><b>11.1.2</b> tibble()</a></li>
+<li class="chapter" data-level="11.1.3" data-path="tibbles.html"><a href="tibbles.html#tribble"><i class="fa fa-check"></i><b>11.1.3</b> tribble()</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="tibbles.html"><a href="tibbles.html#tibbles-vs.-data.frame"><i class="fa fa-check"></i><b>11.2</b> tibbles VS. data.frame</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="tibbles.html"><a href="tibbles.html#控制台打印方面"><i class="fa fa-check"></i><b>11.2.1</b> 控制台打印方面</a></li>
+<li class="chapter" data-level="11.2.2" data-path="tibbles.html"><a href="tibbles.html#读取子元素方面"><i class="fa fa-check"></i><b>11.2.2</b> 读取子元素方面</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="tibbles.html"><a href="tibbles.html#tibble-的转换"><i class="fa fa-check"></i><b>11.3</b> tibble 的转换</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>12</b> Data import</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="data-import.html"><a href="data-import.html#简单读取文件"><i class="fa fa-check"></i><b>12.1</b> 简单读取文件</a></li>
+<li class="chapter" data-level="12.2" data-path="data-import.html"><a href="data-import.html#解析向量"><i class="fa fa-check"></i><b>12.2</b> 解析向量</a></li>
+<li class="chapter" data-level="12.3" data-path="data-import.html"><a href="data-import.html#数字类型"><i class="fa fa-check"></i><b>12.3</b> 数字类型</a></li>
+<li class="chapter" data-level="12.4" data-path="data-import.html"><a href="data-import.html#字符类型"><i class="fa fa-check"></i><b>12.4</b> 字符类型</a></li>
+<li class="chapter" data-level="12.5" data-path="data-import.html"><a href="data-import.html#因子类型"><i class="fa fa-check"></i><b>12.5</b> 因子类型</a></li>
+<li class="chapter" data-level="12.6" data-path="data-import.html"><a href="data-import.html#日期时间类型"><i class="fa fa-check"></i><b>12.6</b> 日期时间类型</a></li>
+<li class="chapter" data-level="12.7" data-path="data-import.html"><a href="data-import.html#解析文件"><i class="fa fa-check"></i><b>12.7</b> 解析文件</a>
+<ul>
+<li class="chapter" data-level="12.7.1" data-path="data-import.html"><a href="data-import.html#自动匹配"><i class="fa fa-check"></i><b>12.7.1</b> 自动匹配</a></li>
+<li class="chapter" data-level="12.7.2" data-path="data-import.html"><a href="data-import.html#自动匹配遇到的问题"><i class="fa fa-check"></i><b>12.7.2</b> 自动匹配遇到的问题</a></li>
+<li class="chapter" data-level="12.7.3" data-path="data-import.html"><a href="data-import.html#其他的匹配解决策略"><i class="fa fa-check"></i><b>12.7.3</b> 其他的匹配解决策略</a></li>
+</ul></li>
+<li class="chapter" data-level="12.8" data-path="data-import.html"><a href="data-import.html#写入数据"><i class="fa fa-check"></i><b>12.8</b> 写入数据</a>
+<ul>
+<li class="chapter" data-level="12.8.1" data-path="data-import.html"><a href="data-import.html#csv-格式"><i class="fa fa-check"></i><b>12.8.1</b> csv 格式</a></li>
+<li class="chapter" data-level="12.8.2" data-path="data-import.html"><a href="data-import.html#rds-格式"><i class="fa fa-check"></i><b>12.8.2</b> rds 格式</a></li>
+<li class="chapter" data-level="12.8.3" data-path="data-import.html"><a href="data-import.html#feather-格式"><i class="fa fa-check"></i><b>12.8.3</b> feather 格式</a></li>
+<li class="chapter" data-level="12.8.4" data-path="data-import.html"><a href="data-import.html#其他格式"><i class="fa fa-check"></i><b>12.8.4</b> 其他格式</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>13</b> Tidy data</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="tidy-data.html"><a href="tidy-data.html#对-table1-数据分析"><i class="fa fa-check"></i><b>13.1</b> 对 table1 数据分析</a></li>
+<li class="chapter" data-level="13.2" data-path="tidy-data.html"><a href="tidy-data.html#对-table2-数据整理"><i class="fa fa-check"></i><b>13.2</b> 对 table2 数据整理</a></li>
+<li class="chapter" data-level="13.3" data-path="tidy-data.html"><a href="tidy-data.html#对-table3-数据整理"><i class="fa fa-check"></i><b>13.3</b> 对 table3 数据整理</a></li>
+<li class="chapter" data-level="13.4" data-path="tidy-data.html"><a href="tidy-data.html#对-table4a-table4b-数据整理"><i class="fa fa-check"></i><b>13.4</b> 对 table4a &amp; table4b 数据整理</a></li>
+<li class="chapter" data-level="13.5" data-path="tidy-data.html"><a href="tidy-data.html#对-table5-数据整理"><i class="fa fa-check"></i><b>13.5</b> 对 table5 数据整理</a></li>
+<li class="chapter" data-level="13.6" data-path="tidy-data.html"><a href="tidy-data.html#对-stocks-和-treatment-的缺失数据处理"><i class="fa fa-check"></i><b>13.6</b> 对 stocks 和 treatment 的缺失数据处理</a></li>
+<li class="chapter" data-level="13.7" data-path="tidy-data.html"><a href="tidy-data.html#对-who-数据整理"><i class="fa fa-check"></i><b>13.7</b> 对 who 数据整理</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="relational-data.html"><a href="relational-data.html"><i class="fa fa-check"></i><b>14</b> Relational data</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="relational-data.html"><a href="relational-data.html#理解合并数据概念"><i class="fa fa-check"></i><b>14.1</b> 理解合并数据概念</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="relational-data.html"><a href="relational-data.html#类型1没有重复问题"><i class="fa fa-check"></i><b>14.1.1</b> 类型1：没有重复问题</a></li>
+<li class="chapter" data-level="14.1.2" data-path="relational-data.html"><a href="relational-data.html#类型2一边有重复问题"><i class="fa fa-check"></i><b>14.1.2</b> 类型2：一边有重复问题</a></li>
+<li class="chapter" data-level="14.1.3" data-path="relational-data.html"><a href="relational-data.html#类型3两边都有重复问题"><i class="fa fa-check"></i><b>14.1.3</b> 类型3：两边都有重复问题</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="relational-data.html"><a href="relational-data.html#理解多种数据合并方式"><i class="fa fa-check"></i><b>14.2</b> 理解多种数据合并方式</a></li>
+<li class="chapter" data-level="14.3" data-path="relational-data.html"><a href="relational-data.html#设置操作"><i class="fa fa-check"></i><b>14.3</b> 设置操作</a></li>
+<li class="chapter" data-level="14.4" data-path="relational-data.html"><a href="relational-data.html#合并-nycflights-数据并分析"><i class="fa fa-check"></i><b>14.4</b> 合并 nycflights 数据并分析</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="string.html"><a href="string.html"><i class="fa fa-check"></i><b>15</b> Strings</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="string.html"><a href="string.html#字符串基本知识"><i class="fa fa-check"></i><b>15.1</b> 字符串基本知识</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="string.html"><a href="string.html#字符串长度"><i class="fa fa-check"></i><b>15.1.1</b> 字符串长度</a></li>
+<li class="chapter" data-level="15.1.2" data-path="string.html"><a href="string.html#合并字符串"><i class="fa fa-check"></i><b>15.1.2</b> 合并字符串</a></li>
+<li class="chapter" data-level="15.1.3" data-path="string.html"><a href="string.html#提取字符串"><i class="fa fa-check"></i><b>15.1.3</b> 提取字符串</a></li>
+<li class="chapter" data-level="15.1.4" data-path="string.html"><a href="string.html#语言环境"><i class="fa fa-check"></i><b>15.1.4</b> 语言环境</a></li>
+<li class="chapter" data-level="15.1.5" data-path="string.html"><a href="string.html#字符串排序"><i class="fa fa-check"></i><b>15.1.5</b> 字符串排序</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="string.html"><a href="string.html#正则表达式"><i class="fa fa-check"></i><b>15.2</b> 正则表达式</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="string.html"><a href="string.html#基本匹配"><i class="fa fa-check"></i><b>15.2.1</b> 基本匹配</a></li>
+<li class="chapter" data-level="15.2.2" data-path="string.html"><a href="string.html#锚点定位"><i class="fa fa-check"></i><b>15.2.2</b> 锚点定位</a></li>
+<li class="chapter" data-level="15.2.3" data-path="string.html"><a href="string.html#字符型与替代法匹配"><i class="fa fa-check"></i><b>15.2.3</b> 字符型与替代法匹配</a></li>
+<li class="chapter" data-level="15.2.4" data-path="string.html"><a href="string.html#重复匹配"><i class="fa fa-check"></i><b>15.2.4</b> 重复匹配</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="string.html"><a href="string.html#实际应用"><i class="fa fa-check"></i><b>15.3</b> 实际应用</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="string.html"><a href="string.html#匹配检测"><i class="fa fa-check"></i><b>15.3.1</b> 匹配检测</a></li>
+<li class="chapter" data-level="15.3.2" data-path="string.html"><a href="string.html#提取匹配项"><i class="fa fa-check"></i><b>15.3.2</b> 提取匹配项</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="string.html"><a href="string.html#分组匹配"><i class="fa fa-check"></i><b>15.4</b> 分组匹配</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="string.html"><a href="string.html#拆分"><i class="fa fa-check"></i><b>15.4.1</b> 拆分</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="string.html"><a href="string.html#正则表达式其他用法"><i class="fa fa-check"></i><b>15.5</b> 正则表达式其他用法</a></li>
+</ul></li>
+<li class="part"><span><b>III Model 模型</b></span></li>
+<li class="chapter" data-level="16" data-path="model-intro.html"><a href="model-intro.html"><i class="fa fa-check"></i><b>16</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="model-intro.html"><a href="model-intro.html#认知"><i class="fa fa-check"></i><b>16.1</b> 认知</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="model-basics.html"><a href="model-basics.html"><i class="fa fa-check"></i><b>17</b> Model basics</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="model-basics.html"><a href="model-basics.html#对-sim1-模型研究"><i class="fa fa-check"></i><b>17.1</b> 对 sim1 模型研究</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="model-basics.html"><a href="model-basics.html#简单建立-sim1-模型"><i class="fa fa-check"></i><b>17.1.1</b> 简单建立 sim1 模型</a></li>
+<li class="chapter" data-level="17.1.2" data-path="model-basics.html"><a href="model-basics.html#对-sim1-模型可视化观察分析"><i class="fa fa-check"></i><b>17.1.2</b> 对 sim1 模型可视化观察分析</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="model-basics.html"><a href="model-basics.html#对-sim2-模型研究"><i class="fa fa-check"></i><b>17.2</b> 对 sim2 模型研究</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="model-basics.html"><a href="model-basics.html#关于-model_matrix"><i class="fa fa-check"></i><b>17.2.1</b> 关于 model_matrix()</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="model-basics.html"><a href="model-basics.html#对-sim3分类变量模型研究"><i class="fa fa-check"></i><b>17.3</b> 对 sim3（分类变量）模型研究</a></li>
+<li class="chapter" data-level="17.4" data-path="model-basics.html"><a href="model-basics.html#对-sim4连续且相互作用模型研究"><i class="fa fa-check"></i><b>17.4</b> 对 sim4（连续且相互作用）模型研究</a>
+<ul>
+<li class="chapter" data-level="17.4.1" data-path="model-basics.html"><a href="model-basics.html#关于-seq_range"><i class="fa fa-check"></i><b>17.4.1</b> 关于 seq_range()</a></li>
+<li class="chapter" data-level="17.4.2" data-path="model-basics.html"><a href="model-basics.html#对-sim4-模型可视化绘图"><i class="fa fa-check"></i><b>17.4.2</b> 对 sim4 模型可视化绘图</a></li>
+</ul></li>
+<li class="chapter" data-level="17.5" data-path="model-basics.html"><a href="model-basics.html#对-sim5模型转换模型研究"><i class="fa fa-check"></i><b>17.5</b> 对 sim5（模型转换）模型研究</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="model-basics.html"><a href="model-basics.html#关于-i-和-model_matrix续"><i class="fa fa-check"></i><b>17.5.1</b> 关于 I() 和 model_matrix()（续）</a></li>
+<li class="chapter" data-level="17.5.2" data-path="model-basics.html"><a href="model-basics.html#关于-poly"><i class="fa fa-check"></i><b>17.5.2</b> 关于 poly()</a></li>
+<li class="chapter" data-level="17.5.3" data-path="model-basics.html"><a href="model-basics.html#关于-ns"><i class="fa fa-check"></i><b>17.5.3</b> 关于 ns()</a></li>
+<li class="chapter" data-level="17.5.4" data-path="model-basics.html"><a href="model-basics.html#na-值缺少值问题"><i class="fa fa-check"></i><b>17.5.4</b> NA 值（缺少值）问题</a></li>
+</ul></li>
+<li class="chapter" data-level="17.6" data-path="model-basics.html"><a href="model-basics.html#其他常见线性模型"><i class="fa fa-check"></i><b>17.6</b> 其他常见线性模型</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="model-building.html"><a href="model-building.html"><i class="fa fa-check"></i><b>18</b> Model building</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="model-building.html"><a href="model-building.html#分析-diamonds-品质与价格反常的原因"><i class="fa fa-check"></i><b>18.1</b> 分析 diamonds 品质与价格反常的原因</a>
+<ul>
+<li class="chapter" data-level="18.1.1" data-path="model-building.html"><a href="model-building.html#重量与价格"><i class="fa fa-check"></i><b>18.1.1</b> 重量与价格</a></li>
+<li class="chapter" data-level="18.1.2" data-path="model-building.html"><a href="model-building.html#推广出更复杂的模型"><i class="fa fa-check"></i><b>18.1.2</b> 推广出更复杂的模型</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="model-building.html"><a href="model-building.html#分析-flights-每日航班数量变化因素"><i class="fa fa-check"></i><b>18.2</b> 分析 flights 每日航班数量变化因素</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="model-building.html"><a href="model-building.html#星期几对航班的影响"><i class="fa fa-check"></i><b>18.2.1</b> 星期几对航班的影响</a></li>
+<li class="chapter" data-level="18.2.2" data-path="model-building.html"><a href="model-building.html#季节性周六效应"><i class="fa fa-check"></i><b>18.2.2</b> 季节性周六效应</a></li>
+<li class="chapter" data-level="18.2.3" data-path="model-building.html"><a href="model-building.html#针对一年中的不同时间点"><i class="fa fa-check"></i><b>18.2.3</b> 针对一年中的不同时间点</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="model-building.html"><a href="model-building.html#关于计算变量"><i class="fa fa-check"></i><b>18.3</b> 关于计算变量</a></li>
+<li class="chapter" data-level="18.4" data-path="model-building.html"><a href="model-building.html#有关模型的更多信息"><i class="fa fa-check"></i><b>18.4</b> 有关模型的更多信息</a></li>
+</ul></li>
+<li class="part"><span><b>IV Communicate 沟通</b></span></li>
+<li class="chapter" data-level="19" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>19</b> Introduction</a></li>
+<li class="chapter" data-level="20" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>20</b> R Markdown</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="r-markdown.html"><a href="r-markdown.html#r-markdown-基础知识"><i class="fa fa-check"></i><b>20.1</b> R Markdown 基础知识</a></li>
+<li class="chapter" data-level="20.2" data-path="r-markdown.html"><a href="r-markdown.html#使用-markdown-书写富文本"><i class="fa fa-check"></i><b>20.2</b> 使用 Markdown 书写富文本</a></li>
+<li class="chapter" data-level="20.3" data-path="r-markdown.html"><a href="r-markdown.html#代码块"><i class="fa fa-check"></i><b>20.3</b> 代码块</a></li>
+<li class="chapter" data-level="20.4" data-path="r-markdown.html"><a href="r-markdown.html#yaml-标头"><i class="fa fa-check"></i><b>20.4</b> YAML 标头</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html"><i class="fa fa-check"></i><b>21</b> Graphics for communication</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#图外标签"><i class="fa fa-check"></i><b>21.1</b> 图外标签</a></li>
+<li class="chapter" data-level="21.2" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#图内标注"><i class="fa fa-check"></i><b>21.2</b> 图内标注</a></li>
+<li class="chapter" data-level="21.3" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#比例尺与参考"><i class="fa fa-check"></i><b>21.3</b> 比例尺与参考</a>
+<ul>
+<li class="chapter" data-level="21.3.1" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#比例尺"><i class="fa fa-check"></i><b>21.3.1</b> 比例尺</a></li>
+<li class="chapter" data-level="21.3.2" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#图例"><i class="fa fa-check"></i><b>21.3.2</b> 图例</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">由 Bookdown 强力驱动</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R-Learning</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="r-markdown" class="section level1 hasAnchor" number="20">
+<h1><span class="header-section-number">Chapter 20</span> R Markdown<a href="r-markdown.html#r-markdown" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>在 R 中，R Markdown 为数据科学提供了一个统一的创作框架，结合了代码、结果和文本创作。
+同时这种文档完全可复制，并支持数十种导出格式，如 pdf、docx、pptx 等。</p>
+<p>R Markdown 文件旨在以三种方式使用：
+- 为了与决策者沟通，他们希望看到结论，而不是分析背后的代码。
+- 与其他数据科学家合作，方便快速得知结论和得出这些结论的过程（即代码）。
+- 作为做数据科学的环境，作为现代实验室笔记本，你不仅可以捕捉你做了什么，还可以捕捉你的想法。</p>
+<div id="r-markdown-基础知识" class="section level2 hasAnchor" number="20.1">
+<h2><span class="header-section-number">20.1</span> R Markdown 基础知识<a href="r-markdown.html#r-markdown-基础知识" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>一个简单的 <code>.Rmd</code> 文件应该包含：</p>
+<ul>
+<li>可选的标头：</li>
+</ul>
+<pre class="rmarkdown"><code>---
+title: &quot;Diamond sizes&quot;
+date: 2016-08-25
+output: html_document
+---</code></pre>
+<ul>
+<li>一些被标识符包围的代码块：</li>
+</ul>
+<pre class="rmarkdown"><code>```{r setup, include = FALSE}
+library(ggplot2)
+library(dplyr)
+
+smaller &lt;- diamonds %&gt;%
+  filter(carat &lt;= 2.5)
+```</code></pre>
+<ul>
+<li>混合了简单文本格式的文本（Markdown 语法）。</li>
+</ul>
+<p>当你开一个 .Rmd 文件，你会得到一个笔记本界面，其代码和输出交织在一起。我们可以通过单击运行图标（看起来像块顶部的播放按钮）或按 <code>Cmd/Ctrl + Shift + Enter</code> 来运行每个代码块。</p>
+<div class="figure">
+<img src="https://d33wubrfki0l68.cloudfront.net/853becd7fc7d20e3a63f52b23f522d6f0d06e066/88250/rmarkdown/diamond-sizes-notebook.png" alt="" />
+<p class="caption">diamond-sizes-notebook</p>
+</div>
+<p>要生成包含所有文本、代码和结果的完整报告，请单击 “Knit Rmd” 或按<code>Cmd/Ctrl + Shift + K</code>。当然我们也可以以编程方式使用，如 <code>rmarkdown::render("1-example.Rmd")</code>。这将显示查看器窗格中的报告，并创建一个自包含的 HTML 文件，以便与他人共享。</p>
+<p>当我们生成文档时，R Markdown 会发送 Rmd 文件到 <a href="http://yihui.name/knitr/">knitr</a>，它执行所有代码块，并创建一个新的 Markdown 文件，其中包括代码及其输出。随后其文档将被 <a href="http://pandoc.org/">pandoc</a> 转换成任何你想要的文件格式。</p>
+<div class="figure">
+<img src="https://d33wubrfki0l68.cloudfront.net/61d189fd9cdf955058415d3e1b28dd60e1bd7c9b/9791d/images/rmarkdownflow.png" alt="" />
+<p class="caption">rmarkdownflow</p>
+</div>
+</div>
+<div id="使用-markdown-书写富文本" class="section level2 hasAnchor" number="20.2">
+<h2><span class="header-section-number">20.2</span> 使用 Markdown 书写富文本<a href="r-markdown.html#使用-markdown-书写富文本" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Markdown 是一组用于设置纯文本文件格式的轻量级约定，其设计易于阅读和编写，也很容易学习。</p>
+<p>这里引用一下我的博客：<a href="https://blog.cworld.top/post/markdown">Markdown 语法与学习记录</a></p>
+</div>
+<div id="代码块" class="section level2 hasAnchor" number="20.3">
+<h2><span class="header-section-number">20.3</span> 代码块<a href="r-markdown.html#代码块" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>要在 R Markdown 文档中运行代码，我们需要插入一个块。有三种方法可以做到这一点：
+1. 键盘快捷键 <code>Cmd/Ctrl + Alt + I</code>。
+2. 编辑器工具栏中的 “插入” 按钮图标。
+3. 通过手动键入块分隔符。
+显然，我建议你学习键盘快捷键。从长远来看，这将为我们节省大量时间！</p>
+<p>代码块还可以命名，如 <code>{R by-name}</code>。引索同样会检测并展示，方便你快速跳转。同时你也可以为它的功能做一些限制。下面是一些配置项：</p>
+<table>
+<thead>
+<tr class="header">
+<th>选择</th>
+<th>运行代码</th>
+<th>显示代码</th>
+<th>输出</th>
+<th>情节</th>
+<th>消息</th>
+<th>警告</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>eval = FALSE</code></td>
+<td>-</td>
+<td></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td><code>include = FALSE</code></td>
+<td></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td><code>echo = FALSE</code></td>
+<td></td>
+<td>-</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>results = "hide"</code></td>
+<td></td>
+<td></td>
+<td>-</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>fig.show = "hide"</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td>-</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>message = FALSE</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>warning = FALSE</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>如果你需要展示 R 内的数据（如 tibble），请使用 <a href="https://rdrr.io/pkg/knitr/man/kable.html">knitr::kable</a>：</p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="r-markdown.html#cb300-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb300-2"><a href="r-markdown.html#cb300-2" aria-hidden="true" tabindex="-1"></a>  mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, ],</span>
+<span id="cb300-3"><a href="r-markdown.html#cb300-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;A knitr kable.&quot;</span></span>
+<span id="cb300-4"><a href="r-markdown.html#cb300-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<table>
+<caption><span id="tab:kable">表 20.1: </span>A knitr kable.</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+<th align="right">drat</th>
+<th align="right">wt</th>
+<th align="right">qsec</th>
+<th align="right">vs</th>
+<th align="right">am</th>
+<th align="right">gear</th>
+<th align="right">carb</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.620</td>
+<td align="right">16.46</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.875</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108</td>
+<td align="right">93</td>
+<td align="right">3.85</td>
+<td align="right">2.320</td>
+<td align="right">18.61</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Hornet 4 Drive</td>
+<td align="right">21.4</td>
+<td align="right">6</td>
+<td align="right">258</td>
+<td align="right">110</td>
+<td align="right">3.08</td>
+<td align="right">3.215</td>
+<td align="right">19.44</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Hornet Sportabout</td>
+<td align="right">18.7</td>
+<td align="right">8</td>
+<td align="right">360</td>
+<td align="right">175</td>
+<td align="right">3.15</td>
+<td align="right">3.440</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+</tbody>
+</table>
+<p>通常，文档的每次生成都从初始环境开始。这非常适合重现，但如果你有一些需要很长时间的计算，那可能会很痛苦。一种解决方案是 <code>cache = TRUE</code>。设置后，这将把块的输出保存到磁盘上一个特别命名的文件。在随后的运行中，knitr 将检查代码是否已更改，如果没有，它将重用缓存的结果。</p>
+<pre class="rmarkdown"><code>{r raw_data}
+rawdata &lt;- readr::read_csv(&quot;a_very_large_file.csv&quot;)
+```
+
+{r processed_data, cache = TRUE, dependson = &quot;raw_data&quot;}
+processed_data &lt;- rawdata %&gt;%
+    filter(!is.na(import_var)) %&gt;%
+    mutate(new_variable = complicated_transformation(x, y, z))
+</code></pre>
+<p>缓存 <code>processed_data</code> 块意味着如果 <code>dplyr</code> 管道更改，它将被重新运行，但如果read_csv()调用更改，它将不会被重新运行。您可以使用 <code>dependson</code>块选项来避免这个问题：</p>
+<pre class="rmarkdown"><code>{r processed_data, cache = TRUE, dependson = &quot;raw_data&quot;}
+processed_data &lt;- rawdata %&gt;% 
+  filter(!is.na(import_var)) %&gt;% 
+  mutate(new_variable = complicated_transformation(x, y, z))</code></pre>
+<p>随着缓存策略变得越来越复杂，最好定期使用 <a href="https://rdrr.io/pkg/knitr/man/clean_cache.html">knitr::clean_cache()</a> 清除所有缓存。</p>
+<p>对于区块输出格式上，我们可以设置一些全局选项：</p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="r-markdown.html#cb303-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb303-2"><a href="r-markdown.html#cb303-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">comment =</span> <span class="st">&quot;#&gt;&quot;</span>,</span>
+<span id="cb303-3"><a href="r-markdown.html#cb303-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">collapse =</span> <span class="cn">TRUE</span></span>
+<span id="cb303-4"><a href="r-markdown.html#cb303-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb303-5"><a href="r-markdown.html#cb303-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 或是全局禁止显示代码</span></span>
+<span id="cb303-6"><a href="r-markdown.html#cb303-6" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb303-7"><a href="r-markdown.html#cb303-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">echo =</span> <span class="cn">FALSE</span></span>
+<span id="cb303-8"><a href="r-markdown.html#cb303-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>我们还有另外一种简单的代码格式，使用 “r” 来展示一些简单的文本信息。</p>
+<p>有时文本信息像数字一类，可能不那么容易展示，我们可能需要 <a href="https://rdrr.io/r/base/format.html">format()</a> 函数：</p>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="r-markdown.html#cb304-1" aria-hidden="true" tabindex="-1"></a>comma <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">format</span>(x, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">big.mark =</span> <span class="st">&quot;,&quot;</span>)</span>
+<span id="cb304-2"><a href="r-markdown.html#cb304-2" aria-hidden="true" tabindex="-1"></a><span class="fu">comma</span>(<span class="dv">3452345</span>)</span>
+<span id="cb304-3"><a href="r-markdown.html#cb304-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;3,452,345&quot;</span></span>
+<span id="cb304-4"><a href="r-markdown.html#cb304-4" aria-hidden="true" tabindex="-1"></a><span class="fu">comma</span>(.<span class="dv">12358124331</span>)</span>
+<span id="cb304-5"><a href="r-markdown.html#cb304-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;0.12&quot;</span></span></code></pre></div>
+</div>
+<div id="yaml-标头" class="section level2 hasAnchor" number="20.4">
+<h2><span class="header-section-number">20.4</span> YAML 标头<a href="r-markdown.html#yaml-标头" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>标头有很多用处，如作为全局参数：</p>
+<pre class="rmarkdown"><code>---
+output: html_document
+params:
+  my_class: &quot;suv&quot;
+  # 也可以用 !r 写成表达式
+  start: !r lubridate::ymd(&quot;2015-01-01&quot;)
+---</code></pre>
+<p>调用时使用形如 <code>params$my_class</code> 即可。当然你也可以在生成时追加 params 进行修改：</p>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="r-markdown.html#cb306-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(<span class="st">&quot;fuel-economy.Rmd&quot;</span>, <span class="at">params =</span> <span class="fu">list</span>(<span class="at">my_class =</span> <span class="st">&quot;suv&quot;</span>))</span></code></pre></div>
+<p>pandoc 也能生成不同样式的引文和书目（写配置到 Rmd 文件的 fontmatter 中）：</p>
+<div class="sourceCode" id="cb307"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb307-1"><a href="r-markdown.html#cb307-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> rmarkdown.bib</span></span></code></pre></div>
+<p>我们可以使用许多常见的书目格式，包括 BibLaTeX，BibTeX，endnote，medline。</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="graphics-for-communication.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/cworld1/r-learning/edit/master/book/27-r-markdown.rmd",
+"text": "编辑"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["book.pdf", "PDF"], ["book.epub", "EPUB"]],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
