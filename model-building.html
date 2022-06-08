@@ -421,336 +421,336 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 18</span> Model building<a href="model-building.html#model-building" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>上一章我们侧重于模拟数据集。本章将重点介绍真实数据，以及如何构建模型以便理解数据。我们可以将数据划分为模式和残差模型。注意模型建立有时不尽人意，有时建立得很好但你不知道为什么。</p>
 <p>如果你遇到了任何困惑 —— 请不要畏惧重新开始！换个全新思路可能对你非常有用。</p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="model-building.html#cb268-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb268-2"><a href="model-building.html#cb268-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelr)</span>
-<span id="cb268-3"><a href="model-building.html#cb268-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">na.action =</span> na.warn)</span>
-<span id="cb268-4"><a href="model-building.html#cb268-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb268-5"><a href="model-building.html#cb268-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
-<span id="cb268-6"><a href="model-building.html#cb268-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="model-building.html#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb279-2"><a href="model-building.html#cb279-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelr)</span>
+<span id="cb279-3"><a href="model-building.html#cb279-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">na.action =</span> na.warn)</span>
+<span id="cb279-4"><a href="model-building.html#cb279-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb279-5"><a href="model-building.html#cb279-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
+<span id="cb279-6"><a href="model-building.html#cb279-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code></pre></div>
 <div id="分析-diamonds-品质与价格反常的原因" class="section level2 hasAnchor" number="18.1">
 <h2><span class="header-section-number">18.1</span> 分析 diamonds 品质与价格反常的原因<a href="model-building.html#分析-diamonds-品质与价格反常的原因" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>还记得我们之前研究的奇怪现象吗？品质越差的钻石，价格越高。不只是质量，在颜色、纯净度方面都是这样表现的：</p>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="model-building.html#cb269-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(cut, price)) <span class="sc">+</span></span>
-<span id="cb269-2"><a href="model-building.html#cb269-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="model-building.html#cb280-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(cut, price)) <span class="sc">+</span></span>
+<span id="cb280-2"><a href="model-building.html#cb280-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/geom_boxplot()%20with%20diamonds-1.png" width="672" /></p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="model-building.html#cb270-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(color, price)) <span class="sc">+</span></span>
-<span id="cb270-2"><a href="model-building.html#cb270-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="model-building.html#cb281-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(color, price)) <span class="sc">+</span></span>
+<span id="cb281-2"><a href="model-building.html#cb281-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/geom_boxplot()%20with%20diamonds-2.png" width="672" /></p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="model-building.html#cb271-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(clarity, price)) <span class="sc">+</span></span>
-<span id="cb271-2"><a href="model-building.html#cb271-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="model-building.html#cb282-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(clarity, price)) <span class="sc">+</span></span>
+<span id="cb282-2"><a href="model-building.html#cb282-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/geom_boxplot()%20with%20diamonds-3.png" width="672" /></p>
 <p>注意最差的钻石颜色是 J（微黄色），最差的纯净度是 I1（肉眼可见的杂物）。</p>
 <div id="重量与价格" class="section level3 hasAnchor" number="18.1.1">
 <h3><span class="header-section-number">18.1.1</span> 重量与价格<a href="model-building.html#重量与价格" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="model-building.html#cb272-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(carat, price)) <span class="sc">+</span></span>
-<span id="cb272-2"><a href="model-building.html#cb272-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hex</span>(<span class="at">bins =</span> <span class="dv">50</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="model-building.html#cb283-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(carat, price)) <span class="sc">+</span></span>
+<span id="cb283-2"><a href="model-building.html#cb283-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hex</span>(<span class="at">bins =</span> <span class="dv">50</span>)</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/geom_hex()%20with%20diamonds-1.png" width="672" /></p>
 <p>我们决定对数据进行过滤处理：</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="model-building.html#cb273-1" aria-hidden="true" tabindex="-1"></a>diamonds_new <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span></span>
-<span id="cb273-2"><a href="model-building.html#cb273-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(carat <span class="sc">&lt;=</span> <span class="fl">2.5</span>) <span class="sc">%&gt;%</span> <span class="co"># 质量小于 2.5</span></span>
-<span id="cb273-3"><a href="model-building.html#cb273-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">lprice =</span> <span class="fu">log2</span>(price), <span class="at">lcarat =</span> <span class="fu">log2</span>(carat)) <span class="co"># 对价格和质量取对数（基数为 2 的对数）</span></span>
-<span id="cb273-4"><a href="model-building.html#cb273-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb273-5"><a href="model-building.html#cb273-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds_new, <span class="fu">aes</span>(lcarat, lprice)) <span class="sc">+</span></span>
-<span id="cb273-6"><a href="model-building.html#cb273-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hex</span>(<span class="at">bins =</span> <span class="dv">50</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="model-building.html#cb284-1" aria-hidden="true" tabindex="-1"></a>diamonds_new <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span></span>
+<span id="cb284-2"><a href="model-building.html#cb284-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(carat <span class="sc">&lt;=</span> <span class="fl">2.5</span>) <span class="sc">%&gt;%</span> <span class="co"># 质量小于 2.5</span></span>
+<span id="cb284-3"><a href="model-building.html#cb284-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">lprice =</span> <span class="fu">log2</span>(price), <span class="at">lcarat =</span> <span class="fu">log2</span>(carat)) <span class="co"># 对价格和质量取对数（基数为 2 的对数）</span></span>
+<span id="cb284-4"><a href="model-building.html#cb284-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb284-5"><a href="model-building.html#cb284-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds_new, <span class="fu">aes</span>(lcarat, lprice)) <span class="sc">+</span></span>
+<span id="cb284-6"><a href="model-building.html#cb284-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hex</span>(<span class="at">bins =</span> <span class="dv">50</span>)</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/diamonds_new-1.png" width="672" /></p>
 <p>通过转化，它们的关系变成了明显漂亮的线性化！我们试着创建模型去拟合它：</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="model-building.html#cb274-1" aria-hidden="true" tabindex="-1"></a>mod_diamonds <span class="ot">&lt;-</span> <span class="fu">lm</span>(lprice <span class="sc">~</span> lcarat, <span class="at">data =</span> diamonds_new)</span>
-<span id="cb274-2"><a href="model-building.html#cb274-2" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> diamonds_new <span class="sc">%&gt;%</span></span>
-<span id="cb274-3"><a href="model-building.html#cb274-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(<span class="at">carat =</span> <span class="fu">seq_range</span>(carat, <span class="dv">20</span>)) <span class="sc">%&gt;%</span> <span class="co"># 创建矩阵</span></span>
-<span id="cb274-4"><a href="model-building.html#cb274-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">lcarat =</span> <span class="fu">log2</span>(carat)) <span class="sc">%&gt;%</span> <span class="co"># 矩阵生成的 carat 也需要取对数</span></span>
-<span id="cb274-5"><a href="model-building.html#cb274-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_predictions</span>(mod_diamonds, <span class="st">&quot;lprice&quot;</span>) <span class="sc">%&gt;%</span> <span class="co"># 预测</span></span>
-<span id="cb274-6"><a href="model-building.html#cb274-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">price =</span> <span class="dv">2</span><span class="sc">^</span>lprice) <span class="co"># 将价格还原回去</span></span></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="model-building.html#cb285-1" aria-hidden="true" tabindex="-1"></a>mod_diamonds <span class="ot">&lt;-</span> <span class="fu">lm</span>(lprice <span class="sc">~</span> lcarat, <span class="at">data =</span> diamonds_new)</span>
+<span id="cb285-2"><a href="model-building.html#cb285-2" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> diamonds_new <span class="sc">%&gt;%</span></span>
+<span id="cb285-3"><a href="model-building.html#cb285-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(<span class="at">carat =</span> <span class="fu">seq_range</span>(carat, <span class="dv">20</span>)) <span class="sc">%&gt;%</span> <span class="co"># 创建矩阵</span></span>
+<span id="cb285-4"><a href="model-building.html#cb285-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">lcarat =</span> <span class="fu">log2</span>(carat)) <span class="sc">%&gt;%</span> <span class="co"># 矩阵生成的 carat 也需要取对数</span></span>
+<span id="cb285-5"><a href="model-building.html#cb285-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_predictions</span>(mod_diamonds, <span class="st">&quot;lprice&quot;</span>) <span class="sc">%&gt;%</span> <span class="co"># 预测</span></span>
+<span id="cb285-6"><a href="model-building.html#cb285-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">price =</span> <span class="dv">2</span><span class="sc">^</span>lprice) <span class="co"># 将价格还原回去</span></span></code></pre></div>
 <p>最后绘制数据图：</p>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="model-building.html#cb275-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds_new, <span class="fu">aes</span>(carat, price)) <span class="sc">+</span></span>
-<span id="cb275-2"><a href="model-building.html#cb275-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hex</span>(<span class="at">bins =</span> <span class="dv">50</span>) <span class="sc">+</span></span>
-<span id="cb275-3"><a href="model-building.html#cb275-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> grid, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="model-building.html#cb286-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds_new, <span class="fu">aes</span>(carat, price)) <span class="sc">+</span></span>
+<span id="cb286-2"><a href="model-building.html#cb286-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hex</span>(<span class="at">bins =</span> <span class="dv">50</span>) <span class="sc">+</span></span>
+<span id="cb286-3"><a href="model-building.html#cb286-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> grid, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/ggplot()%20with%20diamonds_new-1.png" width="672" /></p>
 <p>这告诉我们一些关于这些数据的有趣信息：如果我们相信我们创造的模型，那么大钻石比预期的要便宜得多。</p>
 <p>我们来分析残差的数据：</p>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="model-building.html#cb276-1" aria-hidden="true" tabindex="-1"></a>diamonds_new <span class="ot">&lt;-</span> diamonds_new <span class="sc">%&gt;%</span></span>
-<span id="cb276-2"><a href="model-building.html#cb276-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_residuals</span>(mod_diamonds, <span class="st">&quot;lresid&quot;</span>) <span class="co"># 注意这里分析得到的数据是取过对数的</span></span>
-<span id="cb276-3"><a href="model-building.html#cb276-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb276-4"><a href="model-building.html#cb276-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds_new, <span class="fu">aes</span>(lcarat, lresid)) <span class="sc">+</span></span>
-<span id="cb276-5"><a href="model-building.html#cb276-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hex</span>(<span class="at">bins =</span> <span class="dv">50</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="model-building.html#cb287-1" aria-hidden="true" tabindex="-1"></a>diamonds_new <span class="ot">&lt;-</span> diamonds_new <span class="sc">%&gt;%</span></span>
+<span id="cb287-2"><a href="model-building.html#cb287-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_residuals</span>(mod_diamonds, <span class="st">&quot;lresid&quot;</span>) <span class="co"># 注意这里分析得到的数据是取过对数的</span></span>
+<span id="cb287-3"><a href="model-building.html#cb287-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb287-4"><a href="model-building.html#cb287-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds_new, <span class="fu">aes</span>(lcarat, lresid)) <span class="sc">+</span></span>
+<span id="cb287-5"><a href="model-building.html#cb287-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hex</span>(<span class="at">bins =</span> <span class="dv">50</span>)</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/residuals%20with%20diamonds_new-1.png" width="672" /></p>
 <p>我们决定舍弃掉价格变量，因为 lrisid 变量可能有其他参考价值：</p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="model-building.html#cb277-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds_new, <span class="fu">aes</span>(cut, lresid)) <span class="sc">+</span></span>
-<span id="cb277-2"><a href="model-building.html#cb277-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="model-building.html#cb288-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds_new, <span class="fu">aes</span>(cut, lresid)) <span class="sc">+</span></span>
+<span id="cb288-2"><a href="model-building.html#cb288-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/ggplot()%20with%20cut%20&%20color%20&%20clarity%20with%20diamonds_new-1.png" width="672" /></p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="model-building.html#cb278-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds_new, <span class="fu">aes</span>(color, lresid)) <span class="sc">+</span></span>
-<span id="cb278-2"><a href="model-building.html#cb278-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="model-building.html#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds_new, <span class="fu">aes</span>(color, lresid)) <span class="sc">+</span></span>
+<span id="cb289-2"><a href="model-building.html#cb289-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/ggplot()%20with%20cut%20&%20color%20&%20clarity%20with%20diamonds_new-2.png" width="672" /></p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="model-building.html#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds_new, <span class="fu">aes</span>(clarity, lresid)) <span class="sc">+</span></span>
-<span id="cb279-2"><a href="model-building.html#cb279-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="model-building.html#cb290-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds_new, <span class="fu">aes</span>(clarity, lresid)) <span class="sc">+</span></span>
+<span id="cb290-2"><a href="model-building.html#cb290-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/ggplot()%20with%20cut%20&%20color%20&%20clarity%20with%20diamonds_new-3.png" width="672" /></p>
 <p>现在我们看到了所期望的结果：钻石品质越高，其相对价格也越高。</p>
 </div>
 <div id="推广出更复杂的模型" class="section level3 hasAnchor" number="18.1.2">
 <h3><span class="header-section-number">18.1.2</span> 推广出更复杂的模型<a href="model-building.html#推广出更复杂的模型" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>既然价格对数与质量对数、颜色、质量和品质都有重要关系，那我们不妨把它们都加入模型：</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="model-building.html#cb280-1" aria-hidden="true" tabindex="-1"></a>mod_diamond_new <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
-<span id="cb280-2"><a href="model-building.html#cb280-2" aria-hidden="true" tabindex="-1"></a>    lprice <span class="sc">~</span> lcarat <span class="sc">+</span> color <span class="sc">+</span> cut <span class="sc">+</span> clarity,</span>
-<span id="cb280-3"><a href="model-building.html#cb280-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> diamonds_new</span>
-<span id="cb280-4"><a href="model-building.html#cb280-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb280-5"><a href="model-building.html#cb280-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb280-6"><a href="model-building.html#cb280-6" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> diamonds_new <span class="sc">%&gt;%</span></span>
-<span id="cb280-7"><a href="model-building.html#cb280-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 用 data_grid() 来创建数据越来越麻烦了。</span></span>
-<span id="cb280-8"><a href="model-building.html#cb280-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 好在我们有一个叫 “.model” 的参数帮我们完成：</span></span>
-<span id="cb280-9"><a href="model-building.html#cb280-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(cut, <span class="at">.model =</span> mod_diamond_new) <span class="sc">%&gt;%</span></span>
-<span id="cb280-10"><a href="model-building.html#cb280-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_predictions</span>(mod_diamond_new)</span>
-<span id="cb280-11"><a href="model-building.html#cb280-11" aria-hidden="true" tabindex="-1"></a>grid</span>
-<span id="cb280-12"><a href="model-building.html#cb280-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 5</span></span>
-<span id="cb280-13"><a href="model-building.html#cb280-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   cut       lcarat color clarity  pred</span></span>
-<span id="cb280-14"><a href="model-building.html#cb280-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;ord&gt;      &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;</span></span>
-<span id="cb280-15"><a href="model-building.html#cb280-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Fair      -0.515 G     VS2      11.2</span></span>
-<span id="cb280-16"><a href="model-building.html#cb280-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Good      -0.515 G     VS2      11.3</span></span>
-<span id="cb280-17"><a href="model-building.html#cb280-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Very Good -0.515 G     VS2      11.4</span></span>
-<span id="cb280-18"><a href="model-building.html#cb280-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Premium   -0.515 G     VS2      11.4</span></span>
-<span id="cb280-19"><a href="model-building.html#cb280-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 Ideal     -0.515 G     VS2      11.4</span></span>
-<span id="cb280-20"><a href="model-building.html#cb280-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb280-21"><a href="model-building.html#cb280-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(grid, <span class="fu">aes</span>(cut, pred)) <span class="sc">+</span></span>
-<span id="cb280-22"><a href="model-building.html#cb280-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="model-building.html#cb291-1" aria-hidden="true" tabindex="-1"></a>mod_diamond_new <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb291-2"><a href="model-building.html#cb291-2" aria-hidden="true" tabindex="-1"></a>    lprice <span class="sc">~</span> lcarat <span class="sc">+</span> color <span class="sc">+</span> cut <span class="sc">+</span> clarity,</span>
+<span id="cb291-3"><a href="model-building.html#cb291-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> diamonds_new</span>
+<span id="cb291-4"><a href="model-building.html#cb291-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb291-5"><a href="model-building.html#cb291-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb291-6"><a href="model-building.html#cb291-6" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> diamonds_new <span class="sc">%&gt;%</span></span>
+<span id="cb291-7"><a href="model-building.html#cb291-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 用 data_grid() 来创建数据越来越麻烦了。</span></span>
+<span id="cb291-8"><a href="model-building.html#cb291-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 好在我们有一个叫 “.model” 的参数帮我们完成：</span></span>
+<span id="cb291-9"><a href="model-building.html#cb291-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(cut, <span class="at">.model =</span> mod_diamond_new) <span class="sc">%&gt;%</span></span>
+<span id="cb291-10"><a href="model-building.html#cb291-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_predictions</span>(mod_diamond_new)</span>
+<span id="cb291-11"><a href="model-building.html#cb291-11" aria-hidden="true" tabindex="-1"></a>grid</span>
+<span id="cb291-12"><a href="model-building.html#cb291-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 5</span></span>
+<span id="cb291-13"><a href="model-building.html#cb291-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   cut       lcarat color clarity  pred</span></span>
+<span id="cb291-14"><a href="model-building.html#cb291-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;ord&gt;      &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;</span></span>
+<span id="cb291-15"><a href="model-building.html#cb291-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Fair      -0.515 G     VS2      11.2</span></span>
+<span id="cb291-16"><a href="model-building.html#cb291-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Good      -0.515 G     VS2      11.3</span></span>
+<span id="cb291-17"><a href="model-building.html#cb291-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Very Good -0.515 G     VS2      11.4</span></span>
+<span id="cb291-18"><a href="model-building.html#cb291-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Premium   -0.515 G     VS2      11.4</span></span>
+<span id="cb291-19"><a href="model-building.html#cb291-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 Ideal     -0.515 G     VS2      11.4</span></span>
+<span id="cb291-20"><a href="model-building.html#cb291-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb291-21"><a href="model-building.html#cb291-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(grid, <span class="fu">aes</span>(cut, pred)) <span class="sc">+</span></span>
+<span id="cb291-22"><a href="model-building.html#cb291-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/mod_diamond_new-1.png" width="672" /></p>
 <p>如果模型需要我们未显式提供的变量，data_grid() 将自动使用 “典型值” 填充它们。对于连续变量，它使用中位数，分类变量使用最常见的值（如果存在并列，则使用或值）。</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="model-building.html#cb281-1" aria-hidden="true" tabindex="-1"></a>diamonds_new <span class="ot">&lt;-</span> diamonds_new <span class="sc">%&gt;%</span></span>
-<span id="cb281-2"><a href="model-building.html#cb281-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 新的 lrisid 添加了颜色、质量和品质关系</span></span>
-<span id="cb281-3"><a href="model-building.html#cb281-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_residuals</span>(mod_diamond_new, <span class="st">&quot;lresid_new&quot;</span>)</span>
-<span id="cb281-4"><a href="model-building.html#cb281-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb281-5"><a href="model-building.html#cb281-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds_new, <span class="fu">aes</span>(lcarat, lresid_new)) <span class="sc">+</span></span>
-<span id="cb281-6"><a href="model-building.html#cb281-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hex</span>(<span class="at">bins =</span> <span class="dv">50</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="model-building.html#cb292-1" aria-hidden="true" tabindex="-1"></a>diamonds_new <span class="ot">&lt;-</span> diamonds_new <span class="sc">%&gt;%</span></span>
+<span id="cb292-2"><a href="model-building.html#cb292-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 新的 lrisid 添加了颜色、质量和品质关系</span></span>
+<span id="cb292-3"><a href="model-building.html#cb292-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_residuals</span>(mod_diamond_new, <span class="st">&quot;lresid_new&quot;</span>)</span>
+<span id="cb292-4"><a href="model-building.html#cb292-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb292-5"><a href="model-building.html#cb292-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds_new, <span class="fu">aes</span>(lcarat, lresid_new)) <span class="sc">+</span></span>
+<span id="cb292-6"><a href="model-building.html#cb292-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hex</span>(<span class="at">bins =</span> <span class="dv">50</span>)</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/ggplot()%20with%20lresid_new-1.png" width="672" /></p>
 <p>我们会发现有一些钻石数据的残差相当大 —— 尤其是因为取对数的关系，残差为 2 表示钻石的价格是我们预期的 4 倍。单独查看异常值通常很有用：</p>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="model-building.html#cb282-1" aria-hidden="true" tabindex="-1"></a>diamonds_new <span class="sc">%&gt;%</span></span>
-<span id="cb282-2"><a href="model-building.html#cb282-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">abs</span>(lresid_new) <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="co"># 残差绝对值大于 1</span></span>
-<span id="cb282-3"><a href="model-building.html#cb282-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_predictions</span>(mod_diamond_new) <span class="sc">%&gt;%</span> <span class="co"># 对这些数据生成期望值对数</span></span>
-<span id="cb282-4"><a href="model-building.html#cb282-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">pred =</span> <span class="fu">round</span>(<span class="dv">2</span><span class="sc">^</span>pred)) <span class="sc">%&gt;%</span> <span class="co"># 对期望值反对数并取整</span></span>
-<span id="cb282-5"><a href="model-building.html#cb282-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(price, pred, carat<span class="sc">:</span>table, x<span class="sc">:</span>z) <span class="sc">%&gt;%</span> <span class="co"># 重新选取需要的数据</span></span>
-<span id="cb282-6"><a href="model-building.html#cb282-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(price) <span class="co"># 按照价格排列</span></span>
-<span id="cb282-7"><a href="model-building.html#cb282-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 16 × 11</span></span>
-<span id="cb282-8"><a href="model-building.html#cb282-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    price  pred carat cut       color clarity depth table     x     y     z</span></span>
-<span id="cb282-9"><a href="model-building.html#cb282-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb282-10"><a href="model-building.html#cb282-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  1013   264  0.25 Fair      F     SI2      54.4    64  4.3   4.23  2.32</span></span>
-<span id="cb282-11"><a href="model-building.html#cb282-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  1186   284  0.25 Premium   G     SI2      59      60  5.33  5.28  3.12</span></span>
-<span id="cb282-12"><a href="model-building.html#cb282-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  1186   284  0.25 Premium   G     SI2      58.8    60  5.33  5.28  3.12</span></span>
-<span id="cb282-13"><a href="model-building.html#cb282-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  1262  2644  1.03 Fair      E     I1       78.2    54  5.72  5.59  4.42</span></span>
-<span id="cb282-14"><a href="model-building.html#cb282-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  1415   639  0.35 Fair      G     VS2      65.9    54  5.57  5.53  3.66</span></span>
-<span id="cb282-15"><a href="model-building.html#cb282-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  1415   639  0.35 Fair      G     VS2      65.9    54  5.57  5.53  3.66</span></span>
-<span id="cb282-16"><a href="model-building.html#cb282-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  1715   576  0.32 Fair      F     VS2      59.6    60  4.42  4.34  2.61</span></span>
-<span id="cb282-17"><a href="model-building.html#cb282-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  1776   412  0.29 Fair      F     SI1      55.8    60  4.48  4.41  2.48</span></span>
-<span id="cb282-18"><a href="model-building.html#cb282-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2160   314  0.34 Fair      F     I1       55.8    62  4.72  4.6   2.6 </span></span>
-<span id="cb282-19"><a href="model-building.html#cb282-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2366   774  0.3  Very Good D     VVS2     60.6    58  4.33  4.35  2.63</span></span>
-<span id="cb282-20"><a href="model-building.html#cb282-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11  3360  1373  0.51 Premium   F     SI1      62.7    62  5.09  4.96  3.15</span></span>
-<span id="cb282-21"><a href="model-building.html#cb282-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12  3807  1540  0.61 Good      F     SI2      62.5    65  5.36  5.29  3.33</span></span>
-<span id="cb282-22"><a href="model-building.html#cb282-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13  3920  1705  0.51 Fair      F     VVS2     65.4    60  4.98  4.9   3.23</span></span>
-<span id="cb282-23"><a href="model-building.html#cb282-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14  4368  1705  0.51 Fair      F     VVS2     60.7    66  5.21  5.11  3.13</span></span>
-<span id="cb282-24"><a href="model-building.html#cb282-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15 10011  4048  1.01 Fair      D     SI2      64.6    58  6.25  6.2   4.02</span></span>
-<span id="cb282-25"><a href="model-building.html#cb282-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16 10470 23622  2.46 Premium   E     SI2      59.7    59  8.82  8.76  5.25</span></span></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="model-building.html#cb293-1" aria-hidden="true" tabindex="-1"></a>diamonds_new <span class="sc">%&gt;%</span></span>
+<span id="cb293-2"><a href="model-building.html#cb293-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">abs</span>(lresid_new) <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="co"># 残差绝对值大于 1</span></span>
+<span id="cb293-3"><a href="model-building.html#cb293-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_predictions</span>(mod_diamond_new) <span class="sc">%&gt;%</span> <span class="co"># 对这些数据生成期望值对数</span></span>
+<span id="cb293-4"><a href="model-building.html#cb293-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">pred =</span> <span class="fu">round</span>(<span class="dv">2</span><span class="sc">^</span>pred)) <span class="sc">%&gt;%</span> <span class="co"># 对期望值反对数并取整</span></span>
+<span id="cb293-5"><a href="model-building.html#cb293-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(price, pred, carat<span class="sc">:</span>table, x<span class="sc">:</span>z) <span class="sc">%&gt;%</span> <span class="co"># 重新选取需要的数据</span></span>
+<span id="cb293-6"><a href="model-building.html#cb293-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(price) <span class="co"># 按照价格排列</span></span>
+<span id="cb293-7"><a href="model-building.html#cb293-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 16 × 11</span></span>
+<span id="cb293-8"><a href="model-building.html#cb293-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    price  pred carat cut       color clarity depth table     x     y     z</span></span>
+<span id="cb293-9"><a href="model-building.html#cb293-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb293-10"><a href="model-building.html#cb293-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  1013   264  0.25 Fair      F     SI2      54.4    64  4.3   4.23  2.32</span></span>
+<span id="cb293-11"><a href="model-building.html#cb293-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  1186   284  0.25 Premium   G     SI2      59      60  5.33  5.28  3.12</span></span>
+<span id="cb293-12"><a href="model-building.html#cb293-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  1186   284  0.25 Premium   G     SI2      58.8    60  5.33  5.28  3.12</span></span>
+<span id="cb293-13"><a href="model-building.html#cb293-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  1262  2644  1.03 Fair      E     I1       78.2    54  5.72  5.59  4.42</span></span>
+<span id="cb293-14"><a href="model-building.html#cb293-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  1415   639  0.35 Fair      G     VS2      65.9    54  5.57  5.53  3.66</span></span>
+<span id="cb293-15"><a href="model-building.html#cb293-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  1415   639  0.35 Fair      G     VS2      65.9    54  5.57  5.53  3.66</span></span>
+<span id="cb293-16"><a href="model-building.html#cb293-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  1715   576  0.32 Fair      F     VS2      59.6    60  4.42  4.34  2.61</span></span>
+<span id="cb293-17"><a href="model-building.html#cb293-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  1776   412  0.29 Fair      F     SI1      55.8    60  4.48  4.41  2.48</span></span>
+<span id="cb293-18"><a href="model-building.html#cb293-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2160   314  0.34 Fair      F     I1       55.8    62  4.72  4.6   2.6 </span></span>
+<span id="cb293-19"><a href="model-building.html#cb293-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2366   774  0.3  Very Good D     VVS2     60.6    58  4.33  4.35  2.63</span></span>
+<span id="cb293-20"><a href="model-building.html#cb293-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11  3360  1373  0.51 Premium   F     SI1      62.7    62  5.09  4.96  3.15</span></span>
+<span id="cb293-21"><a href="model-building.html#cb293-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12  3807  1540  0.61 Good      F     SI2      62.5    65  5.36  5.29  3.33</span></span>
+<span id="cb293-22"><a href="model-building.html#cb293-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13  3920  1705  0.51 Fair      F     VVS2     65.4    60  4.98  4.9   3.23</span></span>
+<span id="cb293-23"><a href="model-building.html#cb293-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14  4368  1705  0.51 Fair      F     VVS2     60.7    66  5.21  5.11  3.13</span></span>
+<span id="cb293-24"><a href="model-building.html#cb293-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15 10011  4048  1.01 Fair      D     SI2      64.6    58  6.25  6.2   4.02</span></span>
+<span id="cb293-25"><a href="model-building.html#cb293-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16 10470 23622  2.46 Premium   E     SI2      59.7    59  8.82  8.76  5.25</span></span></code></pre></div>
 <p>似乎没有什么出人意料的数据，但可能值得花时间考虑，这是否表明我们的模型存在问题，或者数据中存在错误。</p>
 </div>
 </div>
 <div id="分析-flights-每日航班数量变化因素" class="section level2 hasAnchor" number="18.2">
 <h2><span class="header-section-number">18.2</span> 分析 flights 每日航班数量变化因素<a href="model-building.html#分析-flights-每日航班数量变化因素" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>按照天来看，这是一个包含 365 项的简单数据集：</p>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="model-building.html#cb283-1" aria-hidden="true" tabindex="-1"></a>daily <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span></span>
-<span id="cb283-2"><a href="model-building.html#cb283-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 同理我们还有 make_datetime，作用是将日期各因素拼接，并返回 “日期” 格式数据</span></span>
-<span id="cb283-3"><a href="model-building.html#cb283-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">make_date</span>(year, month, day)) <span class="sc">%&gt;%</span></span>
-<span id="cb283-4"><a href="model-building.html#cb283-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span></span>
-<span id="cb283-5"><a href="model-building.html#cb283-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>())</span>
-<span id="cb283-6"><a href="model-building.html#cb283-6" aria-hidden="true" tabindex="-1"></a>daily</span>
-<span id="cb283-7"><a href="model-building.html#cb283-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 365 × 2</span></span>
-<span id="cb283-8"><a href="model-building.html#cb283-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    date           n</span></span>
-<span id="cb283-9"><a href="model-building.html#cb283-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;date&gt;     &lt;int&gt;</span></span>
-<span id="cb283-10"><a href="model-building.html#cb283-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2013-01-01   842</span></span>
-<span id="cb283-11"><a href="model-building.html#cb283-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 2013-01-02   943</span></span>
-<span id="cb283-12"><a href="model-building.html#cb283-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 2013-01-03   914</span></span>
-<span id="cb283-13"><a href="model-building.html#cb283-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 2013-01-04   915</span></span>
-<span id="cb283-14"><a href="model-building.html#cb283-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 2013-01-05   720</span></span>
-<span id="cb283-15"><a href="model-building.html#cb283-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 2013-01-06   832</span></span>
-<span id="cb283-16"><a href="model-building.html#cb283-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 2013-01-07   933</span></span>
-<span id="cb283-17"><a href="model-building.html#cb283-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 2013-01-08   899</span></span>
-<span id="cb283-18"><a href="model-building.html#cb283-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 2013-01-09   902</span></span>
-<span id="cb283-19"><a href="model-building.html#cb283-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2013-01-10   932</span></span>
-<span id="cb283-20"><a href="model-building.html#cb283-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 355 more rows</span></span>
-<span id="cb283-21"><a href="model-building.html#cb283-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb283-22"><a href="model-building.html#cb283-22" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daily, <span class="fu">aes</span>(date, n)) <span class="sc">+</span></span>
-<span id="cb283-23"><a href="model-building.html#cb283-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="model-building.html#cb294-1" aria-hidden="true" tabindex="-1"></a>daily <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span></span>
+<span id="cb294-2"><a href="model-building.html#cb294-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 同理我们还有 make_datetime，作用是将日期各因素拼接，并返回 “日期” 格式数据</span></span>
+<span id="cb294-3"><a href="model-building.html#cb294-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">make_date</span>(year, month, day)) <span class="sc">%&gt;%</span></span>
+<span id="cb294-4"><a href="model-building.html#cb294-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span></span>
+<span id="cb294-5"><a href="model-building.html#cb294-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>())</span>
+<span id="cb294-6"><a href="model-building.html#cb294-6" aria-hidden="true" tabindex="-1"></a>daily</span>
+<span id="cb294-7"><a href="model-building.html#cb294-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 365 × 2</span></span>
+<span id="cb294-8"><a href="model-building.html#cb294-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    date           n</span></span>
+<span id="cb294-9"><a href="model-building.html#cb294-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;date&gt;     &lt;int&gt;</span></span>
+<span id="cb294-10"><a href="model-building.html#cb294-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2013-01-01   842</span></span>
+<span id="cb294-11"><a href="model-building.html#cb294-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 2013-01-02   943</span></span>
+<span id="cb294-12"><a href="model-building.html#cb294-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 2013-01-03   914</span></span>
+<span id="cb294-13"><a href="model-building.html#cb294-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 2013-01-04   915</span></span>
+<span id="cb294-14"><a href="model-building.html#cb294-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 2013-01-05   720</span></span>
+<span id="cb294-15"><a href="model-building.html#cb294-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 2013-01-06   832</span></span>
+<span id="cb294-16"><a href="model-building.html#cb294-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 2013-01-07   933</span></span>
+<span id="cb294-17"><a href="model-building.html#cb294-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 2013-01-08   899</span></span>
+<span id="cb294-18"><a href="model-building.html#cb294-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 2013-01-09   902</span></span>
+<span id="cb294-19"><a href="model-building.html#cb294-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2013-01-10   932</span></span>
+<span id="cb294-20"><a href="model-building.html#cb294-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 355 more rows</span></span>
+<span id="cb294-21"><a href="model-building.html#cb294-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-22"><a href="model-building.html#cb294-22" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daily, <span class="fu">aes</span>(date, n)) <span class="sc">+</span></span>
+<span id="cb294-23"><a href="model-building.html#cb294-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/daily-1.png" width="672" /></p>
 <p>不难发现，航班书总是呈现出周期性变化。我们接下来按星期几划分。</p>
 <div id="星期几对航班的影响" class="section level3 hasAnchor" number="18.2.1">
 <h3><span class="header-section-number">18.2.1</span> 星期几对航班的影响<a href="model-building.html#星期几对航班的影响" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="model-building.html#cb284-1" aria-hidden="true" tabindex="-1"></a>daily <span class="ot">&lt;-</span> daily <span class="sc">%&gt;%</span></span>
-<span id="cb284-2"><a href="model-building.html#cb284-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 对指定的日期来返回星期几（label 配置项为是否要用当地语言表示,默认 FALSE 用数字表示）</span></span>
-<span id="cb284-3"><a href="model-building.html#cb284-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">wday =</span> <span class="fu">wday</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb284-4"><a href="model-building.html#cb284-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daily, <span class="fu">aes</span>(wday, n)) <span class="sc">+</span> <span class="co"># 注意这里默认周末排最前</span></span>
-<span id="cb284-5"><a href="model-building.html#cb284-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="model-building.html#cb295-1" aria-hidden="true" tabindex="-1"></a>daily <span class="ot">&lt;-</span> daily <span class="sc">%&gt;%</span></span>
+<span id="cb295-2"><a href="model-building.html#cb295-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 对指定的日期来返回星期几（label 配置项为是否要用当地语言表示,默认 FALSE 用数字表示）</span></span>
+<span id="cb295-3"><a href="model-building.html#cb295-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">wday =</span> <span class="fu">wday</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb295-4"><a href="model-building.html#cb295-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daily, <span class="fu">aes</span>(wday, n)) <span class="sc">+</span> <span class="co"># 注意这里默认周末排最前</span></span>
+<span id="cb295-5"><a href="model-building.html#cb295-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/wday-1.png" width="672" /></p>
 <p>双休日的航班相对要少些，因为大多数旅行都是商务旅行。这种影响在周六尤为明显：你有时可能会在周日离开去参加周一上午的会议，但你很少在周六离开，因为你更愿意在家和家人们在一起。</p>
 <p>消除这种影响最简单的方法是使用模型矫正。首先，我们拟合模型，并将其预测覆盖在原始数据上来可视化：</p>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="model-building.html#cb285-1" aria-hidden="true" tabindex="-1"></a>mod_wday <span class="ot">&lt;-</span> <span class="fu">lm</span>(n <span class="sc">~</span> wday, <span class="at">data =</span> daily)</span>
-<span id="cb285-2"><a href="model-building.html#cb285-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb285-3"><a href="model-building.html#cb285-3" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> daily <span class="sc">%&gt;%</span></span>
-<span id="cb285-4"><a href="model-building.html#cb285-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(wday) <span class="sc">%&gt;%</span></span>
-<span id="cb285-5"><a href="model-building.html#cb285-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_predictions</span>(mod_wday, <span class="st">&quot;n&quot;</span>)</span>
-<span id="cb285-6"><a href="model-building.html#cb285-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb285-7"><a href="model-building.html#cb285-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daily, <span class="fu">aes</span>(wday, n)) <span class="sc">+</span></span>
-<span id="cb285-8"><a href="model-building.html#cb285-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb285-9"><a href="model-building.html#cb285-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">data =</span> grid, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="model-building.html#cb296-1" aria-hidden="true" tabindex="-1"></a>mod_wday <span class="ot">&lt;-</span> <span class="fu">lm</span>(n <span class="sc">~</span> wday, <span class="at">data =</span> daily)</span>
+<span id="cb296-2"><a href="model-building.html#cb296-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb296-3"><a href="model-building.html#cb296-3" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> daily <span class="sc">%&gt;%</span></span>
+<span id="cb296-4"><a href="model-building.html#cb296-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(wday) <span class="sc">%&gt;%</span></span>
+<span id="cb296-5"><a href="model-building.html#cb296-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_predictions</span>(mod_wday, <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb296-6"><a href="model-building.html#cb296-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb296-7"><a href="model-building.html#cb296-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daily, <span class="fu">aes</span>(wday, n)) <span class="sc">+</span></span>
+<span id="cb296-8"><a href="model-building.html#cb296-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb296-9"><a href="model-building.html#cb296-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">data =</span> grid, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>)</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/mod_wday-1.png" width="672" /></p>
 <p>这样，我们就把问题转化为分析残差：</p>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="model-building.html#cb286-1" aria-hidden="true" tabindex="-1"></a>daily <span class="ot">&lt;-</span> daily <span class="sc">%&gt;%</span></span>
-<span id="cb286-2"><a href="model-building.html#cb286-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_residuals</span>(mod_wday)</span>
-<span id="cb286-3"><a href="model-building.html#cb286-3" aria-hidden="true" tabindex="-1"></a>daily <span class="sc">%&gt;%</span></span>
-<span id="cb286-4"><a href="model-building.html#cb286-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, resid)) <span class="sc">+</span></span>
-<span id="cb286-5"><a href="model-building.html#cb286-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ref_line</span>(<span class="at">h =</span> <span class="dv">0</span>) <span class="sc">+</span> <span class="co"># 基线调整到 0 而不是最小</span></span>
-<span id="cb286-6"><a href="model-building.html#cb286-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="model-building.html#cb297-1" aria-hidden="true" tabindex="-1"></a>daily <span class="ot">&lt;-</span> daily <span class="sc">%&gt;%</span></span>
+<span id="cb297-2"><a href="model-building.html#cb297-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_residuals</span>(mod_wday)</span>
+<span id="cb297-3"><a href="model-building.html#cb297-3" aria-hidden="true" tabindex="-1"></a>daily <span class="sc">%&gt;%</span></span>
+<span id="cb297-4"><a href="model-building.html#cb297-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, resid)) <span class="sc">+</span></span>
+<span id="cb297-5"><a href="model-building.html#cb297-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ref_line</span>(<span class="at">h =</span> <span class="dv">0</span>) <span class="sc">+</span> <span class="co"># 基线调整到 0 而不是最小</span></span>
+<span id="cb297-6"><a href="model-building.html#cb297-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/risid%20with%20wday%20with%20daily-1.png" width="672" /></p>
 <p>现在，通过星期几预估模型，我们发现航班数量仍然明显偏离了预期航班数量。虽然现在我们已经消除了大部分大的每周效应，但我们仍然可以看到一些更微妙的变化：有没有一种可能，我是说可能，这个模型的变化不只是单纯的被星期几？</p>
 <p>从6月份开始，我们的模型很是失败。为一周中的每一天绘制一条线，使原因更容易看到：</p>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="model-building.html#cb287-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daily, <span class="fu">aes</span>(date, resid, <span class="at">colour =</span> wday)) <span class="sc">+</span></span>
-<span id="cb287-2"><a href="model-building.html#cb287-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ref_line</span>(<span class="at">h =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb287-3"><a href="model-building.html#cb287-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="model-building.html#cb298-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daily, <span class="fu">aes</span>(date, resid, <span class="at">colour =</span> wday)) <span class="sc">+</span></span>
+<span id="cb298-2"><a href="model-building.html#cb298-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ref_line</span>(<span class="at">h =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb298-3"><a href="model-building.html#cb298-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/resid%20with%20daily%20with%20wday-1.png" width="672" /></p>
 <p>有些线条仍然在乱飞！尤其是周六的航班数量：夏季的航班比我们预期的要多，秋季的航班则少得多。之后我们会着重分析。</p>
 <p>这里将偏离过大的 “异常” 数据单独取出仔细研究：</p>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="model-building.html#cb288-1" aria-hidden="true" tabindex="-1"></a>daily <span class="sc">%&gt;%</span></span>
-<span id="cb288-2"><a href="model-building.html#cb288-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(resid <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">100</span>)</span>
-<span id="cb288-3"><a href="model-building.html#cb288-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 11 × 4</span></span>
-<span id="cb288-4"><a href="model-building.html#cb288-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    date           n wday  resid</span></span>
-<span id="cb288-5"><a href="model-building.html#cb288-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;ord&gt; &lt;dbl&gt;</span></span>
-<span id="cb288-6"><a href="model-building.html#cb288-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2013-01-01   842 Tue   -109.</span></span>
-<span id="cb288-7"><a href="model-building.html#cb288-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 2013-01-20   786 Sun   -105.</span></span>
-<span id="cb288-8"><a href="model-building.html#cb288-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 2013-05-26   729 Sun   -162.</span></span>
-<span id="cb288-9"><a href="model-building.html#cb288-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 2013-07-04   737 Thu   -229.</span></span>
-<span id="cb288-10"><a href="model-building.html#cb288-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 2013-07-05   822 Fri   -145.</span></span>
-<span id="cb288-11"><a href="model-building.html#cb288-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 2013-09-01   718 Sun   -173.</span></span>
-<span id="cb288-12"><a href="model-building.html#cb288-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 2013-11-28   634 Thu   -332.</span></span>
-<span id="cb288-13"><a href="model-building.html#cb288-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 2013-11-29   661 Fri   -306.</span></span>
-<span id="cb288-14"><a href="model-building.html#cb288-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 2013-12-24   761 Tue   -190.</span></span>
-<span id="cb288-15"><a href="model-building.html#cb288-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2013-12-25   719 Wed   -244.</span></span>
-<span id="cb288-16"><a href="model-building.html#cb288-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 2013-12-31   776 Tue   -175.</span></span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="model-building.html#cb299-1" aria-hidden="true" tabindex="-1"></a>daily <span class="sc">%&gt;%</span></span>
+<span id="cb299-2"><a href="model-building.html#cb299-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(resid <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">100</span>)</span>
+<span id="cb299-3"><a href="model-building.html#cb299-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 11 × 4</span></span>
+<span id="cb299-4"><a href="model-building.html#cb299-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    date           n wday  resid</span></span>
+<span id="cb299-5"><a href="model-building.html#cb299-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;ord&gt; &lt;dbl&gt;</span></span>
+<span id="cb299-6"><a href="model-building.html#cb299-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2013-01-01   842 Tue   -109.</span></span>
+<span id="cb299-7"><a href="model-building.html#cb299-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 2013-01-20   786 Sun   -105.</span></span>
+<span id="cb299-8"><a href="model-building.html#cb299-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 2013-05-26   729 Sun   -162.</span></span>
+<span id="cb299-9"><a href="model-building.html#cb299-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 2013-07-04   737 Thu   -229.</span></span>
+<span id="cb299-10"><a href="model-building.html#cb299-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 2013-07-05   822 Fri   -145.</span></span>
+<span id="cb299-11"><a href="model-building.html#cb299-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 2013-09-01   718 Sun   -173.</span></span>
+<span id="cb299-12"><a href="model-building.html#cb299-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 2013-11-28   634 Thu   -332.</span></span>
+<span id="cb299-13"><a href="model-building.html#cb299-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 2013-11-29   661 Fri   -306.</span></span>
+<span id="cb299-14"><a href="model-building.html#cb299-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 2013-12-24   761 Tue   -190.</span></span>
+<span id="cb299-15"><a href="model-building.html#cb299-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2013-12-25   719 Wed   -244.</span></span>
+<span id="cb299-16"><a href="model-building.html#cb299-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 2013-12-31   776 Tue   -175.</span></span></code></pre></div>
 <p>请注意这些日期并不是巧合。从美国公共假日角度来看，我们会发现这些数据包含元旦、美国独立日（7月4日）、感恩节和圣诞节。</p>
 <p>而除上述个别突出的数据以外，也有一些整体性的趋势：</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="model-building.html#cb289-1" aria-hidden="true" tabindex="-1"></a>daily <span class="sc">%&gt;%</span></span>
-<span id="cb289-2"><a href="model-building.html#cb289-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, resid)) <span class="sc">+</span></span>
-<span id="cb289-3"><a href="model-building.html#cb289-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ref_line</span>(<span class="at">h =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb289-4"><a href="model-building.html#cb289-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">&quot;grey50&quot;</span>) <span class="sc">+</span></span>
-<span id="cb289-5"><a href="model-building.html#cb289-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">span =</span> <span class="fl">0.20</span>)</span>
-<span id="cb289-6"><a href="model-building.html#cb289-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="model-building.html#cb300-1" aria-hidden="true" tabindex="-1"></a>daily <span class="sc">%&gt;%</span></span>
+<span id="cb300-2"><a href="model-building.html#cb300-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, resid)) <span class="sc">+</span></span>
+<span id="cb300-3"><a href="model-building.html#cb300-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ref_line</span>(<span class="at">h =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb300-4"><a href="model-building.html#cb300-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">&quot;grey50&quot;</span>) <span class="sc">+</span></span>
+<span id="cb300-5"><a href="model-building.html#cb300-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">span =</span> <span class="fl">0.20</span>)</span>
+<span id="cb300-6"><a href="model-building.html#cb300-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/date%20with%20daily-1.png" width="672" /></p>
 <p>冬季（12月至3月）的航班相对较少，而夏季（5月至9月）的航班明显更多。尽管我们只有一年的数据，没有更好地佐证这个观点。但我们可以通过思考获取潜在的解释。</p>
 </div>
 <div id="季节性周六效应" class="section level3 hasAnchor" number="18.2.2">
 <h3><span class="header-section-number">18.2.2</span> 季节性周六效应<a href="model-building.html#季节性周六效应" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>之前我们发现仅周六在周预测模型对于全年数据中，出现明显偏差。这里专门提取进行研究：</p>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="model-building.html#cb290-1" aria-hidden="true" tabindex="-1"></a>daily <span class="sc">%&gt;%</span></span>
-<span id="cb290-2"><a href="model-building.html#cb290-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(wday <span class="sc">==</span> <span class="st">&quot;周六&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb290-3"><a href="model-building.html#cb290-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 如果是英语作为 R 的语言设置的话：filter(wday == &quot;Sat&quot;) %&gt;%</span></span>
-<span id="cb290-4"><a href="model-building.html#cb290-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, n)) <span class="sc">+</span></span>
-<span id="cb290-5"><a href="model-building.html#cb290-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb290-6"><a href="model-building.html#cb290-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb290-7"><a href="model-building.html#cb290-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 对 x 轴的缩放比例进行调整，其中数据类型为 date</span></span>
-<span id="cb290-8"><a href="model-building.html#cb290-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_date</span>(</span>
-<span id="cb290-9"><a href="model-building.html#cb290-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> <span class="st">&quot;月份&quot;</span>, <span class="co"># 比例尺名称</span></span>
-<span id="cb290-10"><a href="model-building.html#cb290-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">date_breaks =</span> <span class="st">&quot;1 month&quot;</span>, <span class="co"># 间隔为一个月</span></span>
-<span id="cb290-11"><a href="model-building.html#cb290-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">date_labels =</span> <span class="st">&quot;%b&quot;</span> <span class="co"># 指定展示规范为仅显示月</span></span>
-<span id="cb290-12"><a href="model-building.html#cb290-12" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="model-building.html#cb301-1" aria-hidden="true" tabindex="-1"></a>daily <span class="sc">%&gt;%</span></span>
+<span id="cb301-2"><a href="model-building.html#cb301-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(wday <span class="sc">==</span> <span class="st">&quot;周六&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb301-3"><a href="model-building.html#cb301-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 如果是英语作为 R 的语言设置的话：filter(wday == &quot;Sat&quot;) %&gt;%</span></span>
+<span id="cb301-4"><a href="model-building.html#cb301-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, n)) <span class="sc">+</span></span>
+<span id="cb301-5"><a href="model-building.html#cb301-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb301-6"><a href="model-building.html#cb301-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb301-7"><a href="model-building.html#cb301-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 对 x 轴的缩放比例进行调整，其中数据类型为 date</span></span>
+<span id="cb301-8"><a href="model-building.html#cb301-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_date</span>(</span>
+<span id="cb301-9"><a href="model-building.html#cb301-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> <span class="st">&quot;月份&quot;</span>, <span class="co"># 比例尺名称</span></span>
+<span id="cb301-10"><a href="model-building.html#cb301-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">date_breaks =</span> <span class="st">&quot;1 month&quot;</span>, <span class="co"># 间隔为一个月</span></span>
+<span id="cb301-11"><a href="model-building.html#cb301-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">date_labels =</span> <span class="st">&quot;%b&quot;</span> <span class="co"># 指定展示规范为仅显示月</span></span>
+<span id="cb301-12"><a href="model-building.html#cb301-12" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/saturday%20with%20daily-1.png" width="672" /></p>
 <p>同样是周六，不同的周六反馈的数据差异巨大！很难不会引起怀疑 —— 这是由暑假引起的：</p>
 <p>当地人们通常在夏天去度假，也不介意选择周六度假。选择这个时间段度假，很可能是因为孩子们正好在放暑假。所以我们有理由推测暑假是从6月初到8月下旬。
 实际查询数据我们得到，该州在2013年的暑假安排是6月26日至9月9日。但为什么春季的周六航班比秋季多？调研得知计划秋天度假的家庭实在不太常见，因为感恩节和圣诞节假期真的已经足够长。</p>
 <p>让我们创建一个大致包含三个学校学期的 “term” 变量，并用一个函数来验证我们的推论：</p>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="model-building.html#cb291-1" aria-hidden="true" tabindex="-1"></a>term <span class="ot">&lt;-</span> <span class="cf">function</span>(date) {</span>
-<span id="cb291-2"><a href="model-building.html#cb291-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># cut 会切割我们本有的数据集，break 确认切割点位</span></span>
-<span id="cb291-3"><a href="model-building.html#cb291-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cut</span>(date,</span>
-<span id="cb291-4"><a href="model-building.html#cb291-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">breaks =</span> <span class="fu">ymd</span>(<span class="dv">20130101</span>, <span class="dv">20130605</span>, <span class="dv">20130825</span>, <span class="dv">20140101</span>), <span class="co"># 创建日期向量</span></span>
-<span id="cb291-5"><a href="model-building.html#cb291-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;spring&quot;</span>, <span class="st">&quot;summer&quot;</span>, <span class="st">&quot;fall&quot;</span>) <span class="co"># 切割后类别的命名标签</span></span>
-<span id="cb291-6"><a href="model-building.html#cb291-6" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb291-7"><a href="model-building.html#cb291-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb291-8"><a href="model-building.html#cb291-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb291-9"><a href="model-building.html#cb291-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 通过切割获取学期标签</span></span>
-<span id="cb291-10"><a href="model-building.html#cb291-10" aria-hidden="true" tabindex="-1"></a>daily <span class="ot">&lt;-</span> daily <span class="sc">%&gt;%</span></span>
-<span id="cb291-11"><a href="model-building.html#cb291-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">term</span>(date))</span>
-<span id="cb291-12"><a href="model-building.html#cb291-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb291-13"><a href="model-building.html#cb291-13" aria-hidden="true" tabindex="-1"></a>daily <span class="sc">%&gt;%</span></span>
-<span id="cb291-14"><a href="model-building.html#cb291-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(wday <span class="sc">==</span> <span class="st">&quot;周六&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb291-15"><a href="model-building.html#cb291-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, n, <span class="at">colour =</span> term)) <span class="sc">+</span></span>
-<span id="cb291-16"><a href="model-building.html#cb291-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb291-17"><a href="model-building.html#cb291-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb291-18"><a href="model-building.html#cb291-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_date</span>(<span class="at">name =</span> <span class="st">&quot;月份&quot;</span>, <span class="at">date_breaks =</span> <span class="st">&quot;1 month&quot;</span>, <span class="at">date_labels =</span> <span class="st">&quot;%b&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="model-building.html#cb302-1" aria-hidden="true" tabindex="-1"></a>term <span class="ot">&lt;-</span> <span class="cf">function</span>(date) {</span>
+<span id="cb302-2"><a href="model-building.html#cb302-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># cut 会切割我们本有的数据集，break 确认切割点位</span></span>
+<span id="cb302-3"><a href="model-building.html#cb302-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cut</span>(date,</span>
+<span id="cb302-4"><a href="model-building.html#cb302-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">breaks =</span> <span class="fu">ymd</span>(<span class="dv">20130101</span>, <span class="dv">20130605</span>, <span class="dv">20130825</span>, <span class="dv">20140101</span>), <span class="co"># 创建日期向量</span></span>
+<span id="cb302-5"><a href="model-building.html#cb302-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;spring&quot;</span>, <span class="st">&quot;summer&quot;</span>, <span class="st">&quot;fall&quot;</span>) <span class="co"># 切割后类别的命名标签</span></span>
+<span id="cb302-6"><a href="model-building.html#cb302-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb302-7"><a href="model-building.html#cb302-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb302-8"><a href="model-building.html#cb302-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb302-9"><a href="model-building.html#cb302-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 通过切割获取学期标签</span></span>
+<span id="cb302-10"><a href="model-building.html#cb302-10" aria-hidden="true" tabindex="-1"></a>daily <span class="ot">&lt;-</span> daily <span class="sc">%&gt;%</span></span>
+<span id="cb302-11"><a href="model-building.html#cb302-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">term</span>(date))</span>
+<span id="cb302-12"><a href="model-building.html#cb302-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb302-13"><a href="model-building.html#cb302-13" aria-hidden="true" tabindex="-1"></a>daily <span class="sc">%&gt;%</span></span>
+<span id="cb302-14"><a href="model-building.html#cb302-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(wday <span class="sc">==</span> <span class="st">&quot;周六&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb302-15"><a href="model-building.html#cb302-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, n, <span class="at">colour =</span> term)) <span class="sc">+</span></span>
+<span id="cb302-16"><a href="model-building.html#cb302-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb302-17"><a href="model-building.html#cb302-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb302-18"><a href="model-building.html#cb302-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_date</span>(<span class="at">name =</span> <span class="st">&quot;月份&quot;</span>, <span class="at">date_breaks =</span> <span class="st">&quot;1 month&quot;</span>, <span class="at">date_labels =</span> <span class="st">&quot;%b&quot;</span>)</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/term-1.png" width="672" /></p>
 <p>不同季节学期之间的断层非常明显！学生一旦处于暑假，周六出行度假的数量就会居高不下。</p>
 <p>我们试着把这个规律推广到其他星期几：</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="model-building.html#cb292-1" aria-hidden="true" tabindex="-1"></a>daily <span class="sc">%&gt;%</span></span>
-<span id="cb292-2"><a href="model-building.html#cb292-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(wday, n, <span class="at">colour =</span> term)) <span class="sc">+</span></span>
-<span id="cb292-3"><a href="model-building.html#cb292-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="model-building.html#cb303-1" aria-hidden="true" tabindex="-1"></a>daily <span class="sc">%&gt;%</span></span>
+<span id="cb303-2"><a href="model-building.html#cb303-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(wday, n, <span class="at">colour =</span> term)) <span class="sc">+</span></span>
+<span id="cb303-3"><a href="model-building.html#cb303-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/term%20with%20wday-1.png" width="672" /></p>
 <p>每个星期几都呈现这样的趋势：春季数据多变（由于节日，春季开头与结尾差异较大）、夏季（数据）航班偏多。周六用于暑假度假的趋势也很明显。</p>
 <p>既然同时存在两个因素，我们不妨建立两个模型进行对比：</p>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="model-building.html#cb293-1" aria-hidden="true" tabindex="-1"></a>mod_wday <span class="ot">&lt;-</span> <span class="fu">lm</span>(n <span class="sc">~</span> wday, <span class="at">data =</span> daily)</span>
-<span id="cb293-2"><a href="model-building.html#cb293-2" aria-hidden="true" tabindex="-1"></a>mod_wday_term <span class="ot">&lt;-</span> <span class="fu">lm</span>(n <span class="sc">~</span> wday <span class="sc">*</span> term, <span class="at">data =</span> daily)</span>
-<span id="cb293-3"><a href="model-building.html#cb293-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb293-4"><a href="model-building.html#cb293-4" aria-hidden="true" tabindex="-1"></a>daily <span class="sc">%&gt;%</span></span>
-<span id="cb293-5"><a href="model-building.html#cb293-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather_residuals</span>(<span class="at">without_term =</span> mod_wday, <span class="at">with_term =</span> mod_wday_term) <span class="sc">%&gt;%</span></span>
-<span id="cb293-6"><a href="model-building.html#cb293-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, resid, <span class="at">colour =</span> model)) <span class="sc">+</span></span>
-<span id="cb293-7"><a href="model-building.html#cb293-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ref_line</span>(<span class="at">h =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb293-8"><a href="model-building.html#cb293-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.75</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="model-building.html#cb304-1" aria-hidden="true" tabindex="-1"></a>mod_wday <span class="ot">&lt;-</span> <span class="fu">lm</span>(n <span class="sc">~</span> wday, <span class="at">data =</span> daily)</span>
+<span id="cb304-2"><a href="model-building.html#cb304-2" aria-hidden="true" tabindex="-1"></a>mod_wday_term <span class="ot">&lt;-</span> <span class="fu">lm</span>(n <span class="sc">~</span> wday <span class="sc">*</span> term, <span class="at">data =</span> daily)</span>
+<span id="cb304-3"><a href="model-building.html#cb304-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb304-4"><a href="model-building.html#cb304-4" aria-hidden="true" tabindex="-1"></a>daily <span class="sc">%&gt;%</span></span>
+<span id="cb304-5"><a href="model-building.html#cb304-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather_residuals</span>(<span class="at">without_term =</span> mod_wday, <span class="at">with_term =</span> mod_wday_term) <span class="sc">%&gt;%</span></span>
+<span id="cb304-6"><a href="model-building.html#cb304-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, resid, <span class="at">colour =</span> model)) <span class="sc">+</span></span>
+<span id="cb304-7"><a href="model-building.html#cb304-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ref_line</span>(<span class="at">h =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb304-8"><a href="model-building.html#cb304-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.75</span>)</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/mod_day%20&%20mod_wday_term-1.png" width="672" /></p>
 <p>其实这里就已经表现出来了，包含 term 的模型的预期效果明显优于不包含的。接下来我们将模型与实际数据对应上：</p>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="model-building.html#cb294-1" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> daily <span class="sc">%&gt;%</span></span>
-<span id="cb294-2"><a href="model-building.html#cb294-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(wday, term) <span class="sc">%&gt;%</span></span>
-<span id="cb294-3"><a href="model-building.html#cb294-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather_predictions</span>(</span>
-<span id="cb294-4"><a href="model-building.html#cb294-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">without_term =</span> mod_wday,</span>
-<span id="cb294-5"><a href="model-building.html#cb294-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">with_term =</span> mod_wday_term,</span>
-<span id="cb294-6"><a href="model-building.html#cb294-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">.pred =</span> <span class="st">&quot;n&quot;</span></span>
-<span id="cb294-7"><a href="model-building.html#cb294-7" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb294-8"><a href="model-building.html#cb294-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb294-9"><a href="model-building.html#cb294-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daily, <span class="fu">aes</span>(wday, n)) <span class="sc">+</span></span>
-<span id="cb294-10"><a href="model-building.html#cb294-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb294-11"><a href="model-building.html#cb294-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">data =</span> grid, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb294-12"><a href="model-building.html#cb294-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(term <span class="sc">~</span> model)</span></code></pre></div>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="model-building.html#cb305-1" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> daily <span class="sc">%&gt;%</span></span>
+<span id="cb305-2"><a href="model-building.html#cb305-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(wday, term) <span class="sc">%&gt;%</span></span>
+<span id="cb305-3"><a href="model-building.html#cb305-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather_predictions</span>(</span>
+<span id="cb305-4"><a href="model-building.html#cb305-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">without_term =</span> mod_wday,</span>
+<span id="cb305-5"><a href="model-building.html#cb305-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">with_term =</span> mod_wday_term,</span>
+<span id="cb305-6"><a href="model-building.html#cb305-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">.pred =</span> <span class="st">&quot;n&quot;</span></span>
+<span id="cb305-7"><a href="model-building.html#cb305-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb305-8"><a href="model-building.html#cb305-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb305-9"><a href="model-building.html#cb305-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daily, <span class="fu">aes</span>(wday, n)) <span class="sc">+</span></span>
+<span id="cb305-10"><a href="model-building.html#cb305-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb305-11"><a href="model-building.html#cb305-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">data =</span> grid, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb305-12"><a href="model-building.html#cb305-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(term <span class="sc">~</span> model)</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/ggplot()%20with%20with_term%20&%20without_term%20&%20term-1.png" width="672" /></p>
 <p>我们的模型总是在走向一个我们所期望的 “寻常态”，但很不幸元数据有许多非常突出的异常值，以至于我们的预测值与理想值相去甚远。所以我们提出了新函数 <code>MASS::rlm()</code> 来合理处理异常值。</p>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="model-building.html#cb295-1" aria-hidden="true" tabindex="-1"></a>mod_wday_term_rlm <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">rlm</span>(n <span class="sc">~</span> wday <span class="sc">*</span> term, <span class="at">data =</span> daily) <span class="co"># 用法与 lm() 真的很类似</span></span>
-<span id="cb295-2"><a href="model-building.html#cb295-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb295-3"><a href="model-building.html#cb295-3" aria-hidden="true" tabindex="-1"></a>daily <span class="sc">%&gt;%</span></span>
-<span id="cb295-4"><a href="model-building.html#cb295-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather_residuals</span>(mod_wday_term_rlm, mod_wday_term) <span class="sc">%&gt;%</span></span>
-<span id="cb295-5"><a href="model-building.html#cb295-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, resid)) <span class="sc">+</span></span>
-<span id="cb295-6"><a href="model-building.html#cb295-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
-<span id="cb295-7"><a href="model-building.html#cb295-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">colour =</span> model), <span class="at">alpha =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="model-building.html#cb306-1" aria-hidden="true" tabindex="-1"></a>mod_wday_term_rlm <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">rlm</span>(n <span class="sc">~</span> wday <span class="sc">*</span> term, <span class="at">data =</span> daily) <span class="co"># 用法与 lm() 真的很类似</span></span>
+<span id="cb306-2"><a href="model-building.html#cb306-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb306-3"><a href="model-building.html#cb306-3" aria-hidden="true" tabindex="-1"></a>daily <span class="sc">%&gt;%</span></span>
+<span id="cb306-4"><a href="model-building.html#cb306-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather_residuals</span>(mod_wday_term_rlm, mod_wday_term) <span class="sc">%&gt;%</span></span>
+<span id="cb306-5"><a href="model-building.html#cb306-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, resid)) <span class="sc">+</span></span>
+<span id="cb306-6"><a href="model-building.html#cb306-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb306-7"><a href="model-building.html#cb306-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">colour =</span> model), <span class="at">alpha =</span> <span class="fl">0.7</span>)</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/mod_wday_term_rlm-1.png" width="672" /></p>
 <p>新的模型可能更容易看到长期趋势和异常值。</p>
 </div>
 <div id="针对一年中的不同时间点" class="section level3 hasAnchor" number="18.2.3">
 <h3><span class="header-section-number">18.2.3</span> 针对一年中的不同时间点<a href="model-building.html#针对一年中的不同时间点" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>我们可以使用一个更为灵活的模型，用来捕获我们感兴趣的内容。一个简单的线性趋势是不够的，我们可以尝试使用自然样条来拟合全年的平滑曲线：</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="model-building.html#cb296-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(splines) <span class="co"># 便于使用自然样条函数 ns()</span></span>
-<span id="cb296-2"><a href="model-building.html#cb296-2" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">rlm</span>(n <span class="sc">~</span> wday <span class="sc">*</span> <span class="fu">ns</span>(date, <span class="dv">5</span>), <span class="at">data =</span> daily) <span class="co"># 最高 5 次方</span></span>
-<span id="cb296-3"><a href="model-building.html#cb296-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb296-4"><a href="model-building.html#cb296-4" aria-hidden="true" tabindex="-1"></a>daily <span class="sc">%&gt;%</span></span>
-<span id="cb296-5"><a href="model-building.html#cb296-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(</span>
-<span id="cb296-6"><a href="model-building.html#cb296-6" aria-hidden="true" tabindex="-1"></a>        wday, <span class="co"># 针对列 wday 生成新的无重复数据的基础数据列</span></span>
-<span id="cb296-7"><a href="model-building.html#cb296-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">date =</span> <span class="fu">seq_range</span>(date, <span class="at">n =</span> <span class="dv">20</span>) <span class="co"># 将 date 范围等距切割出 20 个点位</span></span>
-<span id="cb296-8"><a href="model-building.html#cb296-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
-<span id="cb296-9"><a href="model-building.html#cb296-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_predictions</span>(mod) <span class="sc">%&gt;%</span></span>
-<span id="cb296-10"><a href="model-building.html#cb296-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, pred, <span class="at">colour =</span> wday)) <span class="sc">+</span></span>
-<span id="cb296-11"><a href="model-building.html#cb296-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb296-12"><a href="model-building.html#cb296-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="model-building.html#cb307-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(splines) <span class="co"># 便于使用自然样条函数 ns()</span></span>
+<span id="cb307-2"><a href="model-building.html#cb307-2" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">rlm</span>(n <span class="sc">~</span> wday <span class="sc">*</span> <span class="fu">ns</span>(date, <span class="dv">5</span>), <span class="at">data =</span> daily) <span class="co"># 最高 5 次方</span></span>
+<span id="cb307-3"><a href="model-building.html#cb307-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb307-4"><a href="model-building.html#cb307-4" aria-hidden="true" tabindex="-1"></a>daily <span class="sc">%&gt;%</span></span>
+<span id="cb307-5"><a href="model-building.html#cb307-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(</span>
+<span id="cb307-6"><a href="model-building.html#cb307-6" aria-hidden="true" tabindex="-1"></a>        wday, <span class="co"># 针对列 wday 生成新的无重复数据的基础数据列</span></span>
+<span id="cb307-7"><a href="model-building.html#cb307-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">date =</span> <span class="fu">seq_range</span>(date, <span class="at">n =</span> <span class="dv">20</span>) <span class="co"># 将 date 范围等距切割出 20 个点位</span></span>
+<span id="cb307-8"><a href="model-building.html#cb307-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb307-9"><a href="model-building.html#cb307-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_predictions</span>(mod) <span class="sc">%&gt;%</span></span>
+<span id="cb307-10"><a href="model-building.html#cb307-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, pred, <span class="at">colour =</span> wday)) <span class="sc">+</span></span>
+<span id="cb307-11"><a href="model-building.html#cb307-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb307-12"><a href="model-building.html#cb307-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="24-model-building_files/figure-html/ns()%20with%20daily-1.png" width="672" /></p>
 </div>
 </div>
 <div id="关于计算变量" class="section level2 hasAnchor" number="18.3">
 <h2><span class="header-section-number">18.3</span> 关于计算变量<a href="model-building.html#关于计算变量" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>在我们试验多个模型和可视化效果时，最好将变量的创建捆绑到一个函数中，如：</p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="model-building.html#cb297-1" aria-hidden="true" tabindex="-1"></a>compute_vars <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
-<span id="cb297-2"><a href="model-building.html#cb297-2" aria-hidden="true" tabindex="-1"></a>    data <span class="sc">%&gt;%</span></span>
-<span id="cb297-3"><a href="model-building.html#cb297-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(</span>
-<span id="cb297-4"><a href="model-building.html#cb297-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">term =</span> <span class="fu">term</span>(date),</span>
-<span id="cb297-5"><a href="model-building.html#cb297-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">wday =</span> <span class="fu">wday</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb297-6"><a href="model-building.html#cb297-6" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb297-7"><a href="model-building.html#cb297-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb297-8"><a href="model-building.html#cb297-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 或者将转换直接放在模型公式中：</span></span>
-<span id="cb297-9"><a href="model-building.html#cb297-9" aria-hidden="true" tabindex="-1"></a>wday2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">wday</span>(x, <span class="at">label =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb297-10"><a href="model-building.html#cb297-10" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(n <span class="sc">~</span> <span class="fu">wday2</span>(date) <span class="sc">*</span> <span class="fu">term</span>(date), <span class="at">data =</span> daily)</span></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="model-building.html#cb308-1" aria-hidden="true" tabindex="-1"></a>compute_vars <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb308-2"><a href="model-building.html#cb308-2" aria-hidden="true" tabindex="-1"></a>    data <span class="sc">%&gt;%</span></span>
+<span id="cb308-3"><a href="model-building.html#cb308-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(</span>
+<span id="cb308-4"><a href="model-building.html#cb308-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">term =</span> <span class="fu">term</span>(date),</span>
+<span id="cb308-5"><a href="model-building.html#cb308-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">wday =</span> <span class="fu">wday</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb308-6"><a href="model-building.html#cb308-6" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb308-7"><a href="model-building.html#cb308-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb308-8"><a href="model-building.html#cb308-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 或者将转换直接放在模型公式中：</span></span>
+<span id="cb308-9"><a href="model-building.html#cb308-9" aria-hidden="true" tabindex="-1"></a>wday2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">wday</span>(x, <span class="at">label =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb308-10"><a href="model-building.html#cb308-10" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(n <span class="sc">~</span> <span class="fu">wday2</span>(date) <span class="sc">*</span> <span class="fu">term</span>(date), <span class="at">data =</span> daily)</span></code></pre></div>
 <p>这两种方法都是合理的。但如果要画图或检查变量，显式转换可能更好。但请不要随意使用返回多个列的转换（如样条曲线）。</p>
 </div>
 <div id="有关模型的更多信息" class="section level2 hasAnchor" number="18.4">

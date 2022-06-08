@@ -562,10 +562,10 @@ smaller &lt;- diamonds %&gt;%
 </tbody>
 </table>
 <p>如果你需要展示 R 内的数据（如 tibble），请使用 <a href="https://rdrr.io/pkg/knitr/man/kable.html">knitr::kable</a>：</p>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="r-markdown.html#cb300-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb300-2"><a href="r-markdown.html#cb300-2" aria-hidden="true" tabindex="-1"></a>  mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, ],</span>
-<span id="cb300-3"><a href="r-markdown.html#cb300-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;A knitr kable.&quot;</span></span>
-<span id="cb300-4"><a href="r-markdown.html#cb300-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="r-markdown.html#cb311-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb311-2"><a href="r-markdown.html#cb311-2" aria-hidden="true" tabindex="-1"></a>  mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, ],</span>
+<span id="cb311-3"><a href="r-markdown.html#cb311-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;A knitr kable.&quot;</span></span>
+<span id="cb311-4"><a href="r-markdown.html#cb311-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <table>
 <caption><span id="tab:kable">表 20.1: </span>A knitr kable.</caption>
 <thead>
@@ -674,21 +674,21 @@ processed_data &lt;- rawdata %&gt;%
   mutate(new_variable = complicated_transformation(x, y, z))</code></pre>
 <p>随着缓存策略变得越来越复杂，最好定期使用 <a href="https://rdrr.io/pkg/knitr/man/clean_cache.html">knitr::clean_cache()</a> 清除所有缓存。</p>
 <p>对于区块输出格式上，我们可以设置一些全局选项：</p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="r-markdown.html#cb303-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
-<span id="cb303-2"><a href="r-markdown.html#cb303-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">comment =</span> <span class="st">&quot;#&gt;&quot;</span>,</span>
-<span id="cb303-3"><a href="r-markdown.html#cb303-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">collapse =</span> <span class="cn">TRUE</span></span>
-<span id="cb303-4"><a href="r-markdown.html#cb303-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb303-5"><a href="r-markdown.html#cb303-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 或是全局禁止显示代码</span></span>
-<span id="cb303-6"><a href="r-markdown.html#cb303-6" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
-<span id="cb303-7"><a href="r-markdown.html#cb303-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">echo =</span> <span class="cn">FALSE</span></span>
-<span id="cb303-8"><a href="r-markdown.html#cb303-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="r-markdown.html#cb314-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb314-2"><a href="r-markdown.html#cb314-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">comment =</span> <span class="st">&quot;#&gt;&quot;</span>,</span>
+<span id="cb314-3"><a href="r-markdown.html#cb314-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">collapse =</span> <span class="cn">TRUE</span></span>
+<span id="cb314-4"><a href="r-markdown.html#cb314-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb314-5"><a href="r-markdown.html#cb314-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 或是全局禁止显示代码</span></span>
+<span id="cb314-6"><a href="r-markdown.html#cb314-6" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb314-7"><a href="r-markdown.html#cb314-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">echo =</span> <span class="cn">FALSE</span></span>
+<span id="cb314-8"><a href="r-markdown.html#cb314-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>我们还有另外一种简单的代码格式，使用 “r” 来展示一些简单的文本信息。</p>
 <p>有时文本信息像数字一类，可能不那么容易展示，我们可能需要 <a href="https://rdrr.io/r/base/format.html">format()</a> 函数：</p>
-<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="r-markdown.html#cb304-1" aria-hidden="true" tabindex="-1"></a>comma <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">format</span>(x, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">big.mark =</span> <span class="st">&quot;,&quot;</span>)</span>
-<span id="cb304-2"><a href="r-markdown.html#cb304-2" aria-hidden="true" tabindex="-1"></a><span class="fu">comma</span>(<span class="dv">3452345</span>)</span>
-<span id="cb304-3"><a href="r-markdown.html#cb304-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;3,452,345&quot;</span></span>
-<span id="cb304-4"><a href="r-markdown.html#cb304-4" aria-hidden="true" tabindex="-1"></a><span class="fu">comma</span>(.<span class="dv">12358124331</span>)</span>
-<span id="cb304-5"><a href="r-markdown.html#cb304-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;0.12&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="r-markdown.html#cb315-1" aria-hidden="true" tabindex="-1"></a>comma <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">format</span>(x, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">big.mark =</span> <span class="st">&quot;,&quot;</span>)</span>
+<span id="cb315-2"><a href="r-markdown.html#cb315-2" aria-hidden="true" tabindex="-1"></a><span class="fu">comma</span>(<span class="dv">3452345</span>)</span>
+<span id="cb315-3"><a href="r-markdown.html#cb315-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;3,452,345&quot;</span></span>
+<span id="cb315-4"><a href="r-markdown.html#cb315-4" aria-hidden="true" tabindex="-1"></a><span class="fu">comma</span>(.<span class="dv">12358124331</span>)</span>
+<span id="cb315-5"><a href="r-markdown.html#cb315-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;0.12&quot;</span></span></code></pre></div>
 </div>
 <div id="yaml-标头" class="section level2 hasAnchor" number="20.4">
 <h2><span class="header-section-number">20.4</span> YAML 标头<a href="r-markdown.html#yaml-标头" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -701,9 +701,9 @@ params:
   start: !r lubridate::ymd(&quot;2015-01-01&quot;)
 ---</code></pre>
 <p>调用时使用形如 <code>params$my_class</code> 即可。当然你也可以在生成时追加 params 进行修改：</p>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="r-markdown.html#cb306-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(<span class="st">&quot;fuel-economy.Rmd&quot;</span>, <span class="at">params =</span> <span class="fu">list</span>(<span class="at">my_class =</span> <span class="st">&quot;suv&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="r-markdown.html#cb317-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(<span class="st">&quot;fuel-economy.Rmd&quot;</span>, <span class="at">params =</span> <span class="fu">list</span>(<span class="at">my_class =</span> <span class="st">&quot;suv&quot;</span>))</span></code></pre></div>
 <p>pandoc 也能生成不同样式的引文和书目（写配置到 Rmd 文件的 fontmatter 中）：</p>
-<div class="sourceCode" id="cb307"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb307-1"><a href="r-markdown.html#cb307-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> rmarkdown.bib</span></span></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb318-1"><a href="r-markdown.html#cb318-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> rmarkdown.bib</span></span></code></pre></div>
 <p>我们可以使用许多常见的书目格式，包括 BibLaTeX，BibTeX，endnote，medline。</p>
 
 </div>
