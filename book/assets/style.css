@@ -26,6 +26,7 @@
 .book .book-summary ul.summary li>a:hover {
   background-color: #78828917;
   color: #5c6975;
+  transition: .2s;
 }
 
 .book .book-summary ul.summary li.part span {
@@ -50,8 +51,9 @@
 
 /* 顶栏 */
 .dropdown-menu {
+  box-sizing: content-box;
   border-radius: 5px;
-  padding: 0 20px;
+  padding: 8px 18px;
   box-shadow: 0 4px 10px #0000001f;
 }
 
@@ -60,11 +62,7 @@
   backdrop-filter: blur(20px);
 }
 
-.book .book-body.fixed .body-inner {
-  top: 0;
-}
-
-/* 内容 */
+/* 标题 */
 .book .book-body .page-wrapper .page-inner section.normal h1 {
   font-size: 45px;
   line-height: 56px;
@@ -84,8 +82,10 @@
   margin: 0;
 }
 
+/* 代码块 */
 .book .book-body .page-wrapper .page-inner section.normal pre {
   background-color: #8fa8c01f;
+  border-radius: 7px;
 }
 
 button.copy-to-clipboard-button {
@@ -100,10 +100,15 @@ button.copy-to-clipboard-button {
   cursor: pointer;
 }
 
+button.copy-to-clipboard-button:focus .fa-copy {
+  color: green !important;
+}
+
 div.sourceCode:hover>.copy-to-clipboard-button {
   opacity: 1;
 }
 
+/* 全局文字 */
 .book .book-body .page-wrapper .page-inner section.normal a {
   color: #346ddb;
 }
@@ -122,12 +127,23 @@ div.sourceCode:hover>.copy-to-clipboard-button {
   color: #c3c59d;
 }
 
+
+
+.book.color-theme-2 .book-summary ul.summary>li.chapter>a {
+  color: #c7d1da;
+}
+
+.book.color-theme-2 .book-summary ul.summary li a:hover {
+  color: #f4f4f5;
+  background: #0000001f;
+}
+
 .book.color-theme-2 .book-summary ul.summary li.chapter.active>a {
   background-color: #00000040;
   color: #6499ff;
 }
 
-.book.color-theme-2 i.fa.fa-copy {
+.book.color-theme-2 .fa-copy {
   color: #fff;
 }
 
@@ -141,6 +157,14 @@ div.sourceCode:hover>.copy-to-clipboard-button {
 
 .book.color-theme-2 .book-header .btn {
   color: #6a708f;
+}
+
+.book.color-theme-2 code span.fu {
+  color: #8ea4dd;
+}
+
+.book.color-theme-2 code span.st {
+  color: #3d9bba;
 }
 
 /* 不同尺寸设备修复 */
