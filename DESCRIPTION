@@ -17,6 +17,7 @@ Imports:
     lubridate,
     maps,
     feather,
+    htmlwidgets,
     ggrepel,
     rmarkdown,
     bookdown
