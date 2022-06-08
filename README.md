@@ -23,7 +23,7 @@
 - 安装运行代码需要的包：
 
 ```sh
-Rscript -e 'install.packages(c("tidyverse", "nycflights13", "hexbin", "gapminder", "Lahman", "maps", "feather"))'
+Rscript -e 'install.packages(c("tidyverse", "nycflights13", "hexbin", "gapminder", "Lahman", "maps", "feather", "ggrepel"))'
 ```
 
 - 安装构建本书需要的包（如果你需要的话）：
@@ -54,6 +54,8 @@ Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::gitbook')"
 [R for Data Science: Exercise Solutions](https://jrnold.github.io/r4ds-exercise-solutions)
 
 [Modern Data Science with R](https://mdsr-book.github.io/mdsr2e/)
+
+[bookdown: Authoring Books and Technical Documents with R Markdown](https://bookdown.org/yihui/bookdown/)
 
 ## License
 

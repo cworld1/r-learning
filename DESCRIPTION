@@ -17,6 +17,7 @@ Imports:
     lubridate,
     maps,
     feather,
+    ggrepel,
     rmarkdown,
     bookdown
 Encoding: UTF-8
