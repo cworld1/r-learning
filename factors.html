@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 22 Graphics for communication | R-Learning</title>
+  <title>Chapter 16 Factors | R-Learning</title>
   <meta name="description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 22 Graphics for communication | R-Learning" />
+  <meta property="og:title" content="Chapter 16 Factors | R-Learning" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="https://r.cworld.top//assets/avatar.jpg" />
   <meta property="og:description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
   <meta name="github-repo" content="cworld1/r-learning" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 22 Graphics for communication | R-Learning" />
+  <meta name="twitter:title" content="Chapter 16 Factors | R-Learning" />
   
   <meta name="twitter:description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
   <meta name="twitter:image" content="https://r.cworld.top//assets/avatar.jpg" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="r-markdown.html"/>
-
+<link rel="prev" href="string.html"/>
+<link rel="next" href="model-intro.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -424,191 +424,212 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="graphics-for-communication" class="section level1 hasAnchor" number="22">
-<h1><span class="header-section-number">Chapter 22</span> Graphics for communication<a href="graphics-for-communication.html#graphics-for-communication" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>在之前的数据分析中，我们学会了如何使用绘图作为一种强有力的理解数据的工具。当我们进行绘图可视化分析时，会为每个细节做了一个针对性的分析，方便我们快速查看和分析它们，然后分析下一个细节。在大多数分析过程中，我们会发现不一会就会产生数十或数百张 ggplot 图，而且其中大部分会立即被扔掉。</p>
-<p>当我们已经深刻认识熟悉了数据（如 flights）后，更多要做的是将自己的理解传达给其他人。然而哪些受众人群可能不那么重视其背景知识，也不会深入研究数据。为了帮助其他人快速建立良好的数据心理模型，我们需要深入学习 ggplot2 为我们提供的一些特殊工具，因为在可展示性和优化性上，它带来的实际性进展，实在是太多了。</p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="graphics-for-communication.html#cb333-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<div id="图外标签" class="section level2 hasAnchor" number="22.1">
-<h2><span class="header-section-number">22.1</span> 图外标签<a href="graphics-for-communication.html#图外标签" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>试图将探索性图形转换为说明性图形时，最简单的起点是起个一眼丁真的标题。<code>labs</code> 的 <code>title</code> 配置项就是做这个的：</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="graphics-for-communication.html#cb334-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
-<span id="cb334-2"><a href="graphics-for-communication.html#cb334-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb334-3"><a href="graphics-for-communication.html#cb334-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb334-4"><a href="graphics-for-communication.html#cb334-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Fuel efficiency generally decreases with engine size&quot;</span>)</span>
-<span id="cb334-5"><a href="graphics-for-communication.html#cb334-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></span></code></pre></div>
-<p><img src="28-graphics-for-communication_files/figure-html/labs()%20with%20title-1.png" width="672" /></p>
-<p>标题的目的一般是总结最主要的发现。避免使用仅描述情节的标题，如 “发动机排量与燃油经济性的散点图”。</p>
-<p>此外还有一些小标题你可能用得上：</p>
+<div id="factors" class="section level1 hasAnchor" number="16">
+<h1><span class="header-section-number">Chapter 16</span> Factors<a href="factors.html#factors" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>在 R 中，因子常常用于处理类别变量，即一系列的对于固定且已知可能值的组别变量。同样的，想要以非字母顺序显示字符向量时，它们也同样很有用。</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="factors.html#cb236-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div id="创建因子" class="section level2 hasAnchor" number="16.1">
+<h2><span class="header-section-number">16.1</span> 创建因子<a href="factors.html#创建因子" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>假设我们有一个包含月份的向量 <code>x1</code>：</p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="factors.html#cb237-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Dec&quot;</span>, <span class="st">&quot;Apr&quot;</span>, <span class="st">&quot;Jan&quot;</span>, <span class="st">&quot;Mar&quot;</span>)</span></code></pre></div>
+<p>现在我们要用来测试因子。要求要检查月份是否正确，排序是否有意义：</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="factors.html#cb238-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建一个初始向量，并保证它的内容和顺序是有意义的</span></span>
+<span id="cb238-2"><a href="factors.html#cb238-2" aria-hidden="true" tabindex="-1"></a>month_levels <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb238-3"><a href="factors.html#cb238-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Jan&quot;</span>, <span class="st">&quot;Feb&quot;</span>, <span class="st">&quot;Mar&quot;</span>, <span class="st">&quot;Apr&quot;</span>, <span class="st">&quot;May&quot;</span>, <span class="st">&quot;Jun&quot;</span>,</span>
+<span id="cb238-4"><a href="factors.html#cb238-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Jul&quot;</span>, <span class="st">&quot;Aug&quot;</span>, <span class="st">&quot;Sep&quot;</span>, <span class="st">&quot;Oct&quot;</span>, <span class="st">&quot;Nov&quot;</span>, <span class="st">&quot;Dec&quot;</span></span>
+<span id="cb238-5"><a href="factors.html#cb238-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb238-6"><a href="factors.html#cb238-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb238-7"><a href="factors.html#cb238-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建将 x1 “因子化” 的向量 y1</span></span>
+<span id="cb238-8"><a href="factors.html#cb238-8" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">factor</span>(x1, <span class="at">levels =</span> month_levels)</span>
+<span id="cb238-9"><a href="factors.html#cb238-9" aria-hidden="true" tabindex="-1"></a>y1</span>
+<span id="cb238-10"><a href="factors.html#cb238-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] Dec Apr Jan Mar</span></span>
+<span id="cb238-11"><a href="factors.html#cb238-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span></span>
+<span id="cb238-12"><a href="factors.html#cb238-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb238-13"><a href="factors.html#cb238-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 此时它的排序就是有意义的排序了</span></span>
+<span id="cb238-14"><a href="factors.html#cb238-14" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(y1)</span>
+<span id="cb238-15"><a href="factors.html#cb238-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] Jan Mar Apr Dec</span></span>
+<span id="cb238-16"><a href="factors.html#cb238-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span></span>
+<span id="cb238-17"><a href="factors.html#cb238-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb238-18"><a href="factors.html#cb238-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 相同的，对于内容也会甄别，匹配不上的内容会返回 NA</span></span>
+<span id="cb238-19"><a href="factors.html#cb238-19" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Dec&quot;</span>, <span class="st">&quot;Apr&quot;</span>, <span class="st">&quot;Jam&quot;</span>, <span class="st">&quot;Mar&quot;</span>) <span class="co"># Jan 写错了</span></span>
+<span id="cb238-20"><a href="factors.html#cb238-20" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="fu">factor</span>(x2, <span class="at">levels =</span> month_levels)</span>
+<span id="cb238-21"><a href="factors.html#cb238-21" aria-hidden="true" tabindex="-1"></a>y2</span>
+<span id="cb238-22"><a href="factors.html#cb238-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] Dec  Apr  &lt;NA&gt; Mar </span></span>
+<span id="cb238-23"><a href="factors.html#cb238-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span></span></code></pre></div>
+<p>对于匹配不上的内容，我们可以使用 <a href="https://readr.tidyverse.org/reference/parse_factor.html"><code>readr::parse_factor()</code></a> 替换 <code>factor()</code> 使其强制报错。</p>
+<p>而 <code>levels</code> 的省略则会使 levels 参数设置成因子化的向量本身。</p>
+</div>
+<div id="对-gss_cat-数据集研究" class="section level2 hasAnchor" number="16.2">
+<h2><span class="header-section-number">16.2</span> 对 gss_cat 数据集研究<a href="factors.html#对-gss_cat-数据集研究" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>接下来我们将重点研究 <a href="https://forcats.tidyverse.org/reference/gss_cat.html"><code>forcats::gss_cat</code></a> 数据集。这是一份来自 <a href="http://gss.norc.org/">一般性社会调查</a> 的数据样本，是由芝加哥大学独立研究机构 NORC 进行的一项长期的美国调查。该调查包含了数千个问题，因此我们将选择几个问题，用于说明我们在处理因子时可能会遇到的一些常见挑战。</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="factors.html#cb239-1" aria-hidden="true" tabindex="-1"></a>gss_cat</span>
+<span id="cb239-2"><a href="factors.html#cb239-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 21,483 × 9</span></span>
+<span id="cb239-3"><a href="factors.html#cb239-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year marital         age race  rincome        partyid    relig denom tvhours</span></span>
+<span id="cb239-4"><a href="factors.html#cb239-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;fct&gt;         &lt;int&gt; &lt;fct&gt; &lt;fct&gt;          &lt;fct&gt;      &lt;fct&gt; &lt;fct&gt;   &lt;int&gt;</span></span>
+<span id="cb239-5"><a href="factors.html#cb239-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  2000 Never married    26 White $8000 to 9999  Ind,near … Prot… Sout…      12</span></span>
+<span id="cb239-6"><a href="factors.html#cb239-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  2000 Divorced         48 White $8000 to 9999  Not str r… Prot… Bapt…      NA</span></span>
+<span id="cb239-7"><a href="factors.html#cb239-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  2000 Widowed          67 White Not applicable Independe… Prot… No d…       2</span></span>
+<span id="cb239-8"><a href="factors.html#cb239-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  2000 Never married    39 White Not applicable Ind,near … Orth… Not …       4</span></span>
+<span id="cb239-9"><a href="factors.html#cb239-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  2000 Divorced         25 White Not applicable Not str d… None  Not …       1</span></span>
+<span id="cb239-10"><a href="factors.html#cb239-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  2000 Married          25 White $20000 - 24999 Strong de… Prot… Sout…      NA</span></span>
+<span id="cb239-11"><a href="factors.html#cb239-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  2000 Never married    36 White $25000 or more Not str r… Chri… Not …       3</span></span>
+<span id="cb239-12"><a href="factors.html#cb239-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2000 Divorced         44 White $7000 to 7999  Ind,near … Prot… Luth…      NA</span></span>
+<span id="cb239-13"><a href="factors.html#cb239-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2000 Married          44 White $25000 or more Not str d… Prot… Other       0</span></span>
+<span id="cb239-14"><a href="factors.html#cb239-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2000 Married          47 White $25000 or more Strong re… Prot… Sout…       3</span></span>
+<span id="cb239-15"><a href="factors.html#cb239-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 21,473 more rows</span></span></code></pre></div>
+<p>先睹为快！我们先画个 ggplot 图来康康：</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="factors.html#cb240-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gss_cat, <span class="fu">aes</span>(race)) <span class="sc">+</span></span>
+<span id="cb240-2"><a href="factors.html#cb240-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb240-3"><a href="factors.html#cb240-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">drop =</span> <span class="cn">FALSE</span>) <span class="co"># 对 x 轴进行调整：禁止丢弃没有数据的统计分类</span></span></code></pre></div>
+<p><img src="15-factors_files/figure-html/ggplot()%20with%20scale_x_discrete()-1.png" width="672" /></p>
+</div>
+<div id="修改因子顺序" class="section level2 hasAnchor" number="16.3">
+<h2><span class="header-section-number">16.3</span> 修改因子顺序<a href="factors.html#修改因子顺序" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>毫无疑问，在可视化中横向更改因子的顺序通常很有用。如我们要探索不同宗教流派每天花在看电视上的平均小时数：</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="factors.html#cb241-1" aria-hidden="true" tabindex="-1"></a>relig_summary <span class="ot">&lt;-</span> gss_cat <span class="sc">%&gt;%</span></span>
+<span id="cb241-2"><a href="factors.html#cb241-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(relig) <span class="sc">%&gt;%</span></span>
+<span id="cb241-3"><a href="factors.html#cb241-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb241-4"><a href="factors.html#cb241-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> <span class="fu">mean</span>(age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="co"># 平均年龄</span></span>
+<span id="cb241-5"><a href="factors.html#cb241-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">tvhours =</span> <span class="fu">mean</span>(tvhours, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="co"># 平均看电视时长</span></span>
+<span id="cb241-6"><a href="factors.html#cb241-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>() <span class="co"># 流派人数</span></span>
+<span id="cb241-7"><a href="factors.html#cb241-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb241-8"><a href="factors.html#cb241-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb241-9"><a href="factors.html#cb241-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(relig_summary, <span class="fu">aes</span>(tvhours, relig)) <span class="sc">+</span></span>
+<span id="cb241-10"><a href="factors.html#cb241-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="15-factors_files/figure-html/relig_summary-1.png" width="672" /></p>
+<p>可惜，我们很难解释这个图的内在逻辑，因为我们完全没有一个没有整体模式。我们可以使用 <code>fct_reorder()</code> 函数，以 <code>relig</code> 作为参考来改进它。注意这个函数需要三个参数：</p>
 <ul>
-<li><code>subtitle</code>：副标题，在标题下方以小号字体添加其他详细信息。</li>
-<li><code>caption</code>：在绘图的右下角添加文本，通常用于描述数据源。</li>
+<li><code>f</code>：想要修改其顺序的因子。</li>
+<li><code>x</code>：用于重新排序的数字参考向量。</li>
+<li><code>fun</code>：如果 <code>f</code> 的每个值都有多个对应的 <code>x</code> 值，则使用该函数（缺省值为 median）。</li>
 </ul>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="graphics-for-communication.html#cb335-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
-<span id="cb335-2"><a href="graphics-for-communication.html#cb335-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb335-3"><a href="graphics-for-communication.html#cb335-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb335-4"><a href="graphics-for-communication.html#cb335-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb335-5"><a href="graphics-for-communication.html#cb335-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Fuel efficiency generally decreases with engine size&quot;</span>,</span>
-<span id="cb335-6"><a href="graphics-for-communication.html#cb335-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Two seaters (sports cars) are an exception because of their light weight&quot;</span>,</span>
-<span id="cb335-7"><a href="graphics-for-communication.html#cb335-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Data from fueleconomy.gov&quot;</span></span>
-<span id="cb335-8"><a href="graphics-for-communication.html#cb335-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb335-9"><a href="graphics-for-communication.html#cb335-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></span></code></pre></div>
-<p><img src="28-graphics-for-communication_files/figure-html/labs()%20with%20subtitle%20&%20caption-1.png" width="672" /></p>
-<p>我们也可以替换轴和图例标题。不过最好将简短的变量名称替换为更详细的描述，并包含单位：</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="graphics-for-communication.html#cb336-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
-<span id="cb336-2"><a href="graphics-for-communication.html#cb336-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> class)) <span class="sc">+</span></span>
-<span id="cb336-3"><a href="graphics-for-communication.html#cb336-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb336-4"><a href="graphics-for-communication.html#cb336-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb336-5"><a href="graphics-for-communication.html#cb336-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Engine displacement (L)&quot;</span>,</span>
-<span id="cb336-6"><a href="graphics-for-communication.html#cb336-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Highway fuel economy (mpg)&quot;</span>,</span>
-<span id="cb336-7"><a href="graphics-for-communication.html#cb336-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">&quot;Car type&quot;</span></span>
-<span id="cb336-8"><a href="graphics-for-communication.html#cb336-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb336-9"><a href="graphics-for-communication.html#cb336-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></span></code></pre></div>
-<p><img src="28-graphics-for-communication_files/figure-html/labs()%20with%20x%20&%20y%20&%20colour-1.png" width="672" /></p>
-<p>对于我们在建模时常常使用到的求对数等表达式，其实也是可以使用数学方程式代替文本字符串的。只需用上 <a href="https://rdrr.io/r/base/substitute.html">quote()</a> 即可完成转换（有点像在 markdown 里插入 Latex 公式内味，但在书写上要简单一些）：</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="graphics-for-communication.html#cb337-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb337-2"><a href="graphics-for-communication.html#cb337-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">runif</span>(<span class="dv">10</span>),</span>
-<span id="cb337-3"><a href="graphics-for-communication.html#cb337-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">runif</span>(<span class="dv">10</span>)</span>
-<span id="cb337-4"><a href="graphics-for-communication.html#cb337-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb337-5"><a href="graphics-for-communication.html#cb337-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
-<span id="cb337-6"><a href="graphics-for-communication.html#cb337-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb337-7"><a href="graphics-for-communication.html#cb337-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb337-8"><a href="graphics-for-communication.html#cb337-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">quote</span>(<span class="fu">sum</span>(x[i] <span class="sc">^</span> <span class="dv">2</span>, i <span class="sc">==</span> <span class="dv">1</span>, n)),</span>
-<span id="cb337-9"><a href="graphics-for-communication.html#cb337-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">quote</span>(alpha <span class="sc">+</span> beta <span class="sc">+</span> <span class="fu">frac</span>(delta, theta))</span>
-<span id="cb337-10"><a href="graphics-for-communication.html#cb337-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="28-graphics-for-communication_files/figure-html/labs()%20with%20quote()-1.png" width="672" /></p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="factors.html#cb242-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb242-2"><a href="factors.html#cb242-2" aria-hidden="true" tabindex="-1"></a>  relig_summary,</span>
+<span id="cb242-3"><a href="factors.html#cb242-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 以 tvhours 为横坐标，以 针对 tvhours 排序过的 relig 为纵坐标</span></span>
+<span id="cb242-4"><a href="factors.html#cb242-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(tvhours, <span class="fu">fct_reorder</span>(relig, tvhours))</span>
+<span id="cb242-5"><a href="factors.html#cb242-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb242-6"><a href="factors.html#cb242-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="15-factors_files/figure-html/fct_reorder()-1.png" width="672" /></p>
+<p>重新排序后可以更清楚地看到，流派为 “不知道” 的人看电视时间通常要比其他人多得多，而印度教和其他东方宗教看电视时间要少很多。初步判断可能为，没有流派倾向的人更随性生活更丰富多彩，而印度教或东方宗教的人可能买不起电视。</p>
+<p>不过还是建议不要过分地在 ggplot 表达式里塞一些奇奇怪怪的处理。如果你要进行更复杂的转换，请使用 <code>mutate</code>。</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="factors.html#cb243-1" aria-hidden="true" tabindex="-1"></a>relig_summary <span class="sc">%&gt;%</span></span>
+<span id="cb243-2"><a href="factors.html#cb243-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">relig =</span> <span class="fu">fct_reorder</span>(relig, tvhours)) <span class="sc">%&gt;%</span></span>
+<span id="cb243-3"><a href="factors.html#cb243-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(tvhours, relig)) <span class="sc">+</span></span>
+<span id="cb243-4"><a href="factors.html#cb243-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p>如果我们创建一个类似的图，看看不同年龄在报告上的平均收入水平是如何变化的呢？</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="factors.html#cb244-1" aria-hidden="true" tabindex="-1"></a>rincome_summary <span class="ot">&lt;-</span> gss_cat <span class="sc">%&gt;%</span></span>
+<span id="cb244-2"><a href="factors.html#cb244-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(rincome) <span class="sc">%&gt;%</span></span>
+<span id="cb244-3"><a href="factors.html#cb244-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb244-4"><a href="factors.html#cb244-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> <span class="fu">mean</span>(age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb244-5"><a href="factors.html#cb244-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">tvhours =</span> <span class="fu">mean</span>(tvhours, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb244-6"><a href="factors.html#cb244-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
+<span id="cb244-7"><a href="factors.html#cb244-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb244-8"><a href="factors.html#cb244-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb244-9"><a href="factors.html#cb244-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(rincome_summary, <span class="fu">aes</span>(age, <span class="fu">fct_reorder</span>(rincome, age))) <span class="sc">+</span></span>
+<span id="cb244-10"><a href="factors.html#cb244-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="15-factors_files/figure-html/rincome_summary-1.png" width="672" /></p>
+<p>好家伙。规律有了，但收入因子的顺序乱了。还是将收入按理想顺序排排吧：</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="factors.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 将 “Not applicable” 不适用分类优先级提到最高。因为他们的收入甚至还满足不了这个统计的最低标准</span></span>
+<span id="cb245-2"><a href="factors.html#cb245-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(rincome_summary, <span class="fu">aes</span>(age, <span class="fu">fct_relevel</span>(rincome, <span class="st">&quot;Not applicable&quot;</span>))) <span class="sc">+</span></span>
+<span id="cb245-3"><a href="factors.html#cb245-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="15-factors_files/figure-html/ggplot()%20with%20rincome_summary-1.png" width="672" /></p>
+<p>当使用 <code>plot.fct_reorder2()</code> 为因子重新排序时，这样的另一种类型的重新排序非常有用。这使得情节更容易阅读，因为线条颜色与图例相符，非常便于对照观察。</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="factors.html#cb246-1" aria-hidden="true" tabindex="-1"></a>by_age <span class="ot">&lt;-</span> gss_cat <span class="sc">%&gt;%</span></span>
+<span id="cb246-2"><a href="factors.html#cb246-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(age)) <span class="sc">%&gt;%</span> <span class="co"># 剔除 age 为 NA 的行数据</span></span>
+<span id="cb246-3"><a href="factors.html#cb246-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(age, marital) <span class="sc">%&gt;%</span> <span class="co"># 统计不同年龄、婚姻的人数数据</span></span>
+<span id="cb246-4"><a href="factors.html#cb246-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age) <span class="sc">%&gt;%</span></span>
+<span id="cb246-5"><a href="factors.html#cb246-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="co"># 以年龄分组，计算不同婚姻状况占该年龄人数的比例</span></span>
+<span id="cb246-6"><a href="factors.html#cb246-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb246-7"><a href="factors.html#cb246-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_age, <span class="fu">aes</span>(age, prop, <span class="at">colour =</span> marital)) <span class="sc">+</span></span>
+<span id="cb246-8"><a href="factors.html#cb246-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="15-factors_files/figure-html/by_age-1.png" width="672" /></p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="factors.html#cb247-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb247-2"><a href="factors.html#cb247-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_age, <span class="fu">aes</span>(age, prop, <span class="at">colour =</span> <span class="fu">fct_reorder2</span>(marital, age, prop))) <span class="sc">+</span></span>
+<span id="cb247-3"><a href="factors.html#cb247-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb247-4"><a href="factors.html#cb247-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">colour =</span> <span class="st">&quot;marital&quot;</span>)</span></code></pre></div>
+<p><img src="15-factors_files/figure-html/by_age-2.png" width="672" /></p>
 </div>
-<div id="图内标注" class="section level2 hasAnchor" number="22.2">
-<h2><span class="header-section-number">22.2</span> 图内标注<a href="graphics-for-communication.html#图内标注" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>除了标记图的主要组成部分之外，标记单个观测值或观测值组通常也很有用。</p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="graphics-for-communication.html#cb338-1" aria-hidden="true" tabindex="-1"></a>best_in_class <span class="ot">&lt;-</span> mpg <span class="sc">%&gt;%</span></span>
-<span id="cb338-2"><a href="graphics-for-communication.html#cb338-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(class) <span class="sc">%&gt;%</span></span>
-<span id="cb338-3"><a href="graphics-for-communication.html#cb338-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>(<span class="fu">desc</span>(hwy)) <span class="sc">==</span> <span class="dv">1</span>) <span class="co"># 筛选出行名为 1 的，即每种类型的第一个数据</span></span>
-<span id="cb338-4"><a href="graphics-for-communication.html#cb338-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb338-5"><a href="graphics-for-communication.html#cb338-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
-<span id="cb338-6"><a href="graphics-for-communication.html#cb338-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> class)) <span class="sc">+</span></span>
-<span id="cb338-7"><a href="graphics-for-communication.html#cb338-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> model), <span class="at">data =</span> best_in_class)</span></code></pre></div>
-<p><img src="28-graphics-for-communication_files/figure-html/geom_text()-1.png" width="672" /></p>
-<p>事情好像并没有那么简单… 标签彼此重叠，并且与点也重叠在一起。这很难阅读。我们可以通过切换到哪个在文本后面绘制一个矩形，并将标签移动到相应点的上方来解决问题：</p>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="graphics-for-communication.html#cb339-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
-<span id="cb339-2"><a href="graphics-for-communication.html#cb339-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> class)) <span class="sc">+</span></span>
-<span id="cb339-3"><a href="graphics-for-communication.html#cb339-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> model), <span class="at">data =</span> best_in_class, <span class="at">nudge_y =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="co"># geom_label() 能避免之间重叠，nudge_y 或 nudge_x 用于设置偏移量，遵循平面坐标系法则。此外减少不透明度也是不二佳选</span></span></code></pre></div>
-<p><img src="28-graphics-for-communication_files/figure-html/geom_label()-1.png" width="672" /></p>
-<p>这有点帮助，但仔细观察，其实标签之间还是会有那么一点点重叠影响。生这种情况是因为紧凑型和次紧凑型类别中最佳汽车的高速公路里程和排量完全相同。当你无法通过对每个标签应用相同的转换来解决这些问题时，我们推荐使用 <code>ggrepel::geom_label_repel()</code>。它将自动调整标签，使它们不会重叠：</p>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="graphics-for-communication.html#cb340-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
-<span id="cb340-2"><a href="graphics-for-communication.html#cb340-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> class)) <span class="sc">+</span></span>
-<span id="cb340-3"><a href="graphics-for-communication.html#cb340-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">1</span>, <span class="at">data =</span> best_in_class) <span class="sc">+</span></span>
-<span id="cb340-4"><a href="graphics-for-communication.html#cb340-4" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_label_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> model), <span class="at">data =</span> best_in_class)</span></code></pre></div>
-<p><img src="28-graphics-for-communication_files/figure-html/geom_label_repel-1.png" width="672" /></p>
-<p><del>人工智障标签真好用</del>。注意这里添加了外圈大号的空心点，以突出显示所标记的点。</p>
-<p>此外也可以直接把图例挪到图上去做标注。这种方法好像并不优雅，但确实能解决问题而且也不算很难用：</p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="graphics-for-communication.html#cb341-1" aria-hidden="true" tabindex="-1"></a>class_avg <span class="ot">&lt;-</span> mpg <span class="sc">%&gt;%</span></span>
-<span id="cb341-2"><a href="graphics-for-communication.html#cb341-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(class) <span class="sc">%&gt;%</span></span>
-<span id="cb341-3"><a href="graphics-for-communication.html#cb341-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb341-4"><a href="graphics-for-communication.html#cb341-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">displ =</span> <span class="fu">median</span>(displ),</span>
-<span id="cb341-5"><a href="graphics-for-communication.html#cb341-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">hwy =</span> <span class="fu">median</span>(hwy)</span>
-<span id="cb341-6"><a href="graphics-for-communication.html#cb341-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb341-7"><a href="graphics-for-communication.html#cb341-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb341-8"><a href="graphics-for-communication.html#cb341-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy, <span class="at">colour =</span> class)) <span class="sc">+</span></span>
-<span id="cb341-9"><a href="graphics-for-communication.html#cb341-9" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_label_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> class),</span>
-<span id="cb341-10"><a href="graphics-for-communication.html#cb341-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> class_avg,</span>
-<span id="cb341-11"><a href="graphics-for-communication.html#cb341-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">label.size =</span> <span class="dv">0</span>, <span class="co"># 指明标签不占位</span></span>
-<span id="cb341-12"><a href="graphics-for-communication.html#cb341-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">segment.color =</span> <span class="cn">NA</span></span>
-<span id="cb341-13"><a href="graphics-for-communication.html#cb341-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb341-14"><a href="graphics-for-communication.html#cb341-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb341-15"><a href="graphics-for-communication.html#cb341-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="co"># 隐藏旁边的图例</span></span></code></pre></div>
-<p><img src="28-graphics-for-communication_files/figure-html/geom_label_repel()%20with%20theme()%20with%20legend.position-1.png" width="672" /></p>
-<p>此外我们甚至可以在图内加一些信息说明：</p>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="graphics-for-communication.html#cb342-1" aria-hidden="true" tabindex="-1"></a>label <span class="ot">&lt;-</span> mpg <span class="sc">%&gt;%</span></span>
-<span id="cb342-2"><a href="graphics-for-communication.html#cb342-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
-<span id="cb342-3"><a href="graphics-for-communication.html#cb342-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">displ =</span> <span class="fu">max</span>(displ),</span>
-<span id="cb342-4"><a href="graphics-for-communication.html#cb342-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">hwy =</span> <span class="fu">max</span>(hwy),</span>
-<span id="cb342-5"><a href="graphics-for-communication.html#cb342-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">label =</span> <span class="st">&quot;Increasing engine size is </span><span class="sc">\n</span><span class="st">related to decreasing fuel economy.&quot;</span> <span class="co"># 注意 label 在这里书写会自动添加新列</span></span>
-<span id="cb342-6"><a href="graphics-for-communication.html#cb342-6" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb342-7"><a href="graphics-for-communication.html#cb342-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb342-8"><a href="graphics-for-communication.html#cb342-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 当然单纯写个 label 也可以不要那些数据</span></span>
-<span id="cb342-9"><a href="graphics-for-communication.html#cb342-9" aria-hidden="true" tabindex="-1"></a>label <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb342-10"><a href="graphics-for-communication.html#cb342-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">displ =</span> <span class="cn">Inf</span>,</span>
-<span id="cb342-11"><a href="graphics-for-communication.html#cb342-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">hwy =</span> <span class="cn">Inf</span>,</span>
-<span id="cb342-12"><a href="graphics-for-communication.html#cb342-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="st">&quot;Increasing engine size is </span><span class="sc">\n</span><span class="st">related to decreasing fuel economy.&quot;</span></span>
-<span id="cb342-13"><a href="graphics-for-communication.html#cb342-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb342-14"><a href="graphics-for-communication.html#cb342-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb342-15"><a href="graphics-for-communication.html#cb342-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
-<span id="cb342-16"><a href="graphics-for-communication.html#cb342-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb342-17"><a href="graphics-for-communication.html#cb342-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> label), <span class="at">data =</span> label, <span class="at">vjust =</span> <span class="st">&quot;top&quot;</span>, <span class="at">hjust =</span> <span class="st">&quot;right&quot;</span>) <span class="co"># vjust 和 hjust 用于说明在竖直方向和水平方向的相对位置</span></span></code></pre></div>
-<p><img src="28-graphics-for-communication_files/figure-html/geom_text()%20with%20label-1.png" width="672" /></p>
-<p>除了手动用换行符将内容分解为多行，我们也可以使用自动添加换行符，给定每行所需的字符数即可：</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="graphics-for-communication.html#cb343-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;Increasing engine size is related to decreasing fuel economy.&quot;</span> <span class="sc">%&gt;%</span></span>
-<span id="cb343-2"><a href="graphics-for-communication.html#cb343-2" aria-hidden="true" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_wrap</span>(<span class="at">width =</span> <span class="dv">40</span>) <span class="sc">%&gt;%</span> <span class="co"># 以行宽分割并添加换行符</span></span>
-<span id="cb343-3"><a href="graphics-for-communication.html#cb343-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">writeLines</span>()</span>
-<span id="cb343-4"><a href="graphics-for-communication.html#cb343-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Increasing engine size is related to</span></span>
-<span id="cb343-5"><a href="graphics-for-communication.html#cb343-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; decreasing fuel economy.</span></span></code></pre></div>
-<p>对于刚刚的 <code>hjust</code> 和 <code>vjust</code> 参数，我们这里给出一个图👇（好耶）：</p>
-<div class="figure">
-<img src="https://d33wubrfki0l68.cloudfront.net/9f9f1806b5c583874a725bdff526e990bd4fcba6/b955a/communicate-plots_files/figure-html/just-1.png" alt="" />
-<p class="caption">“hjust” 和 “vjust” 的所有九种组合</p>
-</div>
-</div>
-<div id="比例尺与参考" class="section level2 hasAnchor" number="22.3">
-<h2><span class="header-section-number">22.3</span> 比例尺与参考<a href="graphics-for-communication.html#比例尺与参考" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="比例尺" class="section level3 hasAnchor" number="22.3.1">
-<h3><span class="header-section-number">22.3.1</span> 比例尺<a href="graphics-for-communication.html#比例尺" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>事实上在你绘制图时，ggplot 会自动为你准备好了比例尺。如：</p>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="graphics-for-communication.html#cb344-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
-<span id="cb344-2"><a href="graphics-for-communication.html#cb344-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> class))</span>
-<span id="cb344-3"><a href="graphics-for-communication.html#cb344-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb344-4"><a href="graphics-for-communication.html#cb344-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot 会自动帮你补全成这样：</span></span>
-<span id="cb344-5"><a href="graphics-for-communication.html#cb344-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
-<span id="cb344-6"><a href="graphics-for-communication.html#cb344-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> class)) <span class="sc">+</span></span>
-<span id="cb344-7"><a href="graphics-for-communication.html#cb344-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>() <span class="sc">+</span></span>
-<span id="cb344-8"><a href="graphics-for-communication.html#cb344-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>() <span class="sc">+</span></span>
-<span id="cb344-9"><a href="graphics-for-communication.html#cb344-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_discrete</span>()</span></code></pre></div>
-<p>不过也是可以自定义的拉。</p>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="graphics-for-communication.html#cb345-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
-<span id="cb345-2"><a href="graphics-for-communication.html#cb345-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb345-3"><a href="graphics-for-communication.html#cb345-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">15</span>, <span class="dv">40</span>, <span class="at">by =</span> <span class="dv">5</span>))</span></code></pre></div>
-<p><img src="28-graphics-for-communication_files/figure-html/scale_y_continuous()%20with%20breaks-1.png" width="672" /></p>
-<p>去掉也不是不可以：</p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="graphics-for-communication.html#cb346-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
-<span id="cb346-2"><a href="graphics-for-communication.html#cb346-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb346-3"><a href="graphics-for-communication.html#cb346-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb346-4"><a href="graphics-for-communication.html#cb346-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cn">NULL</span>)</span></code></pre></div>
-<p><img src="28-graphics-for-communication_files/figure-html/scale_y_continuous()%20with%20labels-1.png" width="672" /></p>
-<p><code>labels</code> 的另一个用途是当我们的数据点相对较少并且想要突出显示观测值发生的确切位置时。如下图就清晰地它显示了每位美国总统何时开始和结束其任期：</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="graphics-for-communication.html#cb347-1" aria-hidden="true" tabindex="-1"></a>presidential <span class="sc">%&gt;%</span></span>
-<span id="cb347-2"><a href="graphics-for-communication.html#cb347-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">33</span> <span class="sc">+</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb347-3"><a href="graphics-for-communication.html#cb347-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(start, id)) <span class="sc">+</span></span>
-<span id="cb347-4"><a href="graphics-for-communication.html#cb347-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb347-5"><a href="graphics-for-communication.html#cb347-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 点展图，以点为中心向 x 方向延伸线条，y 方向错开数据</span></span>
-<span id="cb347-6"><a href="graphics-for-communication.html#cb347-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> end, <span class="at">yend =</span> id)) <span class="sc">+</span></span>
-<span id="cb347-7"><a href="graphics-for-communication.html#cb347-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_date</span>(<span class="cn">NULL</span>, <span class="at">breaks =</span> presidential<span class="sc">$</span>start, <span class="at">date_labels =</span> <span class="st">&quot;&#39;%y&quot;</span>)</span></code></pre></div>
-<p><img src="28-graphics-for-communication_files/figure-html/scale_x_date()-1.png" width="672" /></p>
-</div>
-<div id="图例" class="section level3 hasAnchor" number="22.3.2">
-<h3><span class="header-section-number">22.3.2</span> 图例<a href="graphics-for-communication.html#图例" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>图例也是可以自定义的，比如它的位置：</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="graphics-for-communication.html#cb348-1" aria-hidden="true" tabindex="-1"></a>base <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
-<span id="cb348-2"><a href="graphics-for-communication.html#cb348-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> class))</span>
-<span id="cb348-3"><a href="graphics-for-communication.html#cb348-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb348-4"><a href="graphics-for-communication.html#cb348-4" aria-hidden="true" tabindex="-1"></a>base <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;left&quot;</span>)</span></code></pre></div>
-<p><img src="28-graphics-for-communication_files/figure-html/theme()%20with%20legend.position-1.png" width="672" /></p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="graphics-for-communication.html#cb349-1" aria-hidden="true" tabindex="-1"></a>base <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
-<p><img src="28-graphics-for-communication_files/figure-html/theme()%20with%20legend.position-2.png" width="672" /></p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="graphics-for-communication.html#cb350-1" aria-hidden="true" tabindex="-1"></a>base <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
-<p><img src="28-graphics-for-communication_files/figure-html/theme()%20with%20legend.position-3.png" width="672" /></p>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="graphics-for-communication.html#cb351-1" aria-hidden="true" tabindex="-1"></a>base <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>) <span class="co"># 默认</span></span></code></pre></div>
-<p><img src="28-graphics-for-communication_files/figure-html/theme()%20with%20legend.position-4.png" width="672" /></p>
+<div id="编辑因子" class="section level2 hasAnchor" number="16.4">
+<h2><span class="header-section-number">16.4</span> 编辑因子<a href="factors.html#编辑因子" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>比更改级别顺序更强大的自然是更改其值。这使您可以阐明用于发布的标签，以及用于高级显示的折叠级别。最通用和最强大的工具便是 <code>fct_recode()</code>，它允许我们重新编码或更改每个级别的值。如我们取<code>gss_cat$partyid</code>：</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="factors.html#cb248-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span> <span class="fu">count</span>(partyid)</span>
+<span id="cb248-2"><a href="factors.html#cb248-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 2</span></span>
+<span id="cb248-3"><a href="factors.html#cb248-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    partyid                n</span></span>
+<span id="cb248-4"><a href="factors.html#cb248-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;fct&gt;              &lt;int&gt;</span></span>
+<span id="cb248-5"><a href="factors.html#cb248-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 No answer            154</span></span>
+<span id="cb248-6"><a href="factors.html#cb248-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Don&#39;t know             1</span></span>
+<span id="cb248-7"><a href="factors.html#cb248-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Other party          393</span></span>
+<span id="cb248-8"><a href="factors.html#cb248-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Strong republican   2314</span></span>
+<span id="cb248-9"><a href="factors.html#cb248-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Not str republican  3032</span></span>
+<span id="cb248-10"><a href="factors.html#cb248-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Ind,near rep        1791</span></span>
+<span id="cb248-11"><a href="factors.html#cb248-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Independent         4119</span></span>
+<span id="cb248-12"><a href="factors.html#cb248-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Ind,near dem        2499</span></span>
+<span id="cb248-13"><a href="factors.html#cb248-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Not str democrat    3690</span></span>
+<span id="cb248-14"><a href="factors.html#cb248-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Strong democrat     3490</span></span>
+<span id="cb248-15"><a href="factors.html#cb248-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb248-16"><a href="factors.html#cb248-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 注意用词的机械性和可复用性，我们对其进行修改：</span></span>
+<span id="cb248-17"><a href="factors.html#cb248-17" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span></span>
+<span id="cb248-18"><a href="factors.html#cb248-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">partyid =</span> <span class="fu">fct_recode</span>(partyid,</span>
+<span id="cb248-19"><a href="factors.html#cb248-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Republican, strong&quot;</span>    <span class="ot">=</span> <span class="st">&quot;Strong republican&quot;</span>,</span>
+<span id="cb248-20"><a href="factors.html#cb248-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Republican, weak&quot;</span>      <span class="ot">=</span> <span class="st">&quot;Not str republican&quot;</span>,</span>
+<span id="cb248-21"><a href="factors.html#cb248-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Independent, near rep&quot;</span> <span class="ot">=</span> <span class="st">&quot;Ind,near rep&quot;</span>,</span>
+<span id="cb248-22"><a href="factors.html#cb248-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Independent, near dem&quot;</span> <span class="ot">=</span> <span class="st">&quot;Ind,near dem&quot;</span>,</span>
+<span id="cb248-23"><a href="factors.html#cb248-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Democrat, weak&quot;</span>        <span class="ot">=</span> <span class="st">&quot;Not str democrat&quot;</span>,</span>
+<span id="cb248-24"><a href="factors.html#cb248-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Democrat, strong&quot;</span>      <span class="ot">=</span> <span class="st">&quot;Strong democrat&quot;</span></span>
+<span id="cb248-25"><a href="factors.html#cb248-25" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb248-26"><a href="factors.html#cb248-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(partyid)</span>
+<span id="cb248-27"><a href="factors.html#cb248-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 2</span></span>
+<span id="cb248-28"><a href="factors.html#cb248-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    partyid                   n</span></span>
+<span id="cb248-29"><a href="factors.html#cb248-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;fct&gt;                 &lt;int&gt;</span></span>
+<span id="cb248-30"><a href="factors.html#cb248-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 No answer               154</span></span>
+<span id="cb248-31"><a href="factors.html#cb248-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Don&#39;t know                1</span></span>
+<span id="cb248-32"><a href="factors.html#cb248-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Other party             393</span></span>
+<span id="cb248-33"><a href="factors.html#cb248-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Republican, strong     2314</span></span>
+<span id="cb248-34"><a href="factors.html#cb248-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Republican, weak       3032</span></span>
+<span id="cb248-35"><a href="factors.html#cb248-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Independent, near rep  1791</span></span>
+<span id="cb248-36"><a href="factors.html#cb248-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Independent            4119</span></span>
+<span id="cb248-37"><a href="factors.html#cb248-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Independent, near dem  2499</span></span>
+<span id="cb248-38"><a href="factors.html#cb248-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Democrat, weak         3690</span></span>
+<span id="cb248-39"><a href="factors.html#cb248-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Democrat, strong       3490</span></span>
+<span id="cb248-40"><a href="factors.html#cb248-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb248-41"><a href="factors.html#cb248-41" aria-hidden="true" tabindex="-1"></a><span class="co"># 同理，合并操作同样可行：</span></span>
+<span id="cb248-42"><a href="factors.html#cb248-42" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span></span>
+<span id="cb248-43"><a href="factors.html#cb248-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">partyid =</span> <span class="fu">fct_recode</span>(partyid,</span>
+<span id="cb248-44"><a href="factors.html#cb248-44" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Republican, strong&quot;</span>    <span class="ot">=</span> <span class="st">&quot;Strong republican&quot;</span>,</span>
+<span id="cb248-45"><a href="factors.html#cb248-45" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Republican, weak&quot;</span>      <span class="ot">=</span> <span class="st">&quot;Not str republican&quot;</span>,</span>
+<span id="cb248-46"><a href="factors.html#cb248-46" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Independent, near rep&quot;</span> <span class="ot">=</span> <span class="st">&quot;Ind,near rep&quot;</span>,</span>
+<span id="cb248-47"><a href="factors.html#cb248-47" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Independent, near dem&quot;</span> <span class="ot">=</span> <span class="st">&quot;Ind,near dem&quot;</span>,</span>
+<span id="cb248-48"><a href="factors.html#cb248-48" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Democrat, weak&quot;</span>        <span class="ot">=</span> <span class="st">&quot;Not str democrat&quot;</span>,</span>
+<span id="cb248-49"><a href="factors.html#cb248-49" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Democrat, strong&quot;</span>      <span class="ot">=</span> <span class="st">&quot;Strong democrat&quot;</span>,</span>
+<span id="cb248-50"><a href="factors.html#cb248-50" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Other&quot;</span>                 <span class="ot">=</span> <span class="st">&quot;No answer&quot;</span>,</span>
+<span id="cb248-51"><a href="factors.html#cb248-51" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Other&quot;</span>                 <span class="ot">=</span> <span class="st">&quot;Don&#39;t know&quot;</span>,</span>
+<span id="cb248-52"><a href="factors.html#cb248-52" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Other&quot;</span>                 <span class="ot">=</span> <span class="st">&quot;Other party&quot;</span></span>
+<span id="cb248-53"><a href="factors.html#cb248-53" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb248-54"><a href="factors.html#cb248-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(partyid)</span>
+<span id="cb248-55"><a href="factors.html#cb248-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 8 × 2</span></span>
+<span id="cb248-56"><a href="factors.html#cb248-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   partyid                   n</span></span>
+<span id="cb248-57"><a href="factors.html#cb248-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;fct&gt;                 &lt;int&gt;</span></span>
+<span id="cb248-58"><a href="factors.html#cb248-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Other                   548</span></span>
+<span id="cb248-59"><a href="factors.html#cb248-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Republican, strong     2314</span></span>
+<span id="cb248-60"><a href="factors.html#cb248-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Republican, weak       3032</span></span>
+<span id="cb248-61"><a href="factors.html#cb248-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Independent, near rep  1791</span></span>
+<span id="cb248-62"><a href="factors.html#cb248-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 Independent            4119</span></span>
+<span id="cb248-63"><a href="factors.html#cb248-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 Independent, near dem  2499</span></span>
+<span id="cb248-64"><a href="factors.html#cb248-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 Democrat, weak         3690</span></span>
+<span id="cb248-65"><a href="factors.html#cb248-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 Democrat, strong       3490</span></span></code></pre></div>
 
 </div>
 </div>
-</div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="r-markdown.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="string.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="model-intro.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -639,7 +660,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/cworld1/r-learning/edit/master/book/28-graphics-for-communication.Rmd",
+"link": "https://github.com/cworld1/r-learning/edit/master/book/15-factors.Rmd",
 "text": "编辑"
 },
 "history": {

@@ -25,7 +25,7 @@ output: html_document
 - 一些被标识符包围的代码块：
 
 ````rmarkdown
-```{r setup, include = FALSE}
+```{R setup, include = FALSE}
 library(ggplot2)
 library(dplyr)
 
@@ -98,11 +98,11 @@ Table: (\#tab:kable)A knitr kable.
 通常，文档的每次生成都从初始环境开始。这非常适合重现，但如果你有一些需要很长时间的计算，那可能会很痛苦。一种解决方案是 `cache = TRUE`。设置后，这将把块的输出保存到磁盘上一个特别命名的文件。在随后的运行中，knitr 将检查代码是否已更改，如果没有，它将重用缓存的结果。
 
 ````rmarkdown
-{r raw_data}
+{R raw_data}
 rawdata <- readr::read_csv("a_very_large_file.csv")
 ```
 
-{r processed_data, cache = TRUE, dependson = "raw_data"}
+{R processed_data, cache = TRUE, dependson = "raw_data"}
 processed_data <- rawdata %>%
     filter(!is.na(import_var)) %>%
     mutate(new_variable = complicated_transformation(x, y, z))
@@ -112,7 +112,7 @@ processed_data <- rawdata %>%
 缓存  `processed_data` 块意味着如果 `dplyr` 管道更改，它将被重新运行，但如果read_csv()调用更改，它将不会被重新运行。您可以使用 `dependson`块选项来避免这个问题：
 
 ```rmarkdown
-{r processed_data, cache = TRUE, dependson = "raw_data"}
+{R processed_data, cache = TRUE, dependson = "raw_data"}
 processed_data <- rawdata %>% 
   filter(!is.na(import_var)) %>% 
   mutate(new_variable = complicated_transformation(x, y, z))

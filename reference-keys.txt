@@ -137,6 +137,11 @@ string
 分组匹配
 拆分
 正则表达式其他用法
+factors
+创建因子
+对-gss_cat-数据集研究
+修改因子顺序
+编辑因子
 model-intro
 认知
 model-basics
