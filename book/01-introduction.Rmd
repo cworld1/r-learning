@@ -4,7 +4,7 @@
 
 ![data-science.png](https://d33wubrfki0l68.cloudfront.net/571b056757d68e6df81a3e3853f54d3c76ad6efc/32d37/diagrams/data-science.png)
 
-首先我们需要**导入**数据。然后对其进行**整理**。理解数据的核心就是**转换**、**可视化**数据和建立**模型**。通信是最后的步骤，理解的数据最终很可能走向分享他人。
+上图展示了一套完整的数据处理流程。首先我们需要**导入**数据，然后对其进行**整理**。理解数据的核心就是**转换**、**可视化**数据和建立**模型**。最后是**通信**，理解数据的最终走向一般是将数据的信息讲述或分享给他人（或你的上司😠）。
 
 ## 一些准备
 
@@ -15,6 +15,8 @@
 ### 安装编辑器
 
 RStudio 是一个用于 R 编程的集成开发环境或 IDE。从 http://www.rstudio.com/download 下载并安装它。
+
+当然你也可以使用 VSCode、Pycharm 等任意你喜欢的编辑器。注意重点绝不是在编辑器，而是在于你的思维、知识和运用能力。如果你的知识储备还不够，请尽量避免尝试那些花里胡哨的编辑器。RStudio 专为 R 定制，在易用性上是毋庸置疑的。
 
 ### 相关包
 
@@ -28,7 +30,7 @@ install.packages("tidyverse")
 
 在本项目笔记中，我们将使用来自 tidyverse 之外的三个数据包：
 
-```{R install.packages() for more, eval=FALSE}
+```{R install.packages() for more, eval = FALSE}
 install.packages(c("nycflights13", "gapminder", "Lahman"))
 ```
 
@@ -50,7 +52,7 @@ print("hello world!")
 
 R 里有一些约定俗成的代码形式。如：
 
-```{R way of writting code, eval=FALSE}
+```{R way of writting code, eval = FALSE}
 # 函数后面带括号
 sum(c(1, 2))
 # 对象直接书写
@@ -62,9 +64,16 @@ nycflights13::flights # flights 数据集
 
 一些基础功能后面可能不会再反复提到，但它们通常很有用：
 
-```{R other skills, eval=FALSE}
+```{R other skills, eval = FALSE}
 library(tidyverse) # 加载之前安装的包
 tidyverse_update() # 更新 tidyverse 包内的附带包
 dput(mtcars) # 查看数据集（如 mtcars）的更多信息
 sessionInfo(c("tidyverse")) # 查看本地 R 及相关信息
 ```
+
+对任何东西前面加一个问号，方便你查询这些函数、包的相关信息！不要吝啬对 R 的发问，因为只有这样做，你才会看透它的每一个参数和用法。
+
+```{R help, eval = FALSE}
+?sum # 查询 sum 函数
+```
+
