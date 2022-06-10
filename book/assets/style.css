@@ -60,7 +60,6 @@
 .book .book-header.fixed {
   background-color: #ffffff8a !important;
   backdrop-filter: blur(20px);
-  right: 18px;
 }
 
 /* 标题 */
@@ -107,6 +106,13 @@ button.copy-to-clipboard-button:focus .fa-copy {
 
 div.sourceCode:hover>.copy-to-clipboard-button {
   opacity: 1;
+}
+
+/* 引言 */
+.book .book-body .page-wrapper .page-inner section.normal blockquote {
+  background-color: #7b7b7b1f;
+  padding: 11px 15px 1px 15px;
+  border-radius: 0 7px 7px 0;
 }
 
 /* 全局文字 */
