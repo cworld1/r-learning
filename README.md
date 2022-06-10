@@ -47,16 +47,22 @@ Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::gitbook')"
 
 ## 鸣谢
 
-一些电子教材对作者学习上帮助颇多，在此对这些教材的原作者深表感谢。读者若对此项目的笔记抱有疑惑，也可以仔细阅读以下的教材以作弥补。
+一些电子教材对作者学习上帮助颇多，没有这些资料，就没有这部笔记。在此对这些教材的原作者深表感谢。读者若对此项目笔记抱有疑惑，也可以仔细阅读以下的教材以作弥补。
 
-[R for Data Science](https://r4ds.had.co.nz/)
-
-[R for Data Science: Exercise Solutions](https://jrnold.github.io/r4ds-exercise-solutions)
-
-[Modern Data Science with R](https://mdsr-book.github.io/mdsr2e/)
-
-[bookdown: Authoring Books and Technical Documents with R Markdown](https://bookdown.org/yihui/bookdown/)
+- [R for Data Science](https://r4ds.had.co.nz/)
+- [R for Data Science 2 Edition](https://r4ds.hadley.nz/workflow-pipes.html)
+- [R for Data Science: Exercise Solutions](https://jrnold.github.io/r4ds-exercise-solutions)（[Jeffrey Arnold](https://github.com/jrnold)）
+- [Modern Data Science with R](https://mdsr-book.github.io/mdsr2e/)（[Benjamin S. Baumer, Daniel T. Kaplan, and Nicholas J. Horton](https://github.com/mdsr-book/mdsr/graphs/contributors)）
+- [bookdown: Authoring Books and Technical Documents with R Markdown](https://bookdown.org/yihui/bookdown/)（[Yihui Xie](https://yihui.org/)）
+- [Text Mining with R](https://www.tidytextmining.com/)（[Julia Silge](http://juliasilge.com/) and [David Robinson](http://varianceexplained.org/)）
+- [R语言教程](https://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/index.html)（[李东风](https://www.math.pku.edu.cn/teachers/lidf/)）
+- [商业数据分析师-R 语言数据处理](https://bookdown.org/zhongyufei/Data-Handling-in-R/)（Yufei Zhong）
 
 ## License
 
+[![知识共享许可协议](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)
+
 The MIT License.
+
+
+本作品采用 [知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议](http://creativecommons.org/licenses/by-nc-sa/4.0/) 进行许可。
