@@ -89,7 +89,7 @@ parse_integer(c("1", "231", ".", "456"), na = ".")
 
 解析失败会提示相关警示：
 
-```{R parse_integer() with wrong, eval=FALSE}
+```{R parse_integer() with wrong, eval = FALSE}
 x <- parse_integer(c("123", "345", "abc", "123.45"))
 #> Warning: 2 parsing failures.
 #> row col               expected actual
@@ -99,7 +99,7 @@ x <- parse_integer(c("123", "345", "abc", "123.45"))
 
 之后的读取也会报错：
 
-```{R read wrong data, eval=FALSE}
+```{R read wrong data, eval = FALSE}
 x
 #> [1] 123 345  NA  NA
 #> attr(,"problems")
@@ -112,7 +112,7 @@ x
 
 和提示的一样，我们可以使用 problems() 函数显示错误根源：
 
-```{R problems(), eval=FALSE}
+```{R problems(), eval = FALSE}
 problems(x)
 #> # A tibble: 2 x 4
 #>     row   col expected               actual
@@ -183,7 +183,7 @@ guess_encoding(charToRaw(x2))
 ## 因子类型
 R 使用因子来表示具有一组已知可能值的分类变量。给 parse_factor() 一个已知 levels 的向量，以便在出现意外值时生成警告：
 
-```{R fruit, eval=FALSE}
+```{R fruit, eval = FALSE}
 fruit <- c("apple", "banana")
 parse_factor(c("apple", "banana", "bananana"), levels = fruit)
 #> Warning: 1 parsing failure.
@@ -288,7 +288,7 @@ str(parse_guess("2010-10-10"))
 
 > 在学习这里的时候发现问题已经无法复现。此处已经不再报错
 
-```{R challenge, eval=FALSE}
+```{R challenge, eval = FALSE}
 challenge <- read_csv(readr_example("challenge.csv"))
 #> ── Column specification ───────────────────────────────────────────
 #> cols(
@@ -308,7 +308,7 @@ challenge <- read_csv(readr_example("challenge.csv"))
 
 我们决定对错误进行定位：
 
-```{R problems() of challenge, eval=FALSE}
+```{R problems() of challenge, eval = FALSE}
 problems(challenge)
 #> # A tibble: 1,000 x 5
 #>     row col   expected        actual   file
@@ -324,7 +324,7 @@ problems(challenge)
 
 嗯...怎么看了跟没看似的。tail() 函数用来查看表头或表尾：
 
-```{R tail() with challenge, eval=FALSE}
+```{R tail() with challenge, eval = FALSE}
 tail(challenge)
 #> # A tibble: 6 x 2
 #>       x y
@@ -373,7 +373,7 @@ challenge2
 
 另外一种思路是将向量声明为默认字符类型向量，这可能使你的定位更容易一些：
 
-```{R read_csv() with col_types() with .default, eval=FALSE}
+```{R read_csv() with col_types() with .default, eval = FALSE}
 challenge2 <- read_csv(readr_example("challenge.csv"),
   col_types = cols(.default = col_character())
 )

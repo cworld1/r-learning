@@ -349,7 +349,7 @@ daily %>%
 
 在我们试验多个模型和可视化效果时，最好将变量的创建捆绑到一个函数中，如：
 
-```{R computed_vars, eval=FALSE}
+```{R computed_vars, eval = FALSE}
 compute_vars <- function(data) {
     data %>%
         mutate(

@@ -55,7 +55,7 @@ setwd("/path/to/my/CoolProject")
 
 以后保存文件应该使用如下方式：
 
-```{R workspace path, eval=FALSE}
+```{R workspace path, eval = FALSE}
 library(tidyverse)
 
 ggplot(diamonds, aes(carat, price)) +

@@ -50,7 +50,7 @@ filter(flights, month == 1, na.rm = TRUE)
 ### 比较
 
 对于比较大小，我们有 `>`、`>=`、`<`、`<=`、`!=` 和 `==`。注意这里的等于用了两个等于符号表示（这与很多语言保持一致）。如果写成了一个，R 通常会 “机智地” 提醒你：
-```{R comparison of size, eval=FALSE}
+```{R comparison of size, eval = FALSE}
 filter(flights, month = 1)
 #> Error in `filter()`:
 #> ! We detected a named input.
