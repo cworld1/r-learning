@@ -1,4 +1,4 @@
-# Data visualisation {#explore}
+# Data visualisation {#data-visualisation}
 
 ```{R setup, results = "hide", message = FALSE, warning = FALSE}
 library(tidyverse) # 方便使用其中的 ggplot2
