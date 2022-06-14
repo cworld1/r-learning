@@ -19,7 +19,7 @@ explore-intro
 基本函数
 学习-r-自带的画图功能
 更高级的数据形式
-explore
+data-visualisation
 初识-ggplot
 美学映射
 修改样式

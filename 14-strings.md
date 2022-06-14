@@ -210,8 +210,8 @@ str_view(fruit, "an")
 ```
 
 ```{=html}
-<div id="htmlwidget-10b898df969786fb5cb7" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-10b898df969786fb5cb7">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li>b<span class='match'>an<\/span>ana<\/li>\n  <li>pear<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-868a3847fa4e42fa152f" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-868a3847fa4e42fa152f">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li>b<span class='match'>an<\/span>ana<\/li>\n  <li>pear<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 匹配字符串遵循 regexps 规则，其中 “.” 表示任意字符：
@@ -222,8 +222,8 @@ str_view(fruit, ".a.")
 ```
 
 ```{=html}
-<div id="htmlwidget-213a5b46ead205b73e5b" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-213a5b46ead205b73e5b">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li><span class='match'>ban<\/span>ana<\/li>\n  <li>p<span class='match'>ear<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-adbaf5c9e5b5fe559452" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-adbaf5c9e5b5fe559452">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li><span class='match'>ban<\/span>ana<\/li>\n  <li>p<span class='match'>ear<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 但我们很快就发现一个问题：“.” 固然好用，但当我们真正要匹配字符 “.” 的时候，就会变得棘手。regexps 提供了转义法，即 `\.`，但这个 “\” 会与我们的 R 语言规范相冲突。所以我们提出了转义斜杠。
@@ -242,8 +242,8 @@ str_view(c("abc", "a.c", "bef"), "a\\.c")
 ```
 
 ```{=html}
-<div id="htmlwidget-eaee2579d7340f4de165" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-eaee2579d7340f4de165">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li><span class='match'>a.c<\/span><\/li>\n  <li>bef<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-4ac88614dfd3faff9246" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4ac88614dfd3faff9246">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li><span class='match'>a.c<\/span><\/li>\n  <li>bef<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 同理，匹配一个反斜杠则需要4个斜杠：
@@ -258,8 +258,8 @@ str_view(x, "\\\\")
 ```
 
 ```{=html}
-<div id="htmlwidget-c37a88670084a02b4d91" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c37a88670084a02b4d91">{"x":{"html":"<ul>\n  <li>a<span class='match'>\\<\/span>b<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c4c64aa74a05f8d1389e" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c4c64aa74a05f8d1389e">{"x":{"html":"<ul>\n  <li>a<span class='match'>\\<\/span>b<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ### 锚点定位
@@ -276,8 +276,8 @@ str_view(apple, "^a") # 以 “a” 开头的字符串
 ```
 
 ```{=html}
-<div id="htmlwidget-506dee4607996bc99be6" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-506dee4607996bc99be6">{"x":{"html":"<ul>\n  <li>bad apple<\/li>\n  <li>milk with apple & banana<\/li>\n  <li><span class='match'>a<\/span>pple music<\/li>\n  <li><span class='match'>a<\/span>pple<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-520a8b00100d3a545a52" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-520a8b00100d3a545a52">{"x":{"html":"<ul>\n  <li>bad apple<\/li>\n  <li>milk with apple & banana<\/li>\n  <li><span class='match'>a<\/span>pple music<\/li>\n  <li><span class='match'>a<\/span>pple<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 
@@ -286,8 +286,8 @@ str_view(apple, "a$") # 以 “a” 结尾的字符串
 ```
 
 ```{=html}
-<div id="htmlwidget-9a85be78713874359280" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9a85be78713874359280">{"x":{"html":"<ul>\n  <li>bad apple<\/li>\n  <li>milk with apple & banan<span class='match'>a<\/span><\/li>\n  <li>apple music<\/li>\n  <li>apple<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-8970ce8cc903037465dd" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8970ce8cc903037465dd">{"x":{"html":"<ul>\n  <li>bad apple<\/li>\n  <li>milk with apple & banan<span class='match'>a<\/span><\/li>\n  <li>apple music<\/li>\n  <li>apple<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 
@@ -296,8 +296,8 @@ str_view(x, "^apple$") # 以 “apple” 开头和结束（不多不少完全匹
 ```
 
 ```{=html}
-<div id="htmlwidget-bedb55222491919c6881" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-bedb55222491919c6881">{"x":{"html":"<ul>\n  <li>a\\b<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1468b87c931756de21d9" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1468b87c931756de21d9">{"x":{"html":"<ul>\n  <li>a\\b<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 我知道你会记混的。所以我们从 [Evan Misshula](https://twitter.com/emisshula/status/323863393167613953) 那里搬出了这个口诀：
@@ -324,8 +324,8 @@ str_view(abc, "a[.]c")
 ```
 
 ```{=html}
-<div id="htmlwidget-d0055c3f3e0b83018366" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d0055c3f3e0b83018366">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li><span class='match'>a.c<\/span><\/li>\n  <li>a*c<\/li>\n  <li>a c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b61a97d7db8a5843b223" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b61a97d7db8a5843b223">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li><span class='match'>a.c<\/span><\/li>\n  <li>a*c<\/li>\n  <li>a c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 
@@ -334,8 +334,8 @@ str_view(abc, ".[*]c")
 ```
 
 ```{=html}
-<div id="htmlwidget-cd77802425faa7596481" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cd77802425faa7596481">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li>a.c<\/li>\n  <li><span class='match'>a*c<\/span><\/li>\n  <li>a c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-11c1108b9e932e3213e4" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-11c1108b9e932e3213e4">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li>a.c<\/li>\n  <li><span class='match'>a*c<\/span><\/li>\n  <li>a c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 
@@ -344,8 +344,8 @@ str_view(abc, "a[ ]")
 ```
 
 ```{=html}
-<div id="htmlwidget-2c690b08c74b4dab959d" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2c690b08c74b4dab959d">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li>a.c<\/li>\n  <li>a*c<\/li>\n  <li><span class='match'>a <\/span>c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-57cb197567efa680dc43" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-57cb197567efa680dc43">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li>a.c<\/li>\n  <li>a*c<\/li>\n  <li><span class='match'>a <\/span>c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 这种方法适用于大多数正则表达式元字符。但请不要过度依赖，因为仍然有部分特殊含义的字符不会被正常翻译转义。
@@ -358,8 +358,8 @@ str_view(c("grey", "gray"), "gr(e|a)y")
 ```
 
 ```{=html}
-<div id="htmlwidget-c07a1f5aa5ac51610e47" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c07a1f5aa5ac51610e47">{"x":{"html":"<ul>\n  <li><span class='match'>grey<\/span><\/li>\n  <li><span class='match'>gray<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-45ff136cfcb6ee2c3df7" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-45ff136cfcb6ee2c3df7">{"x":{"html":"<ul>\n  <li><span class='match'>grey<\/span><\/li>\n  <li><span class='match'>gray<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ### 重复匹配
@@ -379,8 +379,8 @@ str_view(x, "CC?")
 ```
 
 ```{=html}
-<div id="htmlwidget-cf58829d24b9ca50aca9" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cf58829d24b9ca50aca9">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2614da64960e0cec625f" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2614da64960e0cec625f">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 查找 “CC” 或者 “CCC...” 串：
@@ -391,8 +391,8 @@ str_view(x, "CC+")
 ```
 
 ```{=html}
-<div id="htmlwidget-b398428c1774cf9f08a4" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b398428c1774cf9f08a4">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-93fec2eccb21299fb0fd" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-93fec2eccb21299fb0fd">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 查找 “CL”、“CX”、“CLX”、“CXL”，或者 “CLLL...”、“CXXX...”、“CLXXX...”、“CLLL...X”...
@@ -402,8 +402,8 @@ str_view(x, "C[LX]+")
 ```
 
 ```{=html}
-<div id="htmlwidget-5b89c46a9909d38861a9" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5b89c46a9909d38861a9">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MDCC<span class='match'>CLXXX<\/span>VIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-883053d5d2e041dacc0d" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-883053d5d2e041dacc0d">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MDCC<span class='match'>CLXXX<\/span>VIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 注意这些运算符的优先级很高，并很多时候会用于匹配美式或英式拼写。这意味着大多数用途都需要括号，如：`colou?r` 或 `bana(na)+`
@@ -421,8 +421,8 @@ str_view(x, "C{2}")
 ```
 
 ```{=html}
-<div id="htmlwidget-a0dc0bc872654bfdf3a2" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a0dc0bc872654bfdf3a2">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c9df4d6d02833c56b559" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c9df4d6d02833c56b559">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 
@@ -431,8 +431,8 @@ str_view(x, "C{2,}")
 ```
 
 ```{=html}
-<div id="htmlwidget-585bcfb4dccfac6f08ec" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-585bcfb4dccfac6f08ec">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-abca4a1d5dcf63b43d3e" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-abca4a1d5dcf63b43d3e">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 
@@ -441,8 +441,8 @@ str_view(x, "C{2,3}")
 ```
 
 ```{=html}
-<div id="htmlwidget-68c1c0364e21cd43a744" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-68c1c0364e21cd43a744">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-38c7d41020a4e2be4e24" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-38c7d41020a4e2be4e24">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 在通常情况下，如果碰到了能同时匹配到同一个点位的情况，Regex 会自动选择最长的。但你可以使用 “?” 来反其道而行之：
@@ -453,8 +453,8 @@ str_view(x, "C{2,3}?")
 ```
 
 ```{=html}
-<div id="htmlwidget-679c214ea741cdda9537" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-679c214ea741cdda9537">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b4eb8948711d7ed8c935" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b4eb8948711d7ed8c935">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 
@@ -463,8 +463,8 @@ str_view(x, "C[LX]+?")
 ```
 
 ```{=html}
-<div id="htmlwidget-e59c695c7d17060670b3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e59c695c7d17060670b3">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MDCC<span class='match'>CL<\/span>XXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f4189e34362ffb15cbd1" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f4189e34362ffb15cbd1">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MDCC<span class='match'>CL<\/span>XXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ## 实际应用
@@ -712,8 +712,8 @@ str_view_all(more, colour_match) #
 ```
 
 ```{=html}
-<div id="htmlwidget-d3e7147f7990f6b3ad7a" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d3e7147f7990f6b3ad7a">{"x":{"html":"<ul>\n  <li>It is hard to erase <span class='match'>blue<\/span> or <span class='match'>red<\/span> ink.<\/li>\n  <li>The <span class='match'>green<\/span> light in the brown box flicke<span class='match'>red<\/span>.<\/li>\n  <li>The sky in the west is tinged with <span class='match'>orange<\/span> <span class='match'>red<\/span>.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a085957b06221c117273" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a085957b06221c117273">{"x":{"html":"<ul>\n  <li>It is hard to erase <span class='match'>blue<\/span> or <span class='match'>red<\/span> ink.<\/li>\n  <li>The <span class='match'>green<\/span> light in the brown box flicke<span class='match'>red<\/span>.<\/li>\n  <li>The sky in the west is tinged with <span class='match'>orange<\/span> <span class='match'>red<\/span>.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 可以明显看到一个句子匹配到了多个颜色。
@@ -868,8 +868,8 @@ str_view_all(x, boundary("word"))
 ```
 
 ```{=html}
-<div id="htmlwidget-59afe93ab52453166366" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-59afe93ab52453166366">{"x":{"html":"<ul>\n  <li><span class='match'>This<\/span> <span class='match'>is<\/span> <span class='match'>a<\/span> <span class='match'>sentence<\/span>.  <span class='match'>This<\/span> <span class='match'>is<\/span> <span class='match'>another<\/span> <span class='match'>sentence<\/span>.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f398aad1a90d565c4132" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f398aad1a90d565c4132">{"x":{"html":"<ul>\n  <li><span class='match'>This<\/span> <span class='match'>is<\/span> <span class='match'>a<\/span> <span class='match'>sentence<\/span>.  <span class='match'>This<\/span> <span class='match'>is<\/span> <span class='match'>another<\/span> <span class='match'>sentence<\/span>.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ## 正则表达式其他用法

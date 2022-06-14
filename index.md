@@ -2,7 +2,7 @@
 # 基本信息
 title: "R-Learning"
 author: "CWorld"
-date: "2022-06-10"
+date: "2022-06-14"
 description: "这是关于 CWorld 学习 R 语言的一些笔记和代码。"
 github-repo: cworld1/r-learning
 url: 'https\://r.cworld.top/'
@@ -77,6 +77,5 @@ Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::gitbook')"
 [![知识共享许可协议](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)
 
 The MIT License.
-
 
 本作品采用 [知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议](http://creativecommons.org/licenses/by-nc-sa/4.0/) 进行许可。
