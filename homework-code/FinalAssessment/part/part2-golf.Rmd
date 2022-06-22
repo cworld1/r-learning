@@ -1,0 +1,109 @@
+---
+title: Parks Golf Sales Detail
+author: CWorld
+date: 2022-06-12
+output: word_document
+---
+
+```{r settings, include = FALSE}
+knitr::opts_chunk$set(
+    comment = "#>",
+    collapse = TRUE
+)
+```
+
+> 数据集来源：[Parks Golf Sales Detail - CKAN (data.gov)](https://catalog.data.gov/dataset/parks-golf-sales-detail)
+
+包含了现代高尔夫球场的每天的各个项目的营销细节，包括费用和押金。
+
+需要准备的一些命令：
+
+```{r setup, results = "hide", message = FALSE, warning = FALSE}
+setwd("D:/Project/R-Project/homework-code/FinalAssessment")
+library(tidyverse)
+library(lubridate)
+library(modelr)
+```
+
+## 读取并简单查看数据
+
+首先进行数据集读取：
+
+```{r read csv file}
+golf <- read_csv(file = "data/ParksGolfSalesDetail_0.csv")
+```
+
+似乎读取时出现了问题，所以使用 `problems()` 函数进行查看：
+
+```{r problems}
+problems(golf)
+```
+
+数据集本身确实存在相当多的问题，而且仔细查看这些问题，会发现是由于数据集创建者留下的多余逗号引起。在考虑到这样的语义化文字无法简单地进一步修正后，我们只能决定舍弃那些很难处理修正的数据。在此之前，我们需要对数据类型进行手动矫正。
+
+```{r read csv by correct type}
+golf <- read_csv(
+    file = "data/ParksGolfSalesDetail_0.csv",
+    col_types = cols(
+        CourseID = col_double(),
+        CourseName = col_character(),
+        SaleID = col_double(),
+        SaleDate = col_datetime(),
+        ReportDate = col_datetime(),
+        ItemID = col_double(),
+        ItemDescription = col_character(),
+        ActualPrice = col_double(),
+        Quantity = col_double(),
+        SalesTax = col_double(),
+        LMPField = col_character()
+    )
+)
+golf
+```
+
+对 `r colnames(golf)[2]` 进行分析：
+
+```{r preliminary view data}
+# 针对球场
+golf |>
+    group_by(CourseName) |>
+    count()
+# 针对消费分类
+golf |>
+    group_by(LMPField) |>
+    count()
+# 针对消费记录的年和月
+golf |>
+    mutate(year = year(SaleDate), month = month(SaleDate)) |>
+    group_by(year, month) |>
+    count()
+```
+
+这个数据一共展示了从 15 年 12 月份到 16 年 6 月份共 9 个高尔夫球场的消费信息，其中消费分为 18 个大类。
+
+## 对半年内营销额整体趋势分析
+
+元数据精确到时间节点，但我们只需要精确到日期的内容。所以我对数据进行了转换，并计算按天算的总营销额：
+
+```{r ggplot with date}
+day_sales <- golf |>
+    mutate(date = as_date(SaleDate)) |>
+    group_by(date) |>
+    summarise(price = sum(ActualPrice, na.rm = TRUE))
+ggplot(day_sales, aes(date, price)) +
+    geom_line() +
+    geom_smooth(se = FALSE)
+```
+
+不同天数，哪怕是相邻的两周都会有明显的差距。我们推断这与一周的第几天有很大关系。但我们依然可以按照周来简单看清在整个时间轴上的宏观变化：从上一年的 12 月份一直到 6 月份，消费记录一直保持着持续上升的状态。
+
+## 每周的第几天对营销额影响的具体分析
+
+```{r weekday sales}
+sales <- day_sales %>%
+    mutate(wday = wday(date, label = TRUE))
+ggplot(sales, aes(wday, price)) +
+    geom_boxplot()
+```
+
+可以看到，休息日比工作日的消费要高多了，不管是最高、最低还是平均水平。

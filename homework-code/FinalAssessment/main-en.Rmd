@@ -1,0 +1,701 @@
+---
+title: Final Assessment
+author: CWorld
+date: 2022-06-10
+output: word_document
+---
+
+```{R setwd}
+setwd("D:/Project/R-Project/homework-code/FinalAssessment")
+```
+
+## Part I Perspectives on data privacy and data security
+
+### Recognize data hidden dangers
+
+With the advent of the era of big data, data is undoubtedly the most important asset of enterprises and individuals. Especially for individuals, it is not only the collection, use, sorting, processing or sharing of personal information in the digital environment, but also the existence of individuals in the digital world. Under the rapid development of the Internet, data security and privacy boundaries, etc. also become more important.
+
+In terms of data privacy, Internet companies have passed the User Agreement to allow users to disclose more of their own data, try to mine business opportunities from user information, and avoid legal liabilities as much as possible. But at the same time, in terms of data security, whether it is the Internet giant Facebook, the taxi application Uber, and the American credit service company Equifax have all reported incidents of customer data being stolen... With the increasing awareness of the importance of big data security in various countries Continuing to deepen, many countries and organizations, including the United States, the United Kingdom, Australia, the European Union and my country, have formulated laws, regulations and policies related to big data security to promote the utilization and security protection of big data.
+
+### Government-level preventive measures
+
+For example, the EU’s GDPR not only expands the meaning of personal data, but also introduces the concept of pseudonymised data, and introduces the concept of data consent (Consent), default privacy protection (Privacy by Design, Privacy by Default), and complete forgetting. The right to beforgotten (Rght to beforgotten) and other rights are clearly regulated, and strict violation penalties are stipulated for this. The fine range is 10 million to 20 million euros, or 2% to 4% of the company's global annual turnover.
+
+Domestically, the "Cybersecurity Law of the People's Republic of China" came into effect on June 1, 2017, and on May 1 this year, the "Information Security Technology Personal Information Security Specification" will also be officially implemented. Basic definitions of relevant terms, basic principles of personal information security, circulation links such as personal information collection, storage, use, and processing, as well as personal information security incident handling and organizational management requirements.
+
+### Enterprises should implement preventive measures in place
+
+How to achieve data security and privacy protection?
+
+Almost all industries will face data security and data privacy issues, especially in the fields of e-commerce, health care, education, communications, etc. These industries and enterprises directly face the C-end crowd and are more sensitive to issues such as personal privacy and data security. . Many companies are protecting data security and privacy through technological means.
+
+Although many enterprises are facing many implementation difficulties in technology platforms and data applications, such as the difficulty of adapting traditional security measures, the urgent need to improve the platform security mechanism, the more complex application access control, the more difficult data security protection, the risk of personal information leakage However, at present, these technology-first companies not only pay more attention to the standardized use of data, but also respond to potential threats to network security. getting more agile.
+
+#### 1. Privacy protection during data collection
+
+Under the premise of protecting the individual privacy of users, the private data of thousands of user terminals are collected, the aggregation and analysis of batch data are completed in the server, and the overall trend and statistical information of large-scale user data are mined.
+
+Technical difficulties: The traditional data security processing technology is a de-identification technology (also known as data desensitization), which can generally deal with compliance in some major scenarios of enterprises, and meets the requirements of the above-mentioned GDPR and China's Cybersecurity Law. necessary measures to be taken.
+
+However, in some internal environments (such as most internal users can access and download) or external shared environments, the processed data still faces a variety of privacy attacks, including background knowledge attacks, differential attacks and re-identification attacks, etc. That is, personal privacy may still be leaked after an attack. To avoid the above privacy attacks, while retaining a certain degree of data availability, it is possible to obtain aggregated information of data but cannot obtain information of individual records. In view of the above problems, differential privacy technology is needed to achieve this.
+
+The Solution: Differential Privacy Computation
+
+Differential Privacy (DP) technology does not need to assume the attacker's ability or background knowledge, and its security can be proved through mathematical models. As a cutting-edge privacy protection technology, it has received extensive attention from academia and industry in recent years. Differential privacy was first proposed by Microsoft researcher Dwork in 2011. It can ensure that the insertion or deletion of a record in the database will not have a significant impact on the results of queries or statistics. The mathematical description is as follows:
+
+![Description of Differential Privacy Mathematics](https://pic4.zhimg.com/80/v2-68c198b635abec392a092cd699a7a7e3_720w.png)
+
+Among them, D and D' refer to adjacent data sets respectively (the difference is only one record), and f(.) is some kind of operation or algorithm (such as query, average, sum, etc.).
+
+For its arbitrary output C, the probability of the two data sets outputting such a result is almost close, that is, the probability ratio of the two is less than e^ε, then it is called satisfying ε privacy. How to achieve this goal? Generally, by adding noise, such as Laplace-type noise, to the query results, the query results are distorted within a certain range, and the probability distribution of two adjacent databases is kept almost the same.
+
+The ε parameter is usually called the privacy budget. The smaller the ε parameter is, the closer the results of the two queries (adjacent datasets D and D′) are, that is, the higher the degree of privacy protection. Generally, ε is set to a small number, such as 0.01, 0.1. However, setting a smaller number means that higher intensity of noise needs to be added, and data availability will decrease accordingly. In practical applications, it is necessary to adjust the ε parameter (reflected in the adjustment of noise intensity) to balance privacy and data availability.
+
+In the early differential privacy application scenarios, data is stored in the database, and the query interface with differential privacy function is provided for the queryer to use. This scheme is usually called the centralized differential privacy model (Centralized Differential Privacy, CDP). With research and development, another model has emerged: Local Differential Privacy (LDP). LDP performs differential privacy processing on the user side. Specifically, a differential privacy algorithm is run when the user terminal collects data. The collected and output data undergoes special processing, so the server cannot obtain the real privacy information on the user side. The core idea of its implementation applies a randomization algorithm, such as Randomized Response, and noise is added to the data of each collection end. Although the server side cannot obtain the real data of each user side, it can recover the overall data distribution by collecting enough data with added noise, which satisfies the approximate result definition of the differential privacy model.
+
+
+| Mode                | Centralized Differential Privacy                            | Localized Differential Privacy                               |
+| ------------------- | ----------------------------------------------------------- | ------------------------------------------------------------ |
+| Scenario            | Privacy Protection of Database Query                        | Privacy Protection of Data Collection                        |
+| Running Location    | Server Side                                                 | User Side                                                    |
+| Main principle      | Add noise to the results of data query                      | Raw data is processed by randomization algorithm             |
+| Main Mechanism      | Adding Noise (eg Laplace, Gaussian Noise)                   | Randomizing Algorithms (eg Random Answer)                    |
+| Scope of protection | The querier cannot obtain the private data of a single user | The third party cannot obtain the private data of a single user |
+
+
+As shown in the figure below is an application example provided by iPhone, which collects and aggregates the frequency distribution of expressions used by mobile phone users through localized differential privacy technology.
+
+![iPhone Application Example](https://pic2.zhimg.com/80/v2-07003a5f04245c9dc17266317344ec05_720w.jpg)
+
+#### 2. User Data Rights Request Response
+
+Some privacy regulations around the world give data subjects (users) the right to freely access, modify and delete personal data. Accordingly, companies are required to respond to user requests within a specified time, such as providing users with details of the collection of personal data and use of Purpose report.
+
+Technical difficulties: Assuming that the company has 1,000 user requests a day, it takes manual operations to query the relevant system and manually produce the personal information data report of 1,000 users, which brings a great burden to the operation team and increases the high operation cost. And once manual operation errors will introduce new regulatory risks
+
+The Solution: Process Automation
+
+Process automation enables two types of privacy compliance products: ➀ Subject Rights Request (SRR), ➁ Universal Consent and Preference Management (UCPM). SRR can process and respond to users' requests for personal data access, modification and deletion rights; UCPM can process and respond to users' rights to restrict processing and refusal of collected personal data. An example of an SRR for "deletion of personal data" (in compliance with GDPR):
+
+1. The enterprise receives the user's data deletion request, and identifies and confirms the entity making the request. If it cannot be confirmed, reject the request and send the reason for rejection to the user, otherwise go to the next step;
+2. Update in the "license database" by logging the request;
+3. Identify and map the data items associated with the user entity and related to the request;
+4. Check whether these data can be deleted, including legal reasons, purpose of use, technical reasons;
+5. Automated data deletion;
+6. Notify the third party to delete the data associated with the user;
+7. The relevant execution results are presented to the user by email or report, and the user confirms that the data is deleted.
+
+![Process automation schematic diagram](https://pic4.zhimg.com/80/v2-9ccbae79484bbb211cc3292233a6f96f_720w.jpg)
+
+In a user privacy data security compliance scenario, an enterprise collects user information or forms an interactive state with users. At this time, the enterprise needs to meet various privacy compliance requirements. With the improvement of my country's data security regulations-standard system, it can be expected that privacy compliance technologies and markets such as automation of domestic user data rights response will be gradually formed.
+
+### Data security and privacy protection that individuals should pay attention to
+
+If the Internet once allowed us to connect with each other, in the 21st century, the Internet has mastered too much of ourselves that we don’t even know ourselves. Whether surfing the web with a browser or through apps and software, whether on a PC or a mobile device, every click you make with your mouse, or every touch of your finger on the screen, can be safe in this internet world hidden danger. This is why protecting our own data security and privacy is so important and urgent.
+
+#### Account password security
+
+When it comes to personal information leakage, the first and foremost must be the account password. In addition to simply setting a complex and secure password, the corresponding two-factor authentication is also a strong guarantee for account security. When a software or website wants to verify our identity, it usually asks us to enter a user name and corresponding password. However, the more and more frequent "drag library" incidents in recent years are also very worrying. The combination of username and password alone cannot provide sufficient protection for our information security. Therefore, we need to add a layer of verification on top of the password to ensure that it is indeed you who is currently operating. This is "two-factor authentication".
+
+Two-factor authentication designs are usually divided into the following categories:
+
+- Information you know: additional personal identification number (PIN), security questions
+- Objects you own: credit card (shopping), mobile phone number (SMS), password device (banking)
+- Your personal characteristics: face recognition, voiceprint, fingerprint
+
+Note that in two-factor authentication, authentication code applications, our biometrics and SMS verification codes are usually concentrated on mobile operating devices, such as mobile phones, tablets, etc. Therefore, higher protection measures are required for mobile terminal devices, including but not Limitations: Avoid using digital passwords; enable SIM card passwords; encrypt device data, etc.
+
+#### Privacy Information Protection
+
+This includes modifying DNS, blocking cameras, checking app permissions, removing additional information from photo files, checking permissions for social services, and more.
+
+### Challenges of becoming a data scientist or data engineer
+
+Although my country's big data industry has developed rapidly, there are still uneven development of the industry and great differences in the level of the same industry. Similarly, the degree of openness of public data is low, and there is no unified management standard for data utilization. Security risks are becoming increasingly prominent and technological application innovation is lagging behind, and the challenges faced in the development of big data are greater.
+
+1. Experts are needed, not all-rounders.
+
+   The best data scientists don't try to do everything. Instead, they narrow their professional focus to a specific area. “New professionals are encouraged to realize that data science is a bit like medicine, a broad and vague term that encapsulates very different ways of doing the same thing,” said Tal Kedar, CTO of Optimove. “Data scientists can have different engineering skills through different platforms and tools.” That is, when you first learn how to become a data scientist, first master the basics, and then you can be interested in your Platforms, tools, and domains for more in-depth research.
+
+2. The level of understanding of the business situation determines your choice.
+
+   As a data scientist, you need to focus not only on the "how", but also the "why"; not only to find the connection points of random data, but also to use the knowledge of various business situations to create A "mental model" that the data validates or refutes. Scott Hoover, director of data analytics at Snowflake, said, “It’s very valuable to have a mental model of what you want to do before you touch any data. Rather than aimlessly hunting for signals in the data, it’s better to be like a scientist Thinking through assumptions and building formal models based on human behavior, economics, systems, etc., and then testing those assumptions makes data science applications more effective.”
+
+3. Possess cross-disciplinary expertise.
+
+   Switching from another career? This is an asset for a data scientist. According to Tal Kida, “The best data scientists are not just statisticians or machine learning experts, they are the authority on those skills in their field or business.” Scott Hoover adds, “Data scientists It’s considered the glue between technical and non-technical teams. So in addition to having a deep technical foundation, they must also have expertise in whatever department or area they focus on, whether it’s product, marketing, sales, or finance.”
+
+4. Explain technical concepts to non-technical people.
+
+   This can be a source of frustration for data scientists who spend their days revolving around technical jargon. However, the data team must be able to communicate effectively with other departments, executives, and stakeholders who may not understand the complexities of your work. However, it is necessary for the data team to be able to communicate effectively with executives and stakeholders in other departments who may not understand the complexities of the work.
+
+5. Spend a lot of time processing raw data.
+
+   Martin Chen, research data scientist at Shape Security, said, “The main challenge may be how we use the data, including how to extract the data, how to clean the data, how to analyze the data, how to gain insights from the data or build models. Data scientists should be in the programming language Extensive expertise (including SQL, Python and R).”
+
+6. Collaboration is key.
+
+   Since multiple departments often work together on projects, it is necessary to collaborate, compromise, and set clear boundaries and expectations. "A common challenge in data science is to foster collaboration between departments on how to collect and interpret data," said Andrew Seitz, senior data analyst at Snowflake. "Predictive models and historical analysis can only be It only works when the team agrees on the validity of the source data.
+
+## Part II public government data report
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+   comment = "#>",
+   collapse = TRUE
+)
+```
+
+### Dataset 1：Parks Golf Sales Detail
+
+> Dataset source：[Parks Golf Sales Detail - CKAN (data.gov)](https://catalog.data.gov/dataset/parks-golf-sales-detail)
+
+Contains marketing details for each day program of the modern golf course, including fees and deposits.
+
+Some commands that need to be prepared:
+
+```{r, results = "hide", message = FALSE, warning = FALSE}
+library(tidyverse)
+library(lubridate)
+library(modelr)
+```
+
+#### Read and simply view data
+
+First read the dataset:
+
+```{r}
+golf <- read_csv(file = "data/ParksGolfSalesDetail_0.csv")
+```
+
+The dataset itself does have quite a few issues, and a closer look at them reveals that they are caused by extra commas left by the creator of the dataset. After considering that such semantic text cannot be easily corrected further, we can only decide to discard the data that is difficult to process and correct. Before that, we need to manually correct the data type.
+
+```{r}
+golf <- read_csv(
+   file = "data/ParksGolfSalesDetail_0.csv",
+   col_types = cols(
+      CourseID = col_double(),
+      CourseName = col_character(),
+      SaleID = col_double(),
+      SaleDate = col_datetime(),
+      ReportDate = col_datetime(),
+      ItemID = col_double(),
+      ItemDescription = col_character(),
+      ActualPrice = col_double(),
+      Quantity = col_double(),
+      SalesTax = col_double(),
+      LMPField = col_character()
+   )
+)
+golf
+```
+
+Analyze `r colnames(golf)[2]`：
+
+```{r}
+# For the pitch
+golf |>
+   group_by(CourseName) |>
+   count()
+# Category for consumption
+golf |>
+   group_by(LMPField) |>
+   count()
+# Year and month for consumption records
+golf |>
+   mutate(year = year(SaleDate), month = month(SaleDate)) |>
+   group_by(year, month) |>
+   count()
+```
+
+This data shows the consumption information of 9 golf courses from December 2015 to June 2016, of which consumption is divided into 18 categories.
+
+#### Analysis of the overall trend of the marketing amount in half a year
+
+Metadata is accurate to the time node, but we only need the content accurate to the date. So I transformed the data and calculated the total marketing by day:
+
+```{r}
+day_sales <- golf |>
+   mutate(date = as_date(SaleDate)) |>
+   group_by(date) |>
+   summarise(price = sum(ActualPrice, na.rm = TRUE))
+ggplot(day_sales, aes(date, price)) +
+   geom_line() +
+   geom_smooth(se = FALSE) +
+   labs(title = "The relationship between the date and sales of sales")
+```
+
+Different days, even if it is two weeks adjacent to each other, will have obvious gaps. We deduce that this has a lot to do with the day of the week. But we can still simply see the macro changes on the entire timeline on a weekly basis: from December to June of the previous year, consumption records have maintained a continuous upward trend.
+
+#### Specific analysis of the impact of the day of the week on the marketing volume
+
+```{r}
+sales <- day_sales |>
+   mutate(wday = wday(date, label = TRUE))
+ggplot(sales, aes(wday, price)) +
+   geom_boxplot() +
+   labs(title = "The relationship between sales and the day of week")
+```
+
+It can be seen that the consumption of rest days is much higher than that of working days, whether it is the highest, the lowest or the average.
+
+### Dataset 2: AQI Data Summary
+
+> Dataset source：[Annual Summary Air Data | US EPA](https://aqs.epa.gov/aqsweb/airdata/download_files.html#Annual)
+
+A large data file is included for use by those familiar with EPA's ambient air quality monitoring program and data.
+
+Some commands that need to be prepared:
+
+```{r, results = "hide", message = FALSE, warning = FALSE}
+library(tidyverse)
+library(maps)
+```
+
+#### Read and easily view data
+
+```{r}
+aqi <- read_csv(file = "data/annual_aqi_by_county_2021.csv")
+aqi
+```
+
+It can be seen that the dataset has a lot of columns (and no errors at all), so I decided to use `view()` to take a look:
+
+```{r, eval = FALSE}
+view(head(aqi, 10))
+```
+
+```{r, echo = FALSE}
+knitr::kable(
+   aqi[1:6, 1:10],
+   caption = "AQI top ten information"
+)
+```
+
+A closer look at the column `r colnames(aqi)[2]` reveals that there is only data for the year 2021:
+
+```{r}
+# For year
+aqi |>
+   group_by(Year) |>
+   count()
+# For states and counties
+aqi |>
+   group_by(State, County) |>
+   count()
+```
+
+This means that the year column is always redundant in the data. As for the weather quality judgment classification data, such as `r colnames(aqi)[5]`, `r colnames(aqi)[6]` .etc, and obviously, it can be merged into type_of_day (`type`) to rationally organize the data for better display and analysis:
+
+```{r}
+type_of_days <- aqi |>
+   pivot_longer(
+      c(
+         `Good Days`,
+         `Moderate Days`,
+         `Unhealthy for Sensitive Groups Days`,
+         `Unhealthy Days`,
+         `Very Unhealthy Days`,
+         `Hazardous Days`
+      ),
+      names_to = "type",
+      values_to = "days"
+   ) |>
+   select(state = State, county = County, type, days)
+```
+
+#### Visual drawing
+
+Quantitative comparison plots are made for different qualities of weather, and the quantitative differences between different qualities of weather are observed:
+
+```{r}
+type <- c(
+   "Good Days",
+   "Moderate Days",
+   "Unhealthy for Sensitive Groups Days",
+   "Unhealthy Days",
+   "Very Unhealthy Days",
+   "Hazardous Days"
+)
+type_of_days$type <- factor(
+   type_of_days$type,
+   levels = type
+)
+ggplot(type_of_days) +
+   geom_boxplot(mapping = aes(type, days)) +
+   labs(title = "The number in a year of diffrent types of days")
+```
+
+In order to further understand the air quality of different cities, I proposed a new idea: the integral method. Through the points of the city, we can synthesize the data of one year to simply judge the overall air quality of the city, so as to better compare different cities. Here is my scoring rule:
+
+| Type of Days                        | score |
+| ----------------------------------- | ----- |
+| Good Days                           | 1     |
+| Moderate Days                       | 0     |
+| Unhealthy for Sensitive Groups Days | -1    |
+| Unhealthy Days                      | -2    |
+| Very Unhealthy Days                 | -3    |
+| Hazardous Days                      | -4    |
+
+In this way, the air quality points of each city are calculated, and a simple sorting is carried out to view:
+
+```{r}
+county_score <- aqi |>
+   group_by(State, County) |>
+   summarise(
+      score = `Good Days` - `Unhealthy for Sensitive Groups Days`
+         - 2 * `Unhealthy Days`
+         - 3 * `Very Unhealthy Days`
+         - 4 * `Hazardous Days`
+   ) |>
+   rename(state = State, county = County)
+
+arrange(county_score, desc(score))
+```
+
+Too many cities may adversely affect the analysis. So I think it's enough to simply calculate the average air quality score for each state:
+
+```{r state score}
+state_score <- county_score |>
+   group_by(state) |>
+   summarise(score = mean(score))
+max(state_score$score)
+min(state_score$score)
+median <- median(state_score$score) |> print()
+```
+
+Through the calculation, we can see that the score interval is `r min(state_score$score)` ~ `r max(state_score$score)`. To ensure positive and negative data observability, I subtracted the median from each integral data to ensure that there are as many positive data as negative data - this will make the final plot more intuitive. At the same time, the state name is changed to lowercase to facilitate subsequent connection with the data of `map_data()`.
+
+```{r score optimization}
+state_score <- state_score |>
+   transmute(state = str_to_lower(state), score = score - median)
+```
+
+Try casting the data onto a map:
+
+```{r plot map}
+states_map <- map_data("state")
+
+ggplot(state_score, aes(map_id = state)) +
+   geom_map(aes(fill = score), map = states_map) +
+   scale_fill_distiller(palette = "RdYlGn", direction = 1) +
+   expand_limits(x = states_map$long, y = states_map$lat) +
+   labs(title = "air quality in all regions of the United States")
+```
+
+It is not difficult to see that the air quality in the western region is always worrying, while the air quality in the northern and southern parts is significantly better.
+
+For factors affecting air quality, these can be thought of:
+
+- exhaust emissions from vehicles;
+- Emissions of harmful gases from factories;
+- Residential living and heating;
+- waste incineration;
+- The development density of the city.
+
+When these reasons are translated into intuitive data, it is easy to think of population and per capita GDP indicators, which should be closely related to air quality. So I found some information from the Internet to verify the data and conjectures:
+
+![U.S. state population, from [Zhihu - U.S. state gdp and population](https://zhuanlan.zhihu.com/p/37637219)](https://pic2.zhimg.com/80/v2-935b94322c009ae02cdb63c9ae35b439_720w.jpg)
+
+![U.S. state per capita GDP, from [Zhihu - U.S. state gdp and population](https://zhuanlan.zhihu.com/p/37637219)](https://pic1.zhimg.com/80/v2-5241d7856e7ce71f2d776f007cc61f5c_720w.jpg)
+
+It can be seen that population density (development of the natural environment, consumption of resources) and per capita GDP (exploitation of resources, vigorous promotion of production) are closely related to air quality.
+
+Not only that, the distribution of water sources and deserts in the United States also has a more or less impact on air quality.
+
+![Distribution map of rivers in the mountains of the United States, from [Great Valley - Distribution map of rivers in the United States HD](http://www.dashangu.com/postimg_14203606_2.html)](http://external.wohuizhong.cn/fetch-1479233195984-392x290-t-afcebc.jpg?imageView2/2/w/392)
+
+The air quality of the plains with lush vegetation and abundant water sources and the soil on both sides of the main rivers is significantly better, because these places are easier to complete a complete ecological environment and play a very important role in air purification. Alpine regions such as the Cordillera Mountains or the Appalachian Mountains always block air circulation and affect the regular changes in the climate.
+
+## Part III Public dataset analysis
+
+> Dataset source：[Heart Disease Data Set](https://archive.ics.uci.edu/ml/datasets/Heart+Disease)
+
+This database contains 76 attributes, but all published experiments refer to using a subset of 14 of them. In particular, the Cleveland database is the only one that has been used by ML researchers to this date. The "goal" field refers to the presence of heart disease in the patient. It is integer valued from 0 (no presence) to 4. Experiments with the Cleveland database have concentrated on simply attempting to distinguish presence (values 1,2,3,4) from absence (value 0).
+
+Some commands that need to be prepared:
+
+```{r, results = "hide", message = FALSE, warning = FALSE}
+library(tidyverse)
+library(modelr)
+library(randomForest)
+library(ROCR)
+```
+
+#### Read and simply view data
+
+The data itself does not contain headers, but here is all the header information:
+
+>   age
+>
+>   sex:
+>
+>   - 0 = female
+>   - 1 = male
+>
+>   cp: chest pain
+>
+>   - 1 = typical angina,
+>   - 2 = atypical angina,
+>   - 3 = non-anginal pain,
+>   - 4 = asymptomatic
+>
+>   trestbps: resting blood pressure (in mm Hg)
+>
+>   chol: serum cholestoral in mg/dl
+>
+>   fbs: fasting blood sugar greater than 120 mg/dl, 1 = TRUE, 0 = FALSE
+>
+>   restecg: resting electrocardiographic results
+>
+>   - 1 = normal
+>   - 2 = having ST-T wave abnormality
+>   - 3 = showing probable or definite left ventricular hypertrophy
+>
+>   thalach: maximum heart rate achieved
+>
+>   exang: exercise induced angina, 1 = yes, 0 = no
+>
+>   oldpeak: ST depression induced by exercise relative to rest
+>
+>   slope: the slope of the peak exercise ST segment
+>
+>   - 1 = upsloping
+>   - 2 = flat
+>   - 3 = downsloping
+>
+>   ca: number of major vessels (0-3) colored by fluoroscopy
+>
+>   thal： this is short of thalium heart scan
+>
+>   - 3 = normal (no cold spots)
+>   - 6 = fixed defect (cold spots during rest and exercise)
+>   - 7 = reversible defect (when cold spots only appear during exercise)
+>
+>   hd： (the predicted attribute) - diagnosis of heart disease
+>
+>   - 0 if less than or equal to 50% diameter narrowing
+>   - 1 if greater than 50% diameter narrowing
+
+Next, read the dataset:
+
+```{r}
+disease <- read_csv(
+   file = "data/processed.cleveland.csv",
+   col_names = c(
+      "age", "sex", "cp", "trestbps",
+      "chol", "fbs", "restecg",
+      "thalach", "exang", "oldpeak",
+      "slope", "ca", "thal", "hd"
+   ),
+   na = "?"
+)
+head(disease)
+```
+
+Take a closer look at the data containing NAs and the associated statistics:
+
+```{r}
+colSums(is.na(disease))
+```
+
+Except for NA, obviously some columns can be optimized for type. Here, sex, cp, fbs, restecg, exang, slope, ca, thal, hd are modified as factor variables:
+
+```{r}
+disease$sex <- factor(disease$sex, levels = c(0, 1), labels = c("F", "M"))
+disease$hd <- ifelse(disease$hd == 0, 1, 0)
+for (i in c("cp", "fbs", "restecg", "exang", "slope", "ca", "thal", "hd")) {
+   disease[[i]] <- as.factor(disease[[i]])
+}
+```
+
+#### initial analysis
+
+The relationship between resting blood pressure at admission and its corresponding serum cholesterol level was analyzed:
+
+```{r}
+disease |>
+   ggplot(aes(trestbps, chol)) +
+   geom_point(position = "jitter") +
+   geom_smooth() +
+   labs(title = "Scatter map of trestbps and chol")
+```
+
+It can be seen that although there is no obvious linear relationship, it is still positively correlated as a whole.
+
+```{r}
+disease |>
+   mutate(illness = ifelse(hd == 0, "Healthy", "Unhealthy")) |>
+   ggplot(aes(age)) +
+   geom_bar(aes(fill = illness), position = "dodge") +
+   theme(legend.position = "bottom") +
+   labs(title = "Bar statistics diagram of age and patient health status")
+```
+
+In terms of age, unhealthy people are mostly concentrated around the age of 60.
+
+Analysis of the type of symptoms of the disease:
+
+Process the data. From the previous table header information, we can see that the numbers in the column `cp` actually correspond to 4 types, namely typical chest pain, atypical chest pain, non-angina pectoris and asymptomatic. So I need to remap the names, change the factor type data to calculate the percentages and sort them correctly:
+
+```{r}
+names <- c(
+   "typical angina", "atypical angina",
+   "non-anginal pain", "asymptomatic"
+)
+pie_data <- disease |>
+   mutate(type = names[cp]) |>
+   group_by(type) %>%
+   summarise(percent = round(
+      n() / nrow(.) * 100, 1
+   ))
+pie_data$type <- factor(pie_data$type, levels = names)
+pie_data <- pie_data |> arrange(type)
+```
+
+One of the important elements of drawing a pie chart is polar transformation and label placement:
+
+```{r}
+pie_data |>
+   ggplot(aes(x = "", y = percent, fill = type)) +
+   geom_bar(stat = "identity", width = 1) +
+   coord_polar("y") +
+   geom_text(aes(
+      x = 1.2,
+      y = 100 - percent * 0.5 - c(0, cumsum(percent)[-length(percent)]),
+      label = paste(percent, "%")
+   ), size = 4) +
+   scale_fill_brewer("Blues") +
+   theme_minimal() +
+   theme(
+      axis.title.x = element_blank(),
+      axis.title.y = element_blank(),
+      axis.text.x = element_blank(),
+      panel.border = element_blank(),
+      panel.grid = element_blank(),
+      axis.ticks = element_blank(),
+   ) +
+   labs(title = "Different symptom type proportion statistics")
+```
+
+We can conclude that, of all types of chest pain, the majority observed in individuals are typical chest pain types followed by non-angina types.
+
+#### Execute Logistic Regression for Machine Learning Algorithms
+
+First, we split the dataset into training data (75%) and test data (25%).
+
+
+```{r}
+set.seed(100)
+# 100用于控制抽样的permutation为100.
+index <- sample(nrow(disease), 0.75 * nrow(disease))
+disease2 <- na.omit(disease)
+```
+
+Generate a model on training data, then validate the model with test data:
+
+```{r}
+mod <- glm(hd ~ ., data = disease2, family = "binomial")
+```
+
+where `family = "binomial"` means to include only two results.
+
+To check how our model was generated, we need to calculate the prediction score and build a confusion matrix to understand the accuracy of the model.
+
+Fitting can only be used to obtain prediction scores on the data that generated the model.
+```{r}
+pred_value <- fitted(mod)
+train <- disease2 |>
+   mutate(pred = pred_value)
+```
+
+We can see that the predicted score is the probability of having a heart attack. But we have to find an appropriate cut-off point from which it is easy to distinguish heart disease.
+
+For this, we need the ROC curve, which is a graph showing the performance of a classification model across all classification thresholds. It will allow us to take appropriate cutoffs.
+
+```{r}
+pred <- prediction(train$pred, train$hd)
+perf <- performance(pred, "tpr", "fpr")
+plot(perf, colorize = T, print.cutoffs.at = seq(0.1, by = 0.1))
+```
+
+By using the ROC curve, we can observe that 0.6 has better sensitivity and specificity, so we choose 0.6 as the cut-off point for discrimination.
+
+```{r}
+pred1 <- ifelse(pred_value < 0.6, "No", "Yes")
+disease2 |>
+   mutate(pred = pred1) |>
+   ggplot() +
+   geom_point(aes(hd, pred), position = "jitter") +
+   labs(title = "Scatter map comparing learning & actual results")
+```
+
+It can be seen that the prediction model is reliable most of the time.
+
+#### Build a random forest
+
+```{r}
+disease$hd <- ifelse(disease$hd == 0, "Healthy", "Unhealthy") |>
+   as.factor()
+```
+
+##### rfImpute Impute missing values
+
+The `rfImpute()` function is used to fill in missing values. The missing value filling of random forest is an iterative algorithm for filling according to similarity. Where `hd` is the corresponding variable and `.` is all other variables, which means to use all other variables to predict.
+
+```{r}
+data_imputed <- rfImpute(hd ~ ., data = disease, iter = 6)
+```
+
+The result will output the OOB value after each iteration, the lower the better.
+
+##### Building a random forest model
+
+Creates a random forest of 500 decision trees by default. The optimal number of subsets is set according to different data categories. Numerical data is the total number of variables divided by 3, and categorical data is the square root of the total number of variables.
+
+```{r}
+model <- randomForest(hd ~ ., data = data_imputed, proximity = TRUE)
+```
+
+The `proximity` parameter is not required, when added, it will output a `proximity` matrix, which can be used for heatmaps or MDS (PCoA).
+
+##### Random Forest Evaluation
+
+The default is to create 500 decision trees, and the OOB (out of bag) value at this time can be used to evaluate how the random forest model is.
+
+The `err.rate` under `model` is the OOB data, which has three columns, namely the total OOB, the OOB of the healthy person, and the OOB of the unhealthy person. We can look at the change trend of OOB from the 1st tree to the 500th decision tree at this time:
+
+```{r}
+# Create tibble for ggplot plotting
+oob_error_data <- tibble(
+   Trees = rep(seq_len(nrow(model$err.rate)), times = 3),
+   Type = rep(c("OOB", "Healthy", "Unhealthy"), each = nrow(model$err.rate)),
+   Error = c(
+      model$err.rate[, "OOB"],
+      model$err.rate[, "Healthy"],
+      model$err.rate[, "Unhealthy"]
+   )
+)
+# drawing ggplot
+ggplot(oob_error_data, aes(x = Trees, y = Error)) +
+   geom_line(aes(color = Type)) +
+   labs(title = "OOB's change trend observation diagram")
+```
+
+It can be seen that the value of OOB after about 150 tends to be stable, and the default value of 500 is a very stable value.
+
+##### optimal number of subsets
+
+The default number of subsets is the square root of the total number of variables, which is the square root of 13, which is about 3.6, so the default number of subsets is 3.
+We can change the number of different subsets to confirm what is the optimal number of subsets, for example, you can look at the results when the number of subsets is 1-10:
+
+```{r}
+oob_values <- vector(length = 10)
+for (i in 1:10) {
+   temp_model <- randomForest(hd ~ ., data = data_imputed, mtry = i)
+   oob_values[i] <- temp_model$err.rate[nrow(temp_model$err.rate), 1]
+}
+oob_values
+```
+
+It can be found that the lowest OOB is indeed the number of subsets of 3.

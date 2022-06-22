@@ -1,0 +1,701 @@
+---
+title: Final Assessment
+author: CWorld
+date: 2022-06-10
+output: word_document
+---
+
+```{R setwd}
+setwd("D:/Project/R-Project/homework-code/FinalAssessment")
+```
+
+## Part I 对数据隐私和数据安全的看法
+
+### 认识数据隐患
+
+大数据时代的到来，数据无疑是企业和个人最重要的资产。特别是对个人而言，它不仅是数字环境中的个人信息收集、使用、整理、处理或共享，更关系到个人在数字世界中的存在，在互联网的急剧发展下，数据安全和隐私边界等也愈加重要。
+
+数据隐私方面，互联网公司则通过《用户协议》，让用户允许公开自己更多的数据，尝试从用户信息中挖掘出商机，同时尽可能地避免法律责任。但与此同时，在数据安全上，不论是互联网巨头 Facebook，还是打车应用 Uber、美国信用服务公司 Equifax 都曾爆出客户数据遭到窃取的事件……随着各国对大数据安全重要性认识的不断加深，包括美国、英国、澳大利亚、欧盟和我国在内的很多国家和组织都制定了大数据安全相关的法律法规和政策来推动大数据利用和安全保护。
+
+### 政府层面的防范措施
+
+例如欧盟的 GDPR，不仅扩大了个人数据（Personal data）的含义，并引入假名数据（Pseudonimised data）的概念，并就数据许可（Consent）、默认隐私保护（Privacy by Design, Privacy byDefault）、彻底遗忘权（Rght to beforgotten） 等权利内容作出了明确规范，同时为此规定了严厉的违规处罚，罚款范围是1000万到2000万欧元，或企业全球年营业额的2%到4%。
+
+国内方面，《中华人民共和国网络安全法》自2017年6月1日起施行，今年5月1日，《信息安全技术个人信息安全规范》也将正式实施，其主要内容要素包括个人信息及其相关术语基本定义,个人信息安全基本原则,个人信息收集、保存、使用以及处理等流转环节以及个人信息安全事件处置和组织管理要求等。
+
+### 企业应当落实到位的防范措施
+
+如何实现数据安全与隐私保护？
+
+几乎所有行业都会面对数据安全与数据隐私的问题，特别是电商、健康医疗、教育、通讯等领域，这些行业企业直接面对C端人群，对于个人隐私和数据安全等问题的处理更加敏感。很多企业正在通过技术手段实现对数据安全和隐私的保护。
+
+尽管很多企业在技术平台和数据应用上都面临着许多实现难题，如传统安全措施难以适配、平台安全机制亟待改进、应用访问控制愈加复杂，或是数据安全保护难度加大、个人信息泄漏风险加剧、数据真实性保障更加困难、数据所有者权益难以保障等问题，但目前，这些以科技为先的企业，不仅对数据的规范使用的规范使用越加重视，对网络安全的潜在威胁反应也越来越敏捷。
+
+#### 1. 数据采集过程中的隐私保护
+
+在保护用户的个体隐私前提下，对成千上万个用户终端的隐私数据进行采集，在服务器中完成批量数据的聚合与分析，挖掘大规模用户数据的总体趋势与统计信息。
+
+技术难点：传统的数据安全处理技术是一种去标识化技术（也称为数据脱敏），在企业一部分主要场景中一般可应对合规性，符合上述 GDPR 和中国《网络安全法》要求的采取的必要措施。
+
+然而，在一些内部环境（比如大部分内部用户可以访问和下载）或外部共享环境中，它处理后的数据仍然面临多种多样的隐私攻击， 包括背景知识攻击、差分攻击和重标识攻击等 ，即经过攻击后个人隐私仍然可能会被泄露。避免以上的隐私攻击，同时保留一定程度的数据可用性，即可获得数据的聚合信息但无法获得单个记录的信息。针对以上问题，需要差分隐私技术来实现。
+
+解决方法：差分隐私计算
+
+差分隐私 （Differential Privacy, DP） 技术由于无需假设攻击者能力或背景知识，安全性可通过数学模型证明，作为一种前沿的隐私保护技术近年来受到了学术界和工业界的广泛关注。差分隐私最早由微软研究者 Dwork 在 2011 年提出，它可以确保数据库插入或删除一条记录不会对查询或统计的结果造成显著性影响，数学化描述如下：
+
+![Description of Differential Privacy Mathematics](https://pic4.zhimg.com/80/v2-68c198b635abec392a092cd699a7a7e3_720w.png)
+
+其中，D 和 D' 分别指相邻的数据集（差别只有一条记录），f(.) 是某种操作或算法（比如查询、求平均、总和等）。
+
+对于它的任意输出C ，两个数据集输出这样结果的概率几乎是接近的，即两者概率比值小于 e^ε，那么称为满足ε隐私。如何实现这个目标? 一般来说，通过在查询结果中加入噪声，比如 Laplace 类型的噪声，使得查询结果在一定范围内失真，并且保持两个相邻数据库概率分布几乎相同。
+
+ε 参数通常被称为隐私预算（Privacy budget）,ε参数越小，两次查询（相邻数据集 D 和 D′）的结果越接近，即隐私保护程度越高。一般将ε 设置为一个较小的数，比如 0.01，0.1。但设置更小的数意味需要加入更高强度的噪声，数据可用性会相应下降，这实际应用中需通过调节ε 参数（反映在噪声强度的调节上），以平衡隐私性与数据可用性。
+
+早期差分隐私应用场景中，数据存储在数据库中，通过提供具有差分隐私功能的查询接口给查询者使用，通常称该方案为中心化的差分隐私模型（Centralized Differential Privacy，CDP）。随着研究与发展，出现了另一种模式:本地差分隐私（Local Differential Privacy, LDP）。LDP 在用户侧进行差分隐私处理，具体来说，用户终端的数据采集时都会运行一个差分隐私算法，采集输出的数据经过特殊的处理，因此服务器也无法获得用户侧的真实隐私信息。其实现的核心思想应用了随机化算法，比如随机应答（Randomized Response），每一个采集端的数据都加入了噪声。虽然服务器侧无法获得每一个用户侧的真实数据，但采集足够多的加入噪声的数据，它恢复得到总体数据分布，满足差分隐私模型的近似结果定义。
+
+
+| 模式     | 中心化差分隐私                   | 本地化差分隐私                   |
+| -------- | -------------------------------- | -------------------------------- |
+| 场景     | 数据库查询的隐私保护             | 数据采集的隐私保护               |
+| 运行位置 | 服务器侧                         | 用户侧                           |
+| 主要原理 | 数据查询的结果后加入噪声         | 原始数据经过随机化算法处理       |
+| 主要机制 | 加噪（如拉普拉斯、高斯噪声）     | 随机化算法（如随机应答）         |
+| 防护范围 | 查询者无法获得单个用户的隐私数据 | 第三方也无法获得单个用户隐私数据 |
+
+
+如下图所示是 iPhone 提供的一个应用示例，通过本地化差分隐私技术采集和聚合手机用户使用表情的频率分布。
+
+![iPhone Application Example](https://pic2.zhimg.com/80/v2-07003a5f04245c9dc17266317344ec05_720w.jpg)
+
+#### 2. 用户数据权利请求响应
+
+全球一些隐私法规赋予数据主体（用户）自由访问、修改和删除个人数据等权利，相应地，要求企业必须在规定的时间内对用户提出的请求进行响应，比如向用户提供收集个人数据明细及使用目的报告。
+
+技术难点：假设企业一天有 1000 个用户请求，采取手动操作，查询相关系统并手工制作 1000 个用户的个人信息数据报告，这给运营团队人员带来极大的负担同时增加高额的运营成本，且一旦人工操作错误将引入新的法规风险
+
+解决方法：流程自动化
+
+流程自动化赋能两类隐私合规产品中：➀ 主体权利请求 （Subject Rights Request, SRR），➁ 统一许可偏好性设置管理（Universal Consent and Preference Management, UCPM）。SRR 可处理与响应用户提出的个人数据访问、修改和删除等权利请求；UCPM 可处理与响应用户对被收集的个人数据提出限制处理和拒绝的权利请求。 以“删除个人数据”的 SRR 为例（遵循 GDPR）：
+
+1. 企业收到用户的数据删除请求，对发出请求的实体进行身份识别与确认。若无法确认，则拒绝 该请求并向该用户发送拒绝的原因，否则执行下一步；
+2. 通过请求的记录日志更新在“许可数据库”中；
+3. 识别和映射与用户实体关联且与该次请求相关的数据项；
+4. 检查这些数据是否可被删除，包括法规原因，使用目的，技术原因；
+5. 自动化执行数据删除；
+6. 通知合作第三方删除该用户相关联的数据；
+7. 相关执行结果以邮件或报告呈现给用户，用户确认数据完成删除。
+
+![Process automation schematic diagram](https://pic4.zhimg.com/80/v2-9ccbae79484bbb211cc3292233a6f96f_720w.jpg)
+
+在用户隐私数据安全合规场景中，企业采集用户信息或与用户形成交互状态，企业此时需要满足各类隐私合规要求。随着我国数据安全法规 - 标准体系的完善，可预计 国内用户数据权利响应自动化等隐私合规技术与市场正将逐步形成。
+
+### 个人应当注意的数据安全与隐私防护
+
+如果说，曾经互联网让我们相互连接，时至二十一世纪，互联网已经掌握了太多连我们自己都不认识的自己。无论是使用浏览器上网，还是通过应用和软件，无论是在个人电脑，还是移动设备，你使用鼠标的每一次点击，或使用手指的每一次触碰屏幕，都可能在这个互联网世界中成为安全隐患。 正是如此，保护我们自身的数据安全和隐私防患才显得如此空前重要并且刻不容缓。
+
+#### 账户密码安全
+
+说到个人信息泄露，首当其冲的肯定是账户密码。 而除了单纯设置复杂安全的密码，相应的，双因子认证，也同样是账户安全强有力的保障。当一个软件或者网站要验证我们的身份时，一般会让我们输入用户名和对应的密码。但是近几年越来越频发的「拖库」事件也让人非常担忧，单单靠用户名和密码的组合已经无法对我们的信息安全提供足够的保护。 所以我们需要在密码之上再加一层验证，来保证目前在操作的确实是你自己。这就是「双因子认证」。 
+
+双因子认证的设计通常划分成下面几种： 
+
+- 你知道的信息：额外的个人认证码（PIN）、密保问题
+- 你拥有的物体：信用卡（购物）、手机号（短信）、密码器（银行）
+- 你个人的特征：人脸识别、声纹、指纹
+
+注意双因子认证中，认证码应用、我们的生物特征和短信验证码通常集中在可移动的操作设备，如手机、平板等，因此对移动终端设备提出了更高的保护措施要求，包括但不限于：避免使用数字密码；开启 SIM 卡密码；加密设备数据等。
+
+#### 隐私信息保护
+
+这包括修改 DNS、遮挡摄像头、检查应用权限、移除照片文件中的附加信息、检查社交服务的权限等。
+
+### 成为数据科学家或数据工程师遇到的挑战
+
+虽然我国大数据产业快速发展，但是仍存在行业发展良莠不齐、同行业的等级差异极大。同样公用性数据的开放程度较低、对于数据的利用缺乏统一的管理规范。安全风险日益突出、技术应用创新滞后，在大数据发展中面临的挑战较大。
+
+1. 需要专家而不是全才。
+
+   最好的数据科学家不会试图去做所有的事情。相反，他们将专业专注的范围缩小到特定领域。“鼓励新的专业人士认识到，数据科学有点像医学，这是一个宽泛而模糊的措辞，概括了同一事物迥然不同的做法。”Optimove公司首席技术官塔尔·基达（Tal Kedar）表示，“数据科学家可以通过不同的平台和工具拥有各不相同的工程技能。”也就是说，当你初次学会如何成为一名数据科学家的时候，首先要掌握基础知识，然后就可以对你感兴趣的平台、工具以及领域进行更深入的研究。
+
+2. 业务情况了解的程度决定了你的选择。
+
+   作为一名数据科学家，不仅需要注重“如何做”，还要了解这么做的“原因”；不仅要找出随机数据的连接点，并且还要利用对各种业务情况的认知来创建可通过数据进行验证或反驳的“心智模型”。Snowflake公司数据分析总监斯科特·胡佛（Scott Hoover）表示，“在接触任何数据之前为自己的目标建立心智模型是非常有价值的。与其漫无目的地搜寻数据中的信号，不如像科学家一样通过假设来进行思考，并以人类行为、经济学、体系等为基础构建形式化模型，然后对这些假设进行测试，让数据科学应用更加有成效。”
+
+3. 具有跨领域的专业知识。
+
+   从另一个职业转换过来？这对一个数据科学家来说是一笔财富。塔尔·基达表示，“最好的数据科学家不仅仅是统计学家或机器学习专家，他们还是在领域或企业中掌握这些技能的权威。”斯科特·胡佛补充道，“数据科学家被认为是技术和非技术团队之间的粘合剂。因此，除了拥有深厚的技术基础，他们还必须在他们关注的任何部门或领域拥有专业知识，无论是产品、营销、销售还是财务。”
+
+4. 向非技术人员解释技术概念。
+
+   对于那些整天围着技术术语转的数据科学家来说，这可能是令人沮丧的原因。然而，数据团队必须能够有效地与其他部门、管理人员主管和涉众进行沟通，他们可能不理解您工作的复杂性。然而，数据团队能够与其他部门可能不理解工作复杂性的高管及利益相关人员进行有效沟通是必要的。
+
+5. 花费大量时间处理原始数据。
+
+   Shape Security公司研究数据科学家Martin Chen表示，“主要挑战可能是我们如何使用数据，其中包括如何提取数据、如何清理数据、如何分析数据、如何从数据中获得见解或构建模型。数据科学家应该在编程语言（包括SQL、Python和R）方面拥有广泛的专业知识。”
+
+6. 协作是关键。
+
+   由于多个部门通常在项目上共同工作，所以有必要进行协作、妥协，并设定明确的界限和期望。“在数据科学领域面临的一个共同挑战是，促进部门之间在如何收集和解释数据方面的合作。”Snowflake高级数据分析师安德鲁·塞茨（Andrew Seitz）表示，“预测模型和历史分析只有在团队关于源数据的有效性达成一致时才能发挥作用。
+
+## Part II 公共政府数据报告
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+   comment = "#>",
+   collapse = TRUE
+)
+```
+
+### 数据集1：Parks Golf Sales Detail
+
+> 数据集来源：[Parks Golf Sales Detail - CKAN (data.gov)](https://catalog.data.gov/dataset/parks-golf-sales-detail)
+
+包含了现代高尔夫球场的每天的各个项目的营销细节，包括费用和押金。
+
+需要准备的一些命令：
+
+```{r, results = "hide", message = FALSE, warning = FALSE}
+library(tidyverse)
+library(lubridate)
+library(modelr)
+```
+
+#### 读取并简单查看数据
+
+首先进行数据集读取：
+
+```{r}
+golf <- read_csv(file = "data/ParksGolfSalesDetail_0.csv")
+```
+
+数据集本身确实存在相当多的问题，而且仔细查看这些问题，会发现是由于数据集创建者留下的多余逗号引起。在考虑到这样的语义化文字无法简单地进一步修正后，我们只能决定舍弃那些很难处理修正的数据。在此之前，我们需要对数据类型进行手动矫正。
+
+```{r}
+golf <- read_csv(
+   file = "data/ParksGolfSalesDetail_0.csv",
+   col_types = cols(
+      CourseID = col_double(),
+      CourseName = col_character(),
+      SaleID = col_double(),
+      SaleDate = col_datetime(),
+      ReportDate = col_datetime(),
+      ItemID = col_double(),
+      ItemDescription = col_character(),
+      ActualPrice = col_double(),
+      Quantity = col_double(),
+      SalesTax = col_double(),
+      LMPField = col_character()
+   )
+)
+golf
+```
+
+对 `r colnames(golf)[2]` 进行分析：
+
+```{r}
+# 针对球场
+golf |>
+   group_by(CourseName) |>
+   count()
+# 针对消费分类
+golf |>
+   group_by(LMPField) |>
+   count()
+# 针对消费记录的年和月
+golf |>
+   mutate(year = year(SaleDate), month = month(SaleDate)) |>
+   group_by(year, month) |>
+   count()
+```
+
+这个数据一共展示了从15年12月份到16年6月份共9个高尔夫球场的消费信息，其中消费分为18个大类。
+
+#### 对半年内营销额整体趋势分析
+
+元数据精确到时间节点，但我们只需要精确到日期的内容。所以我对数据进行了转换，并计算按天算的总营销额：
+
+```{r}
+day_sales <- golf |>
+   mutate(date = as_date(SaleDate)) |>
+   group_by(date) |>
+   summarise(price = sum(ActualPrice, na.rm = TRUE))
+ggplot(day_sales, aes(date, price)) +
+   geom_line() +
+   geom_smooth(se = FALSE) +
+   labs(title = "日期与销售额的关系折线图")
+```
+
+不同天数，哪怕是相邻的两周都会有明显的差距。我们推断这与一周的第几天有很大关系。但我们依然可以按照周来简单看清在整个时间轴上的宏观变化：从上一年的 12 月份一直到 6 月份，消费记录一直保持着持续上升的状态。
+
+#### 每周的第几天对营销额影响的具体分析
+
+```{r}
+sales <- day_sales |>
+   mutate(wday = wday(date, label = TRUE))
+ggplot(sales, aes(wday, price)) +
+   geom_boxplot() +
+   labs(title = "每周的第几天与营销额的关系箱线图")
+```
+
+可以看到，休息日比工作日的消费要高多了，不管是最高、最低还是平均水平。
+
+### 数据集2：AQI Data Summary
+
+> 数据集来源：[Annual Summary Air Data | US EPA](https://aqs.epa.gov/aqsweb/airdata/download_files.html#Annual)
+
+包含了大型数据文件，供了解EPA环境空气质量监测计划和数据的人员使用。
+
+需要准备的一些命令：
+
+```{r, results = "hide", message = FALSE, warning = FALSE}
+library(tidyverse)
+library(maps)
+```
+
+#### 读取并简单查看数据
+
+```{r}
+aqi <- read_csv(file = "data/annual_aqi_by_county_2021.csv")
+aqi
+```
+
+可以看到数据集的列非常多（并且完全没有报错），所以我决定使用 `view()` 浅查看一下：
+
+```{r, eval = FALSE}
+view(head(aqi, 10))
+```
+
+```{r, echo = FALSE}
+knitr::kable(
+   aqi[1:6, 1:10],
+   caption = "AQI top ten information"
+)
+```
+
+仔细观察列 `r colnames(aqi)[2]` 会发现其实只有 2021 年这一年的数据：
+
+```{r}
+# 针对年份
+aqi |>
+   group_by(Year) |>
+   count()
+# 针对州县
+aqi |>
+   group_by(State, County) |>
+   count()
+```
+
+这意味着年份这个列在数据总是多余的。而关于天气质量评判分类数据，如 `r colnames(aqi)[5]`、`r colnames(aqi)[6]` 等，则明显可以合并为 type_of_day（`type`）从而合理整理数据，以便更好地展示和分析：
+
+```{r}
+type_of_days <- aqi |>
+   pivot_longer(
+      c(
+         `Good Days`,
+         `Moderate Days`,
+         `Unhealthy for Sensitive Groups Days`,
+         `Unhealthy Days`,
+         `Very Unhealthy Days`,
+         `Hazardous Days`
+      ),
+      names_to = "type",
+      values_to = "days"
+   ) |>
+   select(state = State, county = County, type, days)
+```
+
+#### 可视化绘图
+
+针对不同质量的天气进行数量比较绘图，对比观察不同质量的天气在数量上的差异：
+
+```{r}
+type <- c(
+   "Good Days",
+   "Moderate Days",
+   "Unhealthy for Sensitive Groups Days",
+   "Unhealthy Days",
+   "Very Unhealthy Days",
+   "Hazardous Days"
+)
+type_of_days$type <- factor(
+   type_of_days$type,
+   levels = type
+)
+ggplot(type_of_days) +
+   geom_boxplot(mapping = aes(type, days)) +
+   labs(title = "不同质量天气在一年中出现数量的箱线统计图")
+```
+
+为了进一步了解不同城市的空气质量情况，我提出了一个全新的思路：积分法。通过对城市的积分，来综合一年的数据简单判断这个城市的整体空气质量，从而更好地对不同城市进行比较。下面是我的积分规则：
+
+| Type of Days                        | score |
+| ----------------------------------- | ----- |
+| Good Days                           | 1     |
+| Moderate Days                       | 0     |
+| Unhealthy for Sensitive Groups Days | -1    |
+| Unhealthy Days                      | -2    |
+| Very Unhealthy Days                 | -3    |
+| Hazardous Days                      | -4    |
+
+从而算出了各个城市的空气质量积分，并进行了简单的排序查看：
+
+```{r}
+county_score <- aqi |>
+   group_by(State, County) |>
+   summarise(
+      score = `Good Days` - `Unhealthy for Sensitive Groups Days`
+         - 2 * `Unhealthy Days`
+         - 3 * `Very Unhealthy Days`
+         - 4 * `Hazardous Days`
+   ) |>
+   rename(state = State, county = County)
+
+arrange(county_score, desc(score))
+```
+
+城市太多可能反而影响分析。所以我认为只是简单计算各州平均空气质量积分是够用的：
+
+```{r}
+state_score <- county_score |>
+   group_by(state) |>
+   summarise(score = mean(score))
+max(state_score$score)
+min(state_score$score)
+median <- median(state_score$score) |> print()
+```
+
+通过计算可以看到分数区间为 `r min(state_score$score)` ~ `r max(state_score$score)`。为了保证数据的正负可观性，我将每一个积分数据减掉中位数，保证正数据与负数据一样多 —— 这会使得最后生成的图会更直观。同时将州名改为小写是为了方便后续与 `map_data()` 的数据联系起来。
+
+```{r}
+state_score <- state_score |>
+   transmute(state = str_to_lower(state), score = score - median)
+```
+
+尝试将数据投射到地图上：
+
+```{r}
+states_map <- map_data("state")
+
+ggplot(state_score, aes(map_id = state)) +
+   geom_map(aes(fill = score), map = states_map) +
+   scale_fill_distiller(palette = "RdYlGn", direction = 1) +
+   expand_limits(x = states_map$long, y = states_map$lat) +
+   labs(title = "美国各地区天气质量热力图")
+```
+
+不难看出西部地区空气质量总是令人堪忧，而南北部分的空气质量却明显好很多。
+
+对于影响空气质量的因素，可以联想到这些：
+
+- 汽车的尾气排放；
+- 工厂的有害气体的排放；
+- 居民生活和取暖；
+- 垃圾焚烧；
+- 城市的发展密度。
+
+而将这些原因转化为直观的数据，则很容易想到人口与人均 GDP 指标，它们应当与空气质量关系紧密。于是我从互联网上找到了一些信息，用来核实数据与猜想：
+
+![美国各州人口，来自 [知乎 - 美国各州gdp和人口](https://zhuanlan.zhihu.com/p/37637219)](https://pic2.zhimg.com/80/v2-935b94322c009ae02cdb63c9ae35b439_720w.jpg)
+
+![美国各州人均 GDP，来自 [知乎 - 美国各州gdp和人口](https://zhuanlan.zhihu.com/p/37637219)](https://pic1.zhimg.com/80/v2-5241d7856e7ce71f2d776f007cc61f5c_720w.jpg)
+
+可以看到人口密度（对自然环境的开发、对资源的消耗）和人均 GDP（对资源的开采挖掘，对生产的大力促进）与空气质量是息息相关的。
+
+不仅如此，美国的水源与荒漠分布也对空气质量造成了或多或少的影响。
+
+![美国山脉河流分布图，来自 [大山谷 - 美国河流分布图高清](http://www.dashangu.com/postimg_14203606_2.html)](http://external.wohuizhong.cn/fetch-1479233195984-392x290-t-afcebc.jpg?imageView2/2/w/392)
+
+植物生长茂盛、水源丰富的平原和主要河流两侧土壤的空气质量明显更好，因为这些地方更易于落成一个完整的生态环境，对空气的净化起着非常重要的作用。而高山地带如科迪勒拉山系或阿巴拉契亚山脉，则总是阻断空气流通，影响着气候的规律变化。
+
+## Part III 公开数据集分析
+
+> 数据集来源：[Heart Disease Data Set](https://archive.ics.uci.edu/ml/datasets/Heart+Disease)
+
+This database contains 76 attributes, but all published experiments refer to using a subset of 14 of them. In particular, the Cleveland database is the only one that has been used by ML researchers to this date. The "goal" field refers to the presence of heart disease in the patient. It is integer valued from 0 (no presence) to 4. Experiments with the Cleveland database have concentrated on simply attempting to distinguish presence (values 1,2,3,4) from absence (value 0).
+
+需要准备的一些命令：
+
+```{r, results = "hide", message = FALSE, warning = FALSE}
+library(tidyverse)
+library(modelr)
+library(randomForest)
+library(ROCR)
+```
+
+#### 读取并简单查看数据
+
+数据本身不包含表头，但这里有所有表头信息：
+
+>   age
+>
+>   sex:
+>
+>   - 0 = female
+>   - 1 = male
+>
+>   cp: chest pain
+>
+>   - 1 = typical angina,
+>   - 2 = atypical angina,
+>   - 3 = non-anginal pain,
+>   - 4 = asymptomatic
+>
+>   trestbps: resting blood pressure (in mm Hg)
+>
+>   chol: serum cholestoral in mg/dl
+>
+>   fbs: fasting blood sugar greater than 120 mg/dl, 1 = TRUE, 0 = FALSE
+>
+>   restecg: resting electrocardiographic results
+>
+>   - 1 = normal
+>   - 2 = having ST-T wave abnormality
+>   - 3 = showing probable or definite left ventricular hypertrophy
+>
+>   thalach: maximum heart rate achieved
+>
+>   exang: exercise induced angina, 1 = yes, 0 = no
+>
+>   oldpeak: ST depression induced by exercise relative to rest
+>
+>   slope: the slope of the peak exercise ST segment
+>
+>   - 1 = upsloping
+>   - 2 = flat
+>   - 3 = downsloping
+>
+>   ca: number of major vessels (0-3) colored by fluoroscopy
+>
+>   thal： this is short of thalium heart scan
+>
+>   - 3 = normal (no cold spots)
+>   - 6 = fixed defect (cold spots during rest and exercise)
+>   - 7 = reversible defect (when cold spots only appear during exercise)
+>
+>   hd： (the predicted attribute) - diagnosis of heart disease
+>
+>   - 0 if less than or equal to 50% diameter narrowing
+>   - 1 if greater than 50% diameter narrowing
+
+接下来进行数据集读取：
+
+```{r}
+disease <- read_csv(
+   file = "data/processed.cleveland.csv",
+   col_names = c(
+      "age", "sex", "cp", "trestbps",
+      "chol", "fbs", "restecg",
+      "thalach", "exang", "oldpeak",
+      "slope", "ca", "thal", "hd"
+   ),
+   na = "?"
+)
+head(disease)
+```
+
+仔细观察包含 NA 的数据以及相关统计：
+
+```{r}
+colSums(is.na(disease))
+```
+
+除了 NA 以外，明显部分列是可以对类型进行优化的。这里将 sex、cp、fbs、restecg、exang、slope、ca、thal、hd 修改为因子变量：
+
+```{r}
+disease$sex <- factor(disease$sex, levels = c(0, 1), labels = c("F", "M"))
+disease$hd <- ifelse(disease$hd == 0, 1, 0)
+for (i in c("cp", "fbs", "restecg", "exang", "slope", "ca", "thal", "hd")) {
+   disease[[i]] <- as.factor(disease[[i]])
+}
+```
+
+#### 初步分析
+
+分析患者入院时的静息血压与其对应血清胆固醇水平之间的关系：
+
+```{r}
+disease |>
+   ggplot(aes(trestbps, chol)) +
+   geom_point(position = "jitter") +
+   geom_smooth() +
+   labs(title = "静息血压与其对应血清胆固醇水平的散点图")
+```
+
+可以看到虽然没有明显线性关系，但整体上还是呈正相关的。
+
+```{r}
+disease |>
+   mutate(illness = ifelse(hd == 0, "Healthy", "Unhealthy")) |>
+   ggplot(aes(age)) +
+   geom_bar(aes(fill = illness), position = "dodge") +
+   theme(legend.position = "bottom") +
+   labs(title = "年龄与病人健康状况的条形统计图")
+```
+
+在年龄上，不健康的人大多集中在60岁附近。
+
+对患病症状类型的分析：
+
+对数据进行处理。由之前表头信息可知 列 `cp` 的数字其实对应着4种类型，分别为典型胸痛、非典型胸痛、非心绞痛和无症状。所以我需要进行重新对应名称，改为因子类型数据计算百分比并正确排序：
+
+```{r}
+names <- c(
+   "typical angina", "atypical angina",
+   "non-anginal pain", "asymptomatic"
+)
+pie_data <- disease |>
+   mutate(type = names[cp]) |>
+   group_by(type) %>%
+   summarise(percent = round(
+      n() / nrow(.) * 100, 1
+   ))
+pie_data$type <- factor(pie_data$type, levels = names)
+pie_data <- pie_data |> arrange(type)
+```
+
+绘制饼图的重要要素之一就是极坐标转换和标签位置确定：
+
+```{r}
+pie_data |>
+   ggplot(aes(x = "", y = percent, fill = type)) +
+   geom_bar(stat = "identity", width = 1) +
+   coord_polar("y") +
+   geom_text(aes(
+      x = 1.2,
+      y = 100 - percent * 0.5 - c(0, cumsum(percent)[-length(percent)]),
+      label = paste(percent, "%")
+   ), size = 4) +
+   scale_fill_brewer("Blues") +
+   theme_minimal() +
+   theme(
+      axis.title.x = element_blank(),
+      axis.title.y = element_blank(),
+      axis.text.x = element_blank(),
+      panel.border = element_blank(),
+      panel.grid = element_blank(),
+      axis.ticks = element_blank(),
+   ) +
+   labs(title = "不同症状类型比例统计")
+```
+
+我们可以得出结论，在所有类型的胸痛中，在个人身上观察到的大多数是典型的胸痛类型，然后是非心绞痛类型。
+
+#### 执行机器学习算法之Logistic回归
+
+首先，我们将数据集分为训练数据（75%）和测试数据（25%）。
+
+
+```{r}
+set.seed(100)
+# 100用于控制抽样的permutation为100.
+index <- sample(nrow(disease), 0.75 * nrow(disease))
+disease2 <- na.omit(disease)
+```
+
+在训练数据上生成模型，然后用测试数据验证模型：
+
+```{r}
+mod <- glm(hd ~ ., data = disease2, family = "binomial")
+```
+
+其中 `family = "binomial"` 意味着只包含两个结果。
+
+为了检查我们的模型是如何生成的，我们需要计算预测分数和建立混淆矩阵来了解模型的准确性。
+
+```{r}
+pred_value <- fitted(mod)
+train <- disease2 |>
+   mutate(pred = pred_value)
+# 拟合只能用于获得生成模型的数据的预测分数。
+```
+
+我们可以看到，预测的分数是患心脏病的概率。但我们必须找到一个适当的分界点，从这个分界点可以很容易地区分是否患有心脏病。
+
+为此，我们需要ROC曲线，这是一个显示分类模型在所有分类阈值下的性能的图形。它将使我们能够采取适当的临界值。
+
+```{r}
+pred <- prediction(train$pred, train$hd)
+perf <- performance(pred, "tpr", "fpr")
+plot(perf, colorize = T, print.cutoffs.at = seq(0.1, by = 0.1))
+```
+
+通过使用ROC曲线，我们可以观察到0.6具有更好的敏感性和特异性，因此我们选择0.6作为区分的分界点。
+
+```{r}
+pred1 <- ifelse(pred_value < 0.6, "No", "Yes")
+disease2 |>
+   mutate(pred = pred1) |>
+   ggplot() +
+   geom_point(aes(hd, pred), position = "jitter") +
+   labs(title = "学习预计结果与实际结果对照散点图")
+```
+
+可以看到大部分时候预测模型是可靠的。
+
+#### 构建随机森林
+
+```{r}
+disease$hd <- ifelse(disease$hd == 0, "Healthy", "Unhealthy") |>
+   as.factor()
+```
+
+##### rfImpute 填补缺失值
+
+`rfImpute()`函数用于填补缺失值，随机森林的缺失值填补是根据相似度进行填补的一种迭代算法。其中 `hd` 为相应变量，`.` 为其他所有变量，其意义为使用其他所有变量预测。
+
+```{r}
+data_imputed <- rfImpute(hd ~ ., data = disease, iter = 6)
+```
+
+结果会输出每次迭代后的OOB值，越低越好。
+
+##### 构建随机森林模型
+
+默认创建500棵决策树的随机森林。最佳子集数目根据数据类别不同进行设定，数值数据为总变量数除以3，分类数据为总变量数的平方根。
+
+```{r}
+model <- randomForest(hd ~ ., data = data_imputed, proximity = TRUE)
+```
+
+`proximity` 参数不是必须的，加上后，则会输出 `proximity` 矩阵，此矩阵可用于热图或MDS（PCoA）。
+
+##### 随机森林评价
+
+默认是创建500棵决策树，此时的OOB（out of bag）值可以用于评价随机森林的模型如何。
+
+`model` 下 `err.rate` 中是OOB的数据，它有三列，分别是总OOB、健康人的OOB以及不健康人的OOB。我们可以看看此时从第1棵树到第500棵决策树时，OOB的变化趋势：
+
+```{r}
+# 创建tibble用于ggplot绘图
+oob_error_data <- tibble(
+   Trees = rep(seq_len(nrow(model$err.rate)), times = 3),
+   Type = rep(c("OOB", "Healthy", "Unhealthy"), each = nrow(model$err.rate)),
+   Error = c(
+      model$err.rate[, "OOB"],
+      model$err.rate[, "Healthy"],
+      model$err.rate[, "Unhealthy"]
+   )
+)
+# 实际绘图
+ggplot(oob_error_data, aes(x = Trees, y = Error)) +
+   geom_line(aes(color = Type)) +
+   labs(title = "OOB的变化趋势观测图")
+```
+
+可以看出，大概从150以后的OOB的值趋于稳定了，默认的500是非常稳健的数值了。
+
+##### 最佳子集数目
+
+默认子集数目为总变量数的平方跟，也就是13的平方根，约为3.6，所以默认的子集数目为3。
+我们可以改变不同的子集数目以确认最佳子集数目是多少，比如可以看一下子集数目分别为1-10时的结果：
+
+```{r}
+oob_values <- vector(length = 10)
+for (i in 1:10) {
+   temp_model <- randomForest(hd ~ ., data = data_imputed, mtry = i)
+   oob_values[i] <- temp_model$err.rate[nrow(temp_model$err.rate), 1]
+}
+oob_values
+```
+
+可以发现最低的OOB确实是子集数目为3。

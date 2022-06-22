@@ -1,0 +1,301 @@
+---
+title: Census Income Detail
+author: CWorld
+date: 2022-06-12
+output: word_document
+---
+
+```{r settings, include = FALSE}
+knitr::opts_chunk$set(
+    comment = "#>",
+    collapse = TRUE
+)
+```
+
+> 数据集来源：[Heart Disease Data Set](https://archive.ics.uci.edu/ml/datasets/Heart+Disease)
+
+This database contains 76 attributes, but all published experiments refer to using a subset of 14 of them. In particular, the Cleveland database is the only one that has been used by ML researchers to this date. The "goal" field refers to the presence of heart disease in the patient. It is integer valued from 0 (no presence) to 4. Experiments with the Cleveland database have concentrated on simply attempting to distinguish presence (values 1,2,3,4) from absence (value 0).
+
+需要准备的一些命令：
+
+```{r setup, results = "hide", message = FALSE, warning = FALSE}
+setwd("D:/Project/R-Project/homework-code/FinalAssessment")
+library(tidyverse)
+library(modelr)
+library(randomForest)
+library(ROCR)
+```
+
+## 读取并简单查看数据
+
+数据本身不包含表头，但这里有所有表头信息：
+
+>   age
+>
+>   sex:
+>
+>   - 0 = female
+>   - 1 = male
+>
+>   cp: chest pain
+>
+>   - 1 = typical angina,
+>   - 2 = atypical angina,
+>   - 3 = non-anginal pain,
+>   - 4 = asymptomatic
+>
+>   trestbps: resting blood pressure (in mm Hg)
+>
+>   chol: serum cholestoral in mg/dl
+>
+>   fbs: fasting blood sugar greater than 120 mg/dl, 1 = TRUE, 0 = FALSE
+>
+>   restecg: resting electrocardiographic results
+>
+>   - 1 = normal
+>   - 2 = having ST-T wave abnormality
+>   - 3 = showing probable or definite left ventricular hypertrophy
+>
+>   thalach: maximum heart rate achieved
+>
+>   exang: exercise induced angina, 1 = yes, 0 = no
+>
+>   oldpeak: ST depression induced by exercise relative to rest
+>
+>   slope: the slope of the peak exercise ST segment
+>
+>   - 1 = upsloping
+>   - 2 = flat
+>   - 3 = downsloping
+>
+>   ca: number of major vessels (0-3) colored by fluoroscopy
+>
+>   thal： this is short of thalium heart scan
+>
+>   - 3 = normal (no cold spots)
+>   - 6 = fixed defect (cold spots during rest and exercise)
+>   - 7 = reversible defect (when cold spots only appear during exercise)
+>
+>   hd： (the predicted attribute) - diagnosis of heart disease
+>
+>   - 0 if less than or equal to 50% diameter narrowing
+>   - 1 if greater than 50% diameter narrowing
+
+接下来进行数据集读取：
+
+```{r}
+disease <- read_csv(
+    file = "data/processed.cleveland.csv",
+    col_names = c(
+        "age", "sex", "cp", "trestbps",
+        "chol", "fbs", "restecg",
+        "thalach", "exang", "oldpeak",
+        "slope", "ca", "thal", "hd"
+    ),
+    na = "?"
+)
+head(disease)
+```
+
+仔细观察包含 NA 的数据以及相关统计：
+
+```{r}
+colSums(is.na(disease))
+```
+
+除了 NA 以外，明显部分列是可以对类型进行优化的。这里将 sex、cp、fbs、restecg、exang、slope、ca、thal、hd 修改为因子变量：
+
+```{R}
+disease$sex <- factor(disease$sex, levels = c(0, 1), labels = c("F", "M"))
+disease$hd <- ifelse(disease$hd == 0, 1, 0)
+for (i in c("cp", "fbs", "restecg", "exang", "slope", "ca", "thal", "hd")) {
+    disease[[i]] <- as.factor(disease[[i]])
+}
+```
+
+## 初步分析
+
+分析患者入院时的静息血压与其对应血清胆固醇水平之间的关系：
+
+```{r}
+disease |>
+    ggplot(aes(trestbps, chol)) +
+    geom_point(position = "jitter") +
+    geom_smooth()
+```
+
+可以看到虽然没有明显线性关系，但整体上还是呈正相关的。
+
+```{r}
+disease |>
+    ggplot(aes(age)) +
+    geom_bar(aes(fill = hd), position = "dodge") +
+    theme(legend.position = "bottom")
+```
+
+在年龄上，不健康的人大多集中在60岁附近。
+
+## 饼图
+
+对数据进行处理。由之前表头信息可知 列 `cp` 的数字其实对应着4种类型，分别为典型胸痛、非典型胸痛、非心绞痛和无症状。所以我需要进行重新对应名称，改为因子类型数据计算百分比并正确排序：
+
+```{r}
+names <- c(
+    "typical angina", "atypical angina",
+    "non-anginal pain", "asymptomatic"
+)
+pie_data <- disease |>
+    mutate(type = names[cp]) |>
+    group_by(type) %>%
+    summarise(percent = round(
+        n() / nrow(.) * 100, 1
+    ))
+pie_data$type <- factor(pie_data$type, levels = names)
+pie_data <- pie_data |> arrange(type)
+```
+
+绘制饼图的重要要素之一就是极坐标转换和标签位置确定：
+
+```{r}
+pie_data |>
+    ggplot(aes(x = "", y = percent, fill = type)) +
+    geom_bar(stat = "identity", width = 1) +
+    coord_polar("y") +
+    geom_text(aes(
+        x = 1.2,
+        y = 100 - percent * 0.5 - c(0, cumsum(percent)[-length(percent)]),
+        label = paste(percent, "%")
+    ), size = 4) +
+    scale_fill_brewer("Blues") +
+    theme_minimal() +
+    theme(
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.x = element_blank(),
+        panel.border = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank(),
+    )
+```
+
+我们可以得出结论，在所有类型的胸痛中，在个人身上观察到的大多数是典型的胸痛类型，然后是非心绞痛。
+
+## 执行机器学习算法
+
+### Logistic回归
+
+首先，我们将数据集分为训练数据（75%）和测试数据（25%）。
+
+
+```{r}
+set.seed(100)
+# 100用于控制抽样的permutation为100.
+index <- sample(nrow(disease), 0.75 * nrow(disease))
+disease2 <- na.omit(disease)
+```
+
+在训练数据上生成模型，然后用测试数据验证模型：
+
+```{r}
+mod <- glm(hd ~ ., data = disease2, family = "binomial")
+```
+
+其中 `family = "binomial"` 意味着只包含两个结果。
+
+为了检查我们的模型是如何生成的，我们需要计算预测分数和建立混淆矩阵来了解模型的准确性。
+
+```{r}
+pred_value <- fitted(mod)
+train <- disease2 |>
+    mutate(pred = pred_value)
+# 拟合只能用于获得生成模型的数据的预测分数。
+```
+
+我们可以看到，预测的分数是患心脏病的概率。但我们必须找到一个适当的分界点，从这个分界点可以很容易地区分是否患有心脏病。
+
+为此，我们需要ROC曲线，这是一个显示分类模型在所有分类阈值下的性能的图形。它将使我们能够采取适当的临界值。
+
+```{r}
+pred <- prediction(train$pred, train$hd)
+perf <- performance(pred, "tpr", "fpr")
+plot(perf, colorize = T, print.cutoffs.at = seq(0.1, by = 0.1))
+```
+
+通过使用ROC曲线，我们可以观察到0.6具有更好的敏感性和特异性，因此我们选择0.6作为区分的分界点。
+
+```{r}
+pred1 <- ifelse(pred_value < 0.6, "No", "Yes")
+disease2 |>
+    mutate(pred = pred1) |>
+    ggplot() +
+    geom_point(aes(hd, pred), position = "jitter")
+```
+
+可以看到大部分时候预测模型是可靠的。
+
+## 构建随机森林
+
+```{r}
+disease$hd <- ifelse(disease$hd == 0, "Healthy", "Unhealthy") |>
+    as.factor()
+```
+
+### rfImpute 填补缺失值
+
+`rfImpute()`函数用于填补缺失值，随机森林的缺失值填补是根据相似度进行填补的一种迭代算法。其中 `hd` 为相应变量，`.` 为其他所有变量，其意义为使用其他所有变量预测。
+
+```{r}
+data_imputed <- rfImpute(hd ~ ., data = disease, iter = 6)
+```
+
+结果会输出每次迭代后的OOB值，越低越好。
+
+### 构建随机森林模型
+
+默认创建500棵决策树的随机森林。最佳子集数目根据数据类别不同进行设定，数值数据为总变量数除以3，分类数据为总变量数的平方根。
+
+```{r}
+model <- randomForest(hd ~ ., data = data_imputed, proximity = TRUE)
+```
+
+`proximity` 参数不是必须的，加上后，则会输出 `proximity` 矩阵，此矩阵可用于热图或MDS（PCoA）。
+
+### 随机森林评价
+
+默认是创建500棵决策树，此时的OOB（out of bag）值可以用于评价随机森林的模型如何。
+
+`model` 下 `err.rate` 中是OOB的数据，它有三列，分别是总OOB、健康人的OOB以及不健康人的OOB。我们可以看看此时从第1棵树到第500棵决策树时，OOB的变化趋势：
+
+```{r}
+# 创建tibble用于ggplot绘图
+oob_error_data <- tibble(
+    Trees = rep(seq_len(nrow(model$err.rate)), times = 3),
+    Type = rep(c("OOB", "Healthy", "Unhealthy"), each = nrow(model$err.rate)),
+    Error = c(
+        model$err.rate[, "OOB"],
+        model$err.rate[, "Healthy"],
+        model$err.rate[, "Unhealthy"]
+    )
+)
+# 实际绘图
+ggplot(oob_error_data, aes(x = Trees, y = Error)) +
+    geom_line(aes(color = Type))
+```
+
+可以看出，大概从150以后的OOB的值趋于稳定了，默认的500是非常稳健的数值了。
+
+### 最佳子集数目
+
+默认子集数目为总变量数的平方跟，也就是13的平方根，约为3.6，所以默认的子集数目为3。
+我们可以改变不同的子集数目以确认最佳子集数目是多少，比如可以看一下子集数目分别为1-10时的结果：
+
+```{r}
+oob_values <- vector(length = 10)
+for (i in 1:10) {
+    temp_model <- randomForest(hd ~ ., data = data_imputed, mtry = i)
+    oob_values[i] <- temp_model$err.rate[nrow(temp_model$err.rate), 1]
+}
+oob_values
+```
+
+可以发现最低的OOB确实是子集数目为3。

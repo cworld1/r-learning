@@ -1,0 +1,83 @@
+---
+title: Census Income Detail
+author: CWorld
+date: 2022-06-12
+output: word_document
+---
+
+```{r settings, include = FALSE}
+knitr::opts_chunk$set(
+    comment = "#>",
+    collapse = TRUE
+)
+```
+
+> 数据集来源：[UCI Machine Learning Repository](https://archive-beta.ics.uci.edu/ml/datasets/census+income)
+
+原为机器训练，根据人口普查数据预测收入是否超过 5 万美元/年。也称为“成人“数据集。
+
+需要准备的一些命令：
+
+```{r setup, results = "hide", message = FALSE, warning = FALSE}
+setwd("D:/Project/R-Project/homework-code/FinalAssessment")
+library(tidyverse)
+```
+
+## 读取并简单查看数据
+
+这个数据集本身是不带表头的，根据下载的其他文件提供的表头，我选择使用 `col_name` 手动添加表头。
+
+```{r read csv}
+adults <- read_csv(
+    file = "data/adult.csv",
+    na = "?",
+    col_names = c(
+        "age",
+        "workclass",
+        "fnlwgt",
+        "education",
+        "education_num",
+        "marital_status",
+        "occupation",
+        "relationship",
+        "race",
+        "sex",
+        "capital_gain",
+        "capital_loss",
+        "hours_per_week",
+        "native_country",
+        "state"
+    )
+)
+adults
+```
+
+数据没有明显问题。接下来先简单对数据集进行勘察：
+
+```{r view data}
+adults |>
+    group_by(workclass) |>
+    count()
+adults |>
+    group_by(education) |>
+    count()
+adults |>
+    group_by(marital_status) |>
+    count()
+adults |>
+    group_by(occupation) |>
+    count()
+adults |>
+    group_by(native_country) |>
+    count() |>
+    arrange(desc(n))
+```
+
+整个数据集包含了工作单位、职业类型、受教育程度、婚姻状况、国家等综合信息。
+
+我们知道，在中国男女性别曾经有过明显的歧视关系。
+
+```{r}
+adults |>
+    group_by()
+```

@@ -1,0 +1,113 @@
+---
+title: Census Income Detail
+author: CWorld
+date: 2022-06-12
+output: word_document
+---
+
+```{r settings, include = FALSE}
+knitr::opts_chunk$set(
+    comment = "#>",
+    collapse = TRUE
+)
+```
+
+> 数据集来源：[Chinese Yield Curves (3 different kinds)](https://www.kaggle.com/datasets/wentinglu/chinese-yield-curves-3-different-kinds)
+
+This is a dataset of 3 major Chinese yield curves. Two of them are of rating "AAA", and the other one is the government bond (almost risk-free bond). Conducting research on Chinese yield curves are crucial to understanding Chinese economcy/market.
+
+需要准备的一些命令：
+
+```{r setup, results = "hide", message = FALSE, warning = FALSE}
+setwd("D:/Project/R-Project/homework-code/FinalAssessment")
+library(tidyverse)
+```
+
+读取数据
+
+```{r}
+yield <- read_csv(file = "data/Chinese_Yield_Curve.csv")
+yield
+```
+
+数据集目前本身存在难处理的难题。所以我将先进行数据整理：
+
+```{r}
+yield <- yield |>
+    pivot_longer(
+        c(
+            `3 month`, `6 month`, `1 year`, `3 year`,
+            `5 year`, `7 year`, `10 year`, `30 year`
+        ),
+        names_to = "duration",
+        values_to = "rate"
+    ) |>
+    filter(!is.na(rate)) |>
+    rename(
+        yield_curve_name = `yield curve name`,
+        date = "Date"
+    )
+```
+
+我打算先分析一下最新数据的不同理财类型的利率图。但利率在时间轴上是有明显顺序关系的，所以这里将时长做因子化处理。
+
+```{r}
+type <- c(
+    "3 month", "6 month", "1 year", "3 year",
+    "5 year", "7 year", "10 year", "30 year"
+)
+yield$duration <- factor(
+    yield$duration,
+    levels = type
+)
+```
+
+```{r}
+latest_date <- yield |>
+    arrange(desc(date)) |>
+    pull(date) %>%
+    .[1]
+latest_date
+```
+
+对数据进行审查，发现最新数据日期为 `r latest_date`。仅对这一天进行分析：
+
+```{r}
+yield |>
+    filter(date == latest_date) |>
+    ggplot(aes(
+        duration,
+        rate,
+        group = yield_curve_name,
+        colour = yield_curve_name
+    )) +
+    geom_point() +
+    geom_line() +
+    labs(title = "Different types of interest rates change
+    with the issuance cycle") +
+    theme(legend.position = c(0.2, 0.86))
+```
+
+Chinese yield curve composed of "rate" at different maturities. Three kinds: 1. 'Medium/Short Term Note (AAA)', 2. 'Commerical Bank Ordinary Bond (AAA)', 3. 'Government Bond'. Government Bond is the safest of all three bonds, although all three bonds are among the safest bonds in China.
+
+但尽管如此，我们依然看到了利率上的差距。Government Bond 类型的利率明显比其他两种都要低，而 Commerical Bank Ordinary Bond (AAA) 的利率则总是最高的。
+
+我们可以针对利率可能是最高的 Commerical Bank Ordinary Bond (AAA) 类型深入分析：
+
+```{r}
+yield |>
+    filter(yield_curve_name == "Commerical Bank Ordinary Bond (AAA)") |>
+    ggplot(aes(
+        date,
+        rate,
+        group = duration,
+        colour = duration
+    )) +
+    geom_line()
+```
+
+> 债券发行是证券发行的重要形式之一，是以债券形式筹措资金的行为。伴随着改革的需要，中国债券市场逐渐发展，2020年我国拥有4600余家债券发行人，全年证券发行量再次创造近十年最高值，政府债券全年发行利率呈现先降后增的整体趋势。
+
+债券大量发行期间，人民币做空，债券泛滥，导致利率有很大幅度的下滑。但很快，数据重新回到了正常的状态，这明显是国家作为有形的手做的最大力度的宏观调控。2020年之后的下滑，则是由于全球大环境变化 —— 全球股市不乐观，美元大放水...近年来债券利率下滑也是意料之中的事。
+
+

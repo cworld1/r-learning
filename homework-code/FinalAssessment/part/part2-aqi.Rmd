@@ -1,0 +1,177 @@
+---
+title: AQI Data Summary
+author: CWorld
+date: 2022-06-12
+output: word_document
+---
+
+```{r settings, include = FALSE}
+knitr::opts_chunk$set(
+    comment = "#>",
+    collapse = TRUE
+)
+```
+
+> 数据集来源：[Annual Summary Air Data | US EPA](https://aqs.epa.gov/aqsweb/airdata/download_files.html#Annual)
+
+包含了大型数据文件，供了解EPA环境空气质量监测计划和数据的人员使用。
+
+需要准备的一些命令：
+
+```{r setup, results = "hide", message = FALSE, warning = FALSE}
+setwd("D:/Project/R-Project/homework-code/FinalAssessment")
+library(tidyverse)
+```
+
+## 读取并简单查看数据
+
+```{r read csv}
+aqi <- read_csv(file = "data/annual_aqi_by_county_2021.csv")
+aqi
+```
+
+可以看到数据集的列非常多（并且完全没有报错），所以我决定使用 `view()` 浅查看一下：
+
+```{r view code, eval = FALSE}
+view(head(aqi, 10))
+```
+
+```{R view kable, echo = FALSE}
+knitr::kable(
+    head(aqi, 10),
+    caption = "AQI top ten information"
+)
+```
+
+仔细观察列 `r colnames(aqi)[2]` 会发现其实只有 2021 年这一年的数据：
+
+```{r calc year}
+# 针对年份
+aqi |>
+    group_by(Year) |>
+    count()
+# 针对州县
+aqi |>
+    group_by(State, County) |>
+    count()
+```
+
+这意味着年份这个列在数据总是多余的。而关于天气质量评判分类数据，如 `r colnames(aqi)[5]`、`r colnames(aqi)[6]` 等，则明显可以合并为 type_of_day（`type`）从而合理整理数据，以便更好地展示和分析：
+
+```{r tidy data}
+type_of_days <- aqi |>
+    pivot_longer(
+        c(
+            `Good Days`,
+            `Moderate Days`,
+            `Unhealthy for Sensitive Groups Days`,
+            `Unhealthy Days`,
+            `Very Unhealthy Days`,
+            `Hazardous Days`
+        ),
+        names_to = "type",
+        values_to = "days"
+    ) |>
+    select(state = State, county = County, type, days)
+```
+
+## 可视化绘图
+
+针对不同质量的天气进行数量比较绘图，对比观察不同质量的天气在数量上的差异：
+
+```{r plot type of day}
+type <- c(
+    "Good Days",
+    "Moderate Days",
+    "Unhealthy for Sensitive Groups Days",
+    "Unhealthy Days",
+    "Very Unhealthy Days",
+    "Hazardous Days"
+)
+type_of_days$type <- factor(
+    type_of_days$type,
+    levels = type
+)
+ggplot(type_of_days) +
+    geom_boxplot(mapping = aes(type, days))
+```
+
+为了进一步了解不同城市的空气质量情况，我提出了一个全新的思路：积分法。通过对城市的积分，来综合一年的数据简单判断这个城市的整体空气质量，从而更好地对不同城市进行比较。下面是我的积分规则：
+
+| Type of Days                        | score |
+| ----------------------------------- | ----- |
+| Good Days                           | 1     |
+| Moderate Days                       | 0     |
+| Unhealthy for Sensitive Groups Days | -1    |
+| Unhealthy Days                      | -2    |
+| Very Unhealthy Days                 | -3    |
+| Hazardous Days                      | -4    |
+
+从而算出了各个城市的空气质量积分，并进行了简单的排序查看：
+
+```{r county score}
+county_score <- aqi |>
+    group_by(State, County) |>
+    summarise(
+        score = `Good Days` - `Unhealthy for Sensitive Groups Days`
+            - 2 * `Unhealthy Days`
+            - 3 * `Very Unhealthy Days`
+            - 4 * `Hazardous Days`
+    ) |>
+    rename(state = State, county = County)
+
+arrange(county_score, desc(score))
+```
+
+城市太多可能反而影响分析。所以我认为只是简单计算各州平均空气质量积分是够用的：
+
+```{r state score}
+state_score <- county_score |>
+    group_by(state) |>
+    summarise(score = mean(score))
+max(state_score$score)
+min(state_score$score)
+median <- median(state_score$score) |> print()
+```
+
+通过计算可以看到分数区间为 `r min(state_score$score)` ~ `r max(state_score$score)`。为了保证数据的正负可观性，我将每一个积分数据减掉中位数，保证正数据与负数据一样多 —— 这会使得最后生成的图会更直观。同时将州名改为小写是为了方便后续与 `map_data()` 的数据联系起来。
+
+```{r score optimization}
+state_score <- state_score |>
+    transmute(state = str_to_lower(state), score = score - median)
+```
+
+尝试将数据投射到地图上：
+
+```{r plot map}
+states_map <- map_data("state")
+
+ggplot(state_score, aes(map_id = state)) +
+    geom_map(aes(fill = score), map = states_map) +
+    scale_fill_distiller(palette = "RdYlGn", direction = 1) +
+    expand_limits(x = states_map$long, y = states_map$lat)
+```
+
+不难看出西部地区空气质量总是令人堪忧，而南北部分的空气质量却明显好很多。
+
+对于影响空气质量的因素，可以联想到这些：
+
+- 汽车的尾气排放；
+- 工厂的有害气体的排放；
+- 居民生活和取暖；
+- 垃圾焚烧；
+- 城市的发展密度。
+
+而将这些原因转化为直观的数据，则很容易想到人口与人均 GDP 指标，它们应当与空气质量关系紧密。于是我从互联网上找到了一些信息，用来核实数据与猜想：
+
+![美国各州人口，来自 [知乎 - 美国各州gdp和人口](https://zhuanlan.zhihu.com/p/37637219)](https://pic2.zhimg.com/80/v2-935b94322c009ae02cdb63c9ae35b439_720w.jpg)
+
+![美国各州人均 GDP，来自 [知乎 - 美国各州gdp和人口](https://zhuanlan.zhihu.com/p/37637219)](https://pic1.zhimg.com/80/v2-5241d7856e7ce71f2d776f007cc61f5c_720w.jpg)
+
+可以看到人口密度（对自然环境的开发、对资源的消耗）和人均 GDP（对资源的开采挖掘，对生产的大力促进）与空气质量是息息相关的。
+
+不仅如此，美国的水源与荒漠分布也对空气质量造成了或多或少的影响。
+
+![美国山脉河流分布图，来自 [大山谷 - 美国河流分布图高清](http://www.dashangu.com/postimg_14203606_2.html)](http://external.wohuizhong.cn/fetch-1479233195984-392x290-t-afcebc.jpg?imageView2/2/w/392)
+
+植物生长茂盛、水源丰富的平原和主要河流两侧土壤的空气质量明显更好，因为这些地方更易于落成一个完整的生态环境，对空气的净化起着非常重要的作用。而高山地带如科迪勒拉山系或阿巴拉契亚山脉，则总是阻断空气流通，影响着气候的规律变化。
