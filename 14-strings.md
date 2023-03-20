@@ -207,11 +207,7 @@ str_sort(fruit, locale = "haw") # 使用 Hawaiian 排序
 
 ```r
 str_view(fruit, "an")
-```
-
-```{=html}
-<div id="htmlwidget-43949eb751bd4d0fe6a5" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-43949eb751bd4d0fe6a5">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li>b<span class='match'>an<\/span>ana<\/li>\n  <li>pear<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [2] │ b<an><an>a
 ```
 
 匹配字符串遵循 regexps 规则，其中 “.” 表示任意字符：
@@ -219,11 +215,8 @@ str_view(fruit, "an")
 
 ```r
 str_view(fruit, ".a.")
-```
-
-```{=html}
-<div id="htmlwidget-dd9f6a631e36773482ec" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-dd9f6a631e36773482ec">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li><span class='match'>ban<\/span>ana<\/li>\n  <li>p<span class='match'>ear<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [2] │ <ban>ana
+#> [3] │ p<ear>
 ```
 
 但我们很快就发现一个问题：“.” 固然好用，但当我们真正要匹配字符 “.” 的时候，就会变得棘手。regexps 提供了转义法，即 `\.`，但这个 “\” 会与我们的 R 语言规范相冲突。所以我们提出了转义斜杠。
@@ -239,11 +232,7 @@ writeLines(dot_symbol)
 
 # 而通过 regexps 转换匹配时，刚好就只是一个 “.” 而已
 str_view(c("abc", "a.c", "bef"), "a\\.c")
-```
-
-```{=html}
-<div id="htmlwidget-4ec623ae73fdf136076c" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4ec623ae73fdf136076c">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li><span class='match'>a.c<\/span><\/li>\n  <li>bef<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [2] │ <a.c>
 ```
 
 同理，匹配一个反斜杠则需要4个斜杠：
@@ -255,11 +244,7 @@ writeLines(x)
 #> a\b
 
 str_view(x, "\\\\")
-```
-
-```{=html}
-<div id="htmlwidget-39f69c698c71abb64e0f" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-39f69c698c71abb64e0f">{"x":{"html":"<ul>\n  <li>a<span class='match'>\\<\/span>b<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ a<\>b
 ```
 
 ### 锚点定位
@@ -273,31 +258,19 @@ str_view(x, "\\\\")
 ```r
 apple <- c("bad apple", "milk with apple & banana", "apple music", "apple")
 str_view(apple, "^a") # 以 “a” 开头的字符串
-```
-
-```{=html}
-<div id="htmlwidget-91bfc05e8082aa88c9d6" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-91bfc05e8082aa88c9d6">{"x":{"html":"<ul>\n  <li>bad apple<\/li>\n  <li>milk with apple & banana<\/li>\n  <li><span class='match'>a<\/span>pple music<\/li>\n  <li><span class='match'>a<\/span>pple<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [3] │ <a>pple music
+#> [4] │ <a>pple
 ```
 
 
 ```r
 str_view(apple, "a$") # 以 “a” 结尾的字符串
-```
-
-```{=html}
-<div id="htmlwidget-ccf76e63d384b91d6096" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ccf76e63d384b91d6096">{"x":{"html":"<ul>\n  <li>bad apple<\/li>\n  <li>milk with apple & banan<span class='match'>a<\/span><\/li>\n  <li>apple music<\/li>\n  <li>apple<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [2] │ milk with apple & banan<a>
 ```
 
 
 ```r
 str_view(x, "^apple$") # 以 “apple” 开头和结束（不多不少完全匹配）的字符串
-```
-
-```{=html}
-<div id="htmlwidget-7d297b8efb8d67d9cfed" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7d297b8efb8d67d9cfed">{"x":{"html":"<ul>\n  <li>a\\b<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 我知道你会记混的。所以我们从 [Evan Misshula](https://twitter.com/emisshula/status/323863393167613953) 那里搬出了这个口诀：
@@ -321,31 +294,19 @@ str_view(x, "^apple$") # 以 “apple” 开头和结束（不多不少完全匹
 ```r
 abc <- c("abc", "a.c", "a*c", "a c")
 str_view(abc, "a[.]c")
-```
-
-```{=html}
-<div id="htmlwidget-8aec926ac447d7ec53ef" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8aec926ac447d7ec53ef">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li><span class='match'>a.c<\/span><\/li>\n  <li>a*c<\/li>\n  <li>a c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [2] │ <a.c>
 ```
 
 
 ```r
 str_view(abc, ".[*]c")
-```
-
-```{=html}
-<div id="htmlwidget-eda78b08624eacee0469" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-eda78b08624eacee0469">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li>a.c<\/li>\n  <li><span class='match'>a*c<\/span><\/li>\n  <li>a c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [3] │ <a*c>
 ```
 
 
 ```r
 str_view(abc, "a[ ]")
-```
-
-```{=html}
-<div id="htmlwidget-62896c9a30c80939c504" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-62896c9a30c80939c504">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li>a.c<\/li>\n  <li>a*c<\/li>\n  <li><span class='match'>a <\/span>c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [4] │ <a >c
 ```
 
 这种方法适用于大多数正则表达式元字符。但请不要过度依赖，因为仍然有部分特殊含义的字符不会被正常翻译转义。
@@ -355,11 +316,8 @@ str_view(abc, "a[ ]")
 
 ```r
 str_view(c("grey", "gray"), "gr(e|a)y")
-```
-
-```{=html}
-<div id="htmlwidget-9edcd4718b95bfcd113c" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9edcd4718b95bfcd113c">{"x":{"html":"<ul>\n  <li><span class='match'>grey<\/span><\/li>\n  <li><span class='match'>gray<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ <grey>
+#> [2] │ <gray>
 ```
 
 ### 重复匹配
@@ -376,11 +334,7 @@ str_view(c("grey", "gray"), "gr(e|a)y")
 ```r
 x <- "1888 is the longest year in Roman numerals: MDCCCLXXXVIII"
 str_view(x, "CC?")
-```
-
-```{=html}
-<div id="htmlwidget-932ca48e4beefea98ee6" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-932ca48e4beefea98ee6">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ 1888 is the longest year in Roman numerals: MD<CC><C>LXXXVIII
 ```
 
 查找 “CC” 或者 “CCC...” 串：
@@ -388,22 +342,14 @@ str_view(x, "CC?")
 
 ```r
 str_view(x, "CC+")
-```
-
-```{=html}
-<div id="htmlwidget-1a17c4cfda47a94e7794" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1a17c4cfda47a94e7794">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ 1888 is the longest year in Roman numerals: MD<CCC>LXXXVIII
 ```
 
 查找 “CL”、“CX”、“CLX”、“CXL”，或者 “CLLL...”、“CXXX...”、“CLXXX...”、“CLLL...X”...
 
 ```r
 str_view(x, "C[LX]+")
-```
-
-```{=html}
-<div id="htmlwidget-42b62f95d2f20b4994a6" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-42b62f95d2f20b4994a6">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MDCC<span class='match'>CLXXX<\/span>VIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ 1888 is the longest year in Roman numerals: MDCC<CLXXX>VIII
 ```
 
 注意这些运算符的优先级很高，并很多时候会用于匹配美式或英式拼写。这意味着大多数用途都需要括号，如：`colou?r` 或 `bana(na)+`
@@ -418,31 +364,19 @@ str_view(x, "C[LX]+")
 
 ```r
 str_view(x, "C{2}")
-```
-
-```{=html}
-<div id="htmlwidget-096c0a311cd74f84d67e" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-096c0a311cd74f84d67e">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ 1888 is the longest year in Roman numerals: MD<CC>CLXXXVIII
 ```
 
 
 ```r
 str_view(x, "C{2,}")
-```
-
-```{=html}
-<div id="htmlwidget-fc622e357c6d4415b336" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fc622e357c6d4415b336">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ 1888 is the longest year in Roman numerals: MD<CCC>LXXXVIII
 ```
 
 
 ```r
 str_view(x, "C{2,3}")
-```
-
-```{=html}
-<div id="htmlwidget-25d357eb6467f8443fcd" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-25d357eb6467f8443fcd">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ 1888 is the longest year in Roman numerals: MD<CCC>LXXXVIII
 ```
 
 在通常情况下，如果碰到了能同时匹配到同一个点位的情况，Regex 会自动选择最长的。但你可以使用 “?” 来反其道而行之：
@@ -450,21 +384,13 @@ str_view(x, "C{2,3}")
 
 ```r
 str_view(x, "C{2,3}?")
-```
-
-```{=html}
-<div id="htmlwidget-991418954b5ccf9d3fd6" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-991418954b5ccf9d3fd6">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ 1888 is the longest year in Roman numerals: MD<CC>CLXXXVIII
 ```
 
 
 ```r
 str_view(x, "C[LX]+?")
-```
-
-```{=html}
-<div id="htmlwidget-6a5c95372df565d7c278" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6a5c95372df565d7c278">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MDCC<span class='match'>CL<\/span>XXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ 1888 is the longest year in Roman numerals: MDCC<CL>XXXVIII
 ```
 
 ## 实际应用
@@ -709,11 +635,14 @@ head(matches)
 ```r
 more <- sentences[str_count(sentences, colour_match) > 1]
 str_view_all(more, colour_match) #
-```
-
-```{=html}
-<div id="htmlwidget-82507e7c301e13d785ed" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-82507e7c301e13d785ed">{"x":{"html":"<ul>\n  <li>It is hard to erase <span class='match'>blue<\/span> or <span class='match'>red<\/span> ink.<\/li>\n  <li>The <span class='match'>green<\/span> light in the brown box flicke<span class='match'>red<\/span>.<\/li>\n  <li>The sky in the west is tinged with <span class='match'>orange<\/span> <span class='match'>red<\/span>.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> Warning: `str_view()` was deprecated in stringr 1.5.0.
+#> ℹ Please use `str_view_all()` instead.
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+#> generated.
+#> [1] │ It is hard to erase <blue> or <red> ink.
+#> [2] │ The <green> light in the brown box flicke<red>.
+#> [3] │ The sky in the west is tinged with <orange> <red>.
 ```
 
 可以明显看到一个句子匹配到了多个颜色。
@@ -802,7 +731,7 @@ tibble(sentence = sentences) %>%
 #>  7 The box was thrown beside the parked truck. the     parked 
 #>  8 The hogs were fed chopped corn and garbage. <NA>    <NA>   
 #>  9 Four hours of steady work faced us.         <NA>    <NA>   
-#> 10 Large size in stockings is hard to sell.    <NA>    <NA>   
+#> 10 A large size in stockings is hard to sell.  <NA>    <NA>   
 #> # … with 710 more rows
 ```
 
@@ -865,11 +794,7 @@ fields %>% str_split(": ", n = 2, simplify = TRUE)
 ```r
 x <- "This is a sentence.  This is another sentence."
 str_view_all(x, boundary("word"))
-```
-
-```{=html}
-<div id="htmlwidget-3f2feab4053cce55add9" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3f2feab4053cce55add9">{"x":{"html":"<ul>\n  <li><span class='match'>This<\/span> <span class='match'>is<\/span> <span class='match'>a<\/span> <span class='match'>sentence<\/span>.  <span class='match'>This<\/span> <span class='match'>is<\/span> <span class='match'>another<\/span> <span class='match'>sentence<\/span>.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ <This> <is> <a> <sentence>.  <This> <is> <another> <sentence>.
 ```
 
 ## 正则表达式其他用法

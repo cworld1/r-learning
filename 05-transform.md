@@ -17,21 +17,22 @@ library(tidyverse)
 ```r
 flights
 #> # A tibble: 336,776 × 19
-#>     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-#>    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
-#>  1  2013     1     1      517            515         2      830            819
-#>  2  2013     1     1      533            529         4      850            830
-#>  3  2013     1     1      542            540         2      923            850
-#>  4  2013     1     1      544            545        -1     1004           1022
-#>  5  2013     1     1      554            600        -6      812            837
-#>  6  2013     1     1      554            558        -4      740            728
-#>  7  2013     1     1      555            600        -5      913            854
-#>  8  2013     1     1      557            600        -3      709            723
-#>  9  2013     1     1      557            600        -3      838            846
-#> 10  2013     1     1      558            600        -2      753            745
-#> # … with 336,766 more rows, and 11 more variables: arr_delay <dbl>,
-#> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
-#> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
+#>     year month   day dep_time sched_de…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+#>    <int> <int> <int>    <int>      <int>   <dbl>   <int>   <int>   <dbl> <chr>  
+#>  1  2013     1     1      517        515       2     830     819      11 UA     
+#>  2  2013     1     1      533        529       4     850     830      20 UA     
+#>  3  2013     1     1      542        540       2     923     850      33 AA     
+#>  4  2013     1     1      544        545      -1    1004    1022     -18 B6     
+#>  5  2013     1     1      554        600      -6     812     837     -25 DL     
+#>  6  2013     1     1      554        558      -4     740     728      12 UA     
+#>  7  2013     1     1      555        600      -5     913     854      19 B6     
+#>  8  2013     1     1      557        600      -3     709     723     -14 EV     
+#>  9  2013     1     1      557        600      -3     838     846      -8 B6     
+#> 10  2013     1     1      558        600      -2     753     745       8 AA     
+#> # … with 336,766 more rows, 9 more variables: flight <int>, tailnum <chr>,
+#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
+#> #   minute <dbl>, time_hour <dttm>, and abbreviated variable names
+#> #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
 ```
 
 列名称下字母缩写代表该列的数据类型：
@@ -53,97 +54,102 @@ tidyverse 还附带了一些神奇的功能，如 filter、arrange、select、re
 # 筛选月份为 1，天数为 1 的
 filter(flights, month == 1, day == 1)
 #> # A tibble: 842 × 19
-#>     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-#>    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
-#>  1  2013     1     1      517            515         2      830            819
-#>  2  2013     1     1      533            529         4      850            830
-#>  3  2013     1     1      542            540         2      923            850
-#>  4  2013     1     1      544            545        -1     1004           1022
-#>  5  2013     1     1      554            600        -6      812            837
-#>  6  2013     1     1      554            558        -4      740            728
-#>  7  2013     1     1      555            600        -5      913            854
-#>  8  2013     1     1      557            600        -3      709            723
-#>  9  2013     1     1      557            600        -3      838            846
-#> 10  2013     1     1      558            600        -2      753            745
-#> # … with 832 more rows, and 11 more variables: arr_delay <dbl>, carrier <chr>,
-#> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>,
-#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
+#>     year month   day dep_time sched_de…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+#>    <int> <int> <int>    <int>      <int>   <dbl>   <int>   <int>   <dbl> <chr>  
+#>  1  2013     1     1      517        515       2     830     819      11 UA     
+#>  2  2013     1     1      533        529       4     850     830      20 UA     
+#>  3  2013     1     1      542        540       2     923     850      33 AA     
+#>  4  2013     1     1      544        545      -1    1004    1022     -18 B6     
+#>  5  2013     1     1      554        600      -6     812     837     -25 DL     
+#>  6  2013     1     1      554        558      -4     740     728      12 UA     
+#>  7  2013     1     1      555        600      -5     913     854      19 B6     
+#>  8  2013     1     1      557        600      -3     709     723     -14 EV     
+#>  9  2013     1     1      557        600      -3     838     846      -8 B6     
+#> 10  2013     1     1      558        600      -2     753     745       8 AA     
+#> # … with 832 more rows, 9 more variables: flight <int>, tailnum <chr>,
+#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
+#> #   minute <dbl>, time_hour <dttm>, and abbreviated variable names
+#> #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
 
 # 筛选月份为 12 且天数为 25 的（圣诞节）
 filter(flights, month == 12 & day == 25)
 #> # A tibble: 719 × 19
-#>     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-#>    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
-#>  1  2013    12    25      456            500        -4      649            651
-#>  2  2013    12    25      524            515         9      805            814
-#>  3  2013    12    25      542            540         2      832            850
-#>  4  2013    12    25      546            550        -4     1022           1027
-#>  5  2013    12    25      556            600        -4      730            745
-#>  6  2013    12    25      557            600        -3      743            752
-#>  7  2013    12    25      557            600        -3      818            831
-#>  8  2013    12    25      559            600        -1      855            856
-#>  9  2013    12    25      559            600        -1      849            855
-#> 10  2013    12    25      600            600         0      850            846
-#> # … with 709 more rows, and 11 more variables: arr_delay <dbl>, carrier <chr>,
-#> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>,
-#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
+#>     year month   day dep_time sched_de…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+#>    <int> <int> <int>    <int>      <int>   <dbl>   <int>   <int>   <dbl> <chr>  
+#>  1  2013    12    25      456        500      -4     649     651      -2 US     
+#>  2  2013    12    25      524        515       9     805     814      -9 UA     
+#>  3  2013    12    25      542        540       2     832     850     -18 AA     
+#>  4  2013    12    25      546        550      -4    1022    1027      -5 B6     
+#>  5  2013    12    25      556        600      -4     730     745     -15 AA     
+#>  6  2013    12    25      557        600      -3     743     752      -9 DL     
+#>  7  2013    12    25      557        600      -3     818     831     -13 DL     
+#>  8  2013    12    25      559        600      -1     855     856      -1 B6     
+#>  9  2013    12    25      559        600      -1     849     855      -6 B6     
+#> 10  2013    12    25      600        600       0     850     846       4 B6     
+#> # … with 709 more rows, 9 more variables: flight <int>, tailnum <chr>,
+#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
+#> #   minute <dbl>, time_hour <dttm>, and abbreviated variable names
+#> #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
 
 # 筛选出月份为12，天数为 11 或者 12 的
 filter(flights, month == 12, day == 11 | day == 12)
 #> # A tibble: 1,922 × 19
-#>     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-#>    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
-#>  1  2013    12    11      459            500        -1      651            651
-#>  2  2013    12    11      517            515         2      825            814
-#>  3  2013    12    11      542            545        -3      841            832
-#>  4  2013    12    11      544            540         4      838            850
-#>  5  2013    12    11      544            550        -6     1021           1027
-#>  6  2013    12    11      552            600        -8      927            915
-#>  7  2013    12    11      552            600        -8      712            717
-#>  8  2013    12    11      553            600        -7      644            701
-#>  9  2013    12    11      554            600        -6      753            755
-#> 10  2013    12    11      554            600        -6      656            659
-#> # … with 1,912 more rows, and 11 more variables: arr_delay <dbl>,
-#> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
-#> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
+#>     year month   day dep_time sched_de…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+#>    <int> <int> <int>    <int>      <int>   <dbl>   <int>   <int>   <dbl> <chr>  
+#>  1  2013    12    11      459        500      -1     651     651       0 US     
+#>  2  2013    12    11      517        515       2     825     814      11 UA     
+#>  3  2013    12    11      542        545      -3     841     832       9 UA     
+#>  4  2013    12    11      544        540       4     838     850     -12 AA     
+#>  5  2013    12    11      544        550      -6    1021    1027      -6 B6     
+#>  6  2013    12    11      552        600      -8     927     915      12 AA     
+#>  7  2013    12    11      552        600      -8     712     717      -5 EV     
+#>  8  2013    12    11      553        600      -7     644     701     -17 US     
+#>  9  2013    12    11      554        600      -6     753     755      -2 DL     
+#> 10  2013    12    11      554        600      -6     656     659      -3 US     
+#> # … with 1,912 more rows, 9 more variables: flight <int>, tailnum <chr>,
+#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
+#> #   minute <dbl>, time_hour <dttm>, and abbreviated variable names
+#> #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
 
 # 筛选出月份为12，天数为 10 或者 11 或者 12 的
 filter(flights, month == 12, day %in% c(10, 11, 12)) # 注意 “包含于” 表示的方法
 #> # A tibble: 2,865 × 19
-#>     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-#>    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
-#>  1  2013    12    10        7           2359         8      451            445
-#>  2  2013    12    10        7           2359         8      446            437
-#>  3  2013    12    10       11           2245        86      119           2353
-#>  4  2013    12    10      211           2359       132      651            440
-#>  5  2013    12    10      457            500        -3      701            651
-#>  6  2013    12    10      528            515        13      830            814
-#>  7  2013    12    10      543            545        -2      907            832
-#>  8  2013    12    10      548            550        -2     1022           1027
-#>  9  2013    12    10      549            540         9      854            850
-#> 10  2013    12    10      551            600        -9      920            856
-#> # … with 2,855 more rows, and 11 more variables: arr_delay <dbl>,
-#> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
-#> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
+#>     year month   day dep_time sched_de…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+#>    <int> <int> <int>    <int>      <int>   <dbl>   <int>   <int>   <dbl> <chr>  
+#>  1  2013    12    10        7       2359       8     451     445       6 B6     
+#>  2  2013    12    10        7       2359       8     446     437       9 B6     
+#>  3  2013    12    10       11       2245      86     119    2353      86 B6     
+#>  4  2013    12    10      211       2359     132     651     440     131 B6     
+#>  5  2013    12    10      457        500      -3     701     651      10 US     
+#>  6  2013    12    10      528        515      13     830     814      16 UA     
+#>  7  2013    12    10      543        545      -2     907     832      35 UA     
+#>  8  2013    12    10      548        550      -2    1022    1027      -5 B6     
+#>  9  2013    12    10      549        540       9     854     850       4 AA     
+#> 10  2013    12    10      551        600      -9     920     856      24 B6     
+#> # … with 2,855 more rows, 9 more variables: flight <int>, tailnum <chr>,
+#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
+#> #   minute <dbl>, time_hour <dttm>, and abbreviated variable names
+#> #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
 
 # 添加函数参数 na.rm = TRUE 来剔除数据，is.na 来判断是否为 NA（这是通用的）
 filter(flights, month == 1, na.rm = TRUE)
 #> # A tibble: 27,004 × 19
-#>     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-#>    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
-#>  1  2013     1     1      517            515         2      830            819
-#>  2  2013     1     1      533            529         4      850            830
-#>  3  2013     1     1      542            540         2      923            850
-#>  4  2013     1     1      544            545        -1     1004           1022
-#>  5  2013     1     1      554            600        -6      812            837
-#>  6  2013     1     1      554            558        -4      740            728
-#>  7  2013     1     1      555            600        -5      913            854
-#>  8  2013     1     1      557            600        -3      709            723
-#>  9  2013     1     1      557            600        -3      838            846
-#> 10  2013     1     1      558            600        -2      753            745
-#> # … with 26,994 more rows, and 11 more variables: arr_delay <dbl>,
-#> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
-#> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
+#>     year month   day dep_time sched_de…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+#>    <int> <int> <int>    <int>      <int>   <dbl>   <int>   <int>   <dbl> <chr>  
+#>  1  2013     1     1      517        515       2     830     819      11 UA     
+#>  2  2013     1     1      533        529       4     850     830      20 UA     
+#>  3  2013     1     1      542        540       2     923     850      33 AA     
+#>  4  2013     1     1      544        545      -1    1004    1022     -18 B6     
+#>  5  2013     1     1      554        600      -6     812     837     -25 DL     
+#>  6  2013     1     1      554        558      -4     740     728      12 UA     
+#>  7  2013     1     1      555        600      -5     913     854      19 B6     
+#>  8  2013     1     1      557        600      -3     709     723     -14 EV     
+#>  9  2013     1     1      557        600      -3     838     846      -8 B6     
+#> 10  2013     1     1      558        600      -2     753     745       8 AA     
+#> # … with 26,994 more rows, 9 more variables: flight <int>, tailnum <chr>,
+#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
+#> #   minute <dbl>, time_hour <dttm>, and abbreviated variable names
+#> #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
 ```
 
 ### 比较
@@ -228,39 +234,41 @@ x == y
 # 按照年月日排序
 arrange(flights, year, month, day)
 #> # A tibble: 336,776 × 19
-#>     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-#>    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
-#>  1  2013     1     1      517            515         2      830            819
-#>  2  2013     1     1      533            529         4      850            830
-#>  3  2013     1     1      542            540         2      923            850
-#>  4  2013     1     1      544            545        -1     1004           1022
-#>  5  2013     1     1      554            600        -6      812            837
-#>  6  2013     1     1      554            558        -4      740            728
-#>  7  2013     1     1      555            600        -5      913            854
-#>  8  2013     1     1      557            600        -3      709            723
-#>  9  2013     1     1      557            600        -3      838            846
-#> 10  2013     1     1      558            600        -2      753            745
-#> # … with 336,766 more rows, and 11 more variables: arr_delay <dbl>,
-#> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
-#> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
+#>     year month   day dep_time sched_de…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+#>    <int> <int> <int>    <int>      <int>   <dbl>   <int>   <int>   <dbl> <chr>  
+#>  1  2013     1     1      517        515       2     830     819      11 UA     
+#>  2  2013     1     1      533        529       4     850     830      20 UA     
+#>  3  2013     1     1      542        540       2     923     850      33 AA     
+#>  4  2013     1     1      544        545      -1    1004    1022     -18 B6     
+#>  5  2013     1     1      554        600      -6     812     837     -25 DL     
+#>  6  2013     1     1      554        558      -4     740     728      12 UA     
+#>  7  2013     1     1      555        600      -5     913     854      19 B6     
+#>  8  2013     1     1      557        600      -3     709     723     -14 EV     
+#>  9  2013     1     1      557        600      -3     838     846      -8 B6     
+#> 10  2013     1     1      558        600      -2     753     745       8 AA     
+#> # … with 336,766 more rows, 9 more variables: flight <int>, tailnum <chr>,
+#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
+#> #   minute <dbl>, time_hour <dttm>, and abbreviated variable names
+#> #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
 # 反向排序。注意无论正反向，NA 值都总是被排到末尾：
 arrange(flights, desc(dep_delay))
 #> # A tibble: 336,776 × 19
-#>     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-#>    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
-#>  1  2013     1     9      641            900      1301     1242           1530
-#>  2  2013     6    15     1432           1935      1137     1607           2120
-#>  3  2013     1    10     1121           1635      1126     1239           1810
-#>  4  2013     9    20     1139           1845      1014     1457           2210
-#>  5  2013     7    22      845           1600      1005     1044           1815
-#>  6  2013     4    10     1100           1900       960     1342           2211
-#>  7  2013     3    17     2321            810       911      135           1020
-#>  8  2013     6    27      959           1900       899     1236           2226
-#>  9  2013     7    22     2257            759       898      121           1026
-#> 10  2013    12     5      756           1700       896     1058           2020
-#> # … with 336,766 more rows, and 11 more variables: arr_delay <dbl>,
-#> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
-#> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
+#>     year month   day dep_time sched_de…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+#>    <int> <int> <int>    <int>      <int>   <dbl>   <int>   <int>   <dbl> <chr>  
+#>  1  2013     1     9      641        900    1301    1242    1530    1272 HA     
+#>  2  2013     6    15     1432       1935    1137    1607    2120    1127 MQ     
+#>  3  2013     1    10     1121       1635    1126    1239    1810    1109 MQ     
+#>  4  2013     9    20     1139       1845    1014    1457    2210    1007 AA     
+#>  5  2013     7    22      845       1600    1005    1044    1815     989 MQ     
+#>  6  2013     4    10     1100       1900     960    1342    2211     931 DL     
+#>  7  2013     3    17     2321        810     911     135    1020     915 DL     
+#>  8  2013     6    27      959       1900     899    1236    2226     850 DL     
+#>  9  2013     7    22     2257        759     898     121    1026     895 DL     
+#> 10  2013    12     5      756       1700     896    1058    2020     878 AA     
+#> # … with 336,766 more rows, 9 more variables: flight <int>, tailnum <chr>,
+#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
+#> #   minute <dbl>, time_hour <dttm>, and abbreviated variable names
+#> #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
 ```
 
 ## 选择 select()
@@ -309,21 +317,21 @@ select(flights, year:day)
 # 选出除年月日以及 flight 的所有列
 select(flights, -c(year:day, flight)) # 有时 c 可以省略掉
 #> # A tibble: 336,776 × 15
-#>    dep_time sched_dep_time dep_delay arr_time sched_arr_time arr_delay carrier
-#>       <int>          <int>     <dbl>    <int>          <int>     <dbl> <chr>  
-#>  1      517            515         2      830            819        11 UA     
-#>  2      533            529         4      850            830        20 UA     
-#>  3      542            540         2      923            850        33 AA     
-#>  4      544            545        -1     1004           1022       -18 B6     
-#>  5      554            600        -6      812            837       -25 DL     
-#>  6      554            558        -4      740            728        12 UA     
-#>  7      555            600        -5      913            854        19 B6     
-#>  8      557            600        -3      709            723       -14 EV     
-#>  9      557            600        -3      838            846        -8 B6     
-#> 10      558            600        -2      753            745         8 AA     
-#> # … with 336,766 more rows, and 8 more variables: tailnum <chr>, origin <chr>,
-#> #   dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>,
-#> #   time_hour <dttm>
+#>    dep_time sched…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier tailnum origin dest 
+#>       <int>   <int>   <dbl>   <int>   <int>   <dbl> <chr>   <chr>   <chr>  <chr>
+#>  1      517     515       2     830     819      11 UA      N14228  EWR    IAH  
+#>  2      533     529       4     850     830      20 UA      N24211  LGA    IAH  
+#>  3      542     540       2     923     850      33 AA      N619AA  JFK    MIA  
+#>  4      544     545      -1    1004    1022     -18 B6      N804JB  JFK    BQN  
+#>  5      554     600      -6     812     837     -25 DL      N668DN  LGA    ATL  
+#>  6      554     558      -4     740     728      12 UA      N39463  EWR    ORD  
+#>  7      555     600      -5     913     854      19 B6      N516JB  EWR    FLL  
+#>  8      557     600      -3     709     723     -14 EV      N829AS  LGA    IAD  
+#>  9      557     600      -3     838     846      -8 B6      N593JB  JFK    MCO  
+#> 10      558     600      -2     753     745       8 AA      N3ALAA  LGA    ORD  
+#> # … with 336,766 more rows, 5 more variables: air_time <dbl>, distance <dbl>,
+#> #   hour <dbl>, minute <dbl>, time_hour <dttm>, and abbreviated variable names
+#> #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
 # 选出结尾为 delay 相关的列
 select(flights, ends_with("delay"))
 #> # A tibble: 336,776 × 2
@@ -375,21 +383,22 @@ select(flights, contains("sched"))
 # 选出的数据不包含带 sched的列，此外其他都包含
 select(flights, -contains("sched"), everything())
 #> # A tibble: 336,776 × 19
-#>     year month   day dep_time dep_delay arr_time arr_delay carrier flight
-#>    <int> <int> <int>    <int>     <dbl>    <int>     <dbl> <chr>    <int>
-#>  1  2013     1     1      517         2      830        11 UA        1545
-#>  2  2013     1     1      533         4      850        20 UA        1714
-#>  3  2013     1     1      542         2      923        33 AA        1141
-#>  4  2013     1     1      544        -1     1004       -18 B6         725
-#>  5  2013     1     1      554        -6      812       -25 DL         461
-#>  6  2013     1     1      554        -4      740        12 UA        1696
-#>  7  2013     1     1      555        -5      913        19 B6         507
-#>  8  2013     1     1      557        -3      709       -14 EV        5708
-#>  9  2013     1     1      557        -3      838        -8 B6          79
-#> 10  2013     1     1      558        -2      753         8 AA         301
-#> # … with 336,766 more rows, and 10 more variables: tailnum <chr>, origin <chr>,
-#> #   dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>,
-#> #   time_hour <dttm>, sched_dep_time <int>, sched_arr_time <int>
+#>     year month   day dep_time dep_delay arr_time arr_de…¹ carrier flight tailnum
+#>    <int> <int> <int>    <int>     <dbl>    <int>    <dbl> <chr>    <int> <chr>  
+#>  1  2013     1     1      517         2      830       11 UA        1545 N14228 
+#>  2  2013     1     1      533         4      850       20 UA        1714 N24211 
+#>  3  2013     1     1      542         2      923       33 AA        1141 N619AA 
+#>  4  2013     1     1      544        -1     1004      -18 B6         725 N804JB 
+#>  5  2013     1     1      554        -6      812      -25 DL         461 N668DN 
+#>  6  2013     1     1      554        -4      740       12 UA        1696 N39463 
+#>  7  2013     1     1      555        -5      913       19 B6         507 N516JB 
+#>  8  2013     1     1      557        -3      709      -14 EV        5708 N829AS 
+#>  9  2013     1     1      557        -3      838       -8 B6          79 N593JB 
+#> 10  2013     1     1      558        -2      753        8 AA         301 N3ALAA 
+#> # … with 336,766 more rows, 9 more variables: origin <chr>, dest <chr>,
+#> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>,
+#> #   sched_dep_time <int>, sched_arr_time <int>, and abbreviated variable name
+#> #   ¹​arr_delay
 ```
 
 ## 重命名 rename()
@@ -413,19 +422,20 @@ mutate(
     speed_sec = speed_min * 60 # 从刚生成的数据中套新数据
 )
 #> # A tibble: 336,776 × 10
-#>     year month   day dep_delay arr_delay distance air_time  gain speed_min
-#>    <int> <int> <int>     <dbl>     <dbl>    <dbl>    <dbl> <dbl>     <dbl>
-#>  1  2013     1     1         2        11     1400      227    -9      6.17
-#>  2  2013     1     1         4        20     1416      227   -16      6.24
-#>  3  2013     1     1         2        33     1089      160   -31      6.81
-#>  4  2013     1     1        -1       -18     1576      183    17      8.61
-#>  5  2013     1     1        -6       -25      762      116    19      6.57
-#>  6  2013     1     1        -4        12      719      150   -16      4.79
-#>  7  2013     1     1        -5        19     1065      158   -24      6.74
-#>  8  2013     1     1        -3       -14      229       53    11      4.32
-#>  9  2013     1     1        -3        -8      944      140     5      6.74
-#> 10  2013     1     1        -2         8      733      138   -10      5.31
-#> # … with 336,766 more rows, and 1 more variable: speed_sec <dbl>
+#>     year month   day dep_delay arr_delay distance air_time  gain speed…¹ speed…²
+#>    <int> <int> <int>     <dbl>     <dbl>    <dbl>    <dbl> <dbl>   <dbl>   <dbl>
+#>  1  2013     1     1         2        11     1400      227    -9    6.17    370.
+#>  2  2013     1     1         4        20     1416      227   -16    6.24    374.
+#>  3  2013     1     1         2        33     1089      160   -31    6.81    408.
+#>  4  2013     1     1        -1       -18     1576      183    17    8.61    517.
+#>  5  2013     1     1        -6       -25      762      116    19    6.57    394.
+#>  6  2013     1     1        -4        12      719      150   -16    4.79    288.
+#>  7  2013     1     1        -5        19     1065      158   -24    6.74    404.
+#>  8  2013     1     1        -3       -14      229       53    11    4.32    259.
+#>  9  2013     1     1        -3        -8      944      140     5    6.74    405.
+#> 10  2013     1     1        -2         8      733      138   -10    5.31    319.
+#> # … with 336,766 more rows, and abbreviated variable names ¹​speed_min,
+#> #   ²​speed_sec
 # 生成数据中不包含旧数据，应该使用 transmute
 transmute(
     flights_sml,
@@ -578,7 +588,7 @@ ggplot(
         alpha = 1 / 3 # 透明度固定
     ) +
     geom_smooth(se = FALSE) # 绘制平滑曲线
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 ```
 
 <img src="05-transform_files/figure-html/dest-1.png" width="672" />

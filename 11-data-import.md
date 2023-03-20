@@ -351,6 +351,11 @@ parse_time() 用于转换时分秒（秒和上下午可选）：
 
 ```r
 library(hms) # R 不自带，我们需要调用 hms 包（tidyverse 的 readr 包也有）
+#> 
+#> Attaching package: 'hms'
+#> The following object is masked from 'package:lubridate':
+#> 
+#>     hms
 parse_time("01:10 am")
 #> 01:10:00
 parse_time("20:10:01")
@@ -497,7 +502,10 @@ challenge <- read_csv(
     y = col_logical() # 第二列为 y，逻辑值类型
   )
 )
-#> Warning: One or more parsing issues, see `problems()` for details
+#> Warning: One or more parsing issues, call `problems()` on your data frame for details,
+#> e.g.:
+#>   dat <- vroom(...)
+#>   problems(dat)
 
 challenge <- read_csv(
   readr_example("challenge.csv"),

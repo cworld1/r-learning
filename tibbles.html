@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 11 Tibbles | R-Learning</title>
   <meta name="description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
-  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 11 Tibbles | R-Learning" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="CWorld" />
 
 
-<meta name="date" content="2022-06-18" />
+<meta name="date" content="2023-03-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,9 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.4.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -95,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -108,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -505,18 +502,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb109-6"><a href="tibbles.html#cb109-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">e =</span> <span class="fu">sample</span>(letters, <span class="fl">1e3</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb109-7"><a href="tibbles.html#cb109-7" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb109-8"><a href="tibbles.html#cb109-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,000 × 5</span></span>
-<span id="cb109-9"><a href="tibbles.html#cb109-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    a                   b              c      d e    </span></span>
-<span id="cb109-10"><a href="tibbles.html#cb109-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;</span></span>
-<span id="cb109-11"><a href="tibbles.html#cb109-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2022-06-18 13:37:06 2022-06-29     1 0.666  h    </span></span>
-<span id="cb109-12"><a href="tibbles.html#cb109-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 2022-06-18 20:47:05 2022-06-30     2 0.425  i    </span></span>
-<span id="cb109-13"><a href="tibbles.html#cb109-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 2022-06-19 00:19:38 2022-06-26     3 0.798  o    </span></span>
-<span id="cb109-14"><a href="tibbles.html#cb109-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 2022-06-18 23:32:22 2022-07-09     4 0.462  d    </span></span>
-<span id="cb109-15"><a href="tibbles.html#cb109-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 2022-06-18 16:14:41 2022-07-13     5 0.914  h    </span></span>
-<span id="cb109-16"><a href="tibbles.html#cb109-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 2022-06-18 23:17:28 2022-07-07     6 0.0190 n    </span></span>
-<span id="cb109-17"><a href="tibbles.html#cb109-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 2022-06-18 14:31:15 2022-06-25     7 0.843  j    </span></span>
-<span id="cb109-18"><a href="tibbles.html#cb109-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 2022-06-19 05:54:44 2022-07-03     8 0.771  a    </span></span>
-<span id="cb109-19"><a href="tibbles.html#cb109-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 2022-06-18 22:47:27 2022-07-11     9 0.303  d    </span></span>
-<span id="cb109-20"><a href="tibbles.html#cb109-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2022-06-18 13:28:14 2022-06-24    10 0.687  j    </span></span>
+<span id="cb109-9"><a href="tibbles.html#cb109-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    a                   b              c     d e    </span></span>
+<span id="cb109-10"><a href="tibbles.html#cb109-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;</span></span>
+<span id="cb109-11"><a href="tibbles.html#cb109-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2023-03-21 04:22:49 2023-04-11     1 0.534 w    </span></span>
+<span id="cb109-12"><a href="tibbles.html#cb109-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 2023-03-20 22:22:41 2023-04-17     2 0.128 n    </span></span>
+<span id="cb109-13"><a href="tibbles.html#cb109-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 2023-03-20 16:25:54 2023-04-12     3 0.435 f    </span></span>
+<span id="cb109-14"><a href="tibbles.html#cb109-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 2023-03-21 06:15:45 2023-04-15     4 0.438 o    </span></span>
+<span id="cb109-15"><a href="tibbles.html#cb109-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 2023-03-21 03:26:58 2023-04-01     5 0.122 j    </span></span>
+<span id="cb109-16"><a href="tibbles.html#cb109-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 2023-03-20 09:25:12 2023-03-26     6 0.564 h    </span></span>
+<span id="cb109-17"><a href="tibbles.html#cb109-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 2023-03-21 03:35:17 2023-04-06     7 0.997 d    </span></span>
+<span id="cb109-18"><a href="tibbles.html#cb109-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 2023-03-21 06:50:48 2023-03-30     8 0.283 g    </span></span>
+<span id="cb109-19"><a href="tibbles.html#cb109-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 2023-03-20 12:49:29 2023-04-14     9 0.603 d    </span></span>
+<span id="cb109-20"><a href="tibbles.html#cb109-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2023-03-20 21:36:03 2023-04-11    10 0.886 v    </span></span>
 <span id="cb109-21"><a href="tibbles.html#cb109-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 990 more rows</span></span></code></pre></div>
 <p>tibble 对于太多的数据，只会显示前十行，不会让你的控制台被内容淹没；同时会显示每一列的数据类型。这得益于 str() 函数。</p>
 <p>tibble 还完美兼容 print() 函数：</p>
@@ -574,17 +571,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb112-4"><a href="tibbles.html#cb112-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>按名字读取:</p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="tibbles.html#cb113-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>x</span>
-<span id="cb113-2"><a href="tibbles.html#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.4809594 0.4907944 0.1501690 0.4932405 0.9754740</span></span>
+<span id="cb113-2"><a href="tibbles.html#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.461996860 0.649550854 0.209416986 0.002434091 0.953380785</span></span>
 <span id="cb113-3"><a href="tibbles.html#cb113-3" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">&quot;x&quot;</span>]]</span>
-<span id="cb113-4"><a href="tibbles.html#cb113-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.4809594 0.4907944 0.1501690 0.4932405 0.9754740</span></span></code></pre></div>
+<span id="cb113-4"><a href="tibbles.html#cb113-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.461996860 0.649550854 0.209416986 0.002434091 0.953380785</span></span></code></pre></div>
 <p>按序列位置读取：</p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="tibbles.html#cb114-1" aria-hidden="true" tabindex="-1"></a>df[[<span class="dv">1</span>]]</span>
-<span id="cb114-2"><a href="tibbles.html#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.4809594 0.4907944 0.1501690 0.4932405 0.9754740</span></span></code></pre></div>
+<span id="cb114-2"><a href="tibbles.html#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.461996860 0.649550854 0.209416986 0.002434091 0.953380785</span></span></code></pre></div>
 <p>但如果使用管道符的话，我们需要使用 “.”：</p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="tibbles.html#cb115-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> .<span class="sc">$</span>x</span>
-<span id="cb115-2"><a href="tibbles.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.4809594 0.4907944 0.1501690 0.4932405 0.9754740</span></span>
+<span id="cb115-2"><a href="tibbles.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.461996860 0.649550854 0.209416986 0.002434091 0.953380785</span></span>
 <span id="cb115-3"><a href="tibbles.html#cb115-3" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> .[[<span class="st">&quot;x&quot;</span>]]</span>
-<span id="cb115-4"><a href="tibbles.html#cb115-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.4809594 0.4907944 0.1501690 0.4932405 0.9754740</span></span></code></pre></div>
+<span id="cb115-4"><a href="tibbles.html#cb115-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.461996860 0.649550854 0.209416986 0.002434091 0.953380785</span></span></code></pre></div>
 </div>
 </div>
 <div id="tibble-的转换" class="section level2 hasAnchor" number="11.3">

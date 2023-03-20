@@ -19,7 +19,7 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_point(aes(color = class)) +
   geom_smooth(se = FALSE) +
   labs(title = "Fuel efficiency generally decreases with engine size")
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 ```
 
 <img src="28-graphics-for-communication_files/figure-html/labs() with title-1.png" width="672" />
@@ -41,7 +41,7 @@ ggplot(mpg, aes(displ, hwy)) +
     subtitle = "Two seaters (sports cars) are an exception because of their light weight",
     caption = "Data from fueleconomy.gov"
   )
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 ```
 
 <img src="28-graphics-for-communication_files/figure-html/labs() with subtitle & caption-1.png" width="672" />
@@ -58,7 +58,7 @@ ggplot(mpg, aes(displ, hwy)) +
     y = "Highway fuel economy (mpg)",
     colour = "Car type"
   )
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 ```
 
 <img src="28-graphics-for-communication_files/figure-html/labs() with x & y & colour-1.png" width="672" />

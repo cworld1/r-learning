@@ -181,7 +181,7 @@ diamonds_new <- diamonds %>%
 ```r
 ggplot(data = diamonds_new, mapping = aes(x = x, y = y)) +
     geom_point()
-#> Warning: Removed 9 rows containing missing values (geom_point).
+#> Warning: Removed 9 rows containing missing values (`geom_point()`).
 ```
 
 <img src="07-exploratory-data-analysis_files/figure-html/NA & ggplot()-1.png" width="672" />
@@ -247,6 +247,11 @@ ggplot(diamonds) +
 ```r
 ggplot(data = diamonds, mapping = aes(x = price, y = ..density..)) +
     geom_freqpoly(mapping = aes(colour = cut), binwidth = 500)
+#> Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `after_stat(density)` instead.
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+#> generated.
 ```
 
 <img src="07-exploratory-data-analysis_files/figure-html/geom_freqpoly() with frequency-1.png" width="672" />

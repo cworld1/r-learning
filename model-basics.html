@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 18 Model basics | R-Learning</title>
   <meta name="description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
-  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 18 Model basics | R-Learning" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="CWorld" />
 
 
-<meta name="date" content="2022-06-18" />
+<meta name="date" content="2023-03-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,9 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.4.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -95,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -108,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -426,9 +423,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="model-basics" class="section level1 hasAnchor" number="18">
 <h1><span class="header-section-number">Chapter 18</span> Model basics<a href="model-basics.html#model-basics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>模型由两部分组成：
-- 定义一系列模型，这些模型表示要捕获的精确但通用的模式。
-- 通过从最接近数据集中查找模型来生成拟合模型。这将采用通用模型系列，并使其具体化。</p>
+<p>模型由两部分组成：</p>
+<ul>
+<li>定义一系列模型，这些模型表示要捕获的精确但通用的模式。</li>
+<li>通过从最接近数据集中查找模型来生成拟合模型。这将采用通用模型系列，并使其具体化。</li>
+</ul>
 <div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="model-basics.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb249-2"><a href="model-basics.html#cb249-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelr)</span>
 <span id="cb249-3"><a href="model-basics.html#cb249-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">na.action =</span> na.warn)</span></code></pre></div>
@@ -486,16 +485,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb256-8"><a href="model-basics.html#cb256-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 250 × 3</span></span>
 <span id="cb256-9"><a href="model-basics.html#cb256-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        a1     a2  dist</span></span>
 <span id="cb256-10"><a href="model-basics.html#cb256-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb256-11"><a href="model-basics.html#cb256-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 -17.3  -1.10   39.9</span></span>
-<span id="cb256-12"><a href="model-basics.html#cb256-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 -14.2  -2.54   45.7</span></span>
-<span id="cb256-13"><a href="model-basics.html#cb256-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  -5.51 -4.66   50.5</span></span>
-<span id="cb256-14"><a href="model-basics.html#cb256-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  32.7  -2.29   13.5</span></span>
-<span id="cb256-15"><a href="model-basics.html#cb256-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  26.2  -0.890  10.5</span></span>
-<span id="cb256-16"><a href="model-basics.html#cb256-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  19.5   1.28   11.4</span></span>
-<span id="cb256-17"><a href="model-basics.html#cb256-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 -19.8  -2.41   50.3</span></span>
-<span id="cb256-18"><a href="model-basics.html#cb256-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  -1.29 -3.68   40.6</span></span>
-<span id="cb256-19"><a href="model-basics.html#cb256-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  -6.19 -4.25   48.6</span></span>
-<span id="cb256-20"><a href="model-basics.html#cb256-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  39.0   4.97   51.5</span></span>
+<span id="cb256-11"><a href="model-basics.html#cb256-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 -19.6  -1.61  45.3 </span></span>
+<span id="cb256-12"><a href="model-basics.html#cb256-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  27.6   1.93  22.8 </span></span>
+<span id="cb256-13"><a href="model-basics.html#cb256-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  21.9   2.76  21.8 </span></span>
+<span id="cb256-14"><a href="model-basics.html#cb256-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  -1.81  1.91   7.13</span></span>
+<span id="cb256-15"><a href="model-basics.html#cb256-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5   4.87 -1.71  22.9 </span></span>
+<span id="cb256-16"><a href="model-basics.html#cb256-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6   9.82  3.90  16.8 </span></span>
+<span id="cb256-17"><a href="model-basics.html#cb256-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  12.1  -3.63  28.5 </span></span>
+<span id="cb256-18"><a href="model-basics.html#cb256-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  20.8   3.73  26.3 </span></span>
+<span id="cb256-19"><a href="model-basics.html#cb256-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  16.6  -3.89  26.5 </span></span>
+<span id="cb256-20"><a href="model-basics.html#cb256-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  28.3   0.642 17.0 </span></span>
 <span id="cb256-21"><a href="model-basics.html#cb256-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 240 more rows</span></span></code></pre></div>
 <blockquote>
 <p>注意这里的 map2_dbl 会返回离散程度较小的，即拟合程度最高的。例如：</p>
@@ -613,7 +612,12 @@ lm() 用一种特殊的方式来指定模型，即公式。公式例如 y ~ x，
 <p>最后绘制预测结果：</p>
 <div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="model-basics.html#cb268-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim1, <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
 <span id="cb268-2"><a href="model-basics.html#cb268-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb268-3"><a href="model-basics.html#cb268-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> pred), <span class="at">data =</span> predictions, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
+<span id="cb268-3"><a href="model-basics.html#cb268-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> pred), <span class="at">data =</span> predictions, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>)</span>
+<span id="cb268-4"><a href="model-basics.html#cb268-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span></span>
+<span id="cb268-5"><a href="model-basics.html#cb268-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Please use `linewidth` instead.</span></span>
+<span id="cb268-6"><a href="model-basics.html#cb268-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
+<span id="cb268-7"><a href="model-basics.html#cb268-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span>
+<span id="cb268-8"><a href="model-basics.html#cb268-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; generated.</span></span></code></pre></div>
 <p><img src="23-model-basics_files/figure-html/geom_point()%20&%20geom_line()%20with%20predictions-1.png" width="672" /></p>
 </div>
 <div id="分析残差" class="section level4 hasAnchor" number="18.1.2.2">
@@ -830,35 +834,35 @@ lm() 用一种特殊的方式来指定模型，即公式。公式例如 y ~ x，
 <span id="cb284-8"><a href="model-basics.html#cb284-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb284-9"><a href="model-basics.html#cb284-9" aria-hidden="true" tabindex="-1"></a><span class="co"># trim 参数用于收缩范围，使得生成的序列更接近中值</span></span>
 <span id="cb284-10"><a href="model-basics.html#cb284-10" aria-hidden="true" tabindex="-1"></a>(x1 <span class="ot">&lt;-</span> <span class="fu">rcauchy</span>(<span class="dv">100</span>)) <span class="co"># 生成具有柯西分布特性的随机数</span></span>
-<span id="cb284-11"><a href="model-basics.html#cb284-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [1]   0.16887660  -3.89843061  -0.76950038  -0.32552804  -0.32548422</span></span>
-<span id="cb284-12"><a href="model-basics.html#cb284-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [6]  -2.07955145  -1.16144655  -0.19051488  -0.16913227  -0.16137116</span></span>
-<span id="cb284-13"><a href="model-basics.html#cb284-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [11]  -2.59540547   0.76276296   0.62283885  -1.21587442   0.76319514</span></span>
-<span id="cb284-14"><a href="model-basics.html#cb284-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [16]  -0.16079477   0.10973315  -0.16782551  -6.81903353   0.14309007</span></span>
-<span id="cb284-15"><a href="model-basics.html#cb284-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [21]  -0.60875080   3.10676429   0.03198520  -0.53275551  -2.78555372</span></span>
-<span id="cb284-16"><a href="model-basics.html#cb284-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [26]   0.21217131  -3.21176626  -0.21937033  -0.93584573   0.20615576</span></span>
-<span id="cb284-17"><a href="model-basics.html#cb284-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [31]   0.61854327  32.03021826  -0.78262886   4.01371831  -6.38880111</span></span>
-<span id="cb284-18"><a href="model-basics.html#cb284-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [36]  -9.23551361   0.24366467  -0.97143260   0.63174834  -0.25099373</span></span>
-<span id="cb284-19"><a href="model-basics.html#cb284-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [41]   4.73476413   1.80471382  -0.24500198 -10.81018645  -1.76384346</span></span>
-<span id="cb284-20"><a href="model-basics.html#cb284-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [46]  -0.20754519   0.09593679   4.62407631  -1.25469682  -0.95492045</span></span>
-<span id="cb284-21"><a href="model-basics.html#cb284-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [51]  -8.17807706  -0.01415561   1.02284886  -1.34921161  -0.36290691</span></span>
-<span id="cb284-22"><a href="model-basics.html#cb284-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [56]   1.83157444   0.57651865   6.86220871  -0.36558624  -9.07039386</span></span>
-<span id="cb284-23"><a href="model-basics.html#cb284-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [61]   7.16630752  -1.37758014   5.33431712   0.21812943   2.24884010</span></span>
-<span id="cb284-24"><a href="model-basics.html#cb284-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [66]   0.68565243  -0.91326709   8.49843483  -0.35313714  -1.39625738</span></span>
-<span id="cb284-25"><a href="model-basics.html#cb284-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [71]  -1.70162732   1.55583681   3.79570747   0.66010507  -5.27839249</span></span>
-<span id="cb284-26"><a href="model-basics.html#cb284-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [76]   0.08116215   0.28484851  -4.72629718   0.45591824   2.46143645</span></span>
-<span id="cb284-27"><a href="model-basics.html#cb284-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [81]  -0.44185272  -0.35000125   0.87955317   2.94570555  -1.67571943</span></span>
-<span id="cb284-28"><a href="model-basics.html#cb284-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [86]  -0.05961095  -4.86743738  -7.99326593   2.25912163   4.83724253</span></span>
-<span id="cb284-29"><a href="model-basics.html#cb284-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [91]  -0.76734498   0.87934559   3.05928242  -1.73002036   0.23745996</span></span>
-<span id="cb284-30"><a href="model-basics.html#cb284-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [96]  -0.66076207   2.22021230  -0.24736529   5.50025797   2.14415474</span></span>
+<span id="cb284-11"><a href="model-basics.html#cb284-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [1]   1.287927912 983.323273166  -0.357024023  -0.674447737  -0.224068431</span></span>
+<span id="cb284-12"><a href="model-basics.html#cb284-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [6]   0.903225543  -0.338728386   2.221298462  -0.160619505   1.468088516</span></span>
+<span id="cb284-13"><a href="model-basics.html#cb284-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [11]   0.390513558   9.734690557  -0.872233193   1.691404045   2.036414389</span></span>
+<span id="cb284-14"><a href="model-basics.html#cb284-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [16]   0.662269407  -0.744473381  -0.069868390  11.175718614   0.098666726</span></span>
+<span id="cb284-15"><a href="model-basics.html#cb284-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [21]  -0.078456491  -0.257308118  -0.147732901  -2.317817518   0.160194594</span></span>
+<span id="cb284-16"><a href="model-basics.html#cb284-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [26]   0.915243736  -0.763477981 -11.621093880   0.548335408  -0.994420096</span></span>
+<span id="cb284-17"><a href="model-basics.html#cb284-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [31]   1.407825447  -5.131727573   6.598763462   2.706544164 -26.178151348</span></span>
+<span id="cb284-18"><a href="model-basics.html#cb284-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [36]   0.183661107   0.421162420   0.753604780  -0.481886882  -0.714556275</span></span>
+<span id="cb284-19"><a href="model-basics.html#cb284-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [41]   2.423470110  -1.467169161   1.162153110  -0.525949154 -40.993707764</span></span>
+<span id="cb284-20"><a href="model-basics.html#cb284-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [46]   8.181409410   0.521260580   0.489637348  -8.013924900  -0.228801750</span></span>
+<span id="cb284-21"><a href="model-basics.html#cb284-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [51]  -2.190980508  -0.009795052   6.407825520  -0.082795345  -2.003274730</span></span>
+<span id="cb284-22"><a href="model-basics.html#cb284-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [56]  -1.344087578   3.771828298  10.709601613   3.859202335   0.432793393</span></span>
+<span id="cb284-23"><a href="model-basics.html#cb284-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [61]   4.807420652   1.086559308  10.508962844  -0.951600614  -0.286034333</span></span>
+<span id="cb284-24"><a href="model-basics.html#cb284-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [66]   2.526870481  -2.096088947   4.567061930   0.732064020   5.602050712</span></span>
+<span id="cb284-25"><a href="model-basics.html#cb284-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [71]  38.538289731  -0.363325845  -2.993338495  -0.568155310   0.211120774</span></span>
+<span id="cb284-26"><a href="model-basics.html#cb284-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [76]   4.148102090   4.854797973  -1.687649671   1.594430964  -0.126995362</span></span>
+<span id="cb284-27"><a href="model-basics.html#cb284-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [81]   1.075982865   1.779520491  25.135068547  -0.339197536  -2.097722187</span></span>
+<span id="cb284-28"><a href="model-basics.html#cb284-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [86]  -2.436165868   0.866232687   0.385031250   0.181939025  -1.543996303</span></span>
+<span id="cb284-29"><a href="model-basics.html#cb284-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [91]  -0.023343955   0.818333653  -1.334457110   0.698334455  -3.774421304</span></span>
+<span id="cb284-30"><a href="model-basics.html#cb284-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [96]  -0.256704344   0.215818442  -1.584099563   0.239431900  -1.265428963</span></span>
 <span id="cb284-31"><a href="model-basics.html#cb284-31" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb284-32"><a href="model-basics.html#cb284-32" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x1, <span class="at">n =</span> <span class="dv">5</span>)</span>
-<span id="cb284-33"><a href="model-basics.html#cb284-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -10.8101865  -0.1000853  10.6100159  21.3201171  32.0302183</span></span>
+<span id="cb284-33"><a href="model-basics.html#cb284-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -40.99371 215.08554 471.16478 727.24403 983.32327</span></span>
 <span id="cb284-34"><a href="model-basics.html#cb284-34" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x1, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">trim =</span> <span class="fl">0.10</span>) <span class="co"># 收缩指定范围头尾 10%</span></span>
-<span id="cb284-35"><a href="model-basics.html#cb284-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -6.8777452 -3.8226553 -0.7675655  2.2875243  5.3426142</span></span>
+<span id="cb284-35"><a href="model-basics.html#cb284-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -3.8422866 -0.2519663  3.3383541  6.9286744 10.5189948</span></span>
 <span id="cb284-36"><a href="model-basics.html#cb284-36" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x1, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">trim =</span> <span class="fl">0.25</span>) <span class="co"># 收缩指定范围头尾 25%</span></span>
-<span id="cb284-37"><a href="model-basics.html#cb284-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -2.7142481 -1.2815133  0.1512215  1.5839563  3.0166911</span></span>
+<span id="cb284-37"><a href="model-basics.html#cb284-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -1.884915 -0.234365  1.416185  3.066736  4.717286</span></span>
 <span id="cb284-38"><a href="model-basics.html#cb284-38" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_range</span>(x1, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">trim =</span> <span class="fl">0.50</span>) <span class="co"># 收缩指定范围头尾 50%</span></span>
-<span id="cb284-39"><a href="model-basics.html#cb284-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -1.0189361 -0.5661439 -0.1133517  0.3394405  0.7922328</span></span>
+<span id="cb284-39"><a href="model-basics.html#cb284-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.7220356 -0.1666081  0.3888193  0.9442467  1.4996741</span></span>
 <span id="cb284-40"><a href="model-basics.html#cb284-40" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb284-41"><a href="model-basics.html#cb284-41" aria-hidden="true" tabindex="-1"></a><span class="co"># 与之相反，expand 参数会扩增范围</span></span>
 <span id="cb284-42"><a href="model-basics.html#cb284-42" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
@@ -905,18 +909,18 @@ lm() 用一种特殊的方式来指定模型，即公式。公式例如 y ~ x，
 <span id="cb287-4"><a href="model-basics.html#cb287-4" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb287-5"><a href="model-basics.html#cb287-5" aria-hidden="true" tabindex="-1"></a>sim5</span>
 <span id="cb287-6"><a href="model-basics.html#cb287-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 50 × 2</span></span>
-<span id="cb287-7"><a href="model-basics.html#cb287-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        x      y</span></span>
-<span id="cb287-8"><a href="model-basics.html#cb287-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt;  &lt;dbl&gt;</span></span>
-<span id="cb287-9"><a href="model-basics.html#cb287-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 0     -0.369</span></span>
-<span id="cb287-10"><a href="model-basics.html#cb287-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 0.224  1.14 </span></span>
-<span id="cb287-11"><a href="model-basics.html#cb287-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 0.449  1.10 </span></span>
-<span id="cb287-12"><a href="model-basics.html#cb287-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 0.673  1.77 </span></span>
-<span id="cb287-13"><a href="model-basics.html#cb287-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 0.898  1.81 </span></span>
-<span id="cb287-14"><a href="model-basics.html#cb287-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 1.12   3.79 </span></span>
-<span id="cb287-15"><a href="model-basics.html#cb287-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 1.35   5.29 </span></span>
-<span id="cb287-16"><a href="model-basics.html#cb287-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 1.57   5.16 </span></span>
-<span id="cb287-17"><a href="model-basics.html#cb287-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 1.80   4.54 </span></span>
-<span id="cb287-18"><a href="model-basics.html#cb287-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2.02   3.71 </span></span>
+<span id="cb287-7"><a href="model-basics.html#cb287-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        x     y</span></span>
+<span id="cb287-8"><a href="model-basics.html#cb287-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb287-9"><a href="model-basics.html#cb287-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 0      1.80</span></span>
+<span id="cb287-10"><a href="model-basics.html#cb287-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 0.224 -1.25</span></span>
+<span id="cb287-11"><a href="model-basics.html#cb287-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 0.449  2.04</span></span>
+<span id="cb287-12"><a href="model-basics.html#cb287-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 0.673  1.86</span></span>
+<span id="cb287-13"><a href="model-basics.html#cb287-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 0.898  4.11</span></span>
+<span id="cb287-14"><a href="model-basics.html#cb287-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 1.12   3.04</span></span>
+<span id="cb287-15"><a href="model-basics.html#cb287-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 1.35   4.57</span></span>
+<span id="cb287-16"><a href="model-basics.html#cb287-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 1.57   2.86</span></span>
+<span id="cb287-17"><a href="model-basics.html#cb287-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 1.80   2.32</span></span>
+<span id="cb287-18"><a href="model-basics.html#cb287-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2.02   4.59</span></span>
 <span id="cb287-19"><a href="model-basics.html#cb287-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 40 more rows</span></span></code></pre></div>
 <div id="关于-i-和-model_matrix续" class="section level3 hasAnchor" number="18.5.1">
 <h3><span class="header-section-number">18.5.1</span> 关于 I() 和 model_matrix()（续）<a href="model-basics.html#关于-i-和-model_matrix续" class="anchor-section" aria-label="Anchor link to header"></a></h3>

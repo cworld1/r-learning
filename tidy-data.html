@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 13 Tidy data | R-Learning</title>
   <meta name="description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
-  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 13 Tidy data | R-Learning" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="CWorld" />
 
 
-<meta name="date" content="2022-06-18" />
+<meta name="date" content="2023-03-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,9 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.4.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -95,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -108,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -442,7 +439,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="tidy-data.html#cb156-1" aria-hidden="true" tabindex="-1"></a>table1</span>
 <span id="cb156-2"><a href="tidy-data.html#cb156-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span id="cb156-3"><a href="tidy-data.html#cb156-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country      year  cases population</span></span>
-<span id="cb156-4"><a href="tidy-data.html#cb156-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span id="cb156-4"><a href="tidy-data.html#cb156-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;</span></span>
 <span id="cb156-5"><a href="tidy-data.html#cb156-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span></span>
 <span id="cb156-6"><a href="tidy-data.html#cb156-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span></span>
 <span id="cb156-7"><a href="tidy-data.html#cb156-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Brazil       1999  37737  172006362</span></span>
@@ -460,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="tidy-data.html#cb157-1" aria-hidden="true" tabindex="-1"></a>table2</span>
 <span id="cb157-2"><a href="tidy-data.html#cb157-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 12 × 4</span></span>
 <span id="cb157-3"><a href="tidy-data.html#cb157-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country      year type            count</span></span>
-<span id="cb157-4"><a href="tidy-data.html#cb157-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;</span></span>
+<span id="cb157-4"><a href="tidy-data.html#cb157-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;</span></span>
 <span id="cb157-5"><a href="tidy-data.html#cb157-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Afghanistan  1999 cases             745</span></span>
 <span id="cb157-6"><a href="tidy-data.html#cb157-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Afghanistan  1999 population   19987071</span></span>
 <span id="cb157-7"><a href="tidy-data.html#cb157-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Afghanistan  2000 cases            2666</span></span>
@@ -477,7 +474,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb157-18"><a href="tidy-data.html#cb157-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> type, <span class="at">values_from =</span> count)</span>
 <span id="cb157-19"><a href="tidy-data.html#cb157-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span id="cb157-20"><a href="tidy-data.html#cb157-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country      year  cases population</span></span>
-<span id="cb157-21"><a href="tidy-data.html#cb157-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span id="cb157-21"><a href="tidy-data.html#cb157-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;</span></span>
 <span id="cb157-22"><a href="tidy-data.html#cb157-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span></span>
 <span id="cb157-23"><a href="tidy-data.html#cb157-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span></span>
 <span id="cb157-24"><a href="tidy-data.html#cb157-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Brazil       1999  37737  172006362</span></span>
@@ -491,7 +488,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="tidy-data.html#cb158-1" aria-hidden="true" tabindex="-1"></a>table3</span>
 <span id="cb158-2"><a href="tidy-data.html#cb158-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 3</span></span>
 <span id="cb158-3"><a href="tidy-data.html#cb158-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country      year rate             </span></span>
-<span id="cb158-4"><a href="tidy-data.html#cb158-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            </span></span>
+<span id="cb158-4"><a href="tidy-data.html#cb158-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;            </span></span>
 <span id="cb158-5"><a href="tidy-data.html#cb158-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Afghanistan  1999 745/19987071     </span></span>
 <span id="cb158-6"><a href="tidy-data.html#cb158-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Afghanistan  2000 2666/20595360    </span></span>
 <span id="cb158-7"><a href="tidy-data.html#cb158-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Brazil       1999 37737/172006362  </span></span>
@@ -503,7 +500,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb158-13"><a href="tidy-data.html#cb158-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">separate</span>(rate, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>))</span>
 <span id="cb158-14"><a href="tidy-data.html#cb158-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span id="cb158-15"><a href="tidy-data.html#cb158-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country      year cases  population</span></span>
-<span id="cb158-16"><a href="tidy-data.html#cb158-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;     </span></span>
+<span id="cb158-16"><a href="tidy-data.html#cb158-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     </span></span>
 <span id="cb158-17"><a href="tidy-data.html#cb158-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Afghanistan  1999 745    19987071  </span></span>
 <span id="cb158-18"><a href="tidy-data.html#cb158-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Afghanistan  2000 2666   20595360  </span></span>
 <span id="cb158-19"><a href="tidy-data.html#cb158-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Brazil       1999 37737  172006362 </span></span>
@@ -515,7 +512,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb158-25"><a href="tidy-data.html#cb158-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">separate</span>(rate, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>), <span class="at">convert =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb158-26"><a href="tidy-data.html#cb158-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span id="cb158-27"><a href="tidy-data.html#cb158-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country      year  cases population</span></span>
-<span id="cb158-28"><a href="tidy-data.html#cb158-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span id="cb158-28"><a href="tidy-data.html#cb158-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
 <span id="cb158-29"><a href="tidy-data.html#cb158-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span></span>
 <span id="cb158-30"><a href="tidy-data.html#cb158-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span></span>
 <span id="cb158-31"><a href="tidy-data.html#cb158-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Brazil       1999  37737  172006362</span></span>
@@ -527,7 +524,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb158-37"><a href="tidy-data.html#cb158-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">separate</span>(rate, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;/&quot;</span>)</span>
 <span id="cb158-38"><a href="tidy-data.html#cb158-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span id="cb158-39"><a href="tidy-data.html#cb158-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country      year cases  population</span></span>
-<span id="cb158-40"><a href="tidy-data.html#cb158-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;     </span></span>
+<span id="cb158-40"><a href="tidy-data.html#cb158-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     </span></span>
 <span id="cb158-41"><a href="tidy-data.html#cb158-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Afghanistan  1999 745    19987071  </span></span>
 <span id="cb158-42"><a href="tidy-data.html#cb158-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Afghanistan  2000 2666   20595360  </span></span>
 <span id="cb158-43"><a href="tidy-data.html#cb158-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Brazil       1999 37737  172006362 </span></span>
@@ -565,10 +562,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb159-13"><a href="tidy-data.html#cb159-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 最后合并两个表的数据内容</span></span>
 <span id="cb159-14"><a href="tidy-data.html#cb159-14" aria-hidden="true" tabindex="-1"></a><span class="co">#* dplyr::left_join()</span></span>
 <span id="cb159-15"><a href="tidy-data.html#cb159-15" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(table4a_new, table4b_new)</span>
-<span id="cb159-16"><a href="tidy-data.html#cb159-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Joining, by = c(&quot;country&quot;, &quot;year&quot;)</span></span>
+<span id="cb159-16"><a href="tidy-data.html#cb159-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Joining with `by = join_by(country, year)`</span></span>
 <span id="cb159-17"><a href="tidy-data.html#cb159-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span id="cb159-18"><a href="tidy-data.html#cb159-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country     year   cases population</span></span>
-<span id="cb159-19"><a href="tidy-data.html#cb159-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span id="cb159-19"><a href="tidy-data.html#cb159-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;dbl&gt;      &lt;dbl&gt;</span></span>
 <span id="cb159-20"><a href="tidy-data.html#cb159-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Afghanistan 1999     745   19987071</span></span>
 <span id="cb159-21"><a href="tidy-data.html#cb159-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Afghanistan 2000    2666   20595360</span></span>
 <span id="cb159-22"><a href="tidy-data.html#cb159-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Brazil      1999   37737  172006362</span></span>
@@ -656,25 +653,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>who 是一个流行病统计数据集。</p>
 <div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="tidy-data.html#cb162-1" aria-hidden="true" tabindex="-1"></a>who</span>
 <span id="cb162-2"><a href="tidy-data.html#cb162-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 7,240 × 60</span></span>
-<span id="cb162-3"><a href="tidy-data.html#cb162-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country  iso2  iso3   year new_sp_m014 new_sp_m1524 new_sp_m2534 new_sp_m3544</span></span>
-<span id="cb162-4"><a href="tidy-data.html#cb162-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;int&gt;       &lt;int&gt;        &lt;int&gt;        &lt;int&gt;        &lt;int&gt;</span></span>
-<span id="cb162-5"><a href="tidy-data.html#cb162-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Afghani… AF    AFG    1980          NA           NA           NA           NA</span></span>
-<span id="cb162-6"><a href="tidy-data.html#cb162-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Afghani… AF    AFG    1981          NA           NA           NA           NA</span></span>
-<span id="cb162-7"><a href="tidy-data.html#cb162-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Afghani… AF    AFG    1982          NA           NA           NA           NA</span></span>
-<span id="cb162-8"><a href="tidy-data.html#cb162-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Afghani… AF    AFG    1983          NA           NA           NA           NA</span></span>
-<span id="cb162-9"><a href="tidy-data.html#cb162-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Afghani… AF    AFG    1984          NA           NA           NA           NA</span></span>
-<span id="cb162-10"><a href="tidy-data.html#cb162-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Afghani… AF    AFG    1985          NA           NA           NA           NA</span></span>
-<span id="cb162-11"><a href="tidy-data.html#cb162-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Afghani… AF    AFG    1986          NA           NA           NA           NA</span></span>
-<span id="cb162-12"><a href="tidy-data.html#cb162-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Afghani… AF    AFG    1987          NA           NA           NA           NA</span></span>
-<span id="cb162-13"><a href="tidy-data.html#cb162-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Afghani… AF    AFG    1988          NA           NA           NA           NA</span></span>
-<span id="cb162-14"><a href="tidy-data.html#cb162-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Afghani… AF    AFG    1989          NA           NA           NA           NA</span></span>
-<span id="cb162-15"><a href="tidy-data.html#cb162-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 7,230 more rows, and 52 more variables: new_sp_m4554 &lt;int&gt;,</span></span>
-<span id="cb162-16"><a href="tidy-data.html#cb162-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   new_sp_m5564 &lt;int&gt;, new_sp_m65 &lt;int&gt;, new_sp_f014 &lt;int&gt;,</span></span>
-<span id="cb162-17"><a href="tidy-data.html#cb162-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   new_sp_f1524 &lt;int&gt;, new_sp_f2534 &lt;int&gt;, new_sp_f3544 &lt;int&gt;,</span></span>
-<span id="cb162-18"><a href="tidy-data.html#cb162-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   new_sp_f4554 &lt;int&gt;, new_sp_f5564 &lt;int&gt;, new_sp_f65 &lt;int&gt;,</span></span>
-<span id="cb162-19"><a href="tidy-data.html#cb162-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   new_sn_m014 &lt;int&gt;, new_sn_m1524 &lt;int&gt;, new_sn_m2534 &lt;int&gt;,</span></span>
-<span id="cb162-20"><a href="tidy-data.html#cb162-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   new_sn_m3544 &lt;int&gt;, new_sn_m4554 &lt;int&gt;, new_sn_m5564 &lt;int&gt;,</span></span>
-<span id="cb162-21"><a href="tidy-data.html#cb162-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   new_sn_m65 &lt;int&gt;, new_sn_f014 &lt;int&gt;, new_sn_f1524 &lt;int&gt;, …</span></span>
+<span id="cb162-3"><a href="tidy-data.html#cb162-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country     iso2  iso3   year new_s…¹ new_s…² new_s…³ new_s…⁴ new_s…⁵ new_s…⁶</span></span>
+<span id="cb162-4"><a href="tidy-data.html#cb162-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb162-5"><a href="tidy-data.html#cb162-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Afghanistan AF    AFG    1980      NA      NA      NA      NA      NA      NA</span></span>
+<span id="cb162-6"><a href="tidy-data.html#cb162-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Afghanistan AF    AFG    1981      NA      NA      NA      NA      NA      NA</span></span>
+<span id="cb162-7"><a href="tidy-data.html#cb162-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Afghanistan AF    AFG    1982      NA      NA      NA      NA      NA      NA</span></span>
+<span id="cb162-8"><a href="tidy-data.html#cb162-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Afghanistan AF    AFG    1983      NA      NA      NA      NA      NA      NA</span></span>
+<span id="cb162-9"><a href="tidy-data.html#cb162-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Afghanistan AF    AFG    1984      NA      NA      NA      NA      NA      NA</span></span>
+<span id="cb162-10"><a href="tidy-data.html#cb162-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Afghanistan AF    AFG    1985      NA      NA      NA      NA      NA      NA</span></span>
+<span id="cb162-11"><a href="tidy-data.html#cb162-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Afghanistan AF    AFG    1986      NA      NA      NA      NA      NA      NA</span></span>
+<span id="cb162-12"><a href="tidy-data.html#cb162-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Afghanistan AF    AFG    1987      NA      NA      NA      NA      NA      NA</span></span>
+<span id="cb162-13"><a href="tidy-data.html#cb162-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Afghanistan AF    AFG    1988      NA      NA      NA      NA      NA      NA</span></span>
+<span id="cb162-14"><a href="tidy-data.html#cb162-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Afghanistan AF    AFG    1989      NA      NA      NA      NA      NA      NA</span></span>
+<span id="cb162-15"><a href="tidy-data.html#cb162-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 7,230 more rows, 50 more variables: new_sp_m65 &lt;dbl&gt;,</span></span>
+<span id="cb162-16"><a href="tidy-data.html#cb162-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   new_sp_f014 &lt;dbl&gt;, new_sp_f1524 &lt;dbl&gt;, new_sp_f2534 &lt;dbl&gt;,</span></span>
+<span id="cb162-17"><a href="tidy-data.html#cb162-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   new_sp_f3544 &lt;dbl&gt;, new_sp_f4554 &lt;dbl&gt;, new_sp_f5564 &lt;dbl&gt;,</span></span>
+<span id="cb162-18"><a href="tidy-data.html#cb162-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   new_sp_f65 &lt;dbl&gt;, new_sn_m014 &lt;dbl&gt;, new_sn_m1524 &lt;dbl&gt;,</span></span>
+<span id="cb162-19"><a href="tidy-data.html#cb162-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   new_sn_m2534 &lt;dbl&gt;, new_sn_m3544 &lt;dbl&gt;, new_sn_m4554 &lt;dbl&gt;,</span></span>
+<span id="cb162-20"><a href="tidy-data.html#cb162-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   new_sn_m5564 &lt;dbl&gt;, new_sn_m65 &lt;dbl&gt;, new_sn_f014 &lt;dbl&gt;,</span></span>
+<span id="cb162-21"><a href="tidy-data.html#cb162-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   new_sn_f1524 &lt;dbl&gt;, new_sn_f2534 &lt;dbl&gt;, new_sn_f3544 &lt;dbl&gt;, …</span></span>
 <span id="cb162-22"><a href="tidy-data.html#cb162-22" aria-hidden="true" tabindex="-1"></a>who1 <span class="ot">&lt;-</span> who <span class="sc">%&gt;%</span></span>
 <span id="cb162-23"><a href="tidy-data.html#cb162-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(</span>
 <span id="cb162-24"><a href="tidy-data.html#cb162-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">cols =</span> new_sp_m014<span class="sc">:</span>newrel_f65, <span class="co"># 将病症的种类转换成变量（key）</span></span>
@@ -685,7 +682,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb162-29"><a href="tidy-data.html#cb162-29" aria-hidden="true" tabindex="-1"></a>who1</span>
 <span id="cb162-30"><a href="tidy-data.html#cb162-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 76,046 × 6</span></span>
 <span id="cb162-31"><a href="tidy-data.html#cb162-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country     iso2  iso3   year key          cases</span></span>
-<span id="cb162-32"><a href="tidy-data.html#cb162-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;        &lt;int&gt;</span></span>
+<span id="cb162-32"><a href="tidy-data.html#cb162-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;</span></span>
 <span id="cb162-33"><a href="tidy-data.html#cb162-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Afghanistan AF    AFG    1997 new_sp_m014      0</span></span>
 <span id="cb162-34"><a href="tidy-data.html#cb162-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Afghanistan AF    AFG    1997 new_sp_m1524    10</span></span>
 <span id="cb162-35"><a href="tidy-data.html#cb162-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Afghanistan AF    AFG    1997 new_sp_m2534     6</span></span>
@@ -744,7 +741,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb163-8"><a href="tidy-data.html#cb163-8" aria-hidden="true" tabindex="-1"></a>who2</span>
 <span id="cb163-9"><a href="tidy-data.html#cb163-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 76,046 × 9</span></span>
 <span id="cb163-10"><a href="tidy-data.html#cb163-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country     iso2  iso3   year new   type  sex   age   cases</span></span>
-<span id="cb163-11"><a href="tidy-data.html#cb163-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span></span>
+<span id="cb163-11"><a href="tidy-data.html#cb163-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;</span></span>
 <span id="cb163-12"><a href="tidy-data.html#cb163-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Afghanistan AF    AFG    1997 new   sp    m     014       0</span></span>
 <span id="cb163-13"><a href="tidy-data.html#cb163-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Afghanistan AF    AFG    1997 new   sp    m     1524     10</span></span>
 <span id="cb163-14"><a href="tidy-data.html#cb163-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Afghanistan AF    AFG    1997 new   sp    m     2534      6</span></span>
@@ -768,7 +765,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb164-9"><a href="tidy-data.html#cb164-9" aria-hidden="true" tabindex="-1"></a>who3</span>
 <span id="cb164-10"><a href="tidy-data.html#cb164-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 76,046 × 6</span></span>
 <span id="cb164-11"><a href="tidy-data.html#cb164-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country      year type  sex   age   cases</span></span>
-<span id="cb164-12"><a href="tidy-data.html#cb164-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span></span>
+<span id="cb164-12"><a href="tidy-data.html#cb164-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;</span></span>
 <span id="cb164-13"><a href="tidy-data.html#cb164-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Afghanistan  1997 sp    m     014       0</span></span>
 <span id="cb164-14"><a href="tidy-data.html#cb164-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Afghanistan  1997 sp    m     1524     10</span></span>
 <span id="cb164-15"><a href="tidy-data.html#cb164-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Afghanistan  1997 sp    m     2534      6</span></span>

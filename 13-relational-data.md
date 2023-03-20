@@ -154,6 +154,10 @@ y <- tribble(
 
 ```r
 left_join(x, y, by = "key")
+#> Warning in left_join(x, y, by = "key"): Each row in `x` is expected to match at most 1 row in `y`.
+#> ℹ Row 2 of `x` matches multiple rows.
+#> ℹ If multiple matches are expected, set `multiple = "all"` to silence this
+#>   warning.
 #> # A tibble: 6 × 3
 #>     key val_x val_y
 #>   <dbl> <chr> <chr>
@@ -273,19 +277,19 @@ airports
 ```r
 planes
 #> # A tibble: 3,322 × 9
-#>    tailnum  year type              manufacturer model engines seats speed engine
-#>    <chr>   <int> <chr>             <chr>        <chr>   <int> <int> <int> <chr> 
-#>  1 N10156   2004 Fixed wing multi… EMBRAER      EMB-…       2    55    NA Turbo…
-#>  2 N102UW   1998 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
-#>  3 N103US   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
-#>  4 N104UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
-#>  5 N10575   2002 Fixed wing multi… EMBRAER      EMB-…       2    55    NA Turbo…
-#>  6 N105UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
-#>  7 N107US   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
-#>  8 N108UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
-#>  9 N109UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
-#> 10 N110UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
-#> # … with 3,312 more rows
+#>    tailnum  year type                   manuf…¹ model engines seats speed engine
+#>    <chr>   <int> <chr>                  <chr>   <chr>   <int> <int> <int> <chr> 
+#>  1 N10156   2004 Fixed wing multi engi… EMBRAER EMB-…       2    55    NA Turbo…
+#>  2 N102UW   1998 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
+#>  3 N103US   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
+#>  4 N104UW   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
+#>  5 N10575   2002 Fixed wing multi engi… EMBRAER EMB-…       2    55    NA Turbo…
+#>  6 N105UW   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
+#>  7 N107US   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
+#>  8 N108UW   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
+#>  9 N109UW   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
+#> 10 N110UW   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
+#> # … with 3,312 more rows, and abbreviated variable name ¹​manufacturer
 ```
 
 `weather` 则给出了每个纽约机场每小时的天气：
@@ -294,20 +298,20 @@ planes
 ```r
 weather
 #> # A tibble: 26,115 × 15
-#>    origin  year month   day  hour  temp  dewp humid wind_dir wind_speed
-#>    <chr>  <int> <int> <int> <int> <dbl> <dbl> <dbl>    <dbl>      <dbl>
-#>  1 EWR     2013     1     1     1  39.0  26.1  59.4      270      10.4 
-#>  2 EWR     2013     1     1     2  39.0  27.0  61.6      250       8.06
-#>  3 EWR     2013     1     1     3  39.0  28.0  64.4      240      11.5 
-#>  4 EWR     2013     1     1     4  39.9  28.0  62.2      250      12.7 
-#>  5 EWR     2013     1     1     5  39.0  28.0  64.4      260      12.7 
-#>  6 EWR     2013     1     1     6  37.9  28.0  67.2      240      11.5 
-#>  7 EWR     2013     1     1     7  39.0  28.0  64.4      240      15.0 
-#>  8 EWR     2013     1     1     8  39.9  28.0  62.2      250      10.4 
-#>  9 EWR     2013     1     1     9  39.9  28.0  62.2      260      15.0 
-#> 10 EWR     2013     1     1    10  41    28.0  59.6      260      13.8 
-#> # … with 26,105 more rows, and 5 more variables: wind_gust <dbl>, precip <dbl>,
-#> #   pressure <dbl>, visib <dbl>, time_hour <dttm>
+#>    origin  year month   day  hour  temp  dewp humid wind_dir wind_speed wind_g…¹
+#>    <chr>  <int> <int> <int> <int> <dbl> <dbl> <dbl>    <dbl>      <dbl>    <dbl>
+#>  1 EWR     2013     1     1     1  39.0  26.1  59.4      270      10.4        NA
+#>  2 EWR     2013     1     1     2  39.0  27.0  61.6      250       8.06       NA
+#>  3 EWR     2013     1     1     3  39.0  28.0  64.4      240      11.5        NA
+#>  4 EWR     2013     1     1     4  39.9  28.0  62.2      250      12.7        NA
+#>  5 EWR     2013     1     1     5  39.0  28.0  64.4      260      12.7        NA
+#>  6 EWR     2013     1     1     6  37.9  28.0  67.2      240      11.5        NA
+#>  7 EWR     2013     1     1     7  39.0  28.0  64.4      240      15.0        NA
+#>  8 EWR     2013     1     1     8  39.9  28.0  62.2      250      10.4        NA
+#>  9 EWR     2013     1     1     9  39.9  28.0  62.2      260      15.0        NA
+#> 10 EWR     2013     1     1    10  41    28.0  59.6      260      13.8        NA
+#> # … with 26,105 more rows, 4 more variables: precip <dbl>, pressure <dbl>,
+#> #   visib <dbl>, time_hour <dttm>, and abbreviated variable name ¹​wind_gust
 ```
 
 它们的关系图如下：
@@ -382,7 +386,7 @@ flights_smaller %>%
 ```r
 flights_smaller %>%
     left_join(weather) # 如果不写 by，则为默认 NULL，会将左边所有列往右边对应一遍，相当于下面代码：
-#> Joining, by = c("year", "month", "day", "hour", "origin")
+#> Joining with `by = join_by(year, month, day, hour, origin)`
 #> # A tibble: 336,776 × 18
 #>     year month   day  hour origin dest  tailnum carrier  temp  dewp humid
 #>    <int> <int> <int> <dbl> <chr>  <chr> <chr>   <chr>   <dbl> <dbl> <dbl>

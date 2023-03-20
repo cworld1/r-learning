@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 22 Graphics for communication | R-Learning</title>
   <meta name="description" content="这是关于 CWorld 学习 R 语言的一些笔记和代码。" />
-  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 22 Graphics for communication | R-Learning" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="CWorld" />
 
 
-<meta name="date" content="2022-06-18" />
+<meta name="date" content="2023-03-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,9 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.4.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -95,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -108,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -436,7 +433,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb334-2"><a href="graphics-for-communication.html#cb334-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span></span>
 <span id="cb334-3"><a href="graphics-for-communication.html#cb334-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb334-4"><a href="graphics-for-communication.html#cb334-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Fuel efficiency generally decreases with engine size&quot;</span>)</span>
-<span id="cb334-5"><a href="graphics-for-communication.html#cb334-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></span></code></pre></div>
+<span id="cb334-5"><a href="graphics-for-communication.html#cb334-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~ x&#39;</span></span></code></pre></div>
 <p><img src="28-graphics-for-communication_files/figure-html/labs()%20with%20title-1.png" width="672" /></p>
 <p>标题的目的一般是总结最主要的发现。避免使用仅描述情节的标题，如 “发动机排量与燃油经济性的散点图”。</p>
 <p>此外还有一些小标题你可能用得上：</p>
@@ -452,7 +449,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb335-6"><a href="graphics-for-communication.html#cb335-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Two seaters (sports cars) are an exception because of their light weight&quot;</span>,</span>
 <span id="cb335-7"><a href="graphics-for-communication.html#cb335-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Data from fueleconomy.gov&quot;</span></span>
 <span id="cb335-8"><a href="graphics-for-communication.html#cb335-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb335-9"><a href="graphics-for-communication.html#cb335-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></span></code></pre></div>
+<span id="cb335-9"><a href="graphics-for-communication.html#cb335-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~ x&#39;</span></span></code></pre></div>
 <p><img src="28-graphics-for-communication_files/figure-html/labs()%20with%20subtitle%20&%20caption-1.png" width="672" /></p>
 <p>我们也可以替换轴和图例标题。不过最好将简短的变量名称替换为更详细的描述，并包含单位：</p>
 <div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="graphics-for-communication.html#cb336-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
@@ -463,7 +460,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb336-6"><a href="graphics-for-communication.html#cb336-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Highway fuel economy (mpg)&quot;</span>,</span>
 <span id="cb336-7"><a href="graphics-for-communication.html#cb336-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">&quot;Car type&quot;</span></span>
 <span id="cb336-8"><a href="graphics-for-communication.html#cb336-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb336-9"><a href="graphics-for-communication.html#cb336-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></span></code></pre></div>
+<span id="cb336-9"><a href="graphics-for-communication.html#cb336-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~ x&#39;</span></span></code></pre></div>
 <p><img src="28-graphics-for-communication_files/figure-html/labs()%20with%20x%20&%20y%20&%20colour-1.png" width="672" /></p>
 <p>对于我们在建模时常常使用到的求对数等表达式，其实也是可以使用数学方程式代替文本字符串的。只需用上 <a href="https://rdrr.io/r/base/substitute.html">quote()</a> 即可完成转换（有点像在 markdown 里插入 Latex 公式内味，但在书写上要简单一些）：</p>
 <div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="graphics-for-communication.html#cb337-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>

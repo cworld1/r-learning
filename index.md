@@ -2,7 +2,7 @@
 # 基本信息
 title: "R-Learning"
 author: "CWorld"
-date: "2022-06-18"
+date: "2023-03-20"
 description: "这是关于 CWorld 学习 R 语言的一些笔记和代码。"
 github-repo: cworld1/r-learning
 url: 'https\://r.cworld.top/'

@@ -66,7 +66,7 @@ ggplot(data = mpg) +
 #> Warning: The shape palette can deal with a maximum of 6 discrete values because
 #> more than 6 becomes difficult to discriminate; you have 7. Consider
 #> specifying shapes manually if you must have them.
-#> Warning: Removed 62 rows containing missing values (geom_point).
+#> Warning: Removed 62 rows containing missing values (`geom_point()`).
 ```
 
 <img src="03-data-visualisation_files/figure-html/aes shape-1.png" width="672" />
@@ -131,7 +131,7 @@ mapping 为默认接收内容，可以省略：
 ggplot(data = mpg) +
     geom_point(aes(x = displ, y = hwy)) +
     geom_smooth(aes(x = displ, y = hwy))
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 ```
 
 <img src="03-data-visualisation_files/figure-html/omit mapping-1.png" width="672" />
@@ -143,7 +143,7 @@ ggplot(data = mpg) +
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
     geom_point() +
     geom_smooth()
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 ```
 
 <img src="03-data-visualisation_files/figure-html/default mapping-1.png" width="672" />
@@ -155,7 +155,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
     geom_point(color = "blue") +
     geom_smooth(data = filter(mpg, class == "subcompact"))
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 ```
 
 <img src="03-data-visualisation_files/figure-html/cover mapping-1.png" width="672" />
@@ -174,7 +174,7 @@ ggplot(data = mpg) +
         show.legend = FALSE,
         se = FALSE
     )
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 ```
 
 <img src="03-data-visualisation_files/figure-html/geom_smooth()-1.png" width="672" />
@@ -259,7 +259,11 @@ ggplot(data = diamonds) +
         fun.min = min, # 下限为最小值
         fun.y = mean # 标点为平均数
     )
-#> Warning: `fun.y` is deprecated. Use `fun` instead.
+#> Warning: The `fun.y` argument of `stat_summary()` is deprecated as of ggplot2 3.3.0.
+#> ℹ Please use the `fun` argument instead.
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+#> generated.
 ```
 
 <img src="03-data-visualisation_files/figure-html/stat_summary()-1.png" width="672" />
@@ -341,15 +345,15 @@ library(grid) # 引用一下布局包
 grid.newpage() # 新建布局包
 pushViewport(viewport(layout = grid.layout(3, 2))) # 设置 2x3 布局
 print(p[[1]], vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 print(p[[2]], vp = viewport(layout.pos.row = 1, layout.pos.col = 2))
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 print(p[[3]], vp = viewport(layout.pos.row = 2, layout.pos.col = 1))
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 print(p[[4]], vp = viewport(layout.pos.row = 2, layout.pos.col = 2))
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 print(p[[5]], vp = viewport(layout.pos.row = 3, layout.pos.col = 1))
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 print(p[[6]], vp = viewport(layout.pos.row = 3, layout.pos.col = 2))
 ```
 

@@ -23,7 +23,7 @@ table1 数据集中 cases 为增长人数（单位：万）。这份数据展现
 table1
 #> # A tibble: 6 × 4
 #>   country      year  cases population
-#>   <chr>       <int>  <int>      <int>
+#>   <chr>       <dbl>  <dbl>      <dbl>
 #> 1 Afghanistan  1999    745   19987071
 #> 2 Afghanistan  2000   2666   20595360
 #> 3 Brazil       1999  37737  172006362
@@ -45,7 +45,7 @@ ggplot(table1, aes(year, cases)) +
 table2
 #> # A tibble: 12 × 4
 #>    country      year type            count
-#>    <chr>       <int> <chr>           <int>
+#>    <chr>       <dbl> <chr>           <dbl>
 #>  1 Afghanistan  1999 cases             745
 #>  2 Afghanistan  1999 population   19987071
 #>  3 Afghanistan  2000 cases            2666
@@ -62,7 +62,7 @@ table2 %>%
     pivot_wider(names_from = type, values_from = count)
 #> # A tibble: 6 × 4
 #>   country      year  cases population
-#>   <chr>       <int>  <int>      <int>
+#>   <chr>       <dbl>  <dbl>      <dbl>
 #> 1 Afghanistan  1999    745   19987071
 #> 2 Afghanistan  2000   2666   20595360
 #> 3 Brazil       1999  37737  172006362
@@ -80,7 +80,7 @@ table2 %>%
 table3
 #> # A tibble: 6 × 3
 #>   country      year rate             
-#> * <chr>       <int> <chr>            
+#>   <chr>       <dbl> <chr>            
 #> 1 Afghanistan  1999 745/19987071     
 #> 2 Afghanistan  2000 2666/20595360    
 #> 3 Brazil       1999 37737/172006362  
@@ -92,7 +92,7 @@ table3 %>%
     separate(rate, into = c("cases", "population"))
 #> # A tibble: 6 × 4
 #>   country      year cases  population
-#>   <chr>       <int> <chr>  <chr>     
+#>   <chr>       <dbl> <chr>  <chr>     
 #> 1 Afghanistan  1999 745    19987071  
 #> 2 Afghanistan  2000 2666   20595360  
 #> 3 Brazil       1999 37737  172006362 
@@ -104,7 +104,7 @@ table3 %>%
     separate(rate, into = c("cases", "population"), convert = TRUE)
 #> # A tibble: 6 × 4
 #>   country      year  cases population
-#>   <chr>       <int>  <int>      <int>
+#>   <chr>       <dbl>  <int>      <int>
 #> 1 Afghanistan  1999    745   19987071
 #> 2 Afghanistan  2000   2666   20595360
 #> 3 Brazil       1999  37737  172006362
@@ -116,7 +116,7 @@ table3 %>%
     separate(rate, into = c("cases", "population"), sep = "/")
 #> # A tibble: 6 × 4
 #>   country      year cases  population
-#>   <chr>       <int> <chr>  <chr>     
+#>   <chr>       <dbl> <chr>  <chr>     
 #> 1 Afghanistan  1999 745    19987071  
 #> 2 Afghanistan  2000 2666   20595360  
 #> 3 Brazil       1999 37737  172006362 
@@ -157,10 +157,10 @@ table4b_new <- table4b %>%
 # 最后合并两个表的数据内容
 #* dplyr::left_join()
 left_join(table4a_new, table4b_new)
-#> Joining, by = c("country", "year")
+#> Joining with `by = join_by(country, year)`
 #> # A tibble: 6 × 4
 #>   country     year   cases population
-#>   <chr>       <chr>  <int>      <int>
+#>   <chr>       <chr>  <dbl>      <dbl>
 #> 1 Afghanistan 1999     745   19987071
 #> 2 Afghanistan 2000    2666   20595360
 #> 3 Brazil      1999   37737  172006362
@@ -258,25 +258,25 @@ who 是一个流行病统计数据集。
 ```r
 who
 #> # A tibble: 7,240 × 60
-#>    country  iso2  iso3   year new_sp_m014 new_sp_m1524 new_sp_m2534 new_sp_m3544
-#>    <chr>    <chr> <chr> <int>       <int>        <int>        <int>        <int>
-#>  1 Afghani… AF    AFG    1980          NA           NA           NA           NA
-#>  2 Afghani… AF    AFG    1981          NA           NA           NA           NA
-#>  3 Afghani… AF    AFG    1982          NA           NA           NA           NA
-#>  4 Afghani… AF    AFG    1983          NA           NA           NA           NA
-#>  5 Afghani… AF    AFG    1984          NA           NA           NA           NA
-#>  6 Afghani… AF    AFG    1985          NA           NA           NA           NA
-#>  7 Afghani… AF    AFG    1986          NA           NA           NA           NA
-#>  8 Afghani… AF    AFG    1987          NA           NA           NA           NA
-#>  9 Afghani… AF    AFG    1988          NA           NA           NA           NA
-#> 10 Afghani… AF    AFG    1989          NA           NA           NA           NA
-#> # … with 7,230 more rows, and 52 more variables: new_sp_m4554 <int>,
-#> #   new_sp_m5564 <int>, new_sp_m65 <int>, new_sp_f014 <int>,
-#> #   new_sp_f1524 <int>, new_sp_f2534 <int>, new_sp_f3544 <int>,
-#> #   new_sp_f4554 <int>, new_sp_f5564 <int>, new_sp_f65 <int>,
-#> #   new_sn_m014 <int>, new_sn_m1524 <int>, new_sn_m2534 <int>,
-#> #   new_sn_m3544 <int>, new_sn_m4554 <int>, new_sn_m5564 <int>,
-#> #   new_sn_m65 <int>, new_sn_f014 <int>, new_sn_f1524 <int>, …
+#>    country     iso2  iso3   year new_s…¹ new_s…² new_s…³ new_s…⁴ new_s…⁵ new_s…⁶
+#>    <chr>       <chr> <chr> <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+#>  1 Afghanistan AF    AFG    1980      NA      NA      NA      NA      NA      NA
+#>  2 Afghanistan AF    AFG    1981      NA      NA      NA      NA      NA      NA
+#>  3 Afghanistan AF    AFG    1982      NA      NA      NA      NA      NA      NA
+#>  4 Afghanistan AF    AFG    1983      NA      NA      NA      NA      NA      NA
+#>  5 Afghanistan AF    AFG    1984      NA      NA      NA      NA      NA      NA
+#>  6 Afghanistan AF    AFG    1985      NA      NA      NA      NA      NA      NA
+#>  7 Afghanistan AF    AFG    1986      NA      NA      NA      NA      NA      NA
+#>  8 Afghanistan AF    AFG    1987      NA      NA      NA      NA      NA      NA
+#>  9 Afghanistan AF    AFG    1988      NA      NA      NA      NA      NA      NA
+#> 10 Afghanistan AF    AFG    1989      NA      NA      NA      NA      NA      NA
+#> # … with 7,230 more rows, 50 more variables: new_sp_m65 <dbl>,
+#> #   new_sp_f014 <dbl>, new_sp_f1524 <dbl>, new_sp_f2534 <dbl>,
+#> #   new_sp_f3544 <dbl>, new_sp_f4554 <dbl>, new_sp_f5564 <dbl>,
+#> #   new_sp_f65 <dbl>, new_sn_m014 <dbl>, new_sn_m1524 <dbl>,
+#> #   new_sn_m2534 <dbl>, new_sn_m3544 <dbl>, new_sn_m4554 <dbl>,
+#> #   new_sn_m5564 <dbl>, new_sn_m65 <dbl>, new_sn_f014 <dbl>,
+#> #   new_sn_f1524 <dbl>, new_sn_f2534 <dbl>, new_sn_f3544 <dbl>, …
 who1 <- who %>%
     pivot_longer(
         cols = new_sp_m014:newrel_f65, # 将病症的种类转换成变量（key）
@@ -287,7 +287,7 @@ who1 <- who %>%
 who1
 #> # A tibble: 76,046 × 6
 #>    country     iso2  iso3   year key          cases
-#>    <chr>       <chr> <chr> <int> <chr>        <int>
+#>    <chr>       <chr> <chr> <dbl> <chr>        <dbl>
 #>  1 Afghanistan AF    AFG    1997 new_sp_m014      0
 #>  2 Afghanistan AF    AFG    1997 new_sp_m1524    10
 #>  3 Afghanistan AF    AFG    1997 new_sp_m2534     6
@@ -349,7 +349,7 @@ who2 <- who1 %>%
 who2
 #> # A tibble: 76,046 × 9
 #>    country     iso2  iso3   year new   type  sex   age   cases
-#>    <chr>       <chr> <chr> <int> <chr> <chr> <chr> <chr> <int>
+#>    <chr>       <chr> <chr> <dbl> <chr> <chr> <chr> <chr> <dbl>
 #>  1 Afghanistan AF    AFG    1997 new   sp    m     014       0
 #>  2 Afghanistan AF    AFG    1997 new   sp    m     1524     10
 #>  3 Afghanistan AF    AFG    1997 new   sp    m     2534      6
@@ -378,7 +378,7 @@ who3 <- who2 %>%
 who3
 #> # A tibble: 76,046 × 6
 #>    country      year type  sex   age   cases
-#>    <chr>       <int> <chr> <chr> <chr> <int>
+#>    <chr>       <dbl> <chr> <chr> <chr> <dbl>
 #>  1 Afghanistan  1997 sp    m     014       0
 #>  2 Afghanistan  1997 sp    m     1524     10
 #>  3 Afghanistan  1997 sp    m     2534      6

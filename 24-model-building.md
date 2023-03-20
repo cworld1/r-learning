@@ -85,6 +85,11 @@ grid <- diamonds_new %>%
 ggplot(diamonds_new, aes(carat, price)) +
     geom_hex(bins = 50) +
     geom_line(data = grid, colour = "red", size = 1)
+#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `linewidth` instead.
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+#> generated.
 ```
 
 <img src="24-model-building_files/figure-html/ggplot() with diamonds_new-1.png" width="672" />
@@ -338,7 +343,7 @@ daily %>%
     geom_ref_line(h = 0) +
     geom_line(colour = "grey50") +
     geom_smooth(se = FALSE, span = 0.20)
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 ```
 
 <img src="24-model-building_files/figure-html/date with daily-1.png" width="672" />
